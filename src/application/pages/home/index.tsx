@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import startChecks from '../../services/startChecks';
+import startChecks from '../../../service/startChecks';
 import casmurroLogo from '/casmurro_logo.svg'
 import { useNavigate } from 'react-router-dom';
 

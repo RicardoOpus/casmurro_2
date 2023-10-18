@@ -1,5 +1,5 @@
-import Project from '../models/projectModel';
-import db from '../services/dexieDB'
+import Project from '../domain/projectModel';
+import db from '../infra/database/dexieDB'
 import fullProject from './fulProject';
 
 function DevScripts() {

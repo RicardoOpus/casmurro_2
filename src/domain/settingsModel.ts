@@ -1,5 +1,5 @@
 interface Settings {
-  currentproject: number;
+  currentprojectID: number;
 }
 
 export default Settings
