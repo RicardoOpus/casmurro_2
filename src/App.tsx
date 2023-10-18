@@ -6,7 +6,7 @@ import Home from './pages/home';
 import DevScripts from './scripts/devScripts'
 import Layout from './components/layout';
 import NotFound from './pages/not-found';
-
+import Projects from './pages/projects';
 
 function App() {
   useEffect(() => {
@@ -22,6 +22,7 @@ function App() {
           <Route path="" element={<Home />} />
           <Route path="/dev" element={<DevScripts />} />
         </Route>
+        <Route path="/projects" element={<Projects />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </>

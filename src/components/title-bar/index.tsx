@@ -8,6 +8,9 @@ function TitleBar() {
       <button onClick={() => navigate('/')}>
         HOME
       </button>
+      <button onClick={() => navigate('/projects')}>
+        Projetos
+      </button>
     </>
   )
 }

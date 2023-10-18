@@ -1,6 +1,5 @@
 interface Settings {
-  id?: number; 
-  currentproject: string;
+  currentproject: number;
 }
 
 export default Settings
