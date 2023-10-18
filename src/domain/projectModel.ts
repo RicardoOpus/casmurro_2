@@ -27,4 +27,4 @@ interface Project {
   data: object;
 }
 
-export default Project
+export default Project;

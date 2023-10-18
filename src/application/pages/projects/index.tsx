@@ -1,7 +1,7 @@
 function Projects() {
-  return(
+  return (
     <h1>Projetos</h1>
-  )
+  );
 }
 
-export default Projects
+export default Projects;

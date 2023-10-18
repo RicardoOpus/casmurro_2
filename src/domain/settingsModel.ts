@@ -2,4 +2,4 @@ interface Settings {
   currentprojectID: number;
 }
 
-export default Settings
+export default Settings;

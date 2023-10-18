@@ -1,19 +1,17 @@
 import { useEffect } from 'react';
-import startChecks from '../../../service/startChecks';
-import casmurroLogo from '/casmurro_logo.svg'
+import StartChecks from '../../../service/startChecks';
 import { useNavigate } from 'react-router-dom';
-
+import casmurroLogo from '/casmurro_logo.svg';
 
 function Home() {
   const navigate = useNavigate();
   useEffect(() => {
     const checkProjects = async () => {
-      const startVerify = new startChecks();
-      
-      if (!(await startVerify.hasProjects())) { navigate('/projects') }
+      const startVerify = new StartChecks();
+      if (!(await startVerify.hasProjects())) { navigate('/projects'); }
     };
-    checkProjects()
-  }, [navigate])
+    checkProjects();
+  }, [navigate]);
 
   return (
     <div>
@@ -21,11 +19,11 @@ function Home() {
         <img src={casmurroLogo} className="logo" alt="Casmurro logo" />
       </div>
       <p>Casmurro com Vite + React</p>
-      <button onClick={() => navigate('/dev')}>
-          DEV area
+      <button type="button" onClick={() => navigate('/dev')}>
+        DEV area
       </button>
     </div>
-  )
+  );
 }
 
 export default Home;

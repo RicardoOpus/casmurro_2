@@ -1,18 +1,18 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function TitleBar() {
   const navigate = useNavigate();
 
   return (
     <>
-      <button onClick={() => navigate('/')}>
+      <button type="button" onClick={() => navigate('/')}>
         HOME
       </button>
-      <button onClick={() => navigate('/projects')}>
+      <button type="button" onClick={() => navigate('/projects')}>
         Projetos
       </button>
     </>
-  )
+  );
 }
 
 export default TitleBar;
