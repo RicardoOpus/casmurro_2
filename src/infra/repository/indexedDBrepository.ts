@@ -1,25 +1,20 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
 import db from '../database/dexieDB';
 import simpleProject from '../../mocks/simpleProject';
 
 class IndexedDBrepository {
-  private db;
-
-  constructor() {
-    this.db = db;
-  }
-
   async countProjects(): Promise<number> {
-    const count = await this.db.settings.where({ currentprojectID: 0 }).count();
+    const count = await db.settings.where({ currentprojectID: 0 }).count();
     return count;
   }
 
   async createDefaultSettings() {
-    await this.db.settings.add({ currentprojectID: 0 });
+    await db.settings.add({ currentprojectID: 0 });
   }
 
   async deleteDB() {
-    await this.db.delete().then(() => {
+    await db.delete().then(() => {
       console.log('Database successfully deleted');
     }).catch(() => {
       console.error('Could not delete database');
@@ -27,7 +22,7 @@ class IndexedDBrepository {
   }
 
   async populeDB() {
-    await this.db.projects.add(simpleProject).then(() => {
+    await db.projects.add(simpleProject).then(() => {
       console.log('Projeto adicionado com sucesso!');
     });
   }
