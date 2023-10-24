@@ -8,7 +8,7 @@ module.exports = {
     'airbnb',
     'airbnb/hooks',
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
   rules: {
@@ -17,7 +17,7 @@ module.exports = {
       { allowConstantExport: true },
     ],
     'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
-    'react/react-in-jsx-scope': 'off', 
+    'react/react-in-jsx-scope': 'off',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'import/no-absolute-path': 'off',

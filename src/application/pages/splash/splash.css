@@ -1,0 +1,85 @@
+/* Variáveis */
+:root {
+  --sign-x: 430px;
+  --sign-y: 100px;
+  --sign-frames: 46;
+  --sign-duration: 2.5s;
+  --sign-delay: .2s;
+}
+
+.back {
+  background-color: #242424;
+  border-bottom: 1px solid #ffffff87;
+  border-top: 1px solid #ffffff87;
+  box-shadow: 0 -1em 6em #242424;
+  height: 210px; 
+  left: 50%;
+  position: fixed; 
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+}
+
+.logo-writing {
+  background: url("./casmurro-logo.png") no-repeat;
+  display: inline-block;
+  height: var(--sign-y);
+  left: 50%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--sign-x);
+  z-index: 2;
+}
+
+.logo-writing.play {
+  -moz-animation: sign-anim var(--sign-duration) var(--sign-delay) steps(var(--sign-frames)) forwards;
+  -o-animation: sign-anim var(--sign-duration) var(--sign-delay) steps(var(--sign-frames)) forwards;
+  -webkit-animation: sign-anim var(--sign-duration) var(--sign-delay) steps(var(--sign-frames)) forwards;
+  animation: sign-anim var(--sign-duration) var(--sign-delay) steps(var(--sign-frames)) forwards;
+}
+
+/* Animações */
+@keyframes sign-anim {
+
+  to {
+    background-position: 0 calc(var(--sign-frames) * -1 * var(--sign-y));
+  }
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.bg-container {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 50%;
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+}
+
+.bg-container img {
+  animation: slide-up 30s linear infinite;
+  height: auto;
+  position: absolute;
+  width: 100%;
+}
+
+@keyframes slide-up {
+
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}

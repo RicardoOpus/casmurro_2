@@ -5,6 +5,7 @@ import Dev from './application/pages/dev';
 import Layout from './application/components/layout';
 import NotFound from './application/pages/not-found';
 import Projects from './application/pages/projects';
+import Splash from './application/pages/splash';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="" element={<Home />} />
         <Route path="/dev" element={<Dev />} />
       </Route>
+      <Route path="/splash" element={<Splash />} />
       <Route path="/projects" element={<Projects />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
