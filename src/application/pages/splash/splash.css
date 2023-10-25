@@ -1,17 +1,8 @@
-/* Variáveis */
-:root {
-  --sign-x: 430px;
-  --sign-y: 100px;
-  --sign-frames: 46;
-  --sign-duration: 2.5s;
-  --sign-delay: .2s;
-}
-
 .back {
-  background-color: #242424;
+  background-color: var(--bg-color);
   border-bottom: 1px solid #ffffff51;
   border-top: 1px solid #ffffff51;
-  box-shadow: 0 -1em 6em #242424;
+  box-shadow: 0 -1em 6em var(--bg-color);
   height: 210px; 
   left: 50%;
   position: fixed; 
@@ -23,28 +14,28 @@
 .logo-writing {
   background: url("../casmurro-logo.png") no-repeat;
   display: inline-block;
-  height: var(--sign-y);
+  height: var(--writing-y);
   left: 50%;
   margin: 0;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: var(--sign-x);
+  width: var(--writing-x);
   z-index: 2;
 }
 
 .logo-writing.play {
-  -moz-animation: sign-anim var(--sign-duration) var(--sign-delay) steps(var(--sign-frames)) forwards;
-  -o-animation: sign-anim var(--sign-duration) var(--sign-delay) steps(var(--sign-frames)) forwards;
-  -webkit-animation: sign-anim var(--sign-duration) var(--sign-delay) steps(var(--sign-frames)) forwards;
-  animation: sign-anim var(--sign-duration) var(--sign-delay) steps(var(--sign-frames)) forwards;
+  -moz-animation: sign-anim var(--writing-duration) var(--writing-delay) steps(var(--writng-frames)) forwards;
+  -o-animation: sign-anim var(--writing-duration) var(--writing-delay) steps(var(--writng-frames)) forwards;
+  -webkit-animation: sign-anim var(--writing-duration) var(--writing-delay) steps(var(--writng-frames)) forwards;
+  animation: sign-anim var(--writing-duration) var(--writing-delay) steps(var(--writng-frames)) forwards;
 }
 
 /* Animações */
 @keyframes sign-anim {
 
   to {
-    background-position: 0 calc(var(--sign-frames) * -1 * var(--sign-y));
+    background-position: 0 calc(var(--writng-frames) * -1 * var(--writing-y));
   }
 }
 

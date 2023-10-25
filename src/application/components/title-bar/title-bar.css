@@ -1,0 +1,34 @@
+
+.header {
+  align-items: center;
+  background-color: #0F1010;
+  display: flex;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.logoTitle {
+  margin-left: 30px;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.separator {
+  margin-left: 25px;
+}
+
+.btnPorjects {
+  all: unset;
+  font-size: 20px;
+}
+
+.btnPorjects:hover {
+  color: var(--accent-color);
+  cursor: pointer;
+}
+
+.header-right {
+  margin-left: auto;
+  padding-right: 10px;
+}
