@@ -3,8 +3,6 @@
   align-items: center;
   background-color: #0F1010;
   display: flex;
-  position: absolute;
-  top: 0;
   width: 100%;
 }
 
@@ -12,10 +10,6 @@
   margin-left: 30px;
   margin-top: 5px;
   padding: 5px;
-}
-
-.separator {
-  margin-left: 25px;
 }
 
 .btnPorjects {

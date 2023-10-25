@@ -1,0 +1,27 @@
+.navBar {
+  background-color: #060707;
+  border-bottom: 1px solid #DDDDDD;
+  border-bottom-color: rgb(60, 60, 61);
+  padding: 0 30px;
+}
+
+
+.navBarItem {
+  all: unset;
+  border-bottom: solid 4px transparent;
+  color: var(--text-color-inactive);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: 500;
+  padding: .6em 0;
+}
+
+.navBarItem:hover {
+  border-bottom: solid 4px var(--accent-color);
+  color: var(--accent-color);
+}
+
+.navBatItemEnd {
+  float: right;
+}
