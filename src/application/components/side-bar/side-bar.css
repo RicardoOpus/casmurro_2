@@ -1,0 +1,29 @@
+.sideBar {
+  background-color: #0F1010;
+  border-right: 1px solid #DDDDDD;
+  border-right-color: rgb(60, 60, 61);
+  resize: horizontal;
+}
+
+.sideBar h3 {
+  margin: .57142857em 0;
+}
+
+.sideBarContent {
+  padding: 2rem 3rem 2rem 30px;
+  width: 15vw;
+}
+
+.hideShowArrows {
+  all: unset;
+  border: solid 1px rgb(60, 60, 61);
+  border-radius: 10px;
+  cursor: pointer;
+  float: right;;
+  margin: 2rem .5rem ;
+  padding: 10px;
+}
+
+.hideShowArrows:hover {
+  color: var(--accent-color);
+}

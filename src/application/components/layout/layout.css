@@ -1,0 +1,7 @@
+.mainContent {
+  align-items: stretch;
+  -webkit-box-align: stretch;
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
