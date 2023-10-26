@@ -26,6 +26,11 @@ class IndexedDBrepository {
       console.log('Projeto adicionado com sucesso!');
     });
   }
+
+  getAllProjects() {
+    const projectsOrder = db.projects.orderBy('timestamp').reverse();
+    return projectsOrder.toArray();
+  }
 }
 
 export default IndexedDBrepository;

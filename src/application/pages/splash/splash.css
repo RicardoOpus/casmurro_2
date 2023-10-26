@@ -39,11 +39,6 @@
   }
 }
 
-body {
-  margin: 0;
-  overflow: hidden;
-}
-
 .bg-container {
   align-items: center;
   display: flex;

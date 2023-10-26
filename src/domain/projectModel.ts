@@ -23,7 +23,7 @@ interface Project {
   cards_qty?: number;
   settings: object;
   last_edit: string;
-  timestamp?: number;
+  timestamp: number;
   data: object;
 }
 

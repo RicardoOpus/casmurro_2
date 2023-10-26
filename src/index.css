@@ -84,3 +84,30 @@ button:hover {
   display: inline;
   margin-left: 25px;
 }
+
+/*=========== ICONS =========== */
+
+.ui-icon {
+  background-image: url("../ui-icons-light.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 16px;
+  margin-top: -.25em;
+  overflow: hidden;
+  position: relative;
+  text-indent: -99999px;
+  vertical-align: middle;
+  width: 16px;
+}
+
+.ui-icon-plusthick {
+  background-position: -32px -128px;
+}
+
+.ui-icon-arrowthick-1-n {
+  background-position: 1px -48px;
+}
+
+.ui-icon-calendar {
+  background-position: -32px -112px;
+}

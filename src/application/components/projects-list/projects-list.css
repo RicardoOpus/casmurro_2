@@ -1,0 +1,64 @@
+.projectsList {
+  list-style-type: none;
+  margin: .5rem 1rem;
+  width: 100%;
+
+}
+
+.projectsItens {
+  all: unset;
+  cursor: pointer;
+  padding: .5rem 0;
+  width: 100%;
+}
+
+.projectCard {
+  align-items: center;
+  background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(23, 23, 26) 100%);
+  border: solid 1px #565f6a;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px 0 #0000001a;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  transition: background 200ms ease 0s;
+  width: 100%;
+}
+
+.projectCard:hover {
+  border: solid 1px var(--accent-color);
+}
+
+.projectTitle {
+  font-size: x-large;
+  margin: .5rem 0 0 1rem;
+  z-index: 1;
+}
+
+.lastModify {
+  font-size: smaller;
+  margin: 0 0 .5rem 1rem;
+}
+
+.projectStatus {
+  border-radius: 12px;
+  color: #cbcbcb;
+  font-size: smaller;
+  padding: 0px 5px;
+}
+
+.novo {
+  background-color: #444C56;
+  border: solid #565f6a;
+  border-width: 1px;
+}
+
+.cards {
+  margin-right: 1rem;
+  text-align: center;
+}
+
+.cardsQTY {
+  font-size: smaller;
+  margin-top: 0;
+}

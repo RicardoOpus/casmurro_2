@@ -10,6 +10,7 @@ const simpleProject: Project = {
   last_edit: 'Última edição',
   timestamp: Date.now(),
   data: { nome: 'isso' },
+  literary_genre: 'Romance',
 };
 
 export default simpleProject;
