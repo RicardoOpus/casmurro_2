@@ -1,7 +1,7 @@
 import Project from '../domain/projectModel';
 
 const simpleProject: Project = {
-  title: 'Meu Projeto',
+  title: 'A Coisa',
   subtitle: 'Qualquer coisa',
   author: 'Fulano',
   status: 'Finalizado',

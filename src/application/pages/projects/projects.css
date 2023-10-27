@@ -35,3 +35,28 @@
   display: flex;
   gap: 10px;
 }
+
+.filterBar {
+  display: flex;
+  margin: 1rem;
+  width: 100%;
+}
+
+.filterBar select {
+  background-color: #1a1a1a;
+  border: solid 0px;
+  border-radius: 7px;
+  margin-left: 1rem;
+  padding: 5px;
+}
+
+.filterBar input {
+  border-radius: 7px;
+  width: 15%;
+}
+
+.filterBar button {
+  font-size: smaller;
+  margin-left: 1rem;
+  padding: 5px;
+}

@@ -13,6 +13,8 @@ function Projects() {
   const totalPages = Math.ceil(projects.length / projectsPerPage);
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
+  const [selectedTitle, setSelectedTitle] = useState('');
+  const [clearFilters, setClearFilters] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +25,12 @@ function Projects() {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (clearFilters) {
+      setClearFilters(false);
+    }
+  }, [clearFilters]);
 
   const nextPage = () => {
     if (currentPage < Math.ceil(projects.length / 5)) {
@@ -39,9 +47,21 @@ function Projects() {
   const filteredProjects = projects.filter((project) => {
     const statusMatch = !selectedStatus || project.status === selectedStatus;
     const genreMatch = !selectedGenre || project.literary_genre === selectedGenre;
-
-    return statusMatch && genreMatch;
+    const titleMatch = !selectedTitle || project.title.includes(selectedTitle);
+    return statusMatch && genreMatch && titleMatch;
   });
+
+  const handleTitleChange = (inputTitle: string) => {
+    const formattedInputTitle = inputTitle;
+    setSelectedTitle(formattedInputTitle);
+  };
+
+  const clearAllFilters = () => {
+    setSelectedStatus('');
+    setSelectedGenre('');
+    setSelectedTitle('');
+    setClearFilters(true);
+  };
 
   return (
     <div className="innerContent">
@@ -61,7 +81,16 @@ function Projects() {
             Importar
           </button>
         </div>
-        <div>
+        <div className="filterBar">
+          <input
+            type="text"
+            value={selectedTitle}
+            placeholder="Pesquisar por título..."
+            onInput={(e) => {
+              const target = e.target as HTMLTextAreaElement;
+              handleTitleChange(target.value);
+            }}
+          />
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
@@ -81,6 +110,7 @@ function Projects() {
             <option value="Romance">Romance</option>
             <option value="Conto">Conto</option>
           </select>
+          <button type="button" onClick={clearAllFilters}>Limpar Filtros</button>
         </div>
         {projects.length === 0 ? (
           <NoData dataType="projetos" />

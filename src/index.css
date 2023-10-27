@@ -111,3 +111,11 @@ button:hover {
 .ui-icon-calendar {
   background-position: -32px -112px;
 }
+
+.ui-icon-caret-2-n-s {
+  background-position: -128px 0;
+}
+
+.ui-icon-search {
+  background-position: -160px -112px;
+}
