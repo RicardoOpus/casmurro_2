@@ -12,6 +12,7 @@ function Projects() {
   const projectsPerPage = 5;
   const totalPages = Math.ceil(projects.length / projectsPerPage);
   const [selectedStatus, setSelectedStatus] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,9 +36,12 @@ function Projects() {
     }
   };
 
-  const filteredProjects = selectedStatus
-    ? projects.filter((project) => project.status === selectedStatus)
-    : projects;
+  const filteredProjects = projects.filter((project) => {
+    const statusMatch = !selectedStatus || project.status === selectedStatus;
+    const genreMatch = !selectedGenre || project.literary_genre === selectedGenre;
+
+    return statusMatch && genreMatch;
+  });
 
   return (
     <div className="innerContent">
@@ -63,8 +67,19 @@ function Projects() {
             onChange={(e) => setSelectedStatus(e.target.value)}
           >
             <option value="">Todos os Status</option>
+            <option value="Arquivado">Arquivado</option>
             <option value="Em Andamento">Em Andamento</option>
-            <option value="Concluído">Concluído</option>
+            <option value="Finalizado">Finalizado</option>
+            <option value="Não iniciado">Não iniciado</option>
+            <option value="Pausado">Pausado</option>
+          </select>
+          <select
+            value={selectedGenre}
+            onChange={(e) => setSelectedGenre(e.target.value)}
+          >
+            <option value="">Todos os Gêneros</option>
+            <option value="Romance">Romance</option>
+            <option value="Conto">Conto</option>
           </select>
         </div>
         {projects.length === 0 ? (

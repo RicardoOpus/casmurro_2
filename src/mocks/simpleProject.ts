@@ -4,7 +4,7 @@ const simpleProject: Project = {
   title: 'Meu Projeto',
   subtitle: 'Qualquer coisa',
   author: 'Fulano',
-  status: 'Em Andamento',
+  status: 'Finalizado',
   cards_qty: 10,
   settings: { tipo: 'Alguma configuração' },
   last_edit: 'Última edição',
