@@ -1,20 +1,31 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import casmurroLogo from '../../../../public/casmurro-logo.svg';
 import IndexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import './projects.css';
 import NoData from '../../components/no-dada';
 import Project from '../../../domain/projectModel';
 import ProjectList from '../../components/projects-list';
+import { nextPage, previousPage } from '../../redux/actions';
+
+type RootState = {
+  paginationReducer: {
+    currentPage: number,
+    totalPages: number,
+  }
+};
 
 function Projects() {
   const [projects, setDados] = useState<Project[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
   const projectsPerPage = 5;
   const totalPages = Math.ceil(projects.length / projectsPerPage);
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
   const [selectedTitle, setSelectedTitle] = useState('');
   const [clearFilters, setClearFilters] = useState(false);
+
+  const { paginationReducer } = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,15 +43,15 @@ function Projects() {
     }
   }, [clearFilters]);
 
-  const nextPage = () => {
-    if (currentPage < Math.ceil(projects.length / 5)) {
-      setCurrentPage(currentPage + 1);
+  const goNextPage = () => {
+    if (paginationReducer.currentPage < Math.ceil(projects.length / 5)) {
+      dispatch(nextPage());
     }
   };
 
-  const previousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+  const goPreviousPage = () => {
+    if (paginationReducer.currentPage > 1) {
+      dispatch(previousPage());
     }
   };
 
@@ -117,21 +128,24 @@ function Projects() {
         ) : (
           <ProjectList
             projects={filteredProjects
-              .slice((currentPage - 1) * projectsPerPage, currentPage * projectsPerPage)}
+              .slice(
+                (paginationReducer.currentPage - 1) * projectsPerPage,
+                paginationReducer.currentPage * projectsPerPage,
+              )}
           />
         )}
         <div className="button-container">
-          <button onClick={previousPage} type="button">❮ </button>
+          <button onClick={goPreviousPage} type="button">❮ </button>
           <span>
             Página
             {' '}
-            {currentPage}
+            {paginationReducer.currentPage}
             {' '}
             de
             {' '}
             {totalPages}
           </span>
-          <button onClick={nextPage} type="button"> ❯</button>
+          <button onClick={goNextPage} type="button"> ❯</button>
         </div>
       </div>
     </div>

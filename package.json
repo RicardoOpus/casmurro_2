@@ -12,10 +12,13 @@
     "preview": "tsc && vite build && vite preview --open"
   },
   "dependencies": {
+    "@redux-devtools/extension": "^3.2.5",
     "dexie": "^3.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.16.0"
+    "react-redux": "^8.1.3",
+    "react-router-dom": "^6.16.0",
+    "redux": "^4.2.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
