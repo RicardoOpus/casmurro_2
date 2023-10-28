@@ -6,19 +6,20 @@ import './projects.css';
 import NoData from '../../components/no-dada';
 import Project from '../../../domain/projectModel';
 import ProjectList from '../../components/projects-list';
-import { nextPage, previousPage } from '../../redux/actions';
+import {
+  currentPage, nextPage, previousPage, totalPages,
+} from '../../redux/actions';
 
 type RootState = {
   paginationReducer: {
     currentPage: number,
-    totalPages: number,
+    totalPages: number
   }
 };
 
 function Projects() {
   const [projects, setDados] = useState<Project[]>([]);
   const projectsPerPage = 5;
-  const totalPages = Math.ceil(projects.length / projectsPerPage);
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
   const [selectedTitle, setSelectedTitle] = useState('');
@@ -43,6 +44,23 @@ function Projects() {
     }
   }, [clearFilters]);
 
+  useEffect(() => {
+    dispatch(currentPage(1));
+  }, [dispatch, selectedTitle, selectedGenre, selectedStatus]);
+
+  const filteredProjects = projects.filter((project) => {
+    const statusMatch = !selectedStatus || project.status === selectedStatus;
+    const genreMatch = !selectedGenre || project.literary_genre === selectedGenre;
+    const titleMatch = !selectedTitle || project.title.includes(selectedTitle);
+    return statusMatch && genreMatch && titleMatch;
+  });
+
+  const totalPagesList = Math.ceil(filteredProjects.length / projectsPerPage);
+
+  useEffect(() => {
+    dispatch(totalPages(totalPagesList));
+  }, [dispatch, totalPagesList]);
+
   const goNextPage = () => {
     if (paginationReducer.currentPage < Math.ceil(projects.length / 5)) {
       dispatch(nextPage());
@@ -53,18 +71,6 @@ function Projects() {
     if (paginationReducer.currentPage > 1) {
       dispatch(previousPage());
     }
-  };
-
-  const filteredProjects = projects.filter((project) => {
-    const statusMatch = !selectedStatus || project.status === selectedStatus;
-    const genreMatch = !selectedGenre || project.literary_genre === selectedGenre;
-    const titleMatch = !selectedTitle || project.title.includes(selectedTitle);
-    return statusMatch && genreMatch && titleMatch;
-  });
-
-  const handleTitleChange = (inputTitle: string) => {
-    const formattedInputTitle = inputTitle;
-    setSelectedTitle(formattedInputTitle);
   };
 
   const clearAllFilters = () => {
@@ -99,7 +105,7 @@ function Projects() {
             placeholder="Pesquisar por título..."
             onInput={(e) => {
               const target = e.target as HTMLTextAreaElement;
-              handleTitleChange(target.value);
+              setSelectedTitle(target.value);
             }}
           />
           <select
@@ -143,7 +149,7 @@ function Projects() {
             {' '}
             de
             {' '}
-            {totalPages}
+            {paginationReducer.totalPages}
           </span>
           <button onClick={goNextPage} type="button"> ❯</button>
         </div>
