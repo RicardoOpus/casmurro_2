@@ -7,6 +7,8 @@ import {
   currentPage,
   nextPage, previousPage, totalPages,
 } from '../../redux/actions';
+import FilterBar from './filter-bar';
+import nodata from '../../../../public/no-data.png';
 
 type RootState = {
   paginationReducer: {
@@ -78,40 +80,32 @@ function ProjectList({ projects }: { projects: Project[] }) {
 
   return (
     projectsSlice.length === 0 ? (
-      <h3>nada encontrado</h3>
+      <div className="projectsList">
+        <FilterBar
+          selectedStatus={selectedStatus}
+          selectedGenre={selectedGenre}
+          selectedTitle={selectedTitle}
+          setSelectedStatus={setSelectedStatus}
+          setSelectedGenre={setSelectedGenre}
+          setSelectedTitle={setSelectedTitle}
+          clearAllFilters={clearAllFilters}
+        />
+        <div className="dataNotFound">
+          <img src={nodata} alt="ilustração lupa" />
+          <h3>nada encontrado</h3>
+        </div>
+      </div>
     ) : (
       <div className="projectsList">
-        <div className="filterBar">
-          <input
-            type="text"
-            value={selectedTitle}
-            placeholder="Pesquisar por título..."
-            onInput={(e) => {
-              const target = e.target as HTMLTextAreaElement;
-              setSelectedTitle(target.value);
-            }}
-          />
-          <select
-            value={selectedStatus}
-            onChange={(e) => setSelectedStatus(e.target.value)}
-          >
-            <option value="">Todos os Status</option>
-            <option value="Arquivado">Arquivado</option>
-            <option value="Em Andamento">Em Andamento</option>
-            <option value="Finalizado">Finalizado</option>
-            <option value="Não iniciado">Não iniciado</option>
-            <option value="Pausado">Pausado</option>
-          </select>
-          <select
-            value={selectedGenre}
-            onChange={(e) => setSelectedGenre(e.target.value)}
-          >
-            <option value="">Todos os Gêneros</option>
-            <option value="Romance">Romance</option>
-            <option value="Conto">Conto</option>
-          </select>
-          <button type="button" onClick={clearAllFilters}>Limpar Filtros</button>
-        </div>
+        <FilterBar
+          selectedStatus={selectedStatus}
+          selectedGenre={selectedGenre}
+          selectedTitle={selectedTitle}
+          setSelectedStatus={setSelectedStatus}
+          setSelectedGenre={setSelectedGenre}
+          setSelectedTitle={setSelectedTitle}
+          clearAllFilters={clearAllFilters}
+        />
 
         {projectsSlice.map((project) => (
           <button key={project.id} className="projectsItens" type="button">

@@ -2,7 +2,6 @@
   list-style-type: none;
   margin: .5rem 1rem;
   width: 100%;
-
 }
 
 .projectsItens {
@@ -60,4 +59,16 @@
 .cardsQTY {
   font-size: smaller;
   margin-top: 0;
+}
+
+.button-container {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.dataNotFound {
+  margin: 5em;
+  text-align: center;
 }
