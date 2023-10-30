@@ -1,0 +1,56 @@
+.modal {
+  background-color: rgba(0, 0, 0, .686);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.modal h2 {
+  margin: 0;
+}
+
+.modal-content {
+  align-items: center;
+  background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(19, 19, 21) 100%);
+  border: 1px solid #444444;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  margin: 10% auto;
+  padding: 20px;
+  width: 600px;
+}
+
+.modal-open {
+  overflow: hidden;
+}
+
+.termos-uso {
+  background-color: var(--bg-color);
+  border-radius: 6px;
+  height: 150px;
+  margin: 1rem;
+  overflow-y: scroll;
+  padding: 1rem;
+}
+
+.fullwidth {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.input-new {
+  background-color: #1a1a1a;
+  border: solid 1px #565f6a;
+  border-radius: 7px;
+  font-size: medium;
+  margin: 1rem;
+  padding: 1rem;
+  width: 100%;
+}
