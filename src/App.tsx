@@ -10,9 +10,18 @@ import Splash from './application/pages/splash';
 function App() {
   const [showSplash, setShowSplash] = useState(true);
   useEffect(() => {
+    const storedMode = localStorage.getItem('uiMode');
+    if (storedMode === 'light') {
+      const root = document.documentElement;
+      root.classList.toggle('light-mode');
+    } else {
+      const root = document.documentElement;
+      root.classList.remove('light-mode');
+    }
+
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 1000);
+    }, 4000);
     return () => clearTimeout(timer);
   }, []);
 

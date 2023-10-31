@@ -91,7 +91,7 @@ function ProjectList({ projects }: { projects: Project[] }) {
           clearAllFilters={clearAllFilters}
         />
         <div className="dataNotFound">
-          <img src={nodata} alt="ilustração lupa" />
+          <img className="icon-color" src={nodata} alt="ilustração lupa" />
           <h3>nada encontrado</h3>
         </div>
       </div>
@@ -113,7 +113,7 @@ function ProjectList({ projects }: { projects: Project[] }) {
               <div>
                 <p className="projectTitle">{project.title}</p>
                 <p className="lastModify">
-                  <span className="ui-icon ui-icon-calendar" />
+                  <span className="ui-icon ui-icon-calendar icon-color" />
                   Última modificação
                   {' '}
                   <strong>{convertDateBR(project.timestamp)}</strong>

@@ -1,31 +1,16 @@
 
 .filterBar {
-  display: flex;
   margin-top: 1rem;
-  width: 100%;
-}
-
-.filterBar select {
-  background-color: #1a1a1a;
-  border: solid 0px;
-  border-radius: 7px;
-  cursor: pointer;
-  margin-left: 1rem;
-  padding: 5px;
-}
-
-.filterBar input {
-  all: unset;
-  background-color: #1a1a1a;
-  border: solid 1px #565f6a;
-  border-radius: 7px;
-  font-size: smaller;
-  padding: 5px;
-  width: 15%;
 }
 
 .filterBar button {
-  font-size: smaller;
   margin-left: 1rem;
-  padding: 5px;
+}
+
+.filterBar select {
+  margin-left: 1rem;
+}
+
+.filterBar input {
+  width: unset;
 }

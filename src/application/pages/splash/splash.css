@@ -8,8 +8,8 @@
 
 .back {
   background-color: var(--bg-color);
-  border-bottom: 1px solid #ffffff51;
-  border-top: 1px solid #ffffff51;
+  border-bottom: 1px solid var(--text-color-inactive);
+  border-top: 1px solid var(--text-color-inactive);
   box-shadow: 0 -1em 6em var(--bg-color);
   height: 210px; 
   left: 50%;

@@ -23,6 +23,7 @@ function FilterBar({
   return (
     <div className="filterBar">
       <input
+        className="cardInputSearch"
         type="text"
         value={selectedTitle}
         placeholder="Pesquisar por título..."
@@ -50,7 +51,7 @@ function FilterBar({
         <option value="Romance">Romance</option>
         <option value="Conto">Conto</option>
       </select>
-      <button type="button" onClick={clearAllFilters}>
+      <button className="btnSmall" type="button" onClick={clearAllFilters}>
         Limpar Filtros
       </button>
     </div>

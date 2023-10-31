@@ -12,7 +12,7 @@ function SideBar() {
 
   return (
     <div className="sideBar">
-      <button className="hideShowArrows" type="button" onClick={toggleSidebar}>
+      <button className="btnDiscret" type="button" onClick={toggleSidebar}>
         {isSidebarOpen ? '❮❮' : '❯❯'}
       </button>
 

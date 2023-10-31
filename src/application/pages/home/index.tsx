@@ -14,29 +14,30 @@ function Home() {
 
   return (
     <div className="innerContent">
-      <div className="dinamic">
-        <div className="card">
-          <h1>Esse é um h1</h1>
-          <h2>Esse é um h2</h2>
-          <h3>Esse é um h3</h3>
-          <p>Isso é  um paragráfo comum</p>
-          <a href="#">Essa é uma link</a>
-          <button type="button" onClick={() => navigate('/dev')}>
-            Botão padrão sem classe
-          </button>
-          <button>Botão discreto</button>
-          <button>botão </button>
-          <div>
-            Inputs
-            <input type="text" placeholder="input text padrão" />
-            <input type="number" />
-            <input type="checkbox" />
-            <input type="date" name="" id="" />
-            <select>
-              <option value="">-- selecione --</option>
-              <option value="">Opção 1</option>
-            </select>
+      <div className="card">
+        <h1>Esse é um h1</h1>
+        <h2>Esse é um h2</h2>
+        <h3>Esse é um h3</h3>
+        <p>Isso é  um paragráfo comum</p>
+        <a href="#">Essa é uma link</a>
+        <button type="button" onClick={() => navigate('/dev')}>
+          Botão padrão sem classe
+        </button>
+        <button  className="btnDiscret">Botão discreto</button>
+        <button  className="btnMedium">botão M</button>
+        <button className="btnSmall">botão P</button>
+        <div>
+          Inputs
+          <input className="cardInput" type="text" placeholder="input text padrão" />
+          <input className="cardInput" type="number" />
+          <div className="checkbox-wrapper-2">
+            <input className="sc-gJwTLC ikxBAC" type="checkbox" />
           </div>
+          <input className="cardInputDate" type="date" name="" id="" />
+          <select className="">
+            <option value="">-- selecione --</option>
+            <option value="">Opção 1</option>
+          </select>
         </div>
       </div>
     </div>

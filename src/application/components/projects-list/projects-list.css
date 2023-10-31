@@ -13,8 +13,8 @@
 
 .projectCard {
   align-items: center;
-  background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(23, 23, 26) 100%);
-  border: solid 1px #565f6a;
+  background: var(--card-bg);
+  border: solid 1px var(--border-color);
   border-radius: 4px;
   display: flex;
   flex-wrap: wrap;
@@ -40,7 +40,6 @@
 
 .projectStatus {
   border-radius: 12px;
-  color: #cbcbcb;
   font-size: smaller;
   padding: 0px 5px;
 }

@@ -32,19 +32,19 @@ function Projects() {
   }, []);
 
   return (
-    <div className="innerContent">
+    <div className="projectInnerContent">
       <div className="projectsPage">
-        <img src={casmurroLogo} className="projectsPageImg" alt="logo casmurro" />
+        <img src={casmurroLogo} className="projectsPageImg icon-color" alt="logo casmurro" />
         <h3 className="welcome app-subtitle">Escreva com paixão, organize com precisão</h3>
         <div>
           <button  onClick={openModal} type="button" className="btnNewProject">
-            <span className="ui-icon ui-icon-plusthick" />
+            <span className="ui-icon ui-icon-plusthick icon-color" />
             {' '}
             Novo Projeto
           </button>
           <div className="separator" />
           <button type="button" className="btnImport">
-            <span className="ui-icon ui-icon-arrowthick-1-n" />
+            <span className="ui-icon ui-icon-arrowthick-1-n icon-color" />
             {' '}
             Importar
           </button>

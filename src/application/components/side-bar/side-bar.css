@@ -1,12 +1,16 @@
 .sideBar {
-  background-color: #0F1010;
-  border-right: 1px solid #DDDDDD;
-  border-right-color: rgb(60, 60, 61);
-  resize: horizontal;
+  background-color: var(--bg-color-sec);
+  border-right: 1px solid var(--border-color);
 }
 
 .sideBar h3 {
   margin: .57142857em 0;
+}
+
+.sideBar button {
+  float: right;;
+  margin: 2rem .5rem ;
+  padding: 10px;
 }
 
 .sideBarContent {
@@ -14,16 +18,3 @@
   width: 15vw;
 }
 
-.hideShowArrows {
-  all: unset;
-  border: solid 1px rgb(60, 60, 61);
-  border-radius: 10px;
-  cursor: pointer;
-  float: right;;
-  margin: 2rem .5rem ;
-  padding: 10px;
-}
-
-.hideShowArrows:hover {
-  color: var(--accent-color);
-}

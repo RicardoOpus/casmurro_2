@@ -1,12 +1,50 @@
 :root {
   --bg-color: #060707;
+  --bg-color-sec: #0F1010;
   --accent-color: #0099ff;
   --text-color: #cbcbcb;
   --text-color-inactive: #898989;
+  --btn-color: #2D333B;
+  --border-color: #3c3c3d;
+  --card-bg: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(19, 19, 21) 100%);
+  --arrow-icon: url("../caret_down.svg");
+  --search-icon: url("../search.svg");
+  --uiMode-icon: url("../moon.svg");
+  --logo-color: none;
+  --green-color: #1b430d;
+}
+
+
+.light-mode {
+  --bg-color: #b5b5b5;
+  --bg-color-sec: #e2e2e2;
+  --accent-color: #0099ff;
+  --text-color: #000000de;
+  --text-color-inactive: #00000099;
+  --btn-color: #cecece;
+  --border-color: #727272;
+  --card-bg: linear-gradient(90deg, #f7f7f7 0%, #e2e2e2 100%);
+  --arrow-icon: url("../caret_down_black.svg");
+  --search-icon: url("../search_black.svg");
+  --uiMode-icon: url("../sun.svg");
+  --logo-color: brightness(0);
+  --green-color: #4c8637db;
+}
+
+.uiMode {
+  background-image: var(--uiMode-icon);
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  display: inline-block;
+  height: 25px;
+  margin-right: 1rem;
+  vertical-align: middle;
+  width: 25px;
 }
 
 :root {
-  background-color: #060707;
+  background-color: var(--bg-color);
   color: var(--text-color);
   color-scheme: light dark;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -20,10 +58,14 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.icon-color {
+  filter: var(--logo-color);
+}
+
 a {
   color: var(--text-color);
   font-weight: 500;
-  text-decoration: inherit;
+  text-decoration: underline;
 }
 
 a:hover {
@@ -37,14 +79,15 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.2em;
   line-height: 1.1;
 }
 
 button {
-  background-color: #1a1a1a;
-  border: 1px solid transparent;
+  background-color: var(--btn-color);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
+  color: var(--text-color);
   cursor: pointer;
   font-family: inherit;
   font-size: 1em;
@@ -57,22 +100,175 @@ button:hover {
   border-color: var(--accent-color);
 }
 
+button:disabled {
+  background-color: gray;
+  border: solid 1px gray;
+  cursor: default;
+}
 
-@media (prefers-color-scheme: light) {
+button:disabled:hover {
+  border: solid 1px gray;
+}
 
-  :root {
-    background-color: #ffffff;
-    color: #213547;
+.btnDiscret {
+  background-color: transparent;
+  border: solid 1px var(--border-color);
+}
+
+.btnMedium {
+  padding: .4em 1em;
+}
+
+.btnSmall {
+  font-size: smaller;
+  padding: .4em 1em;
+}
+
+.innerContent {
+  padding: 2rem 2rem 0 2rem;
+  width: 100%;
+}
+
+.card {
+  background: var(--card-bg);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  color: var(--text-color-inactive);
+  padding: 1rem 2rem 5rem 2rem;
+}
+
+.cardInput {
+  all: unset;
+  background-color: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-size: medium;
+  height: 40px;
+  margin: .5em 0;
+  padding: 0px 1em 0px 1em;
+  width: 100%;
+}
+
+.cardInputSearch {
+  all: unset;
+  background: var(--search-icon) no-repeat right .8em center / 1.4em;
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-size: medium;
+  height: 40px;
+  margin: .5em 0;
+  padding: 0px 1em 0px 1em;
+  width: 100%;
+}
+
+.cardInputDate {
+  background-color: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  cursor: text;
+  font-size: medium;
+  height: 40px;
+  margin: .5em 0;
+  outline: 0;
+  padding: 0px 1em 0px 1em;
+}
+
+select {
+  appearance: none;
+  background: var(--arrow-icon) no-repeat right .8em center / 1.4em,
+    linear-gradient(to left, var(--btn-color) 3em, var(--bg-color-sec) 3em);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: medium;
+  height: 40px;
+  outline: 0;
+  padding: 0px 4em 0px 1em;
+
+  /* Remove IE arrow */
+  &::-ms-expand {
+    display: none;
   }
 
-  a:hover {
-    color: #747bff;
-  }
-
-  button {
-    background-color: #f9f9f9;
+  &:focus {
+    outline: none;
   }
 }
+
+option {
+  background-color: var(--bg-color-sec);
+}
+
+
+.checkbox-wrapper-2 .ikxBAC {
+  appearance: none;
+  background-color: var(--btn-color);
+  border-radius: 72px;
+  flex-shrink: 0;
+  height: 20px;
+  margin: 0;
+  position: relative;
+  width: 35px;
+}
+
+.checkbox-wrapper-2 .ikxBAC::before {
+  bottom: -6px;
+  content: "";
+  left: -6px;
+  position: absolute;
+  right: -6px;
+  top: -6px;
+}
+
+.checkbox-wrapper-2 .ikxBAC,
+.checkbox-wrapper-2 .ikxBAC::after {
+  transition: all 100ms ease-out;
+}
+
+.checkbox-wrapper-2 .ikxBAC::after {
+  background-color: var(--text-color-inactive);
+  border-radius: 50%;
+  content: "";
+  height: 14px;
+  left: 3px;
+  position: absolute;
+  top: 3px;
+  width: 14px;
+}
+
+.checkbox-wrapper-2 input[type=checkbox] {
+  cursor: pointer;
+}
+
+.checkbox-wrapper-2 .ikxBAC:hover {
+  background-color: var(--accent-color);
+  transition-duration: 0s;
+}
+
+.checkbox-wrapper-2 .ikxBAC:checked {
+  background-color: var(--accent-color);
+}
+
+.checkbox-wrapper-2 .ikxBAC:checked::after {
+  background-color: var(--btn-color);
+  left: 18px;
+}
+
+.checkbox-wrapper-2 :focus:not(.focus-visible) {
+  outline: 0;
+}
+
+.checkbox-wrapper-2 .ikxBAC:checked:hover {
+  background-color: var(--accent-color);
+}
+
 
 .separator {
   display: inline;

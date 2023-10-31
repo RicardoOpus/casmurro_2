@@ -35,15 +35,13 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
     <div className="modal" data-testid="modal-new-project">
       <div className="modal-content">
         <h2>Novo do Projeto</h2>
-        <div className="fullwidth">
-          <input
-            className="input-new"
-            type="text"
-            placeholder="Título do projeto"
-            value={projectName}
-            onChange={(e) => setProjectName(e.target.value)}
-          />
-        </div>
+        <input
+          className="cardInput"
+          type="text"
+          placeholder="Título do projeto"
+          value={projectName}
+          onChange={(e) => setProjectName(e.target.value)}
+        />
         <label htmlFor="termos-uso">
           <input
             id="termos-uso"
