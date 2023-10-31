@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './newProjectModal.css';
+import 'balloon-css';
 
 interface NewProjectModalProps {
   onClose: () => void;
@@ -20,9 +21,9 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
       return setWarningTerms(true)
     }
     console.log('foi');
-    
+
   }
-  
+
   const handleAgreeToTerms = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAgreedToTerms(e.target.checked);
   };
@@ -36,7 +37,7 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
         <h2>Novo do Projeto</h2>
         <div className="fullwidth">
           <input
-            className="input-new" 
+            className="input-new"
             type="text"
             placeholder="Título do projeto"
             value={projectName}
@@ -44,11 +45,16 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
           />
         </div>
         <label htmlFor="termos-uso">
-          <input type="checkbox" id="termos-uso" onChange={handleAgreeToTerms}/>
+          <input
+            id="termos-uso"
+            type="checkbox"
+            onChange={handleAgreeToTerms}
+          />
+          {' '}
           Li e concordo com os termos de uso.
         </label>
         {(warningTerms) && (
-          <p className="warning">Você deve concordar com os termos.</p>
+          <p className="tooltip-big-text" data-balloon-visible aria-label="Você deve concordar com os termos." data-balloon-pos="down"></p>
         )}
         <div className='termos-uso'>
           <p>

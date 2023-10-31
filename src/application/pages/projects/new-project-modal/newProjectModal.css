@@ -54,3 +54,9 @@
   padding: 1rem;
   width: 100%;
 }
+
+.tooltip-big-text {
+  --balloon-color: #bb9935;
+  --balloon-font-size: medium;
+  margin-top: 0px;
+}

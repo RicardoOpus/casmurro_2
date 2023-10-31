@@ -1,3 +1,11 @@
+:root {
+  --writing-x: 430px;
+  --writing-y: 100px;
+  --writng-frames: 46;
+  --writing-duration: 2.5s;
+  --writing-delay: .2s;
+}
+
 .back {
   background-color: var(--bg-color);
   border-bottom: 1px solid #ffffff51;

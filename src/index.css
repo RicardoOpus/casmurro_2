@@ -1,9 +1,4 @@
 :root {
-  --writing-x: 430px;
-  --writing-y: 100px;
-  --writng-frames: 46;
-  --writing-duration: 2.5s;
-  --writing-delay: .2s;
   --bg-color: #060707;
   --accent-color: #0099ff;
   --text-color: #cbcbcb;
@@ -11,7 +6,6 @@
 }
 
 :root {
-  /* background-color: #242424; */
   background-color: #060707;
   color: var(--text-color);
   color-scheme: light dark;
