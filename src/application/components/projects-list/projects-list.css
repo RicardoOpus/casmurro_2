@@ -28,9 +28,9 @@
 }
 
 .projectTitle {
+  font-family: Amaranth;
   font-size: x-large;
   margin: .5rem 0 0 1rem;
-  z-index: 1;
 }
 
 .lastModify {

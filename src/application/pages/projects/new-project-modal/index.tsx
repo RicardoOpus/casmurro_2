@@ -34,7 +34,7 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
   return (
     <div className="modal" data-testid="modal-new-project">
       <div className="modal-content">
-        <h2>Novo do Projeto</h2>
+        <h2>Novo Projeto</h2>
         <input
           className="cardInput"
           type="text"
