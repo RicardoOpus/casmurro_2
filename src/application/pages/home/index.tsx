@@ -7,7 +7,11 @@ function Home() {
   useEffect(() => {
     const checkProjects = async () => {
       const startVerify = new StartChecks();
-      if (!(await startVerify.hasProjects())) { navigate('/projects'); }
+      const check = await startVerify.hasProjects();
+      if (!check) {
+        console.log(check);
+        navigate('/projects');
+      }
     };
     checkProjects();
   }, [navigate]);
@@ -19,13 +23,13 @@ function Home() {
         <h2>Esse é um h2</h2>
         <h3>Esse é um h3</h3>
         <p>Isso é  um paragráfo comum</p>
-        <a href="#">Essa é uma link</a>
+        <a href="./">Essa é uma link</a>
         <button type="button" onClick={() => navigate('/dev')}>
           Botão padrão sem classe
         </button>
-        <button  className="btnDiscret">Botão discreto</button>
-        <button  className="btnMedium">botão M</button>
-        <button className="btnSmall">botão P</button>
+        <button className="btnDiscret" type="button">Botão discreto</button>
+        <button className="btnMedium" type="button">botão M</button>
+        <button className="btnSmall" type="button">botão P</button>
         <div>
           Inputs
           <input className="cardInput" type="text" placeholder="input text padrão" />

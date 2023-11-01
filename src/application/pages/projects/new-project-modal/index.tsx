@@ -1,35 +1,36 @@
+/* eslint-disable max-len */
 import { useState } from 'react';
 import './newProjectModal.css';
 import 'balloon-css';
+import { useNavigate } from 'react-router-dom';
+import ProjectServide from '../../../../service/projectsService';
 
 interface NewProjectModalProps {
   onClose: () => void;
 }
 
 function NewProjectModal({ onClose }: NewProjectModalProps) {
+  const navigate = useNavigate();
   const [projectName, setProjectName] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [warningTerms, setWarningTerms] = useState(false);
+  const isSaveButtonDisabled = projectName.trim() === '';
+  const handleCancel = () => onClose();
 
-
-  const handleCancel = () => {
-    onClose();
+  const handleCreate = async () => {
+    if (!agreedToTerms) {
+      return setWarningTerms(true);
+    }
+    const projectServide = new ProjectServide();
+    await projectServide.create(projectName);
+    navigate('/');
+    return onClose();
   };
 
-  const handleCreate = () => {
-    if (!agreedToTerms) {
-      return setWarningTerms(true)
-    }
-    console.log('foi');
-
-  }
-
+  // eslint-disable-next-line no-undef
   const handleAgreeToTerms = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAgreedToTerms(e.target.checked);
   };
-
-  const isSaveButtonDisabled = projectName.trim() === '';
-
 
   return (
     <div className="modal" data-testid="modal-new-project">
@@ -52,14 +53,14 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
           Li e concordo com os termos de uso.
         </label>
         {(warningTerms) && (
-          <p className="tooltip-big-text" data-balloon-visible aria-label="Você deve concordar com os termos." data-balloon-pos="down"></p>
+          <p className="tooltip-big-text" data-balloon-visible aria-label="Você deve concordar com os termos." data-balloon-pos="down" />
         )}
-        <div className='termos-uso'>
+        <div className="termos-uso">
           <p>
             Ao marcar esta caixa, você está consentindo com os seguintes termos e condições relacionados ao uso deste programa:
           </p>
           <p>
-            1. O programa é gratuito e sem garantias: Este programa é disponibilizado gratuitamente e não oferece garantias de qualquer tipo. Você entende que o programa é fornecido "no estado em que se encontra" e que o uso é por sua própria conta e risco. Não há garantias de desempenho, confiabilidade ou adequação a qualquer finalidade específica.
+            1. O programa é gratuito e sem garantias: Este programa é disponibilizado gratuitamente e não oferece garantias de qualquer tipo. Você entende que o programa é fornecido &quot;no estado em que se encontra&quot; e que o uso é por sua própria conta e risco. Não há garantias de desempenho, confiabilidade ou adequação a qualquer finalidade específica.
           </p>
           <p>
             2. Responsabilidade pelo backup de arquivos: É de sua responsabilidade fazer regularmente cópias de segurança de seus arquivos e dados. O programa pode estar sujeito a falhas e problemas técnicos, e não nos responsabilizamos por quaisquer perdas ou danos aos seus arquivos.
@@ -69,11 +70,11 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
           </p>
         </div>
         <div className="button-container">
-          <button onClick={handleCreate} disabled={isSaveButtonDisabled}>Salvar</button>
-          <button onClick={handleCancel}>Cancelar</button>
+          <button onClick={handleCreate} type="button" disabled={isSaveButtonDisabled}>Salvar</button>
+          <button onClick={handleCancel} type="button">Cancelar</button>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 

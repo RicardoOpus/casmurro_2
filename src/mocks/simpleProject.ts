@@ -6,11 +6,12 @@ const simpleProject: Project = {
   author: 'Fulano',
   status: 'Finalizado',
   cards_qty: 10,
-  settings: { tipo: 'Alguma configuração' },
-  last_edit: 'Última edição',
-  timestamp: Date.now(),
+  projectSettings: { tipo: 'Alguma configuração' },
+  last_edit: Date.now(),
+  created_at: Date.now(),
   data: { nome: 'isso' },
   literary_genre: 'Romance',
+  id_controler: 0,
 };
 
 export default simpleProject;

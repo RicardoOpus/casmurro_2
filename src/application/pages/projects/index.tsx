@@ -37,7 +37,7 @@ function Projects() {
         <img src={casmurroLogo} className="projectsPageImg icon-color" alt="logo casmurro" />
         <h3 className="welcome app-subtitle">Escreva com paixão, organize com precisão</h3>
         <div>
-          <button  onClick={openModal} type="button" className="btnNewProject">
+          <button onClick={openModal} type="button" className="btnNewProject">
             <span className="ui-icon ui-icon-plusthick icon-color" />
             {' '}
             Novo Projeto
@@ -58,7 +58,7 @@ function Projects() {
         )}
       </div>
       {isModalOpen && (
-        <NewProjectModal onClose={closeModal}/>
+        <NewProjectModal onClose={closeModal} />
       )}
     </div>
   );

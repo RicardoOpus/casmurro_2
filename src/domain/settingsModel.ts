@@ -1,4 +1,5 @@
 interface Settings {
+  id?: number;
   currentprojectID: number;
 }
 

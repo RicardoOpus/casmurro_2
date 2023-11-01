@@ -116,11 +116,11 @@ function ProjectList({ projects }: { projects: Project[] }) {
                   <span className="ui-icon ui-icon-calendar icon-color" />
                   Última modificação
                   {' '}
-                  <strong>{convertDateBR(project.timestamp)}</strong>
+                  <strong>{convertDateBR(project.last_edit)}</strong>
                   {' '}
                   às
                   {' '}
-                  <strong>{convertToTime(project.timestamp)}</strong>
+                  <strong>{convertToTime(project.last_edit)}</strong>
                 </p>
               </div>
               <span className="projectStatus novo">{project.status}</span>

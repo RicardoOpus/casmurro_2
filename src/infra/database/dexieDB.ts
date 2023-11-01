@@ -11,7 +11,7 @@ const db = new Dexie('casmurro2') as MyDatabase;
 
 db.version(1).stores({
   projects: '++id,title,status,cards_qty,settings,last_edit,timestamp,data,trash',
-  settings: 'currentprojectID',
+  settings: '++id,currentprojectID',
 });
 
 export default db;
