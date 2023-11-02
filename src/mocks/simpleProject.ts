@@ -6,6 +6,7 @@ const simpleProject: Project = {
   author: 'Fulano',
   status: 'Finalizado',
   cards_qty: 10,
+  lastBackup: 0,
   projectSettings: { tipo: 'Alguma configuração' },
   last_edit: Date.now(),
   created_at: Date.now(),

@@ -94,7 +94,7 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
           </p>
         </div>
         <div className="button-container">
-          <button onClick={handleCreate} type="button" disabled={isSaveButtonDisabled}>Salvar</button>
+          <button id="btnSavePr" onClick={handleCreate} type="button" disabled={isSaveButtonDisabled}>Salvar</button>
           <button onClick={handleCancel} type="button">Cancelar</button>
         </div>
       </div>
