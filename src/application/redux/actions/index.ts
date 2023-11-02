@@ -1,17 +1,17 @@
-export const nextPage = () => ({
+export const nextPageAction = () => ({
   type: 'NEXT_PAGE',
 });
 
-export const previousPage = () => ({
+export const previousPageAction = () => ({
   type: 'PREVIOUS_PAGE',
 });
 
-export const totalPages = (pages: number) => ({
+export const totalPagesAction = (pages: number) => ({
   type: 'TOTAL_PAGES',
   payload: pages,
 });
 
-export const currentPage = (page: number) => ({
+export const currentPageAction = (page: number) => ({
   type: 'CURRENT_PAGE',
   payload: page,
 });

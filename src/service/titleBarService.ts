@@ -1,10 +1,13 @@
 class TitleBarService {
-  // eslint-disable-next-line class-methods-use-this
+  maxHoursToWarning = 2;
+
+  maxDaysToWarning = 1;
+
   backupMensage(lastBackup: number | undefined): string {
     if (!lastBackup) {
       return '';
     }
-    const now = new Date();
+    const now = new Date().getTime();
     const diferenca = now - lastBackup;
     const msEmUmDia = 86400000;
     const dias = Math.floor(diferenca / msEmUmDia);
@@ -12,7 +15,7 @@ class TitleBarService {
     if (lastBackup === 0) {
       return '';
     }
-    if (horas < 2 && dias < 1) {
+    if (horas < this.maxHoursToWarning && this.maxDaysToWarning < 1) {
       return '';
     } if (dias === 1) {
       return `${dias} dia e ${horas} horas desde o último backup!`;

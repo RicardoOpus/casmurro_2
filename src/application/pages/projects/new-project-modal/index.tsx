@@ -1,5 +1,4 @@
-/* eslint-disable max-len */
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import './newProjectModal.css';
 import 'balloon-css';
 import { useNavigate } from 'react-router-dom';
@@ -27,8 +26,7 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
     return onClose();
   };
 
-  // eslint-disable-next-line no-undef
-  const handleAgreeToTerms = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAgreeToTerms = (e: ChangeEvent<HTMLInputElement>) => {
     setAgreedToTerms(e.target.checked);
   };
 
@@ -57,16 +55,42 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
         )}
         <div className="termos-uso">
           <p>
-            Ao marcar esta caixa, você está consentindo com os seguintes termos e condições relacionados ao uso deste programa:
+            Ao marcar esta caixa, você está consentindo com os seguintes termos
+            {' '}
+            e condições relacionados ao uso deste programa:
           </p>
           <p>
-            1. O programa é gratuito e sem garantias: Este programa é disponibilizado gratuitamente e não oferece garantias de qualquer tipo. Você entende que o programa é fornecido &quot;no estado em que se encontra&quot; e que o uso é por sua própria conta e risco. Não há garantias de desempenho, confiabilidade ou adequação a qualquer finalidade específica.
+            1. O programa é gratuito e sem garantias: Este programa é disponibilizado
+            {' '}
+            gratuitamente e não oferece garantias de qualquer tipo. Você entende que o programa
+            {' '}
+            é fornecido &quot;no estado em que se encontra&quot; e que o uso é por sua própria
+            {' '}
+            contae risco. Não há garantias de desempenho,
+            {' '}
+            confiabilidade ou adequação a qualquer finalidade específica.
           </p>
           <p>
-            2. Responsabilidade pelo backup de arquivos: É de sua responsabilidade fazer regularmente cópias de segurança de seus arquivos e dados. O programa pode estar sujeito a falhas e problemas técnicos, e não nos responsabilizamos por quaisquer perdas ou danos aos seus arquivos.
+            2. Responsabilidade pelo backup de arquivos:
+            {' '}
+            É de sua responsabilidade fazer regularmente cópias de
+            {' '}
+            segurança de seus arquivos e dados. O programa pode estar sujeito a falhas e
+            {' '}
+            problemas técnicos, e não nos responsabilizamos por quaisquer
+            {' '}
+            perdas ou danos aos seus arquivos.
           </p>
           <p>
-            3. Testes exaustivos, mas sem garantia de ausência de erros: Embora tenhamos feito testes exaustivos, você compreende que nenhum programa de software está livre de erros. Não podemos garantir que o programa estará isento de erros ou que atenderá a todas as suas expectativas. Você reconhece que podem ocorrer problemas imprevistos durante o uso.
+            3. Testes exaustivos, mas sem garantia de ausência de erros: Embora
+            {' '}
+            tenhamos feito testes exaustivos, você compreende que nenhum programa
+            {' '}
+            de software está livre de erros. Não podemos garantir que o programa estará
+            {' '}
+            isento de erros ou que atenderá a todas as suas expectativas.
+            {' '}
+            Você reconhece que podem ocorrer problemas imprevistos durante o uso.
           </p>
         </div>
         <div className="button-container">

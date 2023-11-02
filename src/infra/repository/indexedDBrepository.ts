@@ -5,6 +5,8 @@ import simpleProject from '../../mocks/simpleProject';
 import Project from '../../domain/projectModel';
 
 class IndexedDBrepository {
+  startValueForID = 0;
+
   async countProjects(): Promise<number> {
     const count = await db.settings.count();
     return count;

@@ -4,8 +4,8 @@ import Project from '../../../domain/projectModel';
 import { convertDateBR, convertToTime } from '../../../service/utils';
 import './projects-list.css';
 import {
-  currentPage,
-  nextPage, previousPage, totalPages,
+  currentPageAction,
+  nextPageAction, previousPageAction, totalPagesAction,
 } from '../../redux/actions';
 import FilterBar from './filter-bar';
 import nodata from '../../../../public/no-data.png';
@@ -18,7 +18,7 @@ type RootState = {
 };
 
 function ProjectList({ projects }: { projects: Project[] }) {
-  const { paginationReducer } = useSelector((state: RootState) => state);
+  const { currentPage, totalPages } = useSelector((state: RootState) => state.paginationReducer);
   const projectsPerPage = 5;
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
@@ -28,18 +28,18 @@ function ProjectList({ projects }: { projects: Project[] }) {
   const dispatch = useDispatch();
 
   const goNextPage = () => {
-    if (paginationReducer.currentPage === paginationReducer.totalPages) {
+    if (currentPage === totalPages) {
       return null;
     }
-    if (paginationReducer.currentPage < Math.ceil(projects.length / 5)) {
-      dispatch(nextPage());
+    if (currentPage < Math.ceil(projects.length / 5)) {
+      dispatch(nextPageAction());
     }
     return undefined;
   };
 
   const goPreviousPage = () => {
-    if (paginationReducer.currentPage > 1) {
-      dispatch(previousPage());
+    if (currentPage > 1) {
+      dispatch(previousPageAction());
     }
   };
 
@@ -53,8 +53,8 @@ function ProjectList({ projects }: { projects: Project[] }) {
   const totalPagesList = Math.ceil(filteredProjects.length / projectsPerPage);
 
   const projectsSlice = filteredProjects.slice(
-    (paginationReducer.currentPage - 1) * projectsPerPage,
-    paginationReducer.currentPage * projectsPerPage,
+    (currentPage - 1) * projectsPerPage,
+    currentPage * projectsPerPage,
   );
 
   const clearAllFilters = () => {
@@ -71,11 +71,11 @@ function ProjectList({ projects }: { projects: Project[] }) {
   }, [clearFilters]);
 
   useEffect(() => {
-    dispatch(currentPage(1));
+    dispatch(currentPageAction(1));
   }, [dispatch, selectedTitle, selectedGenre, selectedStatus]);
 
   useEffect(() => {
-    dispatch(totalPages(totalPagesList));
+    dispatch(totalPagesAction(totalPagesList));
   }, [dispatch, totalPagesList]);
 
   return (
@@ -139,11 +139,11 @@ function ProjectList({ projects }: { projects: Project[] }) {
           <span>
             Página
             {' '}
-            {paginationReducer.currentPage}
+            {currentPage}
             {' '}
             de
             {' '}
-            {paginationReducer.totalPages}
+            {totalPages}
           </span>
           <button onClick={goNextPage} type="button"> ❯</button>
         </div>

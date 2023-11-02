@@ -48,9 +48,7 @@ function TitleBar() {
     localStorage.setItem('uiMode', 'dark');
     setIsLightMode(false);
   }
-  // 1698828375540
-  // 1698618275540
-  // cria utils de trim de Tìtulo para títulos grandes para bater de frente com mensagem de backup
+
   return (
     <div id="main-header" className="header">
       <div className="logoTitle">
@@ -65,9 +63,9 @@ function TitleBar() {
           <p className="backupWarning">{showBackupWarning}</p>
         )}
         {isLightMode ? (
-          <span onClick={toggleDarktMode} className="uiMode" />
+          <button onClick={toggleDarktMode} type="button" className="uiMode">{}</button>
         ) : (
-          <span onClick={toggleLightMode} className="uiMode" />
+          <button onClick={toggleLightMode} type="button" className="uiMode">{}</button>
         )}
         <button className="btnDiscret" type="button">Fazer backup</button>
       </div>
