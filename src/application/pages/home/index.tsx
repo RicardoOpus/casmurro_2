@@ -9,7 +9,6 @@ function Home() {
       const startVerify = new StartChecks();
       const check = await startVerify.hasProjects();
       if (!check) {
-        console.log(check);
         navigate('/projects');
       }
     };

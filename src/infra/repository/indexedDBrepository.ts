@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import db from '../database/dexieDB';
 import simpleProject from '../../mocks/simpleProject';
-import ProjectDTO from '../../domain/projectModel';
+import Project from '../../domain/projectModel';
 
 class IndexedDBrepository {
   async countProjects(): Promise<number> {
@@ -19,6 +19,18 @@ class IndexedDBrepository {
     return projectsOrder.toArray();
   }
 
+  async getCurrentProjectID(): Promise<number> {
+    const projectActual = await db.settings.toArray();
+    const idProject = projectActual[0].currentprojectID;
+    return idProject;
+  }
+
+  async getCurrentProject(): Promise<Project | undefined> {
+    const currentID = await this.getCurrentProjectID();
+    const project = await db.projects.get(currentID);
+    return project;
+  }
+
   async deleteDB() {
     await db.delete().then(() => {
       console.log('Database successfully deleted');
@@ -33,7 +45,7 @@ class IndexedDBrepository {
     });
   }
 
-  async createNewProject(project: ProjectDTO) {
+  async createNewProject(project: Project) {
     const id = await db.projects.add(project).then();
     return id;
   }

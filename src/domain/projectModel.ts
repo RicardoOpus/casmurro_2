@@ -6,6 +6,7 @@ interface Project {
   projectSettings: object;
   id_controler: number;
   cards_qty: number;
+  lastBackup: number;
   id?: number;
   data?: object;
   subtitle?: string;
@@ -15,7 +16,6 @@ interface Project {
   description?: string;
   image_cover?: string;
   image_project?: string;
-  lastBackup?: string;
   startDate?: string;
   finishDate?: string;
   showSubtitle?: boolean;

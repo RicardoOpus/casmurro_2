@@ -1,10 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './title-bar.css';
+import IndexedDBrepository from '../../../infra/repository/indexedDBrepository';
+import Project from '../../../domain/projectModel';
+import TitleBarService from '../../../service/titleBarService';
 
 function TitleBar() {
   const navigate = useNavigate();
   const [isLightMode, setIsLightMode] = useState(false);
+  const [project, setProject] = useState<Project>();
+  const [showBackupWarning, setbackupWarning] = useState('');
 
   useEffect(() => {
     const storedMode = localStorage.getItem('uiMode');
@@ -17,6 +22,21 @@ function TitleBar() {
     }
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const indexedDBrepository = new IndexedDBrepository();
+      const projectItem = await indexedDBrepository.getCurrentProject();
+      setProject(projectItem);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const titleBarService = new TitleBarService();
+    const mensage = titleBarService.backupMensage(project?.lastBackup);
+    setbackupWarning(mensage);
+  }, [project?.lastBackup]);
+
   function toggleLightMode() {
     document.documentElement.classList.add('light-mode');
     localStorage.setItem('uiMode', 'light');
@@ -28,7 +48,9 @@ function TitleBar() {
     localStorage.setItem('uiMode', 'dark');
     setIsLightMode(false);
   }
-
+  // 1698828375540
+  // 1698618275540
+  // cria utils de trim de Tìtulo para títulos grandes para bater de frente com mensagem de backup
   return (
     <div id="main-header" className="header">
       <div className="logoTitle">
@@ -36,7 +58,12 @@ function TitleBar() {
       </div>
       <div className="separator" />
       <button className="btnPorjects" type="button" onClick={() => navigate('/projects')}>Projetos</button>
+      <div className="separator" />
+      <p className="projectTitle">{project?.title}</p>
       <div className="header-right">
+        {(showBackupWarning) && (
+          <p className="backupWarning">{showBackupWarning}</p>
+        )}
         {isLightMode ? (
           <span onClick={toggleDarktMode} className="uiMode" />
         ) : (

@@ -22,6 +22,26 @@
 }
 
 .header-right {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
   margin-left: auto;
+  margin-right: 1rem;
   padding-right: 10px;
+}
+
+.uiMode {
+  background-image: var(--uiMode-icon);
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  display: inline-block;
+  height: 25px;
+  vertical-align: middle;
+  width: 25px;
+}
+
+.backupWarning {
+  font-size: smaller;
+  margin: 0;
 }

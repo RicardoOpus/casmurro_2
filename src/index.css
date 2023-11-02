@@ -56,18 +56,6 @@
   -webkit-text-size-adjust: 100%;
 }
 
-.uiMode {
-  background-image: var(--uiMode-icon);
-  background-repeat: no-repeat;
-  background-size: cover;
-  cursor: pointer;
-  display: inline-block;
-  height: 25px;
-  margin-right: 1rem;
-  vertical-align: middle;
-  width: 25px;
-}
-
 .icon-color {
   filter: var(--logo-color);
 }

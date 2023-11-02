@@ -11,6 +11,7 @@ class ProjectServide {
       status: 'novo',
       last_edit: now,
       created_at: now,
+      lastBackup: 0,
       projectSettings: { object: 'value' },
       id_controler: 0,
       cards_qty: 0,
