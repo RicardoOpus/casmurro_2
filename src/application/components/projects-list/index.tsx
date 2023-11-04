@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import Project from '../../../domain/projectModel';
-import { convertDateBR, convertToTime } from '../../../service/utils';
+import Utils from '../../../service/utils';
 import './projects-list.css';
 import {
   currentPageAction,
@@ -18,6 +18,7 @@ type RootState = {
 };
 
 function ProjectList({ projects }: { projects: Project[] }) {
+  const utils = new Utils();
   const { currentPage, totalPages } = useSelector((state: RootState) => state.paginationReducer);
   const projectsPerPage = 5;
   const [selectedStatus, setSelectedStatus] = useState('');
@@ -111,16 +112,16 @@ function ProjectList({ projects }: { projects: Project[] }) {
           <button key={project.id} className="projectsItens" type="button">
             <div className="projectCard">
               <div>
-                <p className="projectTitle">{project.title}</p>
+                <p className="projectTitle">{utils.abreviarString(project.title, 30)}</p>
                 <p className="lastModify">
                   <span className="ui-icon ui-icon-calendar icon-color" />
                   Última modificação
                   {' '}
-                  <strong>{convertDateBR(project.last_edit)}</strong>
+                  <strong>{utils.convertDateBR(project.last_edit)}</strong>
                   {' '}
                   às
                   {' '}
-                  <strong>{convertToTime(project.last_edit)}</strong>
+                  <strong>{utils.convertToTime(project.last_edit)}</strong>
                 </p>
               </div>
               <span className="projectStatus novo">{project.status}</span>

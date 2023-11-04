@@ -1,11 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import './title-bar.css';
 import IndexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import Project from '../../../domain/projectModel';
 import TitleBarService from '../../../service/titleBarService';
 
 function TitleBar() {
+  const titleBarService = useMemo(() => new TitleBarService(), []);
   const navigate = useNavigate();
   const [isLightMode, setIsLightMode] = useState(false);
   const [project, setProject] = useState<Project>();
@@ -32,10 +33,9 @@ function TitleBar() {
   }, []);
 
   useEffect(() => {
-    const titleBarService = new TitleBarService();
     const mensage = titleBarService.backupMensage(project?.lastBackup);
     setbackupWarning(mensage);
-  }, [project?.lastBackup]);
+  }, [project?.lastBackup, titleBarService]);
 
   function toggleLightMode() {
     document.documentElement.classList.add('light-mode');
@@ -57,15 +57,15 @@ function TitleBar() {
       <div className="separator" />
       <button className="btnPorjects" type="button" onClick={() => navigate('/projects')}>Projetos</button>
       <div className="separator" />
-      <p className="projectTitle">{project?.title}</p>
+      <p className="projectTitle">{titleBarService.titleReduction(project?.title || '') }</p>
       <div className="header-right">
         {(showBackupWarning) && (
           <p className="backupWarning">{showBackupWarning}</p>
         )}
         {isLightMode ? (
-          <button onClick={toggleDarktMode} type="button" className="uiMode">{}</button>
+          <button onClick={toggleDarktMode} type="button" className="uiMode">{ }</button>
         ) : (
-          <button onClick={toggleLightMode} type="button" className="uiMode">{}</button>
+          <button onClick={toggleLightMode} type="button" className="uiMode">{ }</button>
         )}
         <button className="btnDiscret" type="button">Fazer backup</button>
       </div>

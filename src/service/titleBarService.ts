@@ -1,7 +1,11 @@
-class TitleBarService {
+import Utils from './utils';
+
+class TitleBarService extends Utils {
   maxHoursToWarning = 2;
 
   maxDaysToWarning = 1;
+
+  maxLenghtTitle = 30;
 
   backupMensage(lastBackup: number | undefined): string {
     if (!lastBackup) {
@@ -21,6 +25,11 @@ class TitleBarService {
       return `${dias} dia e ${horas} horas desde o último backup!`;
     }
     return `${dias === 0 ? '' : `${dias} dias e `} ${horas} horas desde o último backup!`;
+  }
+
+  titleReduction(str: string) {
+    const titleCut = this.abreviarString(str, this.maxLenghtTitle);
+    return titleCut;
   }
 }
 

@@ -1,14 +1,26 @@
-export function convertDateBR(timestamp: number) {
-  const date = new Date(timestamp);
-  if (date instanceof Date) {
-    const result = date.toLocaleDateString('pt-br');
+/* eslint-disable class-methods-use-this */
+class Utils {
+  convertDateBR(timestamp: number): string | null {
+    const date = new Date(timestamp);
+    if (date instanceof Date) {
+      const result = date.toLocaleDateString('pt-br');
+      return result;
+    }
+    return null;
+  }
+
+  convertToTime(timestamp: number): string {
+    const date = new Date(timestamp);
+    const result = `${date.getHours()}h ${date.getMinutes()}m`;
     return result;
   }
-  return null;
+
+  abreviarString(str: string, maxLenght: number): string {
+    if (str.length > maxLenght) {
+      return `${str.substring(0, maxLenght)}…`;
+    }
+    return str;
+  }
 }
 
-export function convertToTime(timestamp: number) {
-  const date = new Date(timestamp);
-  const result = `${date.getHours()}h ${date.getMinutes()}m`;
-  return result;
-}
+export default Utils;
