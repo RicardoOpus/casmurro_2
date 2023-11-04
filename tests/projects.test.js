@@ -1,5 +1,5 @@
+/* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-var-requires */
-// /* eslint-disable no-undef */
 const puppeteer = require('puppeteer');
 
 describe('PROJETOS', () => {
