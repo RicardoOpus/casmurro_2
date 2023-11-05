@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import casmurroLogo from '../../../../public/casmurro-logo.svg';
-import IndexedDBrepository from '../../../infra/repository/indexedDBrepository';
+import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import './projects.css';
 import NoData from '../../components/no-dada';
 import Project from '../../../domain/projectModel';
@@ -23,7 +23,6 @@ function Projects() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const indexedDBrepository = new IndexedDBrepository();
       const projectsList = await indexedDBrepository.getAllProjects();
       setDados(projectsList);
     };

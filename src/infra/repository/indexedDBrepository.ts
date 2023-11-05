@@ -57,4 +57,6 @@ class IndexedDBrepository {
   }
 }
 
-export default IndexedDBrepository;
+const indexedDBrepository = new IndexedDBrepository();
+
+export default indexedDBrepository;

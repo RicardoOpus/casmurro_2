@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import './title-bar.css';
-import IndexedDBrepository from '../../../infra/repository/indexedDBrepository';
+import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import Project from '../../../domain/projectModel';
 import TitleBarService from '../../../service/titleBarService';
 
@@ -25,7 +25,6 @@ function TitleBar() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const indexedDBrepository = new IndexedDBrepository();
       const projectItem = await indexedDBrepository.getCurrentProject();
       setProject(projectItem);
     };

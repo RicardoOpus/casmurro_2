@@ -1,11 +1,10 @@
 import Project from '../domain/projectModel';
-import IndexedDBrepository from '../infra/repository/indexedDBrepository';
+import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class ProjectServide {
   deafultStatus = 'novo';
 
   async create(projectName: string) {
-    const indexedDBrepository = new IndexedDBrepository();
     const now = Date.now();
     const newProject: Project = {
       title: projectName,

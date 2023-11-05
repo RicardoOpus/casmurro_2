@@ -1,8 +1,6 @@
-import IndexedDBrepository from '../../../infra/repository/indexedDBrepository';
+import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 
 function Dev() {
-  const indexedDBrepository = new IndexedDBrepository();
-
   return (
     <div>
       <h2>Rotinas dev</h2>
