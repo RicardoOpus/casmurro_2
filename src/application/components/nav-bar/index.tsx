@@ -1,11 +1,34 @@
+import { useNavigate } from 'react-router-dom';
 import './nav-bar.css';
+import { useState } from 'react';
 
 function NavBar() {
+  const navigate = useNavigate();
+  const [activeButton, setActiveButton] = useState('Dashboard');
+
+  const handleButtonClick = (route: string, buttonId: string) => {
+    navigate(route);
+    setActiveButton(buttonId);
+  };
   return (
     <div className="navBar">
-      <button id="Dashboard" className="navBarItem" type="button">Dashboard</button>
+      <button
+        onClick={() => handleButtonClick('/', 'Dashboard')}
+        id="Dashboard"
+        className={`navBarItem ${activeButton === 'Dashboard' ? 'NavBarActive' : ''}`}
+        type="button"
+      >
+        Dashboard
+      </button>
       <div className="separator" />
-      <button id="Personagens" className="navBarItem" type="button">Personagens</button>
+      <button
+        onClick={() => handleButtonClick('/characters', 'Personagens')}
+        id="Personagens"
+        className={`navBarItem ${activeButton === 'Personagens' ? 'NavBarActive' : ''}`}
+        type="button"
+      >
+        Personagens
+      </button>
       <div className="separator" />
       <button id="Mundo" className="navBarItem" type="button">Mundo</button>
       <div className="separator" />

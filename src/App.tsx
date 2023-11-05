@@ -6,6 +6,7 @@ import Layout from './application/components/layout';
 import NotFound from './application/pages/not-found';
 import Projects from './application/pages/projects';
 import Splash from './application/pages/splash';
+import Charaters from './application/pages/characters';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -33,6 +34,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route path="" element={<Home />} />
+            <Route path="/characters" element={<Charaters />} />
             <Route path="/dev" element={<Dev />} />
           </Route>
           <Route path="/splash" element={<Splash />} />
