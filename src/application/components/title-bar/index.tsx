@@ -1,15 +1,24 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import './title-bar.css';
 import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import Project from '../../../domain/projectModel';
 import TitleBarService from '../../../service/titleBarService';
+import { projectDataAction } from '../../redux/actions';
+
+type RootState = {
+  projectDataReducer: {
+    projectData: Project,
+  }
+};
 
 function TitleBar() {
   const titleBarService = useMemo(() => new TitleBarService(), []);
   const navigate = useNavigate();
   const [isLightMode, setIsLightMode] = useState(false);
-  const [project, setProject] = useState<Project>();
+  const dispatch = useDispatch();
+  const { projectData } = useSelector((state: RootState) => state.projectDataReducer);
   const [showBackupWarning, setbackupWarning] = useState('');
 
   useEffect(() => {
@@ -26,15 +35,17 @@ function TitleBar() {
   useEffect(() => {
     const fetchData = async () => {
       const projectItem = await indexedDBrepository.getCurrentProject();
-      setProject(projectItem);
+      if (projectItem) {
+        dispatch(projectDataAction(projectItem));
+      }
     };
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    const mensage = titleBarService.backupMensage(project?.lastBackup);
+    const mensage = titleBarService.backupMensage(projectData.lastBackup);
     setbackupWarning(mensage);
-  }, [project?.lastBackup, titleBarService]);
+  }, [projectData.lastBackup, titleBarService]);
 
   function toggleLightMode() {
     document.documentElement.classList.add('light-mode');
@@ -56,7 +67,7 @@ function TitleBar() {
       <div className="separator" />
       <button className="btnPorjects" type="button" onClick={() => navigate('/projects')}>Projetos</button>
       <div className="separator" />
-      <p className="projectTitle">{titleBarService.titleReduction(project?.title || '') }</p>
+      <p className="projectTitle">{titleBarService.titleReduction(projectData.title || '')}</p>
       <div className="header-right">
         {(showBackupWarning) && (
           <p className="backupWarning">{showBackupWarning}</p>

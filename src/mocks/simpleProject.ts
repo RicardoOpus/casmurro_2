@@ -10,7 +10,6 @@ const simpleProject: Project = {
   projectSettings: { tipo: 'Alguma configuração' },
   last_edit: Date.now(),
   created_at: Date.now(),
-  data: { nome: 'isso' },
   literary_genre: 'Romance',
   id_controler: 0,
 };

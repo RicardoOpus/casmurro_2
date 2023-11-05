@@ -15,6 +15,7 @@ class ProjectServide {
       projectSettings: { object: 'value' },
       id_controler: 0,
       cards_qty: 0,
+      data: { characters: [] },
     };
 
     const idProject = await indexedDBrepository.createNewProject(newProject);

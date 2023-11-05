@@ -1,3 +1,5 @@
+import Character from './characterModel';
+
 interface Project {
   title: string;
   status: string;
@@ -8,7 +10,9 @@ interface Project {
   cards_qty: number;
   lastBackup: number;
   id?: number;
-  data?: object;
+  data?: {
+    characters: Character[];
+  };
   subtitle?: string;
   author?: string;
   recent_edits?: object;

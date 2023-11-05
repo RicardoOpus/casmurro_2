@@ -1,3 +1,5 @@
+import Project from '../../../domain/projectModel';
+
 export const nextPageAction = () => ({
   type: 'NEXT_PAGE',
 });
@@ -14,4 +16,9 @@ export const totalPagesAction = (pages: number) => ({
 export const currentPageAction = (page: number) => ({
   type: 'CURRENT_PAGE',
   payload: page,
+});
+
+export const projectDataAction = (project: Project) => ({
+  type: 'PROJECT_DATA',
+  payload: project,
 });

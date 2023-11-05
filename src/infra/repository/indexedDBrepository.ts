@@ -3,6 +3,7 @@
 import db from '../database/dexieDB';
 import simpleProject from '../../mocks/simpleProject';
 import Project from '../../domain/projectModel';
+import Character from '../../domain/characterModel';
 
 class IndexedDBrepository {
   startValueForID = 0;
@@ -54,6 +55,25 @@ class IndexedDBrepository {
 
   async updateSettings(idProject: number | undefined) {
     await db.settings.where('id').equals(1).modify({ currentprojectID: idProject });
+  }
+
+  async idManager(): Promise<number | null> {
+    const dataProject = await this.getCurrentProject();
+    if (dataProject && dataProject.id) {
+      const actual = dataProject.id_controler;
+      const result = actual + 1;
+      await db.projects.where('id').equals(dataProject.id).modify({ id_controler: result });
+      return result;
+    }
+    return null;
+  }
+
+  async characterPost(newData: Character) {
+    const projectID = await this.getCurrentProjectID();
+
+    db.projects.where('id').equals(projectID).modify((ele: Project) => {
+      ele?.data?.characters.push(newData);
+    });
   }
 }
 
