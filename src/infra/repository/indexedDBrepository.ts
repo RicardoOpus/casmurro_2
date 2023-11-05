@@ -16,7 +16,7 @@ class IndexedDBrepository {
     await db.settings.add({ currentprojectID: 0 });
   }
 
-  getAllProjects() {
+  getAllProjects(): Promise<Project[]> {
     const projectsOrder = db.projects.orderBy('last_edit').reverse();
     return projectsOrder.toArray();
   }
@@ -47,12 +47,12 @@ class IndexedDBrepository {
     });
   }
 
-  async createNewProject(project: Project) {
+  async createNewProject(project: Project): Promise<number> {
     const id = await db.projects.add(project).then();
     return id;
   }
 
-  async updateSettings(idProject: number) {
+  async updateSettings(idProject: number | undefined) {
     await db.settings.where('id').equals(1).modify({ currentprojectID: idProject });
   }
 }

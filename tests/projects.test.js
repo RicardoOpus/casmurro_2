@@ -37,7 +37,7 @@ describe('PROJETOS', () => {
     expect(projectTitle).toBe(title);
   });
 
-  it('Não deve ser possível criar um projeto aceitar os termos', async () => {
+  it('Não deve ser possível criar um projeto sem aceitar os termos', async () => {
     const projectBtn = await page.$('.btnPorjects');
     await projectBtn.click();
     const newProjectButton = await page.$('.btnNewProject');

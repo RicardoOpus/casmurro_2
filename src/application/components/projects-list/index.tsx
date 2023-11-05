@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Project from '../../../domain/projectModel';
 import Utils from '../../../service/utils';
 import './projects-list.css';
@@ -9,6 +10,7 @@ import {
 } from '../../redux/actions';
 import FilterBar from './filter-bar';
 import nodata from '../../../../public/no-data.png';
+import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 
 type RootState = {
   paginationReducer: {
@@ -20,12 +22,12 @@ type RootState = {
 function ProjectList({ projects }: { projects: Project[] }) {
   const utils = new Utils();
   const { currentPage, totalPages } = useSelector((state: RootState) => state.paginationReducer);
+  const navigate = useNavigate();
   const projectsPerPage = 5;
   const [selectedStatus, setSelectedStatus] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('');
   const [selectedTitle, setSelectedTitle] = useState('');
   const [clearFilters, setClearFilters] = useState(false);
-
   const dispatch = useDispatch();
 
   const goNextPage = () => {
@@ -42,6 +44,12 @@ function ProjectList({ projects }: { projects: Project[] }) {
     if (currentPage > 1) {
       dispatch(previousPageAction());
     }
+  };
+
+  const handleClick = (idProject: number | undefined) => {
+    indexedDBrepository.updateSettings(idProject);
+    navigate('/');
+    window.scrollTo(0, 0);
   };
 
   const filteredProjects = projects.filter((project) => {
@@ -109,7 +117,7 @@ function ProjectList({ projects }: { projects: Project[] }) {
         />
 
         {projectsSlice.map((project) => (
-          <button key={project.id} className="projectsItens" type="button">
+          <button onClick={() => handleClick(project.id)} key={project.id} className="projectsItens" type="button">
             <div className="projectCard">
               <div>
                 <p className="projectTitle">{utils.abreviarString(project.title, 30)}</p>
