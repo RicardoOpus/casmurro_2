@@ -12,7 +12,7 @@
   --uiMode-icon: url("../moon.svg");
   --logo-color: none;
   --green-color: #1b430d;
-  --texture: url("../texture.png");
+  --bg-texture: url("../texture.png");
 }
 
 
@@ -30,6 +30,7 @@
   --uiMode-icon: url("../sun.svg");
   --logo-color: brightness(0);
   --green-color: #4c8637db;
+  --bg-texture: url("../texture.png");
 }
 
 @font-face {
@@ -43,6 +44,7 @@
 }
 
 :root {
+  background: var(--bg-texture);
   background-color: var(--bg-color);
   color: var(--text-color);
   color-scheme: light dark;
