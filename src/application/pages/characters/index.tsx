@@ -28,7 +28,7 @@ function Characters() {
       <h1>Personagens</h1>
       <button type="button" onClick={openModal}>Novo</button>
       {isModalOpen && (
-        <GenericModal onClose={closeModal} typeName="Personagem" onDataSend={handleSaveData} />
+        <GenericModal onClose={closeModal} typeName="Nova personagem" onDataSend={handleSaveData} />
       )}
     </div>
   );
