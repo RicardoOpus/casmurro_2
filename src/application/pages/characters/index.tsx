@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import GenericModal from '../../components/generic-modal';
 import CharacterService from '../../../service/characterService';
-import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
-import { projectDataAction } from '../../redux/actions';
+import { fetchProjectDataAction } from '../../redux/actions';
 
 function Characters() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,13 +20,7 @@ function Characters() {
 
   const handleSaveData = async (data: string) => {
     await characterService.create(data);
-    const fetchData = async () => {
-      const projectItem = await indexedDBrepository.getCurrentProject();
-      if (projectItem) {
-        dispatch(projectDataAction(projectItem));
-      }
-    };
-    fetchData();
+    dispatch(fetchProjectDataAction(true));
   };
 
   return (

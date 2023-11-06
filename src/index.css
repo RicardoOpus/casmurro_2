@@ -138,7 +138,8 @@ button:disabled:hover {
   padding: 1rem 2rem 5rem 2rem;
 }
 
-.cardInput {
+.cardInput,
+.cardInputTitle {
   all: unset;
   background-color: var(--bg-color-sec);
   border: solid 1px var(--border-color);
@@ -151,6 +152,12 @@ button:disabled:hover {
   padding: 0px 1em 0px 1em;
   width: 100%;
 }
+
+.cardInputTitle {
+  font-family: Amaranth;
+  font-size: 1.5em;
+}
+
 
 .cardInputSearch {
   all: unset;

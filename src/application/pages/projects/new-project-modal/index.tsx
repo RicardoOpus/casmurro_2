@@ -39,7 +39,7 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
       <div className="modal-content">
         <h2>Novo Projeto</h2>
         <input
-          className="cardInput"
+          className="cardInputTitle"
           type="text"
           placeholder="Título do projeto"
           value={projectName}

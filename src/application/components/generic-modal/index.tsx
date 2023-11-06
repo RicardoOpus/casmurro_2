@@ -26,7 +26,7 @@ function GenericModal({ onClose, typeName, onDataSend }: GenericModalProps) {
           {typeName}
         </h2>
         <input
-          className="cardInput"
+          className="cardInputTitle"
           type="text"
           placeholder="Título"
           value={newItemTitle}
