@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect } from 'react';
+import { useState, ChangeEvent } from 'react';
 import './newProjectModal.css';
 import 'balloon-css';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,6 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
   const [projectName, setProjectName] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [warningTerms, setWarningTerms] = useState(false);
-  const [uiMode, SetUiMode] = useState('light-mode');
   const isSaveButtonDisabled = projectName.trim() === '';
   const handleCancel = () => onClose();
 
@@ -35,20 +34,11 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
     setAgreedToTerms(e.target.checked);
   };
 
-  useEffect(() => {
-    const storedMode = localStorage.getItem('uiMode');
-    if (storedMode === 'light') {
-      SetUiMode('light-mode');
-    } else {
-      SetUiMode('dark-mode');
-    }
-  }, []);
-
   return (
     <div className="modal" data-testid="modal-new-project">
       <div className="modal-content">
-        <img className="ponto1" src={uiMode === 'light-mode' ? './corner.png' : 'corner-dark.png'} alt="ponto" />
-        <img className="ponto2" src={uiMode === 'light-mode' ? './corner.png' : 'corner-dark.png'} alt="ponto" />
+        <div className="corner ponto1" />
+        <div className="corner ponto2" />
         <div className="modal-border">
           <h2>Novo Projeto</h2>
           <input
@@ -115,8 +105,8 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
             <button onClick={handleCancel} type="button">Cancelar</button>
           </div>
         </div>
-        <img className="ponto3" src={uiMode === 'light-mode' ? './corner.png' : 'corner-dark.png'} alt="ponto" />
-        <img className="ponto4" src={uiMode === 'light-mode' ? './corner.png' : 'corner-dark.png'} alt="ponto" />
+        <div className="corner ponto3" />
+        <div className="corner ponto4" />
       </div>
     </div>
   );

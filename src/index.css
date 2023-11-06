@@ -14,7 +14,7 @@
   --logo-color: none;
   --green-color: #1b430d;
   --bg-texture: url("../texture.png");
-  --coner-img: url("../corner-dark.png");
+  --corner-img: url("../corner-dark.png");
 }
 
 
@@ -34,6 +34,7 @@
   --logo-color: brightness(0);
   --green-color: #4c8637db;
   --bg-texture: url("../texture.png");
+  --corner-img: url("../corner.png");
 }
 
 @font-face {
@@ -319,4 +320,78 @@ option {
 
 .ui-icon-search {
   background-position: -160px -112px;
+}
+
+/*=========== MODAL =========== */
+
+.modal {
+  background-color: rgba(0, 0, 0, .686);
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.modal h2 {
+  margin: 0;
+}
+
+.modal-content {
+  background: var(--card-bg-solid);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  margin: 10% auto;
+  padding: 10px;
+  text-align: center;
+  width: 600px;
+}
+
+.modal-border {
+  border: solid 1px  var(--border-color);
+  padding: 1rem 2rem;
+}
+
+.ui-iconSSS {
+  background-image: url("../ui-icons-light.png");
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 16px;
+  margin-top: -.25em;
+  overflow: hidden;
+  position: relative;
+  text-indent: -99999px;
+  vertical-align: middle;
+  width: 16px;
+}
+
+.corner {
+  background-image: var(--corner-img);
+  height: 20px;
+  margin: -10px;
+  width: 20px;
+}
+
+.ponto1 {
+  position: absolute;
+}
+
+.ponto2 {
+  float: right;
+  transform: scaleX(-1);
+}
+
+.ponto3 {
+  position: absolute;
+  transform: scaleX(-1) rotate(180deg);
+}
+
+.ponto4 {
+  float: right;
+  transform: rotate(180deg);
+}
+
+.modal-open {
+  overflow: hidden;
 }
