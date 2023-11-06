@@ -1,21 +1,25 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import './title-bar.css';
 import Project from '../../../domain/projectModel';
 import TitleBarService from '../../../service/titleBarService';
+import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
+import { fetchProjectDataAction, projectDataAction } from '../../redux/actions';
 
 type RootState = {
   projectDataReducer: {
     projectData: Project,
+    hasChange: boolean,
   }
 };
 
 function TitleBar() {
   const titleBarService = useMemo(() => new TitleBarService(), []);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isLightMode, setIsLightMode] = useState(false);
-  const { projectData } = useSelector((state: RootState) => state.projectDataReducer);
+  const { projectData, hasChange } = useSelector((state: RootState) => state.projectDataReducer);
   const [showBackupWarning, setbackupWarning] = useState('');
 
   useEffect(() => {
@@ -45,6 +49,19 @@ function TitleBar() {
     localStorage.setItem('uiMode', 'dark');
     setIsLightMode(false);
   }
+
+  useEffect(() => {
+    if (hasChange) {
+      const fetchData = async () => {
+        const projectItem = await indexedDBrepository.getCurrentProject();
+        if (projectItem) {
+          dispatch(projectDataAction(projectItem));
+          dispatch(fetchProjectDataAction(false));
+        }
+      };
+      fetchData();
+    }
+  }, [dispatch, hasChange]);
 
   return (
     <div id="main-header" className="header">

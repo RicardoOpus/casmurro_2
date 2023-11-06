@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Dashboard from './application/pages/home';
@@ -9,21 +8,10 @@ import Projects from './application/pages/projects';
 import Splash from './application/pages/splash';
 import Characters from './application/pages/characters';
 import AppService from './service/startChecks';
-import indexedDBrepository from './infra/repository/indexedDBrepository';
-import { fetchProjectDataAction, projectDataAction } from './application/redux/actions';
-
-type RootState = {
-  projectDataReducer: {
-    hasChange: boolean,
-  }
-};
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
-  const { hasChange } = useSelector((state: RootState) => state.projectDataReducer);
-
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const storedMode = localStorage.getItem('uiMode');
@@ -34,7 +22,6 @@ function App() {
       const root = document.documentElement;
       root.classList.remove('light-mode');
     }
-
     const timer = setTimeout(() => {
       setShowSplash(false);
     }, 1000);
@@ -51,19 +38,6 @@ function App() {
     };
     checkProjects();
   }, [navigate]);
-
-  useEffect(() => {
-    if (hasChange) {
-      const fetchData = async () => {
-        const projectItem = await indexedDBrepository.getCurrentProject();
-        if (projectItem) {
-          dispatch(projectDataAction(projectItem));
-          dispatch(fetchProjectDataAction(false));
-        }
-      };
-      fetchData();
-    }
-  }, [dispatch, hasChange]);
 
   return (
     <div>
