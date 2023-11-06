@@ -13,13 +13,51 @@
 }
 
 .modal-content {
-  background: var(--card-bg);
+  background: var(--card-bg-solid);
   border: 1px solid var(--border-color);
   border-radius: 6px;
   margin: 10% auto;
-  padding: 1rem 2rem;
+
+  /* padding: 1rem 2rem; */
+  padding: 10px;
   text-align: center;
   width: 600px;
+}
+
+.modal-border {
+  border: solid 1px  var(--border-color);
+  padding: 1rem 2rem;
+}
+
+.ponto1 {
+  float: left;
+  margin-left: -10px;
+  margin-top: -10px;
+  width: 20px;
+}
+
+.ponto2 {
+  float: right;
+  margin-right: -10px;
+  margin-top: -10px;
+  transform: scaleX(-1);
+  width: 20px;
+}
+
+.ponto3 {
+  float: left;
+  margin-left: -10px;
+  margin-top: -10px;
+  transform: scaleX(-1) rotate(180deg);
+  width: 20px;
+}
+
+.ponto4 {
+  float: right;
+  margin-right: -10px;
+  margin-top: -10px;
+  transform: rotate(180deg);
+  width: 20px;
 }
 
 .modal-open {

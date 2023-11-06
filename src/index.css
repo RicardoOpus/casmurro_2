@@ -6,13 +6,15 @@
   --text-color-inactive: #898989;
   --btn-color: #2D333B;
   --border-color: #3c3c3d;
-  --card-bg: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(19, 19, 21) 100%);
+  --card-bg: linear-gradient(90deg, #202024 0%, #131315 100%);
+  --card-bg-solid: #202024;
   --arrow-icon: url("../caret_down.svg");
   --search-icon: url("../search.svg");
   --uiMode-icon: url("../moon.svg");
   --logo-color: none;
   --green-color: #1b430d;
   --bg-texture: url("../texture.png");
+  --coner-img: url("../corner-dark.png");
 }
 
 
@@ -25,6 +27,7 @@
   --btn-color: #cecece;
   --border-color: #727272;
   --card-bg: linear-gradient(90deg, #f7f7f7 0%, #e2e2e2 100%);
+  --card-bg-solid: #f7f7f7;
   --arrow-icon: url("../caret_down_black.svg");
   --search-icon: url("../search_black.svg");
   --uiMode-icon: url("../sun.svg");
