@@ -6,6 +6,7 @@ import Utils from '../../../service/utils';
 import './projects-list.css';
 import {
   currentPageAction,
+  fetchProjectDataAction,
   nextPageAction, previousPageAction, totalPagesAction,
 } from '../../redux/actions';
 import FilterBar from './filter-bar';
@@ -48,6 +49,7 @@ function ProjectList({ projects }: { projects: Project[] }) {
 
   const handleClick = (idProject: number | undefined) => {
     indexedDBrepository.updateSettings(idProject);
+    dispatch(fetchProjectDataAction(true));
     navigate('/');
     window.scrollTo(0, 0);
   };

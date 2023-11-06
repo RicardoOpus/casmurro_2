@@ -2,7 +2,9 @@ import { useState, ChangeEvent } from 'react';
 import './newProjectModal.css';
 import 'balloon-css';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import ProjectServide from '../../../../service/projectsService';
+import { fetchProjectDataAction } from '../../../redux/actions';
 
 interface NewProjectModalProps {
   onClose: () => void;
@@ -10,6 +12,7 @@ interface NewProjectModalProps {
 
 function NewProjectModal({ onClose }: NewProjectModalProps) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [projectName, setProjectName] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [warningTerms, setWarningTerms] = useState(false);
@@ -22,6 +25,7 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
     }
     const projectServide = new ProjectServide();
     await projectServide.create(projectName);
+    dispatch(fetchProjectDataAction(true));
     navigate('/');
     return onClose();
   };

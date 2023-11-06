@@ -1,19 +1,7 @@
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import StartChecks from '../../../service/startChecks';
 
-function Home() {
+function Dashboard() {
   const navigate = useNavigate();
-  useEffect(() => {
-    const checkProjects = async () => {
-      const startVerify = new StartChecks();
-      const check = await startVerify.hasProjects();
-      if (!check) {
-        navigate('/projects');
-      }
-    };
-    checkProjects();
-  }, [navigate]);
 
   return (
     <div className="innerContent">
@@ -47,4 +35,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Dashboard;

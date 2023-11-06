@@ -1,11 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import './title-bar.css';
-import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import Project from '../../../domain/projectModel';
 import TitleBarService from '../../../service/titleBarService';
-import { projectDataAction } from '../../redux/actions';
 
 type RootState = {
   projectDataReducer: {
@@ -17,7 +15,6 @@ function TitleBar() {
   const titleBarService = useMemo(() => new TitleBarService(), []);
   const navigate = useNavigate();
   const [isLightMode, setIsLightMode] = useState(false);
-  const dispatch = useDispatch();
   const { projectData } = useSelector((state: RootState) => state.projectDataReducer);
   const [showBackupWarning, setbackupWarning] = useState('');
 
@@ -31,16 +28,6 @@ function TitleBar() {
       document.documentElement.classList.remove('light-mode');
     }
   }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const projectItem = await indexedDBrepository.getCurrentProject();
-      if (projectItem) {
-        dispatch(projectDataAction(projectItem));
-      }
-    };
-    fetchData();
-  }, [dispatch]);
 
   useEffect(() => {
     const mensage = titleBarService.backupMensage(projectData.lastBackup);

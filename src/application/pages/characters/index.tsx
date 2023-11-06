@@ -5,7 +5,7 @@ import CharacterService from '../../../service/characterService';
 import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import { projectDataAction } from '../../redux/actions';
 
-function Charaters() {
+function Characters() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const characterService = new CharacterService();
   const dispatch = useDispatch();
@@ -41,4 +41,4 @@ function Charaters() {
   );
 }
 
-export default Charaters;
+export default Characters;

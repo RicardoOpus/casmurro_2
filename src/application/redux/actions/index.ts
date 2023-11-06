@@ -22,3 +22,8 @@ export const projectDataAction = (project: Project) => ({
   type: 'PROJECT_DATA',
   payload: project,
 });
+
+export const fetchProjectDataAction = (hasChange: boolean) => ({
+  type: 'FECTCH_PROJECT_DATA',
+  payload: hasChange,
+});

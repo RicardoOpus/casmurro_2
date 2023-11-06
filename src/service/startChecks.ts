@@ -1,6 +1,6 @@
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
-class StartChecks {
+class AppService {
   startCount = 0;
 
   async hasProjects(): Promise<boolean> {
@@ -14,4 +14,4 @@ class StartChecks {
   }
 }
 
-export default StartChecks;
+export default AppService;
