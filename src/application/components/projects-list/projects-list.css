@@ -4,6 +4,7 @@
   width: 100%;
 }
 
+/* deve ser global =======================*/
 .projectsItens {
   all: unset;
   cursor: pointer;
@@ -27,6 +28,7 @@
   border: solid 1px var(--accent-color);
 }
 
+/* deve ser global =======================*/
 .projectTitle {
   font-family: Amaranth;
   font-size: x-large;
