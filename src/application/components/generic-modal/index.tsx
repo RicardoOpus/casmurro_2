@@ -34,6 +34,12 @@ function GenericModal({ onClose, typeName, onDataSend }: GenericModalProps) {
     onClose();
   };
 
+  const handleKeyPress = (event: { key: string; }) => {
+    if (event.key === 'Enter' && !isSaveButtonDisabled) {
+      sendDataToParent();
+    }
+  };
+
   return (
     <div className="modal">
       <div className="modal-content">
@@ -50,6 +56,7 @@ function GenericModal({ onClose, typeName, onDataSend }: GenericModalProps) {
             placeholder="Título"
             value={newItemTitle}
             onChange={(e) => SetNewItemTitle(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
           <div className="button-container">
             <button id="btnSavePr" onClick={sendDataToParent} type="button" disabled={isSaveButtonDisabled}>Salvar</button>

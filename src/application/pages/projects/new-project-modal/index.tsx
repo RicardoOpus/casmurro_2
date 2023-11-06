@@ -34,6 +34,12 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
     setAgreedToTerms(e.target.checked);
   };
 
+  const handleKeyPress = (event: { key: string; }) => {
+    if (event.key === 'Enter' && !isSaveButtonDisabled && agreedToTerms) {
+      handleCreate();
+    }
+  };
+
   return (
     <div className="modal" data-testid="modal-new-project">
       <div className="modal-content">
@@ -47,6 +53,7 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
             placeholder="Título do projeto"
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
           <label htmlFor="termos-uso">
             <input
