@@ -48,6 +48,12 @@ class IndexedDBrepository {
     });
   }
 
+  async updateLastEdit() {
+    const projectID = await this.getCurrentProjectID();
+    const now = Date.now();
+    await db.projects.update(projectID, { last_edit: now });
+  }
+
   async createNewProject(project: Project): Promise<number> {
     const id = await db.projects.add(project).then();
     return id;
@@ -74,6 +80,34 @@ class IndexedDBrepository {
     db.projects.where('id').equals(projectID).modify((ele: Project) => {
       ele?.data?.characters.push(newData);
     });
+    this.updateLastEdit();
+  }
+
+  async characterUpdate(characterId: number, data: Character) {
+    const projectID = await this.getCurrentProjectID();
+    const project = await db.projects.where({ id: projectID }).first();
+
+    if (project) {
+      if (!project.data) {
+        project.data = { characters: [] };
+      }
+
+      const characters = project.data.characters || [];
+      const characterIndex = characters.findIndex((char) => char.id === characterId);
+
+      if (characterIndex !== -1) {
+        characters[characterIndex] = data;
+        project.data.characters = characters;
+
+        await db.projects.update(projectID, { data: project.data });
+        this.updateLastEdit();
+        console.log('Personagem atualizado com sucesso!');
+      } else {
+        console.error('Personagem não encontrado no projeto.');
+      }
+    } else {
+      console.error('Projeto não encontrado.');
+    }
   }
 }
 

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Project from '../../../domain/projectModel';
-import Utils from '../../../service/utils';
+import utils from '../../../service/utils';
 import './projects-list.css';
 import {
   currentPageAction,
@@ -21,7 +21,6 @@ type RootState = {
 };
 
 function ProjectList({ projects }: { projects: Project[] }) {
-  const utils = new Utils();
   const { currentPage, totalPages } = useSelector((state: RootState) => state.paginationReducer);
   const navigate = useNavigate();
   const projectsPerPage = 5;

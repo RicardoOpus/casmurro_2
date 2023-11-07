@@ -1,6 +1,6 @@
-import Utils from './utils';
+import utils from './utils';
 
-class TitleBarService extends Utils {
+class TitleBarService {
   maxHoursToWarning = 2;
 
   maxDaysToWarning = 1;
@@ -28,7 +28,7 @@ class TitleBarService extends Utils {
   }
 
   titleReduction(str: string) {
-    const titleCut = this.abreviarString(str, this.maxLenghtTitle);
+    const titleCut = utils.abreviarString(str, this.maxLenghtTitle);
     return titleCut;
   }
 }

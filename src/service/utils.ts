@@ -21,6 +21,19 @@ class Utils {
     }
     return str;
   }
+
+  autoGrowAllTextareas() {
+    const textareas = document.querySelectorAll('textarea');
+    textareas.forEach((textarea) => {
+      const scrollHeight = `${textarea.scrollHeight}px`;
+      // eslint-disable-next-line no-param-reassign
+      textarea.style.height = 'auto';
+      // eslint-disable-next-line no-param-reassign
+      textarea.style.height = scrollHeight;
+    });
+  }
 }
 
-export default Utils;
+const utils = new Utils();
+
+export default utils;

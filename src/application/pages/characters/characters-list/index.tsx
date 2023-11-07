@@ -28,7 +28,7 @@ function CharactersList() {
             <div className="characterCard">
               <img className="charListImage" src="./person.png" alt="person img" />
               <p className="charactertTitle">
-                <span>🯊 </span>
+                <span style={{ color: character.color || 'var(--text-color-sec)' }}>🯊 </span>
                 {character.title}
               </p>
             </div>

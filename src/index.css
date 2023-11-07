@@ -6,8 +6,7 @@
   --text-color-inactive: #898989;
   --btn-color: #2D333B;
   --border-color: #3c3c3d;
-  --card-bg: linear-gradient(90deg, #202024 0%, #131315 100%);
-  --card-bg-solid: #202024;
+  --card-bg: #202024;
   --arrow-icon: url("../caret_down.svg");
   --search-icon: url("../search.svg");
   --uiMode-icon: url("../moon.svg");
@@ -26,8 +25,7 @@
   --text-color-inactive: #00000099;
   --btn-color: #cecece;
   --border-color: #727272;
-  --card-bg: linear-gradient(90deg, #f7f7f7 0%, #e2e2e2 100%);
-  --card-bg-solid: #f7f7f7;
+  --card-bg: #f7f7f7;
   --arrow-icon: url("../caret_down_black.svg");
   --search-icon: url("../search_black.svg");
   --uiMode-icon: url("../sun.svg");
@@ -144,7 +142,8 @@ button:disabled:hover {
 }
 
 .cardInput,
-.cardInputTitle {
+.cardInputTitle,
+.cardInputFull {
   all: unset;
   background-color: var(--bg-color-sec);
   border: solid 1px var(--border-color);
@@ -163,6 +162,10 @@ button:disabled:hover {
   font-size: 1.5em;
 }
 
+.cardInputFull {
+  overflow: hidden;
+  padding: 1em;
+}
 
 .cardInputSearch {
   all: unset;
@@ -209,6 +212,7 @@ select {
   cursor: pointer;
   font-size: medium;
   height: 40px;
+  margin: .5em 0;
   outline: 0;
   padding: 0px 4em 0px 1em;
 
@@ -221,6 +225,11 @@ select {
     outline: none;
   }
 }
+
+.selectFullWith {
+  width: 100%;
+}
+
 
 option {
   background-color: var(--bg-color-sec);
@@ -289,11 +298,39 @@ option {
   background-color: var(--accent-color);
 }
 
-
 .separator {
   display: inline;
   margin-left: 25px;
 }
+
+.divider {
+  height: 1px;
+  margin: 1rem;
+  position: relative;
+}
+
+.div-transparent:before {
+  background-image: linear-gradient(to right, transparent, var(--border-color), transparent);
+  content: "";
+  height: 1px;
+  position: absolute;
+  width: 100%;
+}
+
+.divider-vertical {
+  margin: 1rem;
+  position: relative;
+  width: 1px;
+}
+
+.div-vertical-transparent:before {
+  background-image: linear-gradient(to bottom, transparent, var(--border-color), transparent);
+  content: "";
+  height: 100%;
+  position: absolute;
+  width: 1px;
+}
+
 
 /*=========== ICONS =========== */
 
@@ -347,7 +384,7 @@ option {
 }
 
 .modal-content {
-  background: var(--card-bg-solid);
+  background: var(--card-bg);
   border: 1px solid var(--border-color);
   border-radius: 6px;
   margin: 10% auto;

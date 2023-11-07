@@ -2,13 +2,14 @@ import Character from '../domain/characterModel';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class CharacterService {
-  defaultColor = '#8F8F8';
+  defaultColor = 'var(--text-color-sec)';
 
   async create(characterName: string) {
     const ID = await indexedDBrepository.idManager();
     if (ID) {
       const data: Character = {
         title: characterName,
+        age: '',
         category: '',
         image: '',
         content: '',
