@@ -192,6 +192,13 @@ button:disabled:hover {
   padding: 0px 1em 0px 1em;
 }
 
+.listItens {
+  all: unset;
+  cursor: pointer;
+  padding: .5rem 0;
+  width: 100%;
+}
+
 select {
   appearance: none;
   background: var(--arrow-icon) no-repeat right .8em center / 1.4em,

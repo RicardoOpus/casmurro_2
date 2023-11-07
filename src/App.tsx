@@ -8,6 +8,7 @@ import Projects from './application/pages/projects';
 import Splash from './application/pages/splash';
 import Characters from './application/pages/characters';
 import AppService from './service/startChecks';
+import CharactersDetail from './application/pages/characters/characters-detail';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -48,6 +49,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="" element={<Dashboard />} />
             <Route path="/characters" element={<Characters />} />
+            <Route path="/characters/:id" element={<CharactersDetail />} />
             <Route path="/dev" element={<Dev />} />
           </Route>
           <Route path="/splash" element={<Splash />} />

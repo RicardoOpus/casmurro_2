@@ -119,7 +119,7 @@ function ProjectList({ projects }: { projects: Project[] }) {
         />
 
         {projectsSlice.map((project) => (
-          <button onClick={() => handleClick(project.id)} key={project.id} className="projectsItens" type="button">
+          <button onClick={() => handleClick(project.id)} key={project.id} className="listItens" type="button">
             <div className="projectCard">
               <div>
                 <p className="projectTitle">{utils.abreviarString(project.title, 30)}</p>

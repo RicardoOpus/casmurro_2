@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import Character from '../../../../domain/characterModel';
@@ -7,6 +8,7 @@ import './characters-list.css';
 function CharactersList() {
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const [characters, setCharacters] = useState<Character[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (projectData.data?.characters) {
@@ -22,7 +24,7 @@ function CharactersList() {
     ) : (
       <div>
         {characters.map((character) => (
-          <button type="button" key={character.id} className="projectsItens">
+          <button onClick={() => navigate(`/characters/${character.id}`)} type="button" key={character.id} className="listItens">
             <div className="characterCard">
               <img className="charListImage" src="./person.png" alt="person img" />
               <p className="charactertTitle">

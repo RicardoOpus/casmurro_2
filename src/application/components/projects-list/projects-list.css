@@ -4,14 +4,6 @@
   width: 100%;
 }
 
-/* deve ser global =======================*/
-.projectsItens {
-  all: unset;
-  cursor: pointer;
-  padding: .5rem 0;
-  width: 100%;
-}
-
 .projectCard {
   align-items: center;
   background: var(--card-bg);
@@ -28,7 +20,6 @@
   border: solid 1px var(--accent-color);
 }
 
-/* deve ser global =======================*/
 .projectTitle {
   font-family: Amaranth;
   font-size: x-large;
