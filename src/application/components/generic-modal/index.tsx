@@ -5,6 +5,7 @@ interface GenericModalProps {
   typeName: string;
   // eslint-disable-next-line no-unused-vars
   onDataSend: (data: string) => void;
+  deleteType: boolean;
 }
 
 function getIconPath(category: string): string {
@@ -20,11 +21,13 @@ function getIconPath(category: string): string {
     case 'Nota':
       return './notes.png';
     default:
-      return '';
+      return './delete.png';
   }
 }
 
-function GenericModal({ onClose, typeName, onDataSend }: GenericModalProps) {
+function GenericModal({
+  onClose, typeName, onDataSend, deleteType,
+}: GenericModalProps) {
   const [newItemTitle, SetNewItemTitle] = useState('');
   const isSaveButtonDisabled = newItemTitle.trim() === '';
   const handleCancel = () => onClose();
@@ -50,16 +53,22 @@ function GenericModal({ onClose, typeName, onDataSend }: GenericModalProps) {
           <h2>
             {typeName}
           </h2>
-          <input
-            className="cardInputTitle"
-            type="text"
-            placeholder="Título"
-            value={newItemTitle}
-            onChange={(e) => SetNewItemTitle(e.target.value)}
-            onKeyDown={handleKeyPress}
-          />
+          {!deleteType && (
+            <input
+              className="cardInputTitle"
+              type="text"
+              placeholder="Título"
+              value={newItemTitle}
+              onChange={(e) => SetNewItemTitle(e.target.value)}
+              onKeyDown={handleKeyPress}
+            />
+          )}
           <div className="button-container">
-            <button id="btnSavePr" onClick={sendDataToParent} type="button" disabled={isSaveButtonDisabled}>Salvar</button>
+            {deleteType ? (
+              <button className="delteBtn" id="btnSavePr" onClick={sendDataToParent} type="button">Deletar</button>
+            ) : (
+              <button id="btnSavePr" onClick={sendDataToParent} type="button" disabled={isSaveButtonDisabled}>Salvar</button>
+            )}
             <button onClick={handleCancel} type="button">Cancelar</button>
           </div>
         </div>

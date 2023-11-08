@@ -1,4 +1,5 @@
 import Character from './characterModel';
+import World from './worldModel.ts';
 
 interface Project {
   title: string;
@@ -11,7 +12,8 @@ interface Project {
   lastBackup: number;
   id?: number;
   data?: {
-    characters: Character[];
+    characters?: Character[];
+    world?: World[];
   };
   subtitle?: string;
   author?: string;

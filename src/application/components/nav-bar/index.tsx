@@ -20,7 +20,6 @@ function NavBar() {
       >
         Dashboard
       </button>
-      <div className="separator" />
       <button
         onClick={() => handleButtonClick('/characters', 'Personagens')}
         id="Personagens"
@@ -29,16 +28,20 @@ function NavBar() {
       >
         Personagens
       </button>
-      <div className="separator" />
       <button id="Mundo" className="navBarItem" type="button">Mundo</button>
-      <div className="separator" />
       <button id="Rascunho" className="navBarItem" type="button">Rascunho</button>
-      <div className="separator" />
       <button id="Timeline" className="navBarItem" type="button">Timeline</button>
-      <div className="separator" />
       <button id="Notas" className="navBarItem" type="button">Notas</button>
-      <div className="separator" />
-      <button id="Sobre" className="navBarItem navBatItemEnd" type="button">Sobre</button>
+      <div className="nav-right">
+        <button
+          onClick={() => handleButtonClick('/', 'settings')}
+          type="button"
+          className="settingsIcon"
+        >
+          { }
+        </button>
+        <button id="Sobre" className="navBarItem " type="button">Sobre</button>
+      </div>
     </div>
   );
 }

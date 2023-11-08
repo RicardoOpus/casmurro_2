@@ -33,7 +33,7 @@ function Characters() {
           Novo
         </button>
         {isModalOpen && (
-          <GenericModal onClose={closeModal} typeName="Nova personagem" onDataSend={handleSaveData} />
+          <GenericModal onClose={closeModal} typeName="Nova personagem" onDataSend={handleSaveData} deleteType={false} />
         )}
         <CharactersList />
       </div>

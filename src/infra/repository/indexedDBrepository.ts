@@ -78,7 +78,7 @@ class IndexedDBrepository {
     const projectID = await this.getCurrentProjectID();
 
     db.projects.where('id').equals(projectID).modify((ele: Project) => {
-      ele?.data?.characters.push(newData);
+      ele?.data?.characters?.push(newData);
     });
     this.updateLastEdit();
   }
@@ -107,6 +107,39 @@ class IndexedDBrepository {
       }
     } else {
       console.error('Projeto não encontrado.');
+    }
+  }
+
+  async getCurrentCard(currentCardID: number, tableProperty: string): Promise<number | null> {
+    const currProj = await this.getCurrentProject();
+    if (currProj) {
+      const characterData = currProj.data?.[tableProperty as keyof typeof currProj.data];
+      const characterIDs = characterData?.map((e) => e.id);
+      const positionInArray = characterIDs?.indexOf(currentCardID);
+      if (positionInArray) {
+        return positionInArray;
+      }
+    }
+
+    return null;
+  }
+
+  async deleteCard(cardID: number, table: string) {
+    const currentID = await this.getCurrentProjectID();
+    const currentCard = await this.getCurrentCard(cardID, table);
+    if (currentID && currentCard) {
+      db.projects.where('id').equals(currentID).modify((e) => {
+        switch (table) {
+          case 'characters':
+            e.data?.characters?.splice(currentCard, 1);
+            break;
+          case 'world':
+            e.data?.world?.splice(currentCard, 1);
+            break;
+          default:
+            break;
+        }
+      });
     }
   }
 }

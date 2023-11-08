@@ -12,8 +12,11 @@
   --uiMode-icon: url("../moon.svg");
   --logo-color: none;
   --green-color: #1b430d;
+  --red-color: #991b1b;
   --bg-texture: url("../texture.png");
   --corner-img: url("../corner-dark.png");
+  --config-icon: url("../config.svg");
+  --config-icon2: url("../config2.svg");
 }
 
 
@@ -33,6 +36,8 @@
   --green-color: #4c8637db;
   --bg-texture: url("../texture.png");
   --corner-img: url("../corner.png");
+  --config-icon: url("../settings-outline.svg");
+  --config-icon2: url("../config2_black.svg");
 }
 
 @font-face {
@@ -230,21 +235,21 @@ select {
   width: 100%;
 }
 
-
 option {
   background-color: var(--bg-color-sec);
 }
 
-
 .checkbox-wrapper-2 .ikxBAC {
   appearance: none;
   background-color: var(--btn-color);
+  border: solid 1px var(--border-color);
   border-radius: 72px;
   flex-shrink: 0;
   height: 20px;
   margin: 0;
   position: relative;
   width: 35px;
+
 }
 
 .checkbox-wrapper-2 .ikxBAC::before {
@@ -367,6 +372,10 @@ option {
   background-position: -160px -112px;
 }
 
+.ui-icon-trash {
+  background-position: -176px -96px;
+}
+
 /*=========== MODAL =========== */
 
 .modal {
@@ -398,17 +407,9 @@ option {
   padding: 1rem 2rem;
 }
 
-.ui-iconSSS {
-  background-image: url("../ui-icons-light.png");
-  background-repeat: no-repeat;
-  display: inline-block;
-  height: 16px;
-  margin-top: -.25em;
-  overflow: hidden;
-  position: relative;
-  text-indent: -99999px;
-  vertical-align: middle;
-  width: 16px;
+.delteBtn {
+  background-color: var(--red-color);
+  color: white;
 }
 
 .corner {
@@ -439,4 +440,38 @@ option {
 
 .modal-open {
   overflow: hidden;
+}
+
+/*=========== DETAIL =========== */
+
+.detailBar {
+  display: flex;
+  gap: 1rem;
+}
+
+.detailBarBbutton {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  margin-left: auto;
+  margin-right: .5rem;
+
+}
+
+.detailAdd {
+  background-color: transparent;
+  background-image: var(--config-icon2);
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: solid 1px transparent;
+  cursor: pointer;
+  display: inline-block;
+  height: 25px;
+  padding: 0;
+  vertical-align: middle;
+  width: 25px;
+}
+
+.detailAdd:hover {
+  border-color: var(--accent-color);
 }

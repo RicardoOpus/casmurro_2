@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ChangeEvent, useEffect, useState } from 'react';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import './characters-detail.css';
@@ -7,13 +7,31 @@ import Character from '../../../../domain/characterModel';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions';
 import utils from '../../../../service/utils';
+import GenericModal from '../../../components/generic-modal';
 
 function CharacterDetail() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const characters = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
   const { id } = useParams();
   const currentCharacter = characters?.find((e) => e.id === Number(id));
+
+  const openModal = () => {
+    setIsModalOpen(true);
+    document.body.classList.add('modal-open');
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    document.body.classList.remove('modal-open');
+  };
+
+  const handleDelete = async () => {
+    await indexedDBrepository.deleteCard(Number(id), 'characters');
+    navigate('/characters');
+  };
 
   const [stateCharacter,
     setEditedName] = useState<Character | Partial<Character>>(currentCharacter || {});
@@ -61,6 +79,16 @@ function CharacterDetail() {
           type="text"
           placeholder="NOME"
         />
+        <div className="detailBar">
+          <div className="detailBarBbutton">
+            <button className="detailAdd" type="button">{ }</button>
+            <button className="btnSmall" type="button" onClick={openModal}>
+              <span className="ui-icon ui-icon-trash icon-color" />
+              {' '}
+              Excluir
+            </button>
+          </div>
+        </div>
         <div className="divider div-transparent" />
         <div className="charBasicInfos">
           <div>
@@ -135,6 +163,9 @@ function CharacterDetail() {
           />
         </div>
       </div>
+      {isModalOpen && (
+        <GenericModal onClose={closeModal} typeName="Excluir personagem?" onDataSend={handleDelete} deleteType />
+      )}
     </div>
   );
 }
