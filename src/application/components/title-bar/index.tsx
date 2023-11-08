@@ -34,6 +34,11 @@ function TitleBar() {
     setbackupWarning(mensage);
   }, [projectData.lastBackup, titleBarService]);
 
+  useEffect(() => {
+    const fontSize = localStorage.getItem('contenSize');
+    document.documentElement.style.setProperty('--user-text-size', fontSize);
+  }, []);
+
   function toggleLightMode() {
     document.documentElement.classList.add('light-mode');
     localStorage.setItem('uiMode', 'light');

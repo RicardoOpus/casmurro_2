@@ -12,10 +12,35 @@ class ProjectServide {
       last_edit: now,
       created_at: now,
       lastBackup: 0,
-      projectSettings: { object: 'value' },
+      projectSettings: {
+        charactersCategory: [
+          'Antagonista',
+          'Coadjuvante',
+          'Criatura',
+          'Entidade',
+          'Herói',
+          'Mascote',
+          'Protagonista',
+          'Secundário',
+          'Vilão',
+        ],
+        charactersGenrders: [
+          'Masculino',
+          'Feminino',
+          'Não-Binário',
+          'Gênero Fluído',
+          'Agênero',
+          'Transexual',
+          'Genderqueer',
+          'Outro',
+        ],
+      },
       id_controler: 0,
       cards_qty: 0,
-      data: { characters: [] },
+      data: {
+        characters: [],
+        world: [],
+      },
     };
 
     const idProject = await indexedDBrepository.createNewProject(newProject);

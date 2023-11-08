@@ -17,6 +17,7 @@
   --corner-img: url("../corner-dark.png");
   --config-icon: url("../config.svg");
   --config-icon2: url("../config2.svg");
+  --user-text-size: 16px;
 }
 
 
@@ -168,6 +169,7 @@ button:disabled:hover {
 }
 
 .cardInputFull {
+  font-size: var(--user-text-size);
   overflow: hidden;
   padding: 1em;
 }

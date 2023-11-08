@@ -34,7 +34,8 @@ function NavBar() {
       <button id="Notas" className="navBarItem" type="button">Notas</button>
       <div className="nav-right">
         <button
-          onClick={() => handleButtonClick('/', 'settings')}
+          id="Settings"
+          onClick={() => handleButtonClick('/settings', 'settings')}
           type="button"
           className="settingsIcon"
         >
