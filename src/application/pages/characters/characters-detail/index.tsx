@@ -79,7 +79,7 @@ function CharacterDetail() {
           value={stateCharacter?.title}
           className="cardInputTitleChar"
           type="text"
-          placeholder="NOME"
+          placeholder="Nome da personagem"
         />
         <div className="detailBar">
           <div className="detailBarBbutton">

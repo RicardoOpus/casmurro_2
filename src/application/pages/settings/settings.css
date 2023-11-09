@@ -1,5 +1,45 @@
+.pSettings {
+  margin: 0;
+}
+
 .listsSection {
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
 }
+
+.settingsSectionIcon {
+  vertical-align: middle;
+}
+
+.colorInterfaceSection {
+  align-items: center;
+  background-color: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  display: flex;
+  gap: 1em;
+  padding: 0 1em;
+}
+
+.settingsSectionFont {
+  align-items: center;
+  display: flex;
+  gap: .5em;
+  margin-top: -1em;
+}
+
+.settingstextArea {
+  background-color: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-family: var(--user-text-type);
+  font-size: var(--user-text-size);
+  height: 200px;
+  margin: 0 0 1em 0;
+  padding: 1em;
+  width: 100%;
+}
+

@@ -18,6 +18,7 @@
   --config-icon: url("../config.svg");
   --config-icon2: url("../config2.svg");
   --user-text-size: 16px;
+  --user-text-type: Roboto;
 }
 
 
@@ -49,6 +50,16 @@
 @font-face {
   font-family: Roboto;
   src: url("../roboto.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: TypeCurier;
+  src: url("../courier.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Texgyretermes;
+  src: url("../texgyretermes.otf") format("truetype");
 }
 
 :root {
@@ -90,6 +101,17 @@ body {
 h1 {
   font-size: 2.2em;
   line-height: 1.1;
+}
+
+fieldset {
+  border: solid 1px #313131;
+  border-radius: 5px;
+  margin-top: 1em;
+  padding: 1em;
+}
+
+legend {
+  font-size: x-large;
 }
 
 button {
@@ -169,6 +191,7 @@ button:disabled:hover {
 }
 
 .cardInputFull {
+  font-family: var(--user-text-type);
   font-size: var(--user-text-size);
   overflow: hidden;
   padding: 1em;

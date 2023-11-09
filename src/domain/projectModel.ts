@@ -9,6 +9,7 @@ interface Project {
   projectSettings: {
     charactersCategory: string[],
     charactersGenrders: string[],
+    projectColor: string,
   };
   id_controler: number;
   cards_qty: number;

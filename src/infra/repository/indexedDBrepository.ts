@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-console */
 import db from '../database/dexieDB';
-import simpleProject from '../../mocks/simpleProject';
+// import simpleProject from '../../mocks/simpleProject';
 import Project from '../../domain/projectModel';
 import Character from '../../domain/characterModel';
 
@@ -42,11 +42,11 @@ class IndexedDBrepository {
     });
   }
 
-  async populeDB() {
-    await db.projects.add(simpleProject).then(() => {
-      console.log('Projeto adicionado com sucesso!');
-    });
-  }
+  // async populeDB() {
+  //   await db.projects.add(simpleProject).then(() => {
+  //     console.log('Projeto adicionado com sucesso!');
+  //   });
+  // }
 
   async updateLastEdit() {
     const projectID = await this.getCurrentProjectID();
@@ -143,7 +143,16 @@ class IndexedDBrepository {
     }
   }
 
-  async updateProjectSettings(newData: string[], table: string) {
+  async updateProjectSettingsList(newData: string[], table: string) {
+    const projectID = await this.getCurrentProjectID();
+    const currentProject = await this.getCurrentProject();
+    const currentSettings = currentProject?.projectSettings;
+    const newSettings = { ...currentSettings, [table]: newData };
+    await db.projects.update(projectID, { projectSettings: newSettings });
+    this.updateLastEdit();
+  }
+
+  async updateProjectSettings(newData: string, table: string) {
     const projectID = await this.getCurrentProjectID();
     const currentProject = await this.getCurrentProject();
     const currentSettings = currentProject?.projectSettings;

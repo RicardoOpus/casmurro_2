@@ -16,7 +16,7 @@
 }
 
 .projectCard:hover {
-  border: solid 1px var(--accent-color);
+  border: solid 1px #0099ff;
 }
 
 .projectTitle {

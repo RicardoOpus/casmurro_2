@@ -36,7 +36,9 @@ function TitleBar() {
 
   useEffect(() => {
     const fontSize = localStorage.getItem('contenSize');
+    const fontType = localStorage.getItem('contenTypeFont');
     document.documentElement.style.setProperty('--user-text-size', fontSize);
+    document.documentElement.style.setProperty('--user-text-type', fontType);
   }, []);
 
   function toggleLightMode() {
@@ -56,13 +58,15 @@ function TitleBar() {
       const fetchData = async () => {
         const projectItem = await indexedDBrepository.getCurrentProject();
         if (projectItem) {
+          const color = projectItem.projectSettings.projectColor;
+          document.documentElement.style.setProperty('--accent-color', color);
           dispatch(projectDataAction(projectItem));
           dispatch(fetchProjectDataAction(false));
         }
       };
       fetchData();
     }
-  }, [dispatch, hasChange]);
+  }, [dispatch, hasChange, projectData.projectSettings?.projectColor]);
 
   return (
     <div id="main-header" className="header">

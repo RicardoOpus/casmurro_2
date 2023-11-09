@@ -34,6 +34,7 @@ class ProjectServide {
           'Genderqueer',
           'Outro',
         ],
+        projectColor: '#0099ff',
       },
       id_controler: 0,
       cards_qty: 0,
