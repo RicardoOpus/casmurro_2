@@ -51,11 +51,19 @@
 }
 
 .chartaterColor {
-  /* all: unset; */
   background: transparent;
   border: solid 1px transparent;
   cursor: pointer;
   height: 40px;
   margin: .5em 0;
+  width: 40px;
+}
+
+.btnRandom {
+  border-radius: 50%;
+  font-size: 1em;
+  height: 40px;
+  margin: .5em 0;
+  padding: 1px 6px;
   width: 40px;
 }

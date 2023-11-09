@@ -61,6 +61,11 @@ function CharacterDetail() {
     dispatch(fetchProjectDataAction(true));
   };
 
+  const hadleRandomColor = () => {
+    const colorRandon = utils.randomColor();
+    setEditedName({ ...stateCharacter, color: colorRandon });
+  };
+
   useEffect(() => {
     utils.autoGrowAllTextareas();
   }, []);
@@ -149,6 +154,12 @@ function CharacterDetail() {
               value={stateCharacter.color}
               onChange={(e) => handleInputChange(e, 'color')}
             />
+            <h3>
+              Aleatória
+            </h3>
+            <button type="button" className="btnRandom" title="Gerar aleatoriamente uma cor" onClick={hadleRandomColor}>
+              ↻
+            </button>
           </div>
         </div>
         <div className="divider div-transparent" />

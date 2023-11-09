@@ -32,6 +32,15 @@ class Utils {
       textarea.style.height = scrollHeight;
     });
   }
+
+  randomColor() {
+    const color = Math.floor(Math.random() * 16777215).toString(16);
+    const colorNew = `#${color}`;
+    if (colorNew.length > 6) {
+      return colorNew;
+    }
+    return '#0099ff';
+  }
 }
 
 const utils = new Utils();
