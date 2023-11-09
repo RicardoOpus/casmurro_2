@@ -142,6 +142,15 @@ class IndexedDBrepository {
       });
     }
   }
+
+  async updateProjectSettings(newData: string[], table: string) {
+    const projectID = await this.getCurrentProjectID();
+    const currentProject = await this.getCurrentProject();
+    const currentSettings = currentProject?.projectSettings;
+    const newSettings = { ...currentSettings, [table]: newData };
+    await db.projects.update(projectID, { projectSettings: newSettings });
+    this.updateLastEdit();
+  }
 }
 
 const indexedDBrepository = new IndexedDBrepository();

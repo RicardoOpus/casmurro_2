@@ -241,6 +241,8 @@ option {
   background-color: var(--bg-color-sec);
 }
 
+/* ============= CHECKBOX TYPE WRAPPER ================= */
+
 .checkbox-wrapper-2 .ikxBAC {
   appearance: none;
   background-color: var(--btn-color);
@@ -304,6 +306,78 @@ option {
 .checkbox-wrapper-2 .ikxBAC:checked:hover {
   background-color: var(--accent-color);
 }
+
+/* ============= CHECKBOX TYPE RADIO ================= */
+
+.checkboxCustom .labelChk {
+  cursor: pointer;
+  display: block;
+  font-size: 18px;
+  padding-left: 30px;
+  position: relative;
+}
+
+.checkboxCustom .labelChk input {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.checkboxCustom .chk_indicator {
+  background: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
+  border-radius: 100%;
+  height: 20px;
+  left: 0;
+  position: absolute;
+  top: 2px;
+  width: 20px;
+}
+
+.checkboxCustom .labelChk:hover input ~ .chk_indicator {
+  background: var(--text-color-inactive);
+}
+
+.checkboxCustom .labelChk input:checked ~ .chk_indicator {
+  background: var(--accent-color);
+}
+
+.checkboxCustom .labelChk:hover input:not([disabled]):checked ~ .chk_indicator,
+.checkboxCustom .labelChk input:checked:focus ~ .chk_indicator {
+  background: var(--accent-color);
+}
+
+.checkboxCustom .labelChk input:disabled ~ .chk_indicator {
+  background: var(--text-color-inactive);
+  opacity: .2;
+  pointer-events: none;
+}
+
+.checkboxCustom .chk_indicator:after {
+  content: "";
+  display: none;
+  position: absolute;
+}
+
+.checkboxCustom .labelChk input:checked ~ .chk_indicator:after {
+  display: block;
+}
+
+.checkboxCustom .label-checkbox .chk_indicator:after {
+  border: solid var(--text-color);
+  border-width: 0 2px 2px 0;
+  height: 8px;
+  left: 8px;
+  top: 4px;
+  transform: rotate(45deg);
+  width: 3px;
+}
+
+.checkboxCustom .label-checkbox input:disabled ~ .chk_indicator:after {
+  border-color: var(--text-color);
+}
+
+/* ================== */
 
 .separator {
   display: inline;

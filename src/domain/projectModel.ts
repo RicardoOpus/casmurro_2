@@ -1,12 +1,15 @@
 import Character from './characterModel';
-import World from './worldModel.ts';
+import World from './worldModel';
 
 interface Project {
   title: string;
   status: string;
   last_edit: number;
   created_at: number;
-  projectSettings: object;
+  projectSettings: {
+    charactersCategory: string[],
+    charactersGenrders: string[],
+  };
   id_controler: number;
   cards_qty: number;
   lastBackup: number;

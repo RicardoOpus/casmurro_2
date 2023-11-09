@@ -15,6 +15,8 @@ function CharacterDetail() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const characters = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
+  const prjSettings = useSelector((state: IrootStateProject) => (
+    state.projectDataReducer.projectData.projectSettings));
   const { id } = useParams();
   const currentCharacter = characters?.find((e) => e.id === Number(id));
 
@@ -99,15 +101,13 @@ function CharacterDetail() {
               onChange={(e) => handleSelectChange(e, 'category')}
             >
               <option value="">{ }</option>
-              <option value="antagonista">• Antagonista</option>
-              <option value="coadjuvante">• Coadjuvante</option>
-              <option value="criatura">• Criatura</option>
-              <option value="entidade">• Entidade</option>
-              <option value="herói">• Herói</option>
-              <option value="mascote">• Mascote</option>
-              <option value="protagonista">• Protagonista</option>
-              <option value="secundário">• Secundário</option>
-              <option value="vilão">• Vilão</option>
+              {prjSettings.charactersCategory.map((e) => (
+                <option key={e} value={e}>
+                  •
+                  {' '}
+                  {e}
+                </option>
+              ))}
             </select>
             <h3>Idade</h3>
             <input
@@ -125,14 +125,13 @@ function CharacterDetail() {
               onChange={(e) => handleSelectChange(e, 'gender')}
             >
               <option value="">{ }</option>
-              <option value="masculino">• Masculino</option>
-              <option value="feminino">• Feminino</option>
-              <option value="não-binário">• Não-Binário</option>
-              <option value="gênero fluído">• Gênero Fluído</option>
-              <option value="agênero">• Agênero</option>
-              <option value="transexual">• Transexual</option>
-              <option value="genderqueer">• Genderqueer</option>
-              <option value="outro">• Outro</option>
+              {prjSettings.charactersGenrders.map((e) => (
+                <option key={e} value={e}>
+                  •
+                  {' '}
+                  {e}
+                </option>
+              ))}
             </select>
             <h3>Ocupação</h3>
             <input

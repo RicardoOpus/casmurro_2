@@ -1,6 +1,15 @@
 import { SetStateAction, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import IrootStateProject from '../../../domain/IrootStateProject';
+import './settings.css';
+import EditLists from './edit-lists';
+import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
+import { fetchProjectDataAction } from '../../redux/actions';
 
 function Settings() {
+  const dispatch = useDispatch();
+  const prjSettings = useSelector((state: IrootStateProject) => (
+    state.projectDataReducer.projectData.projectSettings));
   const [textValue, setTextValue] = useState('Exemplo de texto digitado por você. Nada aqui será salvo...');
   const adjustTextSize = (increaseStep: number, increase: boolean) => {
     const root = document.documentElement;
@@ -20,10 +29,19 @@ function Settings() {
     setTextValue(event.target.value);
   };
 
+  const saveSettings = async (newSettings: string[], table: string) => {
+    await indexedDBrepository.updateProjectSettings(newSettings, table);
+    dispatch(fetchProjectDataAction(true));
+  };
+
   return (
     <div className="innerContent">
       <div className="card">
         <h1>Configurações</h1>
+        <p>
+          Personalize a aparência, dados e comportamento exclusivos do projeto atual.
+          Qualquer alteração feita aqui não afeta outros projetos.
+        </p>
         <div className="divider div-transparent" />
         <h2>Customizar campos de texto livre</h2>
         <button onClick={() => adjustTextSize(2, true)} className="btnSmall" type="button">+ A</button>
@@ -37,9 +55,11 @@ function Settings() {
             onChange={handleTextChange}
           />
         </div>
-        <h2>Listas predefinidas</h2>
-        <h3>Categorias de personagnes</h3>
-        <h3>Gênero de personagnes</h3>
+        <h2>Personagens</h2>
+        <div className="listsSection">
+          <EditLists list={prjSettings.charactersCategory} projSettingsI="charactersCategory" listTitle="Categorias" onDataSend={saveSettings} />
+          <EditLists list={prjSettings.charactersGenrders} projSettingsI="charactersGenrders" listTitle="Gênero" onDataSend={saveSettings} />
+        </div>
       </div>
     </div>
   );
