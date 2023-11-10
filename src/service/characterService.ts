@@ -23,7 +23,7 @@ class CharacterService {
         note: '',
         resume: '',
       };
-      indexedDBrepository.characterPost(data);
+      await indexedDBrepository.characterPost(data);
     }
   }
 }

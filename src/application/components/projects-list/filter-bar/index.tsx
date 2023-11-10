@@ -26,7 +26,7 @@ function FilterBar({
         className="cardInputSearch"
         type="text"
         value={selectedTitle}
-        placeholder="Pesquisar por título..."
+        placeholder="Pesquisar pelo título..."
         onInput={(e) => {
           const target = e.target as HTMLTextAreaElement;
           setSelectedTitle(target.value);

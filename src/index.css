@@ -200,6 +200,7 @@ button:disabled:hover {
 .cardInputSearch {
   all: unset;
   background: var(--search-icon) no-repeat right .8em center / 1.4em;
+  background-color: var(--bg-color-sec);
   border: solid 1px var(--border-color);
   border-radius: 5px;
   box-sizing: border-box;

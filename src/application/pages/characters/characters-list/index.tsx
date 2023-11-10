@@ -16,6 +16,7 @@ function CharactersList() {
   const [selectedGender, setSelectedGender] = useState('');
   const [filtredCharacters, setFiltredCharacters] = useState<Character[]>([]);
   const [, setClearFilters] = useState(false);
+  const [isAscOrder, setIsAscOrder] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,13 +25,6 @@ function CharactersList() {
       setFiltredCharacters(projectData.data.characters);
     }
   }, [projectData.data?.characters]);
-
-  // const filtredCharacters = characters.filter((character) => {
-  //   const titleMatch = !selectedTitle || character.title.includes(selectedTitle);
-  //   const categoryMatch = !selectedCategory || character.category === selectedCategory;
-  //   const genderMatch = !selectedGender || character.gender === selectedGender;
-  //   return titleMatch && categoryMatch && genderMatch;
-  // });
 
   const clearAllFilters = () => {
     setSelectedTitle('');
@@ -52,6 +46,12 @@ function CharactersList() {
     handleFilter(characters);
   }, [characters, selectedTitle, selectedCategory, selectedGender]);
 
+  const handleSort = () => {
+    const sortedList = [...filtredCharacters].reverse();
+    setFiltredCharacters(sortedList);
+    setIsAscOrder(!isAscOrder);
+  };
+
   return (
     characters.length === 0 ? (
       <div>
@@ -63,11 +63,12 @@ function CharactersList() {
           <input
             type="text"
             value={selectedTitle}
-            placeholder="Pesquisar por título..."
+            placeholder="Pesquisar pelo título..."
             onInput={(e) => {
               const target = e.target as HTMLTextAreaElement;
               setSelectedTitle(target.value);
             }}
+            className="cardInputSearch"
           />
           <select
             value={selectedCategory}
@@ -97,7 +98,9 @@ function CharactersList() {
               </option>
             ))}
           </select>
-          <button type="button" onClick={clearAllFilters}>Limpar Filtros</button>
+          <button className="btnSmall" type="button" onClick={clearAllFilters}>Limpar Filtros</button>
+          <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑ Az</button>
+          <button className="btnSmall" type="button" onClick={handleSort} disabled={!isAscOrder}>↓ Za</button>
         </div>
         {filtredCharacters.map((character) => (
           <button onClick={() => navigate(`/characters/${character.id}`)} type="button" key={character.id} className="listItens">

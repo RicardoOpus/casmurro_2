@@ -76,10 +76,16 @@ class IndexedDBrepository {
 
   async characterPost(newData: Character) {
     const projectID = await this.getCurrentProjectID();
-    db.projects.where('id').equals(projectID).modify((ele: Project) => {
-      ele?.data?.characters?.unshift(newData);
-    });
-    this.updateLastEdit();
+    const projectData: Project | undefined = await db.projects.where('id').equals(projectID).first();
+    if (projectData) {
+      projectData.data?.characters?.unshift(newData);
+      projectData.data?.characters?.sort((a, b) => a.title.localeCompare(b.title));
+      await db.projects.where('id').equals(projectID).modify((ele: Project) => {
+        // eslint-disable-next-line no-param-reassign
+        ele.data = projectData.data;
+      });
+      this.updateLastEdit();
+    }
   }
 
   async characterUpdate(characterId: number, data: Character) {
@@ -105,23 +111,26 @@ class IndexedDBrepository {
     }
   }
 
-  async getCurrentCard(currentCardID: number, tableProperty: string): Promise<number | null> {
+  async getCurrentCard(
+    currentCardID: number,
+    tableProperty: string,
+  ): Promise<number | null | undefined> {
     const currProj = await this.getCurrentProject();
     if (currProj) {
       const characterData = currProj.data?.[tableProperty as keyof typeof currProj.data];
       const characterIDs = characterData?.map((e) => e.id);
       const positionInArray = characterIDs?.indexOf(currentCardID);
-      if (positionInArray) {
-        return positionInArray;
-      }
+      return positionInArray;
     }
     return null;
   }
 
   async deleteCard(cardID: number, table: string) {
     const currentID = await this.getCurrentProjectID();
-    const currentCard = await this.getCurrentCard(cardID, table);
-    if (currentID && currentCard) {
+    const currentCard = await this.getCurrentCard(cardID, table) ?? -1;
+    console.log(currentID, currentCard);
+
+    if (currentID !== null && currentCard !== undefined) {
       db.projects.where('id').equals(currentID).modify((e) => {
         switch (table) {
           case 'characters':
