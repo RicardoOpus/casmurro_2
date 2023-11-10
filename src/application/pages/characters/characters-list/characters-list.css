@@ -1,8 +1,13 @@
 .characterCard {
   border: solid 1px var(--border-color);
   border-radius: 4px;
+  color: var(--text-color);
   display: flex;
   padding: .5em;
+}
+
+.characterCard p {
+  margin: 0 0 .5em 1em;
 }
 
 .characterCard:hover {
@@ -20,5 +25,10 @@
 .charactertTitle {
   font-family: Amaranth;
   font-size: x-large;
-  margin: 0 0 0 .5rem;
+  margin: 0 0 0 .5em;
+}
+
+.categoryItem {
+  color: var(--text-color-inactive);
+  font-size: small;
 }

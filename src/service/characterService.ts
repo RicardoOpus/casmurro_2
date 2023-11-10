@@ -20,6 +20,8 @@ class CharacterService {
         color: this.defaultColor,
         relations: [],
         id: ID,
+        note: '',
+        resume: '',
       };
       indexedDBrepository.characterPost(data);
     }

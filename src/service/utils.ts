@@ -15,8 +15,8 @@ class Utils {
     return result;
   }
 
-  abreviarString(str: string, maxLenght: number): string {
-    if (str.length > maxLenght) {
+  abreviarString(str: string | undefined, maxLenght: number): string | undefined {
+    if (str && str.length > maxLenght) {
       return `${str.substring(0, maxLenght)}…`;
     }
     return str;

@@ -164,10 +164,24 @@ function CharacterDetail() {
         </div>
         <div className="divider div-transparent" />
         <div className="fullContent">
+          <h3>Resumo</h3>
+          <textarea
+            className="cardInputFull"
+            placeholder="Descreva de forma breve quem é essa personagem..."
+            value={stateCharacter?.resume}
+            onChange={(e) => handleTextAreaChange(e, 'resume')}
+          />
+          <h3>Anotações</h3>
+          <textarea
+            className="cardInputFull"
+            placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
+            value={stateCharacter?.note}
+            onChange={(e) => handleTextAreaChange(e, 'note')}
+          />
           <h3>Conteúdo</h3>
           <textarea
             className="cardInputFull"
-            placeholder="Campo livre..."
+            placeholder="Campo de texto livre..."
             value={stateCharacter?.content}
             onChange={(e) => handleTextAreaChange(e, 'content')}
           />
