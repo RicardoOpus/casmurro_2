@@ -76,9 +76,8 @@ class IndexedDBrepository {
 
   async characterPost(newData: Character) {
     const projectID = await this.getCurrentProjectID();
-
     db.projects.where('id').equals(projectID).modify((ele: Project) => {
-      ele?.data?.characters?.push(newData);
+      ele?.data?.characters?.unshift(newData);
     });
     this.updateLastEdit();
   }
@@ -86,19 +85,15 @@ class IndexedDBrepository {
   async characterUpdate(characterId: number, data: Character) {
     const projectID = await this.getCurrentProjectID();
     const project = await db.projects.where({ id: projectID }).first();
-
     if (project) {
       if (!project.data) {
         project.data = { characters: [] };
       }
-
       const characters = project.data.characters || [];
       const characterIndex = characters.findIndex((char) => char.id === characterId);
-
       if (characterIndex !== -1) {
         characters[characterIndex] = data;
         project.data.characters = characters;
-
         await db.projects.update(projectID, { data: project.data });
         this.updateLastEdit();
         console.log('Personagem atualizado com sucesso!');
@@ -120,7 +115,6 @@ class IndexedDBrepository {
         return positionInArray;
       }
     }
-
     return null;
   }
 
