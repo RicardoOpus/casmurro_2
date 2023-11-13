@@ -54,8 +54,12 @@ function CharacterDetail() {
   };
 
   useEffect(() => {
-    indexedDBrepository.characterUpdate(Number(id), stateCharacter as ICharacter);
-  }, [dispatch, stateCharacter, id]);
+    if (Object.keys(stateCharacter).length === 0) {
+      navigate('/');
+    } else {
+      indexedDBrepository.characterUpdate(Number(id), stateCharacter as ICharacter);
+    }
+  }, [dispatch, stateCharacter, id, navigate]);
 
   const cleanupFunction = () => {
     dispatch(fetchProjectDataAction(true));
@@ -106,7 +110,7 @@ function CharacterDetail() {
               onChange={(e) => handleSelectChange(e, 'category')}
             >
               <option value="">{ }</option>
-              {prjSettings.charactersCategory.map((e) => (
+              {prjSettings?.charactersCategory.map((e) => (
                 <option key={e} value={e}>
                   •
                   {' '}
@@ -130,7 +134,7 @@ function CharacterDetail() {
               onChange={(e) => handleSelectChange(e, 'gender')}
             >
               <option value="">{ }</option>
-              {prjSettings.charactersGenrders.map((e) => (
+              {prjSettings?.charactersGenrders.map((e) => (
                 <option key={e} value={e}>
                   •
                   {' '}
