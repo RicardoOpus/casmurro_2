@@ -4,7 +4,7 @@ import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import './projects.css';
 import NoData from '../../components/no-dada';
 import Project from '../../../domain/projectModel';
-import ProjectList from '../../components/projects-list';
+import ProjectList from './projects-list';
 import NewProjectModal from './new-project-modal';
 
 function Projects() {

@@ -1,17 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Project from '../../../domain/projectModel';
-import utils from '../../../service/utils';
+import Project from '../../../../domain/projectModel';
+import utils from '../../../../service/utils';
 import './projects-list.css';
 import {
   currentPageAction,
   fetchProjectDataAction,
   nextPageAction, previousPageAction, totalPagesAction,
-} from '../../redux/actions';
+} from '../../../redux/actions';
 import FilterBar from './filter-bar';
-import nodata from '../../../../public/no-data.png';
-import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
+import nodata from '../../../../../public/no-data.png';
+import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 
 type RootState = {
   paginationReducer: {
