@@ -1,4 +1,4 @@
-import Character from '../domain/characterModel';
+import ICharacter from '../domain/characterModel';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class CharacterService {
@@ -7,7 +7,7 @@ class CharacterService {
   async create(characterName: string) {
     const ID = await indexedDBrepository.idManager();
     if (ID) {
-      const data: Character = {
+      const data: ICharacter = {
         title: characterName,
         age: '',
         category: '',

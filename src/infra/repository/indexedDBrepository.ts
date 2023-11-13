@@ -2,8 +2,8 @@
 /* eslint-disable no-console */
 import db from '../database/dexieDB';
 // import simpleProject from '../../mocks/simpleProject';
-import Project from '../../domain/projectModel';
-import Character from '../../domain/characterModel';
+import IProject from '../../domain/projectModel';
+import ICharacter from '../../domain/characterModel';
 
 class IndexedDBrepository {
   startValueForID = 0;
@@ -17,7 +17,7 @@ class IndexedDBrepository {
     await db.settings.add({ currentprojectID: 0 });
   }
 
-  getAllProjects(): Promise<Project[]> {
+  getAllProjects(): Promise<IProject[]> {
     const projectsOrder = db.projects.orderBy('last_edit').reverse();
     return projectsOrder.toArray();
   }
@@ -28,7 +28,7 @@ class IndexedDBrepository {
     return idProject;
   }
 
-  async getCurrentProject(): Promise<Project | undefined> {
+  async getCurrentProject(): Promise<IProject | undefined> {
     const currentID = await this.getCurrentProjectID();
     const project = await db.projects.get(currentID);
     return project;
@@ -54,7 +54,7 @@ class IndexedDBrepository {
     await db.projects.update(projectID, { last_edit: now });
   }
 
-  async createNewProject(project: Project): Promise<number> {
+  async createNewProject(project: IProject): Promise<number> {
     const id = await db.projects.add(project).then();
     return id;
   }
@@ -74,13 +74,13 @@ class IndexedDBrepository {
     return null;
   }
 
-  async characterPost(newData: Character) {
+  async characterPost(newData: ICharacter) {
     const projectID = await this.getCurrentProjectID();
-    const projectData: Project | undefined = await db.projects.where('id').equals(projectID).first();
+    const projectData: IProject | undefined = await db.projects.where('id').equals(projectID).first();
     if (projectData) {
       projectData.data?.characters?.unshift(newData);
       projectData.data?.characters?.sort((a, b) => a.title.localeCompare(b.title));
-      await db.projects.where('id').equals(projectID).modify((ele: Project) => {
+      await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
         // eslint-disable-next-line no-param-reassign
         ele.data = projectData.data;
       });
@@ -88,7 +88,7 @@ class IndexedDBrepository {
     }
   }
 
-  async characterUpdate(characterId: number, data: Character) {
+  async characterUpdate(characterId: number, data: ICharacter) {
     const projectID = await this.getCurrentProjectID();
     const project = await db.projects.where({ id: projectID }).first();
     if (project) {

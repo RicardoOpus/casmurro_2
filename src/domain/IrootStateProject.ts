@@ -1,8 +1,8 @@
-import Project from './projectModel';
+import IProject from './projectModel';
 
 interface IrootStateProject {
   projectDataReducer: {
-    projectData: Project,
+    projectData: IProject,
     hasChange: boolean,
   }
 }

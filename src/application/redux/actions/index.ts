@@ -1,4 +1,4 @@
-import Project from '../../../domain/projectModel';
+import IProject from '../../../domain/projectModel';
 
 export const nextPageAction = () => ({
   type: 'NEXT_PAGE',
@@ -18,7 +18,7 @@ export const currentPageAction = (page: number) => ({
   payload: page,
 });
 
-export const projectDataAction = (project: Project) => ({
+export const projectDataAction = (project: IProject) => ({
   type: 'PROJECT_DATA',
   payload: project,
 });

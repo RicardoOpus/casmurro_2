@@ -1,6 +1,6 @@
-interface Settings {
+interface ISettings {
   id?: number;
   currentprojectID: number;
 }
 
-export default Settings;
+export default ISettings;

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ChangeEvent, useEffect, useState } from 'react';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import './characters-detail.css';
-import Character from '../../../../domain/characterModel';
+import ICharacter from '../../../../domain/characterModel';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions';
 import utils from '../../../../service/utils';
@@ -36,7 +36,7 @@ function CharacterDetail() {
   };
 
   const [stateCharacter,
-    setEditedName] = useState<Character | Partial<Character>>(currentCharacter || {});
+    setEditedName] = useState<ICharacter | Partial<ICharacter>>(currentCharacter || {});
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     setEditedName({ ...stateCharacter, [key]: e.target.value });
@@ -54,7 +54,7 @@ function CharacterDetail() {
   };
 
   useEffect(() => {
-    indexedDBrepository.characterUpdate(Number(id), stateCharacter as Character);
+    indexedDBrepository.characterUpdate(Number(id), stateCharacter as ICharacter);
   }, [dispatch, stateCharacter, id]);
 
   const cleanupFunction = () => {

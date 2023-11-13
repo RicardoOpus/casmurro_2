@@ -1,4 +1,4 @@
-import Project from '../domain/projectModel';
+import IProject from '../domain/projectModel';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class ProjectServide {
@@ -6,7 +6,7 @@ class ProjectServide {
 
   async create(projectName: string) {
     const now = Date.now();
-    const newProject: Project = {
+    const newProject: IProject = {
       title: projectName,
       status: this.deafultStatus,
       last_edit: now,

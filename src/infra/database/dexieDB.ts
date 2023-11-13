@@ -1,10 +1,10 @@
 import Dexie from 'dexie';
-import Project from '../../domain/projectModel';
-import Settings from '../../domain/settingsModel';
+import IProject from '../../domain/projectModel';
+import ISettings from '../../domain/settingsModel';
 
 interface MyDatabase extends Dexie {
-  projects: Dexie.Table<Project, number>;
-  settings: Dexie.Table<Settings, number>;
+  projects: Dexie.Table<IProject, number>;
+  settings: Dexie.Table<ISettings, number>;
 }
 
 const db = new Dexie('casmurro2') as MyDatabase;

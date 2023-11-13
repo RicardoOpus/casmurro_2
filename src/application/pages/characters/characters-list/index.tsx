@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import IrootStateProject from '../../../../domain/IrootStateProject';
-import Character from '../../../../domain/characterModel';
+import ICharacter from '../../../../domain/characterModel';
 import './characters-list.css';
 import utils from '../../../../service/utils';
 
@@ -10,11 +10,11 @@ function CharactersList() {
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const prjSettings = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.projectSettings));
-  const [characters, setCharacters] = useState<Character[]>([]);
+  const [characters, setCharacters] = useState<ICharacter[]>([]);
   const [selectedTitle, setSelectedTitle] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
-  const [filtredCharacters, setFiltredCharacters] = useState<Character[]>([]);
+  const [filtredCharacters, setFiltredCharacters] = useState<ICharacter[]>([]);
   const [, setClearFilters] = useState(false);
   const [isAscOrder, setIsAscOrder] = useState(true);
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ function CharactersList() {
   };
 
   useEffect(() => {
-    const handleFilter = (charactersList: Character[]) => {
+    const handleFilter = (charactersList: ICharacter[]) => {
       const result = charactersList.filter((character) => {
         const titleMatch = !selectedTitle || character.title.includes(selectedTitle);
         const categoryMatch = !selectedCategory || character.category === selectedCategory;

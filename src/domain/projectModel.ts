@@ -1,7 +1,7 @@
-import Character from './characterModel';
-import World from './worldModel';
+import ICharacter from './characterModel';
+import IWorld from './worldModel';
 
-interface Project {
+interface IProject {
   title: string;
   status: string;
   last_edit: number;
@@ -16,8 +16,8 @@ interface Project {
   lastBackup: number;
   id?: number;
   data?: {
-    characters?: Character[];
-    world?: World[];
+    characters?: ICharacter[];
+    world?: IWorld[];
   };
   subtitle?: string;
   author?: string;
@@ -31,4 +31,4 @@ interface Project {
   showSubtitle?: boolean;
 }
 
-export default Project;
+export default IProject;

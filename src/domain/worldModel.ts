@@ -1,6 +1,6 @@
-interface World {
+interface IWorld {
   title: string;
   id: number;
 }
 
-export default World;
+export default IWorld;

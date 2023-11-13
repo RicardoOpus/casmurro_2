@@ -3,12 +3,12 @@ import casmurroLogo from '../../../../public/casmurro-logo.svg';
 import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import './projects.css';
 import NoData from '../../components/no-dada';
-import Project from '../../../domain/projectModel';
+import IProject from '../../../domain/projectModel';
 import ProjectList from './projects-list';
 import NewProjectModal from './new-project-modal';
 
 function Projects() {
-  const [projects, setDados] = useState<Project[]>([]);
+  const [projects, setDados] = useState<IProject[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {

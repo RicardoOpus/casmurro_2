@@ -1,4 +1,4 @@
-interface Character {
+interface ICharacter {
   age?: string;
   category?: string;
   color?: string;
@@ -15,4 +15,4 @@ interface Character {
   title: string;
 }
 
-export default Character;
+export default ICharacter;
