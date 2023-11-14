@@ -128,8 +128,6 @@ class IndexedDBrepository {
   async deleteCard(cardID: number, table: string) {
     const currentID = await this.getCurrentProjectID();
     const currentCard = await this.getCurrentCard(cardID, table) ?? -1;
-    console.log(currentID, currentCard);
-
     if (currentID !== null && currentCard !== undefined) {
       db.projects.where('id').equals(currentID).modify((e) => {
         switch (table) {

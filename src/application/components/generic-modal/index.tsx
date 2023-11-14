@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface GenericModalProps {
   onClose: () => void;
@@ -6,6 +6,7 @@ interface GenericModalProps {
   // eslint-disable-next-line no-unused-vars
   onDataSend: (data: string) => void;
   deleteType: boolean;
+  openModal: boolean;
 }
 
 function getIconPath(category: string): string {
@@ -26,11 +27,12 @@ function getIconPath(category: string): string {
 }
 
 function GenericModal({
-  onClose, typeName, onDataSend, deleteType,
+  onClose, typeName, onDataSend, deleteType, openModal,
 }: GenericModalProps) {
   const [newItemTitle, SetNewItemTitle] = useState('');
   const isSaveButtonDisabled = newItemTitle.trim() === '';
   const handleCancel = () => onClose();
+  const ref = useRef<HTMLDialogElement | null>(null);
 
   const sendDataToParent = () => {
     onDataSend(newItemTitle);
@@ -43,8 +45,17 @@ function GenericModal({
     }
   };
 
+  useEffect(() => {
+    if (openModal) {
+      ref.current?.showModal();
+    } else {
+      SetNewItemTitle('');
+      ref.current?.close();
+    }
+  }, [openModal]);
+
   return (
-    <div className="modal">
+    <dialog ref={ref} id="newModal" className="modal">
       <div className="modal-content">
         <div className="corner ponto1" />
         <div className="corner ponto2" />
@@ -75,7 +86,7 @@ function GenericModal({
         <div className="corner ponto3" />
         <div className="corner ponto4" />
       </div>
-    </div>
+    </dialog>
   );
 }
 

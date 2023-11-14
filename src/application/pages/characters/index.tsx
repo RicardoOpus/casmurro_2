@@ -6,22 +6,22 @@ import { fetchProjectDataAction } from '../../redux/actions';
 import CharactersList from './characters-list';
 
 function Characters() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const characterService = new CharacterService();
   const dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
+
   const openModal = () => {
-    setIsModalOpen(true);
-    document.body.classList.add('modal-open');
+    setModal(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
-    document.body.classList.remove('modal-open');
+    setModal(false);
   };
 
   const handleSaveData = async (data: string) => {
     await characterService.create(data);
     dispatch(fetchProjectDataAction(true));
+    setModal(false);
   };
 
   return (
@@ -32,9 +32,7 @@ function Characters() {
           {' '}
           Novo
         </button>
-        {isModalOpen && (
-          <GenericModal onClose={closeModal} typeName="Nova personagem" onDataSend={handleSaveData} deleteType={false} />
-        )}
+        <GenericModal openModal={modal} onClose={closeModal} typeName="Nova personagem" onDataSend={handleSaveData} deleteType={false} />
         <CharactersList />
       </div>
     </div>

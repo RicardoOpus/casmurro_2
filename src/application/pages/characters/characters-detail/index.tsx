@@ -12,7 +12,7 @@ import GenericModal from '../../../components/generic-modal';
 function CharacterDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modal, setModal] = useState(false);
   const characters = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
   const prjSettings = useSelector((state: IrootStateProject) => (
@@ -21,13 +21,11 @@ function CharacterDetail() {
   const currentCharacter = characters?.find((e) => e.id === Number(id));
 
   const openModal = () => {
-    setIsModalOpen(true);
-    document.body.classList.add('modal-open');
+    setModal(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
-    document.body.classList.remove('modal-open');
+    setModal(false);
   };
 
   const handleDelete = async () => {
@@ -191,9 +189,7 @@ function CharacterDetail() {
           />
         </div>
       </div>
-      {isModalOpen && (
-        <GenericModal onClose={closeModal} typeName="Excluir personagem?" onDataSend={handleDelete} deleteType />
-      )}
+      <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir personagem?" onDataSend={handleDelete} deleteType />
     </div>
   );
 }
