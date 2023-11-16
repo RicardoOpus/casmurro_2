@@ -480,6 +480,7 @@ option {
 
 .modal {
   background-color: rgba(0, 0, 0, .686);
+  border: 0;
   height: 100%;
   left: 0;
   position: fixed;
