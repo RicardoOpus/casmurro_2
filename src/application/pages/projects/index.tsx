@@ -9,16 +9,15 @@ import NewProjectModal from './new-project-modal';
 
 function Projects() {
   const [projects, setDados] = useState<IProject[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const openModal = () => {
-    setIsModalOpen(true);
-    document.body.classList.add('modal-open');
+    setModal(true);
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
-    document.body.classList.remove('modal-open');
+    setModal(false);
   };
 
   useEffect(() => {
@@ -56,9 +55,7 @@ function Projects() {
           />
         )}
       </div>
-      {isModalOpen && (
-        <NewProjectModal onClose={closeModal} />
-      )}
+      <NewProjectModal openModal={modal} onClose={closeModal} />
     </div>
   );
 }

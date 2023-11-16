@@ -1,4 +1,6 @@
-import { useState, ChangeEvent } from 'react';
+import {
+  useState, ChangeEvent, useRef, useEffect,
+} from 'react';
 import './newProjectModal.css';
 import 'balloon-css';
 import { useNavigate } from 'react-router-dom';
@@ -8,9 +10,10 @@ import { fetchProjectDataAction } from '../../../redux/actions';
 
 interface NewProjectModalProps {
   onClose: () => void;
+  openModal: boolean;
 }
 
-function NewProjectModal({ onClose }: NewProjectModalProps) {
+function NewProjectModal({ onClose, openModal }: NewProjectModalProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [projectName, setProjectName] = useState('');
@@ -18,6 +21,7 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
   const [warningTerms, setWarningTerms] = useState(false);
   const isSaveButtonDisabled = projectName.trim() === '';
   const handleCancel = () => onClose();
+  const ref = useRef<HTMLDialogElement | null>(null);
 
   const handleCreate = async () => {
     if (!agreedToTerms) {
@@ -40,8 +44,29 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
     }
   };
 
+  useEffect(() => {
+    const handleEscapeKeyPress = (event: { key: string }) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+    document.addEventListener('keydown', handleEscapeKeyPress);
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKeyPress);
+    };
+  }, [onClose]);
+
+  useEffect(() => {
+    if (openModal) {
+      ref.current?.showModal();
+    } else {
+      setProjectName('');
+      ref.current?.close();
+    }
+  }, [openModal]);
+
   return (
-    <div className="modal" data-testid="modal-new-project">
+    <dialog ref={ref} className="modal" data-testid="modal-new-project">
       <div className="modal-content">
         <div className="corner ponto1" />
         <div className="corner ponto2" />
@@ -115,7 +140,7 @@ function NewProjectModal({ onClose }: NewProjectModalProps) {
         <div className="corner ponto3" />
         <div className="corner ponto4" />
       </div>
-    </div>
+    </dialog>
   );
 }
 
