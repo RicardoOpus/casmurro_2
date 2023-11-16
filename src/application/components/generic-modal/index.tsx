@@ -46,6 +46,18 @@ function GenericModal({
   };
 
   useEffect(() => {
+    const handleEscapeKeyPress = (event: { key: string }) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+    document.addEventListener('keydown', handleEscapeKeyPress);
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKeyPress);
+    };
+  }, [onClose]);
+
+  useEffect(() => {
     if (openModal) {
       ref.current?.showModal();
     } else {
