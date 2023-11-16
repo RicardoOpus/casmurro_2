@@ -67,7 +67,7 @@ function GenericModal({
   }, [openModal]);
 
   return (
-    <dialog ref={ref} id="newModal" className="modal">
+    <dialog ref={ref} className="modal">
       <div className="modal-content">
         <div className="corner ponto1" />
         <div className="corner ponto2" />

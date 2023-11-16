@@ -490,7 +490,12 @@ option {
 }
 
 .modal h2 {
+  color: var(--text-color);
   margin: 0;
+}
+
+.modal label {
+  color: var(--text-color);
 }
 
 .modal-content {
