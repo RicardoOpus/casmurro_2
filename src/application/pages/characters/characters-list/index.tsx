@@ -1,19 +1,36 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import ICharacter from '../../../../domain/characterModel';
 import './characters-list.css';
 import utils from '../../../../service/utils';
+import {
+  charFilterTitleAction,
+  charFilterCategoryAction,
+  charFilterGenderAction,
+} from '../../../redux/actions';
+
+type RootState = {
+  charFilterReducer: {
+    selectedTitle: string,
+    selectedCategory: string,
+    selectedGender: string
+  }
+};
 
 function CharactersList() {
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const prjSettings = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.projectSettings));
   const [characters, setCharacters] = useState<ICharacter[]>([]);
-  const [selectedTitle, setSelectedTitle] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [selectedGender, setSelectedGender] = useState('');
+  const {
+    selectedTitle,
+    selectedCategory,
+    selectedGender,
+  } = useSelector((state: RootState) => state.charFilterReducer);
+  const dispatch = useDispatch();
+
   const [filtredCharacters, setFiltredCharacters] = useState<ICharacter[]>([]);
   const [, setClearFilters] = useState(false);
   const [isAscOrder, setIsAscOrder] = useState(true);
@@ -27,9 +44,9 @@ function CharactersList() {
   }, [projectData.data?.characters]);
 
   const clearAllFilters = () => {
-    setSelectedTitle('');
-    setSelectedCategory('');
-    setSelectedGender('');
+    dispatch(charFilterTitleAction(''));
+    dispatch(charFilterCategoryAction(''));
+    dispatch(charFilterGenderAction(''));
     setClearFilters(true);
   };
 
@@ -66,13 +83,13 @@ function CharactersList() {
             placeholder="Pesquisar pelo título..."
             onInput={(e) => {
               const target = e.target as HTMLTextAreaElement;
-              setSelectedTitle(target.value);
+              dispatch(charFilterTitleAction(target.value));
             }}
             className="cardInputSearch"
           />
           <select
             value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
+            onChange={(e) => dispatch(charFilterCategoryAction(e.target.value))}
           >
             <option value="">Categoria</option>
             {prjSettings.charactersCategory.map((e) => (
@@ -86,7 +103,7 @@ function CharactersList() {
           </select>
           <select
             value={selectedGender}
-            onChange={(e) => setSelectedGender(e.target.value)}
+            onChange={(e) => dispatch(charFilterGenderAction(e.target.value))}
           >
             <option value="">Gêneros</option>
             {prjSettings.charactersGenrders.map((e) => (
