@@ -5,7 +5,7 @@ import IrootStateProject from '../../../../domain/IrootStateProject';
 import './characters-detail.css';
 import ICharacter from '../../../../domain/characterModel';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
-import { fetchProjectDataAction } from '../../../redux/actions';
+import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import utils from '../../../../service/utils';
 import GenericModal from '../../../components/generic-modal';
 

@@ -4,7 +4,7 @@ import IrootStateProject from '../../../domain/IrootStateProject';
 import './settings.css';
 import EditLists from './edit-lists';
 import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
-import { fetchProjectDataAction } from '../../redux/actions';
+import { fetchProjectDataAction } from '../../redux/actions/projectActions';
 import paragraphyMock from '../../../mocks/paragraph';
 
 function Settings() {

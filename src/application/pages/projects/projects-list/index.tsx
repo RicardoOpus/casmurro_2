@@ -8,7 +8,7 @@ import {
   currentPageAction,
   fetchProjectDataAction,
   nextPageAction, previousPageAction, totalPagesAction,
-} from '../../../redux/actions';
+} from '../../../redux/actions/projectActions';
 import FilterBar from './filter-bar';
 import nodata from '../../../../../public/no-data.png';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';

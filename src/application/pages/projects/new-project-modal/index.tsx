@@ -6,7 +6,7 @@ import 'balloon-css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import ProjectServide from '../../../../service/projectsService';
-import { fetchProjectDataAction } from '../../../redux/actions';
+import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 
 interface NewProjectModalProps {
   onClose: () => void;

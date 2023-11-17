@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import GenericModal from '../../components/generic-modal';
 import CharacterService from '../../../service/characterService';
-import { fetchProjectDataAction } from '../../redux/actions';
+import { fetchProjectDataAction } from '../../redux/actions/projectActions';
 import CharactersList from './characters-list';
 
 function Characters() {

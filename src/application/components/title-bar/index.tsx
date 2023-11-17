@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import './title-bar.css';
 import TitleBarService from '../../../service/titleBarService';
 import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
-import { fetchProjectDataAction, projectDataAction } from '../../redux/actions';
+import { fetchProjectDataAction, projectDataAction } from '../../redux/actions/projectActions';
 import IrootStateProject from '../../../domain/IrootStateProject';
 
 function TitleBar() {

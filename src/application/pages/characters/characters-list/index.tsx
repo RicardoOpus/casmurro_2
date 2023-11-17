@@ -10,7 +10,7 @@ import {
   charFilterCategoryAction,
   charFilterGenderAction,
   charFilterSortAction,
-} from '../../../redux/actions';
+} from '../../../redux/actions/characterActions';
 
 type RootState = {
   charFilterReducer: {
