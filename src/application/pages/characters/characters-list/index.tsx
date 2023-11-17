@@ -9,13 +9,15 @@ import {
   charFilterTitleAction,
   charFilterCategoryAction,
   charFilterGenderAction,
+  charFilterSortAction,
 } from '../../../redux/actions';
 
 type RootState = {
   charFilterReducer: {
     selectedTitle: string,
     selectedCategory: string,
-    selectedGender: string
+    selectedGender: string,
+    isAscOrder: boolean,
   }
 };
 
@@ -28,12 +30,12 @@ function CharactersList() {
     selectedTitle,
     selectedCategory,
     selectedGender,
+    isAscOrder,
   } = useSelector((state: RootState) => state.charFilterReducer);
   const dispatch = useDispatch();
 
   const [filtredCharacters, setFiltredCharacters] = useState<ICharacter[]>([]);
   const [, setClearFilters] = useState(false);
-  const [isAscOrder, setIsAscOrder] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,15 +60,21 @@ function CharactersList() {
         const genderMatch = !selectedGender || character.gender === selectedGender;
         return titleMatch && categoryMatch && genderMatch;
       });
-      setFiltredCharacters(result);
+      if (!isAscOrder) {
+        const sortedList = [...result].reverse();
+        setFiltredCharacters(sortedList);
+        dispatch(charFilterSortAction(isAscOrder));
+      } else {
+        setFiltredCharacters(result);
+      }
     };
     handleFilter(characters);
-  }, [characters, selectedTitle, selectedCategory, selectedGender]);
+  }, [characters, selectedTitle, selectedCategory, selectedGender, isAscOrder, dispatch]);
 
   const handleSort = () => {
     const sortedList = [...filtredCharacters].reverse();
     setFiltredCharacters(sortedList);
-    setIsAscOrder(!isAscOrder);
+    dispatch(charFilterSortAction(!isAscOrder));
   };
 
   return (
