@@ -476,6 +476,23 @@ option {
   background-position: -176px -96px;
 }
 
+/*=========== Filter =========== */
+
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.filterBar button {
+  margin: 1rem 0;
+}
+
+.filterBar input {
+  width: unset;
+}
+
 /*=========== MODAL =========== */
 
 .modal {

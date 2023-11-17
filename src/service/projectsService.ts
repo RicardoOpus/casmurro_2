@@ -20,8 +20,9 @@ class ProjectServide {
           'Entidade',
           'Herói',
           'Mascote',
+          'Principais',
           'Protagonista',
-          'Secundário',
+          'Secundários',
           'Vilão',
         ],
         charactersGenrders: [
@@ -31,7 +32,6 @@ class ProjectServide {
           'Gênero Fluído',
           'Agênero',
           'Transexual',
-          'Genderqueer',
           'Outro',
         ],
         projectColor: '#0099ff',

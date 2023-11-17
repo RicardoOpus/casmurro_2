@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction } from 'react';
-import './filter-bar.css';
 
 type FilterBarProps = {
   selectedStatus: string;
