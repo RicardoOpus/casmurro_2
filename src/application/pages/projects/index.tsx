@@ -9,7 +9,6 @@ import NewProjectModal from './new-project-modal';
 
 function Projects() {
   const [projects, setDados] = useState<IProject[]>([]);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
   const [modal, setModal] = useState(false);
 
   const openModal = () => {
