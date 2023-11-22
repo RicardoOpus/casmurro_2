@@ -9,6 +9,7 @@ import {
   charFilterTitleAction,
   charFilterCategoryAction,
   charFilterGenderAction,
+  charFilterCoreGroupAction,
   charFilterSortAction,
 } from '../../../redux/actions/characterActions';
 import NotFound from '../../../components/not-found';
@@ -19,6 +20,7 @@ type RootState = {
     selectedTitle: string,
     selectedCategory: string,
     selectedGender: string,
+    selectedCoreGroup: string,
     isAscOrder: boolean,
   }
 };
@@ -32,6 +34,7 @@ function CharactersList() {
     selectedTitle,
     selectedCategory,
     selectedGender,
+    selectedCoreGroup,
     isAscOrder,
   } = useSelector((state: RootState) => state.charFilterReducer);
   const dispatch = useDispatch();
@@ -51,6 +54,7 @@ function CharactersList() {
     dispatch(charFilterTitleAction(''));
     dispatch(charFilterCategoryAction(''));
     dispatch(charFilterGenderAction(''));
+    dispatch(charFilterCoreGroupAction(''));
     setClearFilters(true);
   };
 
@@ -60,7 +64,8 @@ function CharactersList() {
         const titleMatch = !selectedTitle || character.title.includes(selectedTitle);
         const categoryMatch = !selectedCategory || character.category === selectedCategory;
         const genderMatch = !selectedGender || character.gender === selectedGender;
-        return titleMatch && categoryMatch && genderMatch;
+        const coreGroupMatch = !selectedCoreGroup || character.core_group === selectedCoreGroup;
+        return titleMatch && categoryMatch && genderMatch && coreGroupMatch;
       });
       if (!isAscOrder) {
         const sortedList = [...result].reverse();
@@ -71,7 +76,8 @@ function CharactersList() {
       }
     };
     handleFilter(characters);
-  }, [characters, selectedTitle, selectedCategory, selectedGender, isAscOrder, dispatch]);
+  }, [characters,
+    selectedTitle, selectedCategory, selectedGender, selectedCoreGroup, isAscOrder, dispatch]);
 
   const handleSort = () => {
     const sortedList = [...filtredCharacters].reverse();
@@ -113,8 +119,22 @@ function CharactersList() {
             value={selectedGender}
             onChange={(e) => dispatch(charFilterGenderAction(e.target.value))}
           >
-            <option value="">Gêneros</option>
+            <option value="">Gênero</option>
             {prjSettings.charactersGenders.map((e) => (
+              <option key={e} value={e}>
+                {' '}
+                •
+                {' '}
+                {e}
+              </option>
+            ))}
+          </select>
+          <select
+            value={selectedCoreGroup}
+            onChange={(e) => dispatch(charFilterCoreGroupAction(e.target.value))}
+          >
+            <option value="">Núcleo</option>
+            {prjSettings.charactersCoreGroupes.map((e) => (
               <option key={e} value={e}>
                 {' '}
                 •

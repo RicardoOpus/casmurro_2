@@ -13,6 +13,11 @@ export const charFilterGenderAction = (charFilter: string) => ({
   payload: charFilter,
 });
 
+export const charFilterCoreGroupAction = (charFilter: string) => ({
+  type: 'CHAR_FILTER_CORE_GROUP',
+  payload: charFilter,
+});
+
 export const charFilterSortAction = (charFilter: boolean) => ({
   type: 'CHAR_FILTER_SORT',
   payload: charFilter,

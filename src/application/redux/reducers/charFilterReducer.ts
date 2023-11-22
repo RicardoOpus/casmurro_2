@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   selectedTitle: '',
   selectedCategory: '',
   selectedGender: '',
+  selectedCoreGroup: '',
   isAscOrder: true,
 };
 
@@ -26,6 +27,11 @@ const charFilterReducer = (state = INITIAL_STATE, action: ActionType = { type: '
       return {
         ...state,
         selectedGender: action.payload,
+      };
+    case 'CHAR_FILTER_CORE_GROUP':
+      return {
+        ...state,
+        selectedCoreGroup: action.payload,
       };
     case 'CHAR_FILTER_SORT':
       return {
