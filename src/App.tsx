@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Dashboard from './application/pages/home';
 import Dev from './application/pages/dev';
 import Layout from './application/components/layout';
-import NotFound from './application/pages/not-found';
+import NotFoundPage from './application/pages/not-found';
 import Projects from './application/pages/projects';
 import Splash from './application/pages/splash';
 import Characters from './application/pages/characters';
@@ -56,7 +56,7 @@ function App() {
           </Route>
           <Route path="/splash" element={<Splash />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/*" element={<NotFound />} />
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       )}
     </div>

@@ -11,6 +11,8 @@ import {
   charFilterGenderAction,
   charFilterSortAction,
 } from '../../../redux/actions/characterActions';
+import NotFound from '../../../components/not-found';
+import NoData from '../../../components/no-dada';
 
 type RootState = {
   charFilterReducer: {
@@ -79,9 +81,7 @@ function CharactersList() {
 
   return (
     characters.length === 0 ? (
-      <div>
-        <h1>Lista que NÃO tem</h1>
-      </div>
+      <NoData dataType="personagens" />
     ) : (
       <div>
         <div className="filterBar">
@@ -127,25 +127,29 @@ function CharactersList() {
           <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑ Az</button>
           <button className="btnSmall" type="button" onClick={handleSort} disabled={!isAscOrder}>↓ Za</button>
         </div>
-        {filtredCharacters.map((character) => (
-          <button onClick={() => navigate(`/characters/${character.id}`)} type="button" key={character.id} className="listItens">
-            <div className="characterCard">
-              <img className="charListImage" src="./person.png" alt="person img" />
-              <div>
-                <h3 className="charactertTitle">
-                  <span style={{ color: character.color || 'var(--text-color-sec)' }}>🯊 </span>
-                  {character.title}
-                </h3>
-                <p className="categoryItem">
-                  {character.category}
-                  {' '}
-                  {character.age ? `• ${character.age} anos` : ''}
-                </p>
-                <p>{utils.abreviarString(character.resume, 300)}</p>
+        {filtredCharacters.length === 0 ? (
+          <NotFound />
+        ) : (
+          filtredCharacters.map((character) => (
+            <button onClick={() => navigate(`/characters/${character.id}`)} type="button" key={character.id} className="listItens">
+              <div className="characterCard">
+                <img className="charListImage" src="./person.png" alt="person img" />
+                <div>
+                  <h3 className="charactertTitle">
+                    <span style={{ color: character.color || 'var(--text-color-sec)' }}>🯊 </span>
+                    {character.title}
+                  </h3>
+                  <p className="categoryItem">
+                    {character.category}
+                    {' '}
+                    {character.age ? `• ${character.age} anos` : ''}
+                  </p>
+                  <p>{utils.abreviarString(character.resume, 300)}</p>
+                </div>
               </div>
-            </div>
-          </button>
-        ))}
+            </button>
+          ))
+        )}
       </div>
     )
   );

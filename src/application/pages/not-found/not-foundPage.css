@@ -1,0 +1,12 @@
+.notFoundPage {
+  margin: 5em;
+  text-align: center;
+}
+
+.notFoundPage img {
+  margin: 2em;
+}
+
+.notFounLink {
+  font-size: xx-large;
+}

@@ -83,13 +83,13 @@
 }
 
 a {
-  color: var(--text-color);
+  color: var(--accent-color);
   font-weight: 500;
   text-decoration: underline;
 }
 
 a:hover {
-  color: var(--accent-color);
+  color: var(--text-color);
 }
 
 body {
@@ -263,6 +263,11 @@ select {
 
 option {
   background-color: var(--bg-color-sec);
+}
+
+.dataNotFound {
+  margin: 5em;
+  text-align: center;
 }
 
 /* ============= CHECKBOX TYPE WRAPPER ================= */

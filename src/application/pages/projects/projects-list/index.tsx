@@ -11,8 +11,8 @@ import {
 } from '../../../redux/actions/projectActions';
 import { charClearState } from '../../../redux/actions/characterActions';
 import FilterBar from './filter-bar';
-import nodata from '../../../../../public/no-data.png';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
+import NotFound from '../../../components/not-found';
 
 type RootState = {
   paginationReducer: {
@@ -102,10 +102,7 @@ function ProjectList({ projects }: { projects: IProject[] }) {
           setSelectedTitle={setSelectedTitle}
           clearAllFilters={clearAllFilters}
         />
-        <div className="dataNotFound">
-          <img className="icon-color" src={nodata} alt="ilustração lupa" />
-          <h3>nada encontrado</h3>
-        </div>
+        <NotFound />
       </div>
     ) : (
       <div className="projectsList">
