@@ -128,7 +128,8 @@ function Settings() {
           </legend>
           <div className="listsSection">
             <EditLists list={prjSettings.charactersCategory} projSettingsI="charactersCategory" listTitle="Categorias" onDataSend={saveSettings} />
-            <EditLists list={prjSettings.charactersGenrders} projSettingsI="charactersGenrders" listTitle="Gênero" onDataSend={saveSettings} />
+            <EditLists list={prjSettings.charactersGenders} projSettingsI="charactersGenders" listTitle="Gênero" onDataSend={saveSettings} />
+            <EditLists list={prjSettings.charactersCoreGroupes} projSettingsI="charactersCoreGroupes" listTitle="Núcleos" onDataSend={saveSettings} />
           </div>
         </fieldset>
       </div>

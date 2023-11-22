@@ -90,6 +90,15 @@ function CharacterDetail() {
         />
         <div className="detailBar">
           <div className="detailBarBbutton">
+            <input
+              className="chartaterColor"
+              type="color"
+              value={stateCharacter.color}
+              onChange={(e) => handleInputChange(e, 'color')}
+            />
+            <button type="button" className="btnRandom" title="Gerar aleatoriamente uma cor" onClick={hadleRandomColor}>
+              ↻
+            </button>
             <button className="detailAdd" type="button">{ }</button>
             <button className="btnSmall" type="button" onClick={openModal}>
               <span className="ui-icon ui-icon-trash icon-color" />
@@ -132,7 +141,7 @@ function CharacterDetail() {
               onChange={(e) => handleSelectChange(e, 'gender')}
             >
               <option value="">{ }</option>
-              {prjSettings?.charactersGenrders.map((e) => (
+              {prjSettings?.charactersGenders.map((e) => (
                 <option key={e} value={e}>
                   •
                   {' '}
@@ -149,19 +158,21 @@ function CharacterDetail() {
             />
           </div>
           <div>
-            <h3>Cor</h3>
-            <input
-              className="chartaterColor"
-              type="color"
-              value={stateCharacter.color}
-              onChange={(e) => handleInputChange(e, 'color')}
-            />
-            <h3>
-              Aleatória
-            </h3>
-            <button type="button" className="btnRandom" title="Gerar aleatoriamente uma cor" onClick={hadleRandomColor}>
-              ↻
-            </button>
+            <h3>Núcleo</h3>
+            <select
+              className="selectFullWith"
+              value={stateCharacter?.core_group}
+              onChange={(e) => handleSelectChange(e, 'core_group')}
+            >
+              <option value="">{ }</option>
+              {prjSettings?.charactersCoreGroupes.map((e) => (
+                <option key={e} value={e}>
+                  •
+                  {' '}
+                  {e}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="divider div-transparent" />

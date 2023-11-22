@@ -8,20 +8,21 @@ class CharacterService {
     const ID = await indexedDBrepository.idManager();
     if (ID) {
       const data: ICharacter = {
-        title: characterName,
         age: '',
         category: '',
-        image: '',
+        color: this.defaultColor,
         content: '',
+        core_group: '',
         date_birth: '',
         date_death: '',
         gender: '',
-        occupation: '',
-        color: this.defaultColor,
-        relations: [],
         id: ID,
+        image: '',
         note: '',
+        occupation: '',
+        relations: [],
         resume: '',
+        title: characterName,
       };
       await indexedDBrepository.characterPost(data);
     }

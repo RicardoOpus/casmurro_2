@@ -114,7 +114,7 @@ function CharactersList() {
             onChange={(e) => dispatch(charFilterGenderAction(e.target.value))}
           >
             <option value="">Gêneros</option>
-            {prjSettings.charactersGenrders.map((e) => (
+            {prjSettings.charactersGenders.map((e) => (
               <option key={e} value={e}>
                 {' '}
                 •

@@ -2,6 +2,7 @@ interface ICharacter {
   age?: string;
   category?: string;
   color?: string;
+  core_group?: string;
   content?: string;
   date_birth?: string;
   date_death?: string;

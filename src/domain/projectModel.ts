@@ -8,7 +8,8 @@ interface IProject {
   created_at: number;
   projectSettings: {
     charactersCategory: string[],
-    charactersGenrders: string[],
+    charactersGenders: string[],
+    charactersCoreGroupes: string[],
     projectColor: string,
   };
   id_controler: number;
