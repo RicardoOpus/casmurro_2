@@ -147,6 +147,13 @@ function CharactersList() {
           <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑ Az</button>
           <button className="btnSmall" type="button" onClick={handleSort} disabled={!isAscOrder}>↓ Za</button>
         </div>
+        <div className="amountInfoBar">
+          <h3>
+            Total
+            {' '}
+            {filtredCharacters.length}
+          </h3>
+        </div>
         {filtredCharacters.length === 0 ? (
           <NotFound />
         ) : (

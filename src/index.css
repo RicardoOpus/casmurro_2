@@ -270,6 +270,10 @@ option {
   text-align: center;
 }
 
+.amountInfoBar h3 {
+  margin: .5em 0;
+}
+
 /* ============= CHECKBOX TYPE WRAPPER ================= */
 
 .checkbox-wrapper-2 .ikxBAC {
