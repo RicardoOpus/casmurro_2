@@ -32,6 +32,8 @@ const charFilterReducer = (state = INITIAL_STATE, action: ActionType = { type: '
         ...state,
         isAscOrder: action.payload,
       };
+    case 'CLEAR_STATE':
+      return INITIAL_STATE;
     default:
       return state;
   }

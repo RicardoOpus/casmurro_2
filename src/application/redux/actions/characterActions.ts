@@ -17,3 +17,7 @@ export const charFilterSortAction = (charFilter: boolean) => ({
   type: 'CHAR_FILTER_SORT',
   payload: charFilter,
 });
+
+export const charClearState = () => ({
+  type: 'CLEAR_STATE',
+});

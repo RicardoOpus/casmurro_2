@@ -9,6 +9,7 @@ import {
   fetchProjectDataAction,
   nextPageAction, previousPageAction, totalPagesAction,
 } from '../../../redux/actions/projectActions';
+import { charClearState } from '../../../redux/actions/characterActions';
 import FilterBar from './filter-bar';
 import nodata from '../../../../../public/no-data.png';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
@@ -48,6 +49,7 @@ function ProjectList({ projects }: { projects: IProject[] }) {
 
   const handleClick = (idProject: number | undefined) => {
     indexedDBrepository.updateSettings(idProject);
+    dispatch(charClearState());
     dispatch(fetchProjectDataAction(true));
     navigate('/');
     window.scrollTo(0, 0);
