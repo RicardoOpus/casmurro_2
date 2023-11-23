@@ -13,6 +13,7 @@ function Settings() {
     state.projectDataReducer.projectData.projectSettings));
   const [color, setColor] = useState(prjSettings.projectColor);
   const [typeSound, setTypeSound] = useState(prjSettings.typeWriterSound);
+  const [typeVolume, setTypeVolume] = useState(prjSettings.typeWriterVolume);
   const typeSet = localStorage.getItem('contenTypeFont') || 'Roboto';
   const [typeFontUser, setTypeFontUSer] = useState(typeSet);
   const [textValue, setTextValue] = useState(paragraphyMock);
@@ -48,6 +49,12 @@ function Settings() {
   const handleInputType = async (e: ChangeEvent<HTMLInputElement>) => {
     setTypeSound(e.target.checked);
     await indexedDBrepository.updateProjectSettings(e.target.checked, 'typeWriterSound');
+    dispatch(fetchProjectDataAction(true));
+  };
+
+  const handleSlideType = async (e: ChangeEvent<HTMLInputElement>) => {
+    setTypeVolume(Number(e.target.value));
+    await indexedDBrepository.updateProjectSettings(Number(e.target.value), 'typeWriterVolume');
     dispatch(fetchProjectDataAction(true));
   };
 
@@ -143,6 +150,26 @@ function Settings() {
               {' '}
               Habilitar som de máquina de escrever nos campos de escrita.
             </label>
+            <div className="slidecontainerP">
+              <p>
+                Volume Control:
+                {' '}
+                {typeVolume}
+              </p>
+              <div className="slidecontainer">
+                <input
+                  id="volumeControl"
+                  type="range"
+                  min="0.1"
+                  max="1.0"
+                  step="0.1"
+                  value={typeVolume}
+                  className="slider"
+                  onChange={handleSlideType}
+                  list="tickmarks"
+                />
+              </div>
+            </div>
             <p>
               Além de proporcionar uma sensação nostálgica, o som das teclas serve
               como um feedback auditivo valioso, auxiliando o escritor a manter o ritmo

@@ -38,6 +38,7 @@ class ProjectServide {
         ],
         projectColor: '#0099ff',
         typeWriterSound: false,
+        typeWriterVolume: 0.5,
       },
       id_controler: 0,
       cards_qty: 0,

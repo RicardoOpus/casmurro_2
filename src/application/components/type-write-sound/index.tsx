@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 import keyCenter from '../../../../public/type_center.mp3';
 import keyLeft75 from '../../../../public/type_left_75.mp3';
 import keyLeft95 from '../../../../public/type_left_95.mp3';
@@ -7,8 +8,11 @@ import keyRight95 from '../../../../public/type_right_95.mp3';
 import keyBackspace from '../../../../public/type_backspace.mp3';
 import keySpace from '../../../../public/type_space.mp3';
 import keyReturn from '../../../../public/type_bell.mp3';
+import IrootStateProject from '../../../domain/IrootStateProject';
 
 function TypeWriterSound() {
+  const { typeWriterVolume } = useSelector((state: IrootStateProject) => (
+    state.projectDataReducer.projectData.projectSettings));
   const audioRef = useRef(new Audio(keyCenter));
   const audioLeft75 = useRef(new Audio(keyLeft75));
   const audioLeft95 = useRef(new Audio(keyLeft95));
@@ -18,14 +22,14 @@ function TypeWriterSound() {
   const audioSpace = useRef(new Audio(keySpace));
   const audiReturn = useRef(new Audio(keyReturn));
   useEffect(() => {
-    audioRef.current.volume = 0.2;
-    audioLeft75.current.volume = 0.2;
-    audioLeft95.current.volume = 0.2;
-    audioRight75.current.volume = 0.2;
-    audioRight95.current.volume = 0.2;
-    audioBackspace.current.volume = 0.2;
-    audioSpace.current.volume = 0.2;
-    audiReturn.current.volume = 0.2;
+    audioRef.current.volume = typeWriterVolume;
+    audioLeft75.current.volume = typeWriterVolume;
+    audioLeft95.current.volume = typeWriterVolume;
+    audioRight75.current.volume = typeWriterVolume;
+    audioRight95.current.volume = typeWriterVolume;
+    audioBackspace.current.volume = typeWriterVolume;
+    audioSpace.current.volume = typeWriterVolume;
+    audiReturn.current.volume = typeWriterVolume;
 
     const handleKeyPress = (event: KeyboardEvent) => {
       const { key } = event;
@@ -86,7 +90,7 @@ function TypeWriterSound() {
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, []);
+  }, [typeWriterVolume]);
 
   return null;
 }
