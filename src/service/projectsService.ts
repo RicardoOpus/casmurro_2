@@ -37,6 +37,7 @@ class ProjectServide {
           'Nenhum',
         ],
         projectColor: '#0099ff',
+        typeWriterSound: false,
       },
       id_controler: 0,
       cards_qty: 0,

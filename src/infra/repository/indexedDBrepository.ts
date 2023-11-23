@@ -153,7 +153,7 @@ class IndexedDBrepository {
     this.updateLastEdit();
   }
 
-  async updateProjectSettings(newData: string, table: string) {
+  async updateProjectSettings(newData: string | boolean, table: string) {
     const projectID = await this.getCurrentProjectID();
     const currentProject = await this.getCurrentProject();
     const currentSettings = currentProject?.projectSettings;

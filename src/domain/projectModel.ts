@@ -11,6 +11,7 @@ interface IProject {
     charactersGenders: string[],
     charactersCoreGroupes: string[],
     projectColor: string,
+    typeWriterSound: boolean,
   };
   id_controler: number;
   cards_qty: number;

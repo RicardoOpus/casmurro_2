@@ -276,7 +276,7 @@ option {
 
 /* ============= CHECKBOX TYPE WRAPPER ================= */
 
-.checkbox-wrapper-2 .ikxBAC {
+.checkbox-wrapper .inputChkBox {
   appearance: none;
   background-color: var(--btn-color);
   border: solid 1px var(--border-color);
@@ -285,11 +285,11 @@ option {
   height: 20px;
   margin: 0;
   position: relative;
+  vertical-align: text-bottom;
   width: 35px;
-
 }
 
-.checkbox-wrapper-2 .ikxBAC::before {
+.checkbox-wrapper .inputChkBox::before {
   bottom: -6px;
   content: "";
   left: -6px;
@@ -298,12 +298,12 @@ option {
   top: -6px;
 }
 
-.checkbox-wrapper-2 .ikxBAC,
-.checkbox-wrapper-2 .ikxBAC::after {
+.checkbox-wrapper .inputChkBox,
+.checkbox-wrapper .inputChkBox::after {
   transition: all 100ms ease-out;
 }
 
-.checkbox-wrapper-2 .ikxBAC::after {
+.checkbox-wrapper .inputChkBox::after {
   background-color: var(--text-color-inactive);
   border-radius: 50%;
   content: "";
@@ -314,29 +314,29 @@ option {
   width: 14px;
 }
 
-.checkbox-wrapper-2 input[type=checkbox] {
+.checkbox-wrapper input[type=checkbox] {
   cursor: pointer;
 }
 
-.checkbox-wrapper-2 .ikxBAC:hover {
-  background-color: var(--accent-color);
+.checkbox-wrapper .inputChkBox:hover {
+  background-color: var(--text-color);
   transition-duration: 0s;
 }
 
-.checkbox-wrapper-2 .ikxBAC:checked {
+.checkbox-wrapper .inputChkBox:checked {
   background-color: var(--accent-color);
 }
 
-.checkbox-wrapper-2 .ikxBAC:checked::after {
+.checkbox-wrapper .inputChkBox:checked::after {
   background-color: var(--btn-color);
   left: 18px;
 }
 
-.checkbox-wrapper-2 :focus:not(.focus-visible) {
+.checkbox-wrapper :focus:not(.focus-visible) {
   outline: 0;
 }
 
-.checkbox-wrapper-2 .ikxBAC:checked:hover {
+.checkbox-wrapper .inputChkBox:checked:hover {
   background-color: var(--accent-color);
 }
 

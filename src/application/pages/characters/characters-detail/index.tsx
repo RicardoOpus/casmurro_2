@@ -8,6 +8,7 @@ import indexedDBrepository from '../../../../infra/repository/indexedDBrepositor
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import utils from '../../../../service/utils';
 import GenericModal from '../../../components/generic-modal';
+import TypeWriterSound from '../../../components/type-write-sound';
 
 function CharacterDetail() {
   const dispatch = useDispatch();
@@ -201,6 +202,7 @@ function CharacterDetail() {
         </div>
       </div>
       <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir personagem?" onDataSend={handleDelete} deleteType />
+      {prjSettings.typeWriterSound && (<TypeWriterSound />)}
     </div>
   );
 }
