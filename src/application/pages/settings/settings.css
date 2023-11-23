@@ -1,45 +1,36 @@
-.pSettings {
+.settingsTabs ul {
+  background-color: var(--bg-color);
+  border-radius: 5px;
+  cursor: pointer;
+  list-style-type: none;
   margin: 0;
+  overflow: hidden;
+  padding: 0;
 }
 
-.listsSection {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1em;
+.settingsTabs li {
+  border-right: 1px solid var(--border-color);
+  float: left;
 }
 
-.settingsSectionIcon {
-  vertical-align: middle;
+.settingsTabs li:last-child {
+  border-right: 0px;
 }
 
-.colorInterfaceSection {
-  align-items: center;
-  background-color: var(--bg-color-sec);
-  border: solid 1px var(--border-color);
-  border-radius: 5px;
-  display: flex;
-  gap: 1em;
-  padding: 0 1em;
+.settingsTabs button {
+  all: unset;
 }
 
-.settingsSectionFont {
-  align-items: center;
-  display: flex;
-  gap: .5em;
-  margin-top: -1em;
+.settingsTabs li button {
+  color: var(--text-color-inactive);
+  display: block;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
 }
 
-.settingstextArea {
-  background-color: var(--bg-color-sec);
-  border: solid 1px var(--border-color);
-  border-radius: 5px;
-  box-sizing: border-box;
+.settingsTabs li button:hover:not(.active-tab),
+.settingsTabs li button.active-tab {
+  background-color: var(--accent-color);
   color: var(--text-color);
-  font-family: var(--user-text-type);
-  font-size: var(--user-text-size);
-  height: 200px;
-  margin: 0 0 1em 0;
-  padding: 1em;
-  width: 100%;
 }
-

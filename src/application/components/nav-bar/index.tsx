@@ -10,6 +10,7 @@ function NavBar() {
     navigate(route);
     setActiveButton(buttonId);
   };
+
   return (
     <div className="navBar">
       <button

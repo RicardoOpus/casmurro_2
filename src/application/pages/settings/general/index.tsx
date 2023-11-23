@@ -4,6 +4,7 @@ import IrootStateProject from '../../../../domain/IrootStateProject';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import paragraphyMock from '../../../../mocks/paragraph';
+import './general.css';
 
 function GeneralSettings() {
   const dispatch = useDispatch();
@@ -75,7 +76,6 @@ function GeneralSettings() {
 
   return (
     <div>
-      <h1>GeneralSettings</h1>
       <fieldset>
         <legend>
           Cor de destaque

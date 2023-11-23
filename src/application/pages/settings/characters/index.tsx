@@ -3,6 +3,7 @@ import EditLists from '../edit-lists';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
+import './characters.css';
 
 function CharactersSettings() {
   const dispatch = useDispatch();
@@ -16,7 +17,6 @@ function CharactersSettings() {
 
   return (
     <div>
-      <h1>CharactersSettings</h1>
       <fieldset>
         <legend>
           <img className="settingsSectionIcon icon-color" src="./characters.png" alt="Character icon" />

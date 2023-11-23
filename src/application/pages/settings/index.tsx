@@ -1,8 +1,21 @@
 import './settings.css';
+import { useState } from 'react';
 import CharactersSettings from './characters';
 import GeneralSettings from './general';
 
 function Settings() {
+  const [activeTab, setActiveTab] = useState('Geral');
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'Geral':
+        return <GeneralSettings />;
+      case 'Personagens':
+        return <CharactersSettings />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="innerContent">
       <div className="card">
@@ -11,8 +24,29 @@ function Settings() {
           Personalize a aparência, dados e comportamento exclusivos do projeto atual.
           Qualquer alteração feita aqui não afeta outros projetos.
         </p>
-        <GeneralSettings />
-        <CharactersSettings />
+        <div className="settingsTabs">
+          <ul>
+            <li>
+              <button
+                className={activeTab === 'Geral' ? 'active-tab' : ''}
+                onClick={() => setActiveTab('Geral')}
+                type="button"
+              >
+                Geral
+              </button>
+            </li>
+            <li>
+              <button
+                className={activeTab === 'Personagens' ? 'active-tab' : ''}
+                onClick={() => setActiveTab('Personagens')}
+                type="button"
+              >
+                Personagens
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div className="tab-content">{renderTabContent()}</div>
       </div>
     </div>
   );
