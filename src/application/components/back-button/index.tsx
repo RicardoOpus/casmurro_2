@@ -9,7 +9,7 @@ function BackButton({ page }: BackButtonProps) {
 
   return (
     <div>
-      <button className="btnInvisible" type="button" onClick={() => navigate(page)}>
+      <button className="btnSmall" type="button" onClick={() => navigate(page)}>
         <span className="ui-icon ui-icon-arrowreturnthick-1-w icon-color" />
         {' '}
         Voltar

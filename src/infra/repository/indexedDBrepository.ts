@@ -125,6 +125,27 @@ class IndexedDBrepository {
     return null;
   }
 
+  async getNextAndPrevCardID(
+    currentCardID: number,
+    tableProperty: string,
+  ): Promise<{ prevID: number | null; nextID: number | null } | undefined> {
+    const currProj = await this.getCurrentProject();
+    if (currProj) {
+      const characterData = currProj.data?.[tableProperty as keyof typeof currProj.data];
+      const characterIDs = characterData?.map((e) => e.id);
+      if (characterIDs) {
+        const positionInArray = characterIDs.indexOf(currentCardID);
+        if (positionInArray !== -1) {
+          const prevID = positionInArray > 0 ? characterIDs[positionInArray - 1] : null;
+          const nextID = positionInArray < characterIDs
+            .length - 1 ? characterIDs[positionInArray + 1] : null;
+          return { prevID, nextID };
+        }
+      }
+    }
+    return undefined;
+  }
+
   async deleteCard(cardID: number, table: string) {
     const currentID = await this.getCurrentProjectID();
     const currentCard = await this.getCurrentCard(cardID, table) ?? -1;

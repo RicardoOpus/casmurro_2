@@ -149,6 +149,12 @@ button:disabled:hover {
 .btnInvisible {
   background-color: transparent;
   border: solid 1px transparent;
+  padding: .5em 0;
+}
+
+.btnInvisible:hover {
+  border: solid 1px transparent;
+  text-decoration: underline;
 }
 
 .btnMedium {

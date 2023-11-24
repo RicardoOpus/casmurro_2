@@ -10,6 +10,7 @@ import utils from '../../../../service/utils';
 import GenericModal from '../../../components/generic-modal';
 import TypeWriterSound from '../../../components/type-write-sound';
 import BackButton from '../../../components/back-button';
+import NextAndPrevCard from '../../../components/next-and-prev';
 
 function CharacterDetail() {
   const dispatch = useDispatch();
@@ -106,10 +107,15 @@ function CharacterDetail() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => cleanupFunction, []);
 
+  useEffect(() => {
+    setEditedName(currentCharacter || {});
+  }, [currentCharacter, id]);
+
   return (
     <div className="innerContent">
-      <BackButton page="/characters" />
       <div className="card">
+        <BackButton page="/characters" />
+        <NextAndPrevCard id={Number(id)} dataTable="characters" />
         <div className="profile-pic">
           <label className="-label" htmlFor="file">
             <span>Mudar imagem</span>
