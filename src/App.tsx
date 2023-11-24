@@ -1,7 +1,6 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Dashboard from './application/pages/home';
-import Dev from './application/pages/dev';
 import Layout from './application/components/layout';
 import NotFoundPage from './application/pages/not-found';
 import Projects from './application/pages/projects';
@@ -52,7 +51,6 @@ function App() {
             <Route path="/characters" element={<Characters />} />
             <Route path="/characters/:id" element={<CharactersDetail />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/dev" element={<Dev />} />
           </Route>
           <Route path="/splash" element={<Splash />} />
           <Route path="/projects" element={<Projects />} />
