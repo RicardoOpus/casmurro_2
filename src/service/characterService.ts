@@ -24,9 +24,10 @@ class CharacterService {
         resume: '',
         title: characterName,
       };
-      await indexedDBrepository.characterPost(data);
+      await indexedDBrepository.cardPost(data, 'characters');
     }
   }
 }
+const characterService = new CharacterService();
 
-export default CharacterService;
+export default characterService;

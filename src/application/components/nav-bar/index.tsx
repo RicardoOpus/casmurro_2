@@ -29,7 +29,14 @@ function NavBar() {
       >
         Personagens
       </button>
-      <button id="Mundo" className="navBarItem" type="button">Mundo</button>
+      <button
+        onClick={() => handleButtonClick('/world', 'Mundo')}
+        id="Mundo"
+        className={`navBarItem ${activeButton === 'Mundo' ? 'NavBarActive' : ''}`}
+        type="button"
+      >
+        Mundo
+      </button>
       <button id="Rascunho" className="navBarItem" type="button">Rascunho</button>
       <button id="Timeline" className="navBarItem" type="button">Timeline</button>
       <button id="Notas" className="navBarItem" type="button">Notas</button>

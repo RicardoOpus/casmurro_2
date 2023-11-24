@@ -1,11 +1,11 @@
 import { useState } from 'react';
+import './world.css';
 import { useDispatch } from 'react-redux';
 import GenericModal from '../../components/generic-modal';
-import characterService from '../../../service/characterService';
+import worldService from '../../../service/worldService';
 import { fetchProjectDataAction } from '../../redux/actions/projectActions';
-import CharactersList from './characters-list';
 
-function Characters() {
+function World() {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
 
@@ -18,7 +18,7 @@ function Characters() {
   };
 
   const handleSaveData = async (data: string) => {
-    await characterService.create(data);
+    await worldService.create(data);
     dispatch(fetchProjectDataAction(true));
     setModal(false);
   };
@@ -33,11 +33,10 @@ function Characters() {
             Novo
           </button>
         </div>
-        <GenericModal openModal={modal} onClose={closeModal} typeName="Nova personagem" onDataSend={handleSaveData} deleteType={false} />
-        <CharactersList />
+        <GenericModal openModal={modal} onClose={closeModal} typeName="Novo item mundo" onDataSend={handleSaveData} deleteType={false} />
       </div>
     </div>
   );
 }
 
-export default Characters;
+export default World;

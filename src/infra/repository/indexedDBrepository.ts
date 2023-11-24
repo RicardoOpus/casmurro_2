@@ -74,12 +74,22 @@ class IndexedDBrepository {
     return null;
   }
 
-  async characterPost(newData: ICharacter) {
+  async cardPost(newData: ICharacter, table: string) {
     const projectID = await this.getCurrentProjectID();
     const projectData: IProject | undefined = await db.projects.where('id').equals(projectID).first();
     if (projectData) {
-      projectData.data?.characters?.unshift(newData);
-      projectData.data?.characters?.sort((a, b) => a.title.localeCompare(b.title));
+      switch (table) {
+        case 'characters':
+          projectData.data?.characters?.unshift(newData);
+          projectData.data?.characters?.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+        case 'world':
+          projectData.data?.world?.unshift(newData);
+          projectData.data?.world?.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+        default:
+          break;
+      }
       await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
         // eslint-disable-next-line no-param-reassign
         ele.data = projectData.data;

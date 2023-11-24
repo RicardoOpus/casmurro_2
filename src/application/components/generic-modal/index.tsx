@@ -13,7 +13,7 @@ function getIconPath(category: string): string {
   switch (category) {
     case 'Nova personagem':
       return './characters.png';
-    case 'Mundo':
+    case 'Novo item mundo':
       return './world.png';
     case 'Cena':
       return './scene.png';

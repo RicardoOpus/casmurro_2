@@ -1,6 +1,11 @@
 interface IWorld {
-  title: string;
+  category?: string;
+  content?: string;
   id: number;
+  image?: string;
+  note?: string;
+  resume?: string;
+  title: string;
 }
 
 export default IWorld;
