@@ -1,5 +1,11 @@
 /* eslint-disable class-methods-use-this */
 class Utils {
+  constructor() {
+    // Vincula o método ao objeto da classe para garantir que 'this' seja referenciado corretamente
+    this.convertBase64 = this.convertBase64.bind(this);
+    this.resizeImage = this.resizeImage.bind(this);
+  }
+
   convertDateBR(timestamp: number): string | null {
     const date = new Date(timestamp);
     if (date instanceof Date) {
@@ -40,6 +46,27 @@ class Utils {
       return colorNew;
     }
     return '#0099ff';
+  }
+
+  resizeImage(imageData: string, width: number, height: number) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const newWidth = width;
+        const newHeight = height;
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        ctx?.drawImage(img, 0, 0, newWidth, newHeight);
+        const resizedImageData = canvas.toDataURL();
+        resolve(resizedImageData);
+      };
+      img.onerror = () => {
+        reject(new Error('Erro ao carregar a imagem.'));
+      };
+      img.src = imageData;
+    });
   }
 
   convertBase64(file: Blob) {

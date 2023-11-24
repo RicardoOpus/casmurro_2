@@ -160,7 +160,11 @@ function CharactersList() {
           filtredCharacters.map((character) => (
             <button onClick={() => navigate(`/characters/${character.id}`)} type="button" key={character.id} className="listItens">
               <div className="characterCard">
-                <img className="charListImage" src="./person.png" alt="person img" />
+                {character.image ? (
+                  <img className="charListImage" src={character.image} alt="person img" />
+                ) : (
+                  <img className="charListImage" src="./person.png" alt="person img" />
+                )}
                 <div>
                   <h3 className="charactertTitle">
                     <span style={{ color: character.color || 'var(--text-color-sec)' }}>🯊 </span>

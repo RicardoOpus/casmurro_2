@@ -73,8 +73,11 @@ function CharacterDetail() {
     if (event && event.files && event.files.length > 0) {
       const base64Data = await utils.convertBase64(event.files[0]);
       const base64String = base64Data?.toString();
-      if (base64Data) {
-        setEditedName({ ...stateCharacter, image: base64String });
+      if (base64String) {
+        const result = await utils.resizeImage(base64String, 150, 150);
+        if (result) {
+          setEditedName({ ...stateCharacter, image: result.toString() });
+        }
       }
     }
   };
