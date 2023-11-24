@@ -69,6 +69,32 @@ function CharacterDetail() {
     setEditedName({ ...stateCharacter, color: colorRandon });
   };
 
+  const saveImage = async (event: EventTarget & HTMLInputElement) => {
+    if (event && event.files && event.files.length > 0) {
+      const base64Data = await utils.convertBase64(event.files[0]);
+      const base64String = base64Data?.toString();
+      if (base64Data) {
+        setEditedName({ ...stateCharacter, image: base64String });
+      }
+    }
+  };
+
+  const clearImage = () => {
+    setEditedName({ ...stateCharacter, image: '' });
+  };
+
+  const handleFileInput = (event: EventTarget & HTMLInputElement) => {
+    const fileName = event.value;
+    const isJpg = fileName.endsWith('.jpg') || fileName.endsWith('.jpeg');
+    const isPng = fileName.endsWith('.png');
+    if (isJpg || isPng) {
+      saveImage(event);
+    } else {
+      // eslint-disable-next-line no-alert
+      alert('O arquivo selecionado não é uma imagem!');
+    }
+  };
+
   useEffect(() => {
     utils.autoGrowAllTextareas();
   }, []);
@@ -79,8 +105,16 @@ function CharacterDetail() {
   return (
     <div className="innerContent">
       <div className="card">
-        <div className="characterImageDiv">
-          <img className="characterImage" src="./person.png" alt="character" />
+        <div className="profile-pic">
+          <label className="-label" htmlFor="file">
+            <span>Mudar imagem</span>
+            <input id="file" type="file" accept=".jpg, jpeg, .png" onChange={(e) => handleFileInput(e.target)} />
+          </label>
+          {stateCharacter.image ? (
+            <img src={stateCharacter.image} id="output" alt="character" />
+          ) : (
+            <img src="./person.png" id="output" alt="character" />
+          )}
         </div>
         <input
           onChange={(e) => handleInputChange(e, 'title')}
@@ -90,22 +124,27 @@ function CharacterDetail() {
           placeholder="Nome da personagem"
         />
         <div className="detailBar">
-          <div className="detailBarBbutton">
-            <input
-              className="chartaterColor"
-              type="color"
-              value={stateCharacter.color}
-              onChange={(e) => handleInputChange(e, 'color')}
-            />
-            <button type="button" className="btnRandom" title="Gerar aleatoriamente uma cor" onClick={hadleRandomColor}>
-              ↻
-            </button>
-            <button className="detailAdd" type="button">{ }</button>
-            <button className="btnSmall" type="button" onClick={openModal}>
-              <span className="ui-icon ui-icon-trash icon-color" />
-              {' '}
-              Excluir
-            </button>
+          <div className="detailBarButtons">
+            <div className="detailBarButtonsItens">
+              <input
+                className="chartaterColor"
+                type="color"
+                value={stateCharacter.color}
+                onChange={(e) => handleInputChange(e, 'color')}
+              />
+              <button type="button" className="btnRandom" title="Gerar aleatoriamente uma cor" onClick={hadleRandomColor}>
+                ↻
+              </button>
+              <button onClick={clearImage} className="btnSmall" type="button">Apagar imagem</button>
+            </div>
+            <div className="detailBarButtonsItens">
+              <button className="detailAdd" type="button">{ }</button>
+              <button className="btnSmall" type="button" onClick={openModal}>
+                <span className="ui-icon ui-icon-trash icon-color" />
+                {' '}
+                Excluir
+              </button>
+            </div>
           </div>
         </div>
         <div className="divider div-transparent" />

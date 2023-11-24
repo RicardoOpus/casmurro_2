@@ -41,6 +41,19 @@ class Utils {
     }
     return '#0099ff';
   }
+
+  convertBase64(file: Blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve(reader.result?.toString());
+      };
+      reader.onerror = (error) => {
+        reject(error);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
 }
 
 const utils = new Utils();
