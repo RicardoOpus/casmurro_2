@@ -9,6 +9,7 @@ import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import utils from '../../../../service/utils';
 import GenericModal from '../../../components/generic-modal';
 import TypeWriterSound from '../../../components/type-write-sound';
+import BackButton from '../../../components/back-button';
 
 function CharacterDetail() {
   const dispatch = useDispatch();
@@ -107,11 +108,7 @@ function CharacterDetail() {
 
   return (
     <div className="innerContent">
-      <button className="btnInvisible" type="button" onClick={() => navigate('/characters')}>
-        <span className="ui-icon ui-icon-arrowreturnthick-1-w icon-color" />
-        {' '}
-        Voltar
-      </button>
+      <BackButton page="/characters" />
       <div className="card">
         <div className="profile-pic">
           <label className="-label" htmlFor="file">
