@@ -3,15 +3,15 @@ import nodata from '../../../../public/no-data.png';
 
 function NoData({ dataType }: { dataType: string }) {
   return (
-    <div className="noData">
-      <img src={nodata} alt="ilustração caderno em branco" />
+    <div className="noData icon-">
       <h2>
-        Sem
+        Não existem
         {' '}
         {dataType}
         {' '}
         no momento
       </h2>
+      <img className="icon-color" src={nodata} alt="ilustração caderno em branco" />
     </div>
   );
 }

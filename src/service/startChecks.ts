@@ -1,12 +1,12 @@
-/* eslint-disable class-methods-use-this */
-import IndexedDBrepository from '../infra/repository/indexedDBrepository';
+import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
-class StartChecks {
+class AppService {
+  startCount = 0;
+
   async hasProjects(): Promise<boolean> {
-    const indexedDBrepository = new IndexedDBrepository();
     const count = await indexedDBrepository.countProjects();
 
-    if (count === 0) {
+    if (count === this.startCount) {
       await indexedDBrepository.createDefaultSettings();
       return false;
     }
@@ -14,4 +14,4 @@ class StartChecks {
   }
 }
 
-export default StartChecks;
+export default AppService;

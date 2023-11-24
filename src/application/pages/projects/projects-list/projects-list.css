@@ -2,22 +2,12 @@
   list-style-type: none;
   margin: .5rem 1rem;
   width: 100%;
-
-}
-
-.projectsItens {
-  all: unset;
-  cursor: pointer;
-  padding: .5rem 0;
-  width: 100%;
 }
 
 .projectCard {
   align-items: center;
-  background: linear-gradient(90deg, rgb(32, 32, 36) 0%, rgb(23, 23, 26) 100%);
-  border: solid 1px #565f6a;
+  border: solid 1px var(--border-color);
   border-radius: 4px;
-  box-shadow: 0 1px 4px 0 #0000001a;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -26,13 +16,13 @@
 }
 
 .projectCard:hover {
-  border: solid 1px var(--accent-color);
+  border: solid 1px #0099ff;
 }
 
 .projectTitle {
+  font-family: Amaranth;
   font-size: x-large;
   margin: .5rem 0 0 1rem;
-  z-index: 1;
 }
 
 .lastModify {
@@ -42,7 +32,6 @@
 
 .projectStatus {
   border-radius: 12px;
-  color: #cbcbcb;
   font-size: smaller;
   padding: 0px 5px;
 }
@@ -61,4 +50,11 @@
 .cardsQTY {
   font-size: smaller;
   margin-top: 0;
+}
+
+.button-container {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
 }

@@ -1,0 +1,109 @@
+.profile-pic {
+  align-items: center;
+  color: transparent;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  transition: all .3s ease;
+}
+
+.profile-pic input {
+  display: none;
+}
+
+.profile-pic img {
+  background-color: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
+  border-radius: 100px;
+  height: 150px;
+  object-fit: cover;
+  position: absolute;
+  width: 150px;
+  z-index: 0;
+}
+
+.profile-pic .-label {
+  cursor: pointer;
+  height: 150px;
+  width: 150px;
+}
+
+.profile-pic:hover .-label {
+  align-items: center;
+  background-color: rgba(0, 0, 0, .8);
+  border-radius: 100px;
+  color: rgb(250, 250, 250);
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+  transition: background-color .2s ease-in-out;
+  z-index: 10000;
+}
+
+.profile-pic span {
+  display: inline-flex;
+  height: 2em;
+  padding: .2em;
+}
+
+.profile-pic a:hover {
+  text-decoration: none;
+}
+
+.cardInputTitleChar {
+  all: unset;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-family: Amaranth;
+  font-size: 2em;
+  height: 50px;
+  margin: .5em 0;
+  padding: 0px 1em 0px 1em;
+  text-align: center;
+  width: 100%;
+}
+
+.cardInputTitleChar:focus {
+  background-color: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
+}
+
+.cardInputTitleChar:hover {
+  border: solid 1px var(--border-color);
+}
+
+.charBasicInfos {
+  display: flex;
+  gap: 1rem;
+}
+
+.charBasicInfos h3 {
+  margin: 0;
+}
+
+.fullContent {
+  margin-top: 1em;
+}
+
+.fullContent h3 {
+  margin: 0;
+}
+
+.chartaterColor {
+  background: transparent;
+  border: solid 1px transparent;
+  cursor: pointer;
+  height: 40px;
+  margin: .5em 0;
+  width: 40px;
+}
+
+.btnRandom {
+  border-radius: 50%;
+  font-size: 1em;
+  height: 40px;
+  margin: .5em 0;
+  padding: 1px 6px;
+  width: 40px;
+}

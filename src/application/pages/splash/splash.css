@@ -1,7 +1,16 @@
+:root {
+  --writing-x: 430px;
+  --writing-y: 100px;
+  --writng-frames: 46;
+  --writing-duration: 2.5s;
+  --writing-delay: .2s;
+}
+
 .back {
+  background: var(--bg-texture);
   background-color: var(--bg-color);
-  border-bottom: 1px solid #ffffff51;
-  border-top: 1px solid #ffffff51;
+  border-bottom: 1px solid var(--text-color-inactive);
+  border-top: 1px solid var(--text-color-inactive);
   box-shadow: 0 -1em 6em var(--bg-color);
   height: 210px; 
   left: 50%;

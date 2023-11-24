@@ -1,0 +1,9 @@
+.listsSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.settingsSectionIcon {
+  vertical-align: middle;
+}

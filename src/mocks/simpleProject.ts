@@ -1,16 +1,17 @@
-import Project from '../domain/projectModel';
+// import Project from '../domain/projectModel';
 
-const simpleProject: Project = {
-  title: 'A Coisa',
-  subtitle: 'Qualquer coisa',
-  author: 'Fulano',
-  status: 'Finalizado',
-  cards_qty: 10,
-  settings: { tipo: 'Alguma configuração' },
-  last_edit: 'Última edição',
-  timestamp: Date.now(),
-  data: { nome: 'isso' },
-  literary_genre: 'Romance',
-};
+// const simpleProject: Project = {
+//   title: 'A Coisa',
+//   subtitle: 'Qualquer coisa',
+//   author: 'Fulano',
+//   status: 'Finalizado',
+//   cards_qty: 10,
+//   lastBackup: 0,
+//   projectSettings: { tipo: 'Alguma configuração' },
+//   last_edit: Date.now(),
+//   created_at: Date.now(),
+//   literary_genre: 'Romance',
+//   id_controler: 0,
+// };
 
-export default simpleProject;
+// export default simpleProject;

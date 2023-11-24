@@ -1,0 +1,36 @@
+.settingsTabs ul {
+  background-color: var(--bg-color);
+  border-radius: 5px;
+  cursor: pointer;
+  list-style-type: none;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.settingsTabs li {
+  border-right: 1px solid var(--border-color);
+  float: left;
+}
+
+.settingsTabs li:last-child {
+  border-right: 0px;
+}
+
+.settingsTabs button {
+  all: unset;
+}
+
+.settingsTabs li button {
+  color: var(--text-color-inactive);
+  display: block;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.settingsTabs li button:hover:not(.active-tab),
+.settingsTabs li button.active-tab {
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
