@@ -159,18 +159,18 @@ function CharactersList() {
         ) : (
           filtredCharacters.map((character) => (
             <button onClick={() => navigate(`/characters/${character.id}`)} type="button" key={character.id} className="listItens">
-              <div className="characterCard">
+              <div className="listCard">
                 {character.image ? (
                   <img className="charListImage" src={character.image} alt="person img" />
                 ) : (
                   <img className="charListImage" src="./person.png" alt="person img" />
                 )}
                 <div>
-                  <h3 className="charactertTitle">
+                  <h3 className="cardListTitle">
                     <span style={{ color: character.color || 'var(--text-color-sec)' }}>🯊 </span>
                     {character.title}
                   </h3>
-                  <p className="categoryItem">
+                  <p className="categoryListItem">
                     {character.category}
                     {' '}
                     {character.age ? `• ${character.age} anos` : ''}

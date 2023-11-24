@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import './world.css';
 import { useDispatch } from 'react-redux';
 import GenericModal from '../../components/generic-modal';
 import worldService from '../../../service/worldService';
 import { fetchProjectDataAction } from '../../redux/actions/projectActions';
+import WorldList from './world-list';
 
 function World() {
   const dispatch = useDispatch();
@@ -34,6 +34,7 @@ function World() {
           </button>
         </div>
         <GenericModal openModal={modal} onClose={closeModal} typeName="Novo item mundo" onDataSend={handleSaveData} deleteType={false} />
+        <WorldList />
       </div>
     </div>
   );
