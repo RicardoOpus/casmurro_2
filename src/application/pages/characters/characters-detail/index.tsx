@@ -107,6 +107,11 @@ function CharacterDetail() {
 
   return (
     <div className="innerContent">
+      <button className="btnInvisible" type="button" onClick={() => navigate('/characters')}>
+        <span className="ui-icon ui-icon-arrowreturnthick-1-w icon-color" />
+        {' '}
+        Voltar
+      </button>
       <div className="card">
         <div className="profile-pic">
           <label className="-label" htmlFor="file">

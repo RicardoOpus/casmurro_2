@@ -146,6 +146,11 @@ button:disabled:hover {
   border: solid 1px var(--border-color);
 }
 
+.btnInvisible {
+  background-color: transparent;
+  border: solid 1px transparent;
+}
+
 .btnMedium {
   padding: .4em 1em;
 }
@@ -153,6 +158,10 @@ button:disabled:hover {
 .btnSmall {
   font-size: smaller;
   padding: .4em 1em;
+}
+
+.btnNew button {
+  background-color: var(--green-color);
 }
 
 .innerContent {
@@ -527,6 +536,18 @@ option {
 
 .ui-icon-trash {
   background-position: -176px -96px;
+}
+
+.ui-icon-circle-arrow-w {
+  background-position: -144px -192px;
+}
+
+.ui-icon-circle-arrow-e {
+  background-position: -112px -192px;
+}
+
+.ui-icon-arrowreturnthick-1-w {
+  background-position: 0 -64px;
 }
 
 /*=========== Filter =========== */

@@ -27,11 +27,13 @@ function Characters() {
   return (
     <div className="innerContent">
       <div className="card">
-        <button type="button" onClick={openModal}>
-          <span className="ui-icon ui-icon-plusthick icon-color" />
-          {' '}
-          Novo
-        </button>
+        <div className="btnNew">
+          <button type="button" onClick={openModal}>
+            <span className="ui-icon ui-icon-plusthick icon-color" />
+            {' '}
+            Novo
+          </button>
+        </div>
         <GenericModal openModal={modal} onClose={closeModal} typeName="Nova personagem" onDataSend={handleSaveData} deleteType={false} />
         <CharactersList />
       </div>
