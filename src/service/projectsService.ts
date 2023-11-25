@@ -36,6 +36,12 @@ class ProjectServide {
         charactersCoreGroupes: [
           'Nenhum',
         ],
+        worldCategory: [
+          'Nenhum',
+          'Local',
+          'Objeto',
+          'Fato histórico',
+        ],
         projectColor: '#0099ff',
         typeWriterSound: false,
         typeWriterVolume: 0.5,

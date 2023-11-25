@@ -15,7 +15,7 @@ import {
 import NotFound from '../../../components/not-found';
 import NoData from '../../../components/no-dada';
 
-type RootState = {
+type RootStateChar = {
   charFilterReducer: {
     selectedTitle: string,
     selectedCategory: string,
@@ -36,7 +36,7 @@ function CharactersList() {
     selectedGender,
     selectedCoreGroup,
     isAscOrder,
-  } = useSelector((state: RootState) => state.charFilterReducer);
+  } = useSelector((state: RootStateChar) => state.charFilterReducer);
   const dispatch = useDispatch();
 
   const [filtredCharacters, setFiltredCharacters] = useState<ICharacter[]>([]);

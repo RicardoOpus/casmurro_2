@@ -7,12 +7,13 @@ interface IProject {
   last_edit: number;
   created_at: number;
   projectSettings: {
-    charactersCategory: string[],
-    charactersGenders: string[],
-    charactersCoreGroupes: string[],
     projectColor: string,
     typeWriterSound: boolean,
     typeWriterVolume: number,
+    charactersCategory: string[],
+    charactersGenders: string[],
+    charactersCoreGroupes: string[],
+    worldCategory: string[],
   };
   id_controler: number;
   cards_qty: number;
