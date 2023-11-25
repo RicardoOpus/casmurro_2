@@ -4,13 +4,16 @@ import { useSelector } from 'react-redux';
 import IrootStateProject from '../../../domain/IrootStateProject';
 import IWorld from '../../../domain/worldModel';
 import ICharacter from '../../../domain/characterModel';
+import CardInspect from './card-inspect';
 
 function SideBar() {
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [searchInput, setSearchInput] = useState('');
+  const [showInspect, setShowInspect] = useState(false);
   const [allCards, setAllCards] = useState<(IWorld | ICharacter)[]>([]);
   const [filtredCards, setFiltredCards] = useState<(IWorld | ICharacter)[]>([]);
+  const [selectedCard, setSelectedCar] = useState<IWorld | ICharacter>();
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -20,6 +23,11 @@ function SideBar() {
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
+  };
+
+  const sideBarHandleClick = (value: IWorld | ICharacter) => {
+    setSelectedCar(value);
+    setShowInspect(true);
   };
 
   useEffect(() => {
@@ -61,23 +69,31 @@ function SideBar() {
               onChange={(e) => handleInputChange(e)}
               className="cardInputSearch"
             />
-            {filtredCards.map((e) => (
-              <div key={e.id}>
-                <button
-                  className="btnInvisible"
-                  type="button"
-                >
-                  {e.title}
-                  <br />
-                  {' '}
-                  <span className="spanSideBar">
-                    (
-                    {e.type}
-                    )
-                  </span>
-                </button>
+            {showInspect ? (
+              <div>
+                <button onClick={() => setShowInspect(false)} className="btnSmall" type="button">Fechar</button>
+                <CardInspect card={selectedCard} />
               </div>
-            ))}
+            ) : (
+              filtredCards.map((e) => (
+                <div key={e.id}>
+                  <button
+                    className="btnInvisible"
+                    type="button"
+                    onClick={() => sideBarHandleClick(e)}
+                  >
+                    {e.title}
+                    <br />
+                    {' '}
+                    <span className="spanSideBar">
+                      (
+                      {e.type}
+                      )
+                    </span>
+                  </button>
+                </div>
+              ))
+            )}
           </div>
         )}
       </div>
