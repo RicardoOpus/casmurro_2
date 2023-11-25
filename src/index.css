@@ -356,6 +356,18 @@ option {
   height: 300px;
 }
 
+/* ============= Settings List edit ================= */
+
+.listsSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.settingsSectionIcon {
+  vertical-align: middle;
+}
+
 /* ============= CHECKBOX TYPE WRAPPER ================= */
 
 .checkbox-wrapper .inputChkBox {

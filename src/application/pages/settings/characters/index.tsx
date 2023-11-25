@@ -3,7 +3,6 @@ import EditLists from '../edit-lists';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
-import './characters.css';
 
 function CharactersSettings() {
   const dispatch = useDispatch();

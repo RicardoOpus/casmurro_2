@@ -19,7 +19,7 @@ function SideBar() {
       <div className="sideBarContent" style={{ display: sidebarWidth }}>
         {isSidebarOpen && (
           <div>
-            <h3>RESUMO</h3>
+            <h3>Consulta rápida</h3>
             {/* Outros conteúdos da barra lateral */}
           </div>
         )}
