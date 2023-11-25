@@ -24,3 +24,65 @@
   color: var(--text-color-inactive);
   font-size: smaller;
 }
+
+.inspectBottons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: .5em;
+}
+
+.inspectCard {
+  max-height: 900px;
+  overflow: scroll;
+}
+
+.circulo {
+  border-radius: 50%;
+  height: 20px;
+  margin-right: .5em;
+  width: 20px;
+}
+
+.inspectTitle {
+  align-items: center;
+  display: flex;
+}
+
+.inspectTitle button {
+  font-size: x-large;
+}
+
+.inspectCard span {
+  color: var(--text-color-inactive);
+  margin: 0;
+}
+
+.inspecInfos {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5em;
+  margin-bottom: 1em;
+}
+
+.inspecInfos p {
+  margin: 0;
+}
+
+.PtextInfos {
+  margin: 0 0 1em 0;
+}
+
+.imageInspect {
+  margin-top: .5em;
+  text-align: center;
+}
+
+.picInscpet {
+  background-color: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
+  border-radius: 100px;
+  height: 150px;
+  width: 150px;
+}

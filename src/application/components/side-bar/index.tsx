@@ -69,10 +69,18 @@ function SideBar() {
               onChange={(e) => handleInputChange(e)}
               className="cardInputSearch"
             />
+            <div className="inspectBottons">
+              <button onClick={() => setSearchInput('')} className="btnSmall" type="button">Limpar</button>
+              <button onClick={() => setShowInspect(false)} disabled={!showInspect} className="btnSmall" type="button">
+                <span className="ui-icon ui-icon-arrowreturnthick-1-w icon-color" />
+                Voltar
+              </button>
+            </div>
             {showInspect ? (
               <div>
-                <button onClick={() => setShowInspect(false)} className="btnSmall" type="button">Fechar</button>
-                <CardInspect card={selectedCard} />
+                {selectedCard && (
+                  <CardInspect card={selectedCard} />
+                )}
               </div>
             ) : (
               filtredCards.map((e) => (

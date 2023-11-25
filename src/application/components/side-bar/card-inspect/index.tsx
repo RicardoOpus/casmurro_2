@@ -1,14 +1,22 @@
-import ICharacter from '../../../../domain/characterModel';
-import IWorld from '../../../../domain/worldModel';
+import ICardInspectProps from '../../../../domain/IcardInspectProps';
+import CharInspect from './cha-inspect';
+import WorldInspect from './world-inspect';
 
-interface CardInspectProps {
-  card: IWorld | ICharacter | undefined;
-}
+function CardInspect({ card }: ICardInspectProps) {
+  const renderContent = (domain: string) => {
+    switch (domain) {
+      case 'Personagem':
+        return <CharInspect card={card} />;
+      case 'Mundo':
+        return <WorldInspect card={card} />;
+      default:
+        return null;
+    }
+  };
 
-function CardInspect({ card }: CardInspectProps) {
   return (
     <div>
-      <h2>{card?.title}</h2>
+      <div>{renderContent(card.type)}</div>
     </div>
   );
 }
