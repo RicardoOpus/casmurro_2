@@ -27,6 +27,7 @@ function SideBar() {
     const array2 = projectData.data?.world;
     if (array1 && array2) {
       const newArray = [...array1, ...array2];
+      newArray.sort((a, b) => (b.last_edit || 0) - (a.last_edit || 0));
       setAllCards(newArray);
     }
   }, [projectData.data?.characters, projectData.data?.world]);
@@ -37,7 +38,8 @@ function SideBar() {
         const titleMatch = !searchInput || card.title.includes(searchInput);
         return titleMatch;
       });
-      setFiltredCards(result);
+      const limitedResult = result.slice(0, 10);
+      setFiltredCards(limitedResult);
     };
     handleFilter(allCards);
   }, [allCards, searchInput]);

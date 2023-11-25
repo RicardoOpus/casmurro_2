@@ -6,6 +6,7 @@ class CharacterService {
 
   async create(characterName: string) {
     const ID = await indexedDBrepository.idManager();
+    const now = Date.now();
     if (ID) {
       const data: ICharacter = {
         age: '',
@@ -18,6 +19,7 @@ class CharacterService {
         gender: '',
         id: ID,
         image: '',
+        last_edit: now,
         note: '',
         occupation: '',
         relations: [],

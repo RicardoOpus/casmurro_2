@@ -9,6 +9,7 @@ interface ICharacter {
   gender?: string;
   id: number;
   image?: string;
+  last_edit: number;
   note?: string;
   occupation?: string;
   relations?: unknown[];

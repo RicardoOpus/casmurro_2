@@ -6,12 +6,14 @@ class WorldService {
 
   async create(itemName: string) {
     const ID = await indexedDBrepository.idManager();
+    const now = Date.now();
     if (ID) {
       const data: IWorld = {
         category: '',
         content: '',
         id: ID,
         image: '',
+        last_edit: now,
         note: '',
         resume: '',
         title: itemName,

@@ -40,15 +40,18 @@ function CharacterDetail() {
     setEditedName] = useState<ICharacter | Partial<ICharacter>>(currentCharacter || {});
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
-    setEditedName({ ...stateCharacter, [key]: e.target.value });
+    const now = Date.now();
+    setEditedName({ ...stateCharacter, [key]: e.target.value, last_edit: now });
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, key: string) => {
-    setEditedName({ ...stateCharacter, [key]: e.target.value });
+    const now = Date.now();
+    setEditedName({ ...stateCharacter, [key]: e.target.value, last_edit: now });
   };
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    setEditedName({ ...stateCharacter, [key]: e.target.value });
+    const now = Date.now();
+    setEditedName({ ...stateCharacter, [key]: e.target.value, last_edit: now });
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;

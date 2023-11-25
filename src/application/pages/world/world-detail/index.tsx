@@ -25,15 +25,18 @@ function WorldDetail() {
     setStateWorldItem] = useState<IWorld | Partial<IWorld>>(currentWorldItem || {});
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
-    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value });
+    const now = Date.now();
+    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value, last_edit: now });
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, key: string) => {
-    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value });
+    const now = Date.now();
+    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value, last_edit: now });
   };
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value });
+    const now = Date.now();
+    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value, last_edit: now });
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
