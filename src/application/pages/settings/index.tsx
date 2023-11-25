@@ -2,6 +2,7 @@ import './settings.css';
 import { useState } from 'react';
 import CharactersSettings from './characters';
 import GeneralSettings from './general';
+import WorldSettings from './world';
 
 function Settings() {
   const [activeTab, setActiveTab] = useState('Geral');
@@ -11,6 +12,8 @@ function Settings() {
         return <GeneralSettings />;
       case 'Personagens':
         return <CharactersSettings />;
+      case 'Mundo':
+        return <WorldSettings />;
       default:
         return null;
     }
@@ -42,6 +45,15 @@ function Settings() {
                 type="button"
               >
                 Personagens
+              </button>
+            </li>
+            <li>
+              <button
+                className={activeTab === 'Mundo' ? 'active-tab' : ''}
+                onClick={() => setActiveTab('Mundo')}
+                type="button"
+              >
+                Mundo
               </button>
             </li>
           </ul>
