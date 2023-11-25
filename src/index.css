@@ -103,6 +103,12 @@ h1 {
   line-height: 1.1;
 }
 
+hr {
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin: .5em;
+}
+
 fieldset {
   border: solid 1px var(--border-color);
   border-radius: 5px;
@@ -291,22 +297,6 @@ option {
 
 /* ============= List Cards  ================= */
 
-.listCard {
-  border: solid 1px var(--border-color);
-  border-radius: 4px;
-  color: var(--text-color);
-  display: flex;
-  padding: .5em;
-}
-
-.listCard p {
-  margin: 0 0 .5em 1em;
-}
-
-.listCard:hover {
-  border: solid 1px var(--accent-color);
-}
-
 .cardListTitle {
   font-family: Amaranth;
   font-size: x-large;
@@ -316,6 +306,54 @@ option {
 .categoryListItem {
   color: var(--text-color-inactive);
   font-size: small;
+}
+
+/* ============= Detail Cards  ================= */
+
+.detailInputTitle {
+  all: unset;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-family: Amaranth;
+  font-size: 2em;
+  height: 50px;
+  margin: .5em 0;
+  padding: 0px 1em 0px 1em;
+  text-align: center;
+  width: 100%;
+}
+
+.detailInputTitle:focus {
+  background-color: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
+}
+
+.detailInputTitle:hover {
+  border: solid 1px var(--border-color);
+}
+
+.imageCardBackgournd {
+  border-radius: 5px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cardImageDiv { 
+  background-position-x: center;
+  background-position-y: center;
+  background-size: cover;
+  height: 300px;
+}
+
+.cardImage {
+  border-radius: 9px;
+  -webkit-box-shadow: 0px 0px 12px #000000;
+  -moz-box-shadow: 0px 0px 12px #000000;
+  -webkit-box-shadow: 0px 0px 0px 300px rgba(0,0,0,.902);
+  -moz-box-shadow: 0px 0px 0px 300px rgba(0,0,0,.902);
+  box-shadow: 0px 0px 300px 400px rgba(0, 0, 0, .902);
+  height: 300px;
 }
 
 /* ============= CHECKBOX TYPE WRAPPER ================= */

@@ -130,7 +130,7 @@ function CharacterDetail() {
         <input
           onChange={(e) => handleInputChange(e, 'title')}
           value={stateCharacter?.title}
-          className="cardInputTitleChar"
+          className="detailInputTitle"
           type="text"
           placeholder="Nome da personagem"
         />

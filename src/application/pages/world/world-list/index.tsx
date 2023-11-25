@@ -116,13 +116,22 @@ function WorldList() {
         ) : (
           filtredWorldItens.map((worldItem) => (
             <button onClick={() => navigate(`/world/${worldItem.id}`)} key={worldItem.id} type="button" className="listItens">
-              <div className="listCard">
-                <div>
-                  <h3 className="cardListTitle">{worldItem.title}</h3>
-                  <p className="categoryListItem">
-                    {worldItem.category}
-                  </p>
-                  <p>{utils.abreviarString(worldItem.resume, 300)}</p>
+              <div className="listCardWorld">
+                <h3 className="cardListTitle">{worldItem.title}</h3>
+                <hr />
+                <div className="cardWorldInfos">
+                  <div>
+                    <p className="categoryListItem">
+                      {worldItem.category}
+                    </p>
+                    <p>{utils.abreviarString(worldItem.resume, 300)}</p>
+                  </div>
+                  {worldItem.image ? (
+                    // <div className="" style={{ backgroundImage: `url(${worldItem.image})` }} />
+                    <img className="worldListImage" src={worldItem.image} alt="card img" />
+                  ) : (
+                    <div />
+                  )}
                 </div>
               </div>
             </button>

@@ -4,6 +4,7 @@ import db from '../database/dexieDB';
 // import simpleProject from '../../mocks/simpleProject';
 import IProject from '../../domain/projectModel';
 import ICharacter from '../../domain/characterModel';
+import IWorld from '../../domain/worldModel';
 
 class IndexedDBrepository {
   startValueForID = 0;
@@ -115,6 +116,29 @@ class IndexedDBrepository {
         console.log('Personagem atualizado com sucesso!');
       } else {
         console.error('Personagem não encontrado no projeto.');
+      }
+    } else {
+      console.error('Projeto não encontrado.');
+    }
+  }
+
+  async worldUpdate(worldItemId: number, data: IWorld) {
+    const projectID = await this.getCurrentProjectID();
+    const project = await db.projects.where({ id: projectID }).first();
+    if (project) {
+      if (!project.data) {
+        project.data = { world: [] };
+      }
+      const worldItens = project.data.world || [];
+      const characterIndex = worldItens.findIndex((char) => char.id === worldItemId);
+      if (characterIndex !== -1) {
+        worldItens[characterIndex] = data;
+        project.data.world = worldItens;
+        await db.projects.update(projectID, { data: project.data });
+        this.updateLastEdit();
+        console.log('Item mundo atualizado com sucesso!');
+      } else {
+        console.error('Item mundo não encontrado no projeto.');
       }
     } else {
       console.error('Projeto não encontrado.');

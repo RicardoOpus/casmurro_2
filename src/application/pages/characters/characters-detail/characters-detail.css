@@ -28,6 +28,20 @@
   width: 150px;
 }
 
+.profile-pic .-label2 {
+  background-color: var(--btn-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-color);
+  cursor: pointer;
+  font-size: smaller;
+  padding: .4em 1em;
+}
+
+.profile-pic:hover .-label2 {
+  border: 1px solid var(--accent-color);
+}
+
 .profile-pic:hover .-label {
   align-items: center;
   background-color: rgba(0, 0, 0, .8);
@@ -48,29 +62,6 @@
 
 .profile-pic a:hover {
   text-decoration: none;
-}
-
-.cardInputTitleChar {
-  all: unset;
-  border-radius: 5px;
-  box-sizing: border-box;
-  color: var(--text-color);
-  font-family: Amaranth;
-  font-size: 2em;
-  height: 50px;
-  margin: .5em 0;
-  padding: 0px 1em 0px 1em;
-  text-align: center;
-  width: 100%;
-}
-
-.cardInputTitleChar:focus {
-  background-color: var(--bg-color-sec);
-  border: solid 1px var(--border-color);
-}
-
-.cardInputTitleChar:hover {
-  border: solid 1px var(--border-color);
 }
 
 .charBasicInfos {

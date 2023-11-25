@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import './next-and-prev.css';
+import { fetchProjectDataAction } from '../../redux/actions/projectActions';
 
 interface NextPrevProps {
   id: number;
@@ -10,8 +12,18 @@ interface NextPrevProps {
 
 function NextAndPrevCard({ id, dataTable }: NextPrevProps) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [idNext, setIdNext] = useState(0);
   const [idPrev, setIdPrev] = useState(0);
+
+  const handleClick = (next: boolean) => {
+    dispatch(fetchProjectDataAction(true));
+    if (next) {
+      navigate(`/${dataTable}/${idNext}`);
+    } else {
+      navigate(`/${dataTable}/${idPrev}`);
+    }
+  };
 
   useEffect(() => {
     const positionInArray = async () => {
@@ -29,14 +41,14 @@ function NextAndPrevCard({ id, dataTable }: NextPrevProps) {
   return (
     <div className="nexAndPrevBtns">
       {idPrev !== 0 && idPrev !== id && (
-        <button className="btnInvisible" type="button" onClick={() => navigate(`/${dataTable}/${idPrev}`)}>
+        <button className="btnInvisible" type="button" onClick={() => handleClick(false)}>
           <span className="ui-icon ui-icon-circle-arrow-w icon-color" />
           {' '}
           Anterior
         </button>
       )}
       {idNext !== 0 && idNext !== id && (
-        <button className="btnInvisible" type="button" onClick={() => navigate(`/${dataTable}/${idNext}`)}>
+        <button className="btnInvisible" type="button" onClick={() => handleClick(true)}>
           Próximo
           {' '}
           <span className="ui-icon ui-icon-circle-arrow-e icon-color" />

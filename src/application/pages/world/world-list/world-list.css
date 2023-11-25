@@ -1,0 +1,26 @@
+.worldListImage {
+  border-radius: 5px;
+  height: 170px;
+  max-width: 50%;
+}
+
+.listCardWorld {
+  border: solid 1px var(--border-color);
+  border-radius: 4px;
+  color: var(--text-color);
+  padding: .5em;
+}
+
+.cardWorldInfos {
+  display: flex;
+  justify-content: space-between;
+}
+
+.listCardWorld p {
+  margin: 0 1em .5em 1em;
+}
+
+.listCardWorld:hover {
+  border: solid 1px var(--accent-color);
+}
+
