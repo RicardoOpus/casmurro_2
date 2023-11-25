@@ -2,7 +2,8 @@ import IWorld from '../domain/worldModel';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class WorldService {
-  // eslint-disable-next-line class-methods-use-this
+  typeItem = 'Mundo';
+
   async create(itemName: string) {
     const ID = await indexedDBrepository.idManager();
     if (ID) {
@@ -14,6 +15,7 @@ class WorldService {
         note: '',
         resume: '',
         title: itemName,
+        type: this.typeItem,
       };
       await indexedDBrepository.cardPost(data, 'world');
     }

@@ -9,9 +9,9 @@
   margin: .57142857em 0;
 }
 
-.sideBar button {
+.sideBarButton {
   float: right;;
-  margin: 2rem .5rem ;
+  margin: 2rem .5rem 0;
   padding: 10px;
 }
 
@@ -20,3 +20,7 @@
   width: 15vw;
 }
 
+.spanSideBar {
+  color: var(--text-color-inactive);
+  font-size: smaller;
+}

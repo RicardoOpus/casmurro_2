@@ -23,6 +23,7 @@ class CharacterService {
         relations: [],
         resume: '',
         title: characterName,
+        type: 'Personagem',
       };
       await indexedDBrepository.cardPost(data, 'characters');
     }

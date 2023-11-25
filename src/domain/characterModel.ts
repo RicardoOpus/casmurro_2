@@ -14,6 +14,7 @@ interface ICharacter {
   relations?: unknown[];
   resume?: string;
   title: string;
+  type: string;
 }
 
 export default ICharacter;

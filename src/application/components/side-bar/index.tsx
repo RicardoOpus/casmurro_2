@@ -1,8 +1,16 @@
-import { useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import './side-bar.css';
+import { useSelector } from 'react-redux';
+import IrootStateProject from '../../../domain/IrootStateProject';
+import IWorld from '../../../domain/worldModel';
+import ICharacter from '../../../domain/characterModel';
 
 function SideBar() {
+  const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [searchInput, setSearchInput] = useState('');
+  const [allCards, setAllCards] = useState<(IWorld | ICharacter)[]>([]);
+  const [filtredCards, setFiltredCards] = useState<(IWorld | ICharacter)[]>([]);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -10,9 +18,33 @@ function SideBar() {
 
   const sidebarWidth = isSidebarOpen ? 'block' : 'none';
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
+
+  useEffect(() => {
+    const array1 = projectData.data?.characters;
+    const array2 = projectData.data?.world;
+    if (array1 && array2) {
+      const newArray = [...array1, ...array2];
+      setAllCards(newArray);
+    }
+  }, [projectData.data?.characters, projectData.data?.world]);
+
+  useEffect(() => {
+    const handleFilter = (cardList: IWorld[] | ICharacter[]) => {
+      const result = cardList.filter((card) => {
+        const titleMatch = !searchInput || card.title.includes(searchInput);
+        return titleMatch;
+      });
+      setFiltredCards(result);
+    };
+    handleFilter(allCards);
+  }, [allCards, searchInput]);
+
   return (
     <div className="sideBar">
-      <button className="btnDiscret" type="button" onClick={toggleSidebar}>
+      <button className="btnDiscret sideBarButton" type="button" onClick={toggleSidebar}>
         {isSidebarOpen ? '❮❮' : '❯❯'}
       </button>
 
@@ -20,7 +52,30 @@ function SideBar() {
         {isSidebarOpen && (
           <div>
             <h3>Consulta rápida</h3>
-            {/* Outros conteúdos da barra lateral */}
+            <input
+              type="text"
+              value={searchInput}
+              placeholder="Pesquisar em tudo..."
+              onChange={(e) => handleInputChange(e)}
+              className="cardInputSearch"
+            />
+            {filtredCards.map((e) => (
+              <div key={e.id}>
+                <button
+                  className="btnInvisible"
+                  type="button"
+                >
+                  {e.title}
+                  <br />
+                  {' '}
+                  <span className="spanSideBar">
+                    (
+                    {e.type}
+                    )
+                  </span>
+                </button>
+              </div>
+            ))}
           </div>
         )}
       </div>

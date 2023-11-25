@@ -156,6 +156,7 @@ button:disabled:hover {
   background-color: transparent;
   border: solid 1px transparent;
   padding: .5em 0;
+  text-align: left;
 }
 
 .btnInvisible:hover {

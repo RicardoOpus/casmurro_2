@@ -6,6 +6,7 @@ interface IWorld {
   note?: string;
   resume?: string;
   title: string;
+  type: string;
 }
 
 export default IWorld;
