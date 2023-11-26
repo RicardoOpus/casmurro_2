@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import './characters-detail.css';
 import ICharacter from '../../../../domain/characterModel';
@@ -12,6 +13,7 @@ import TypeWriterSound from '../../../components/type-write-sound';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
 import CharRelationsModal from './characters-relations';
+import IRelation from '../../../../domain/IRelation';
 
 function CharacterDetail() {
   const dispatch = useDispatch();
@@ -67,6 +69,13 @@ function CharacterDetail() {
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  const updateCharacterRelations = (newRelations: IRelation[]) => {
+    setEditedName((prevCharacter) => ({
+      ...prevCharacter,
+      relations: newRelations,
+    }));
   };
 
   useEffect(() => {
@@ -262,18 +271,20 @@ function CharacterDetail() {
             </select>
           </div>
         </div>
-        <div>
-          <h3>Relacionamentos</h3>
-          {stateRelations.map((e, index) => (
-            <div key={e.char}>
-              <button className="btnInvisible" type="button" onClick={() => deleteRelation(index)}>✖</button>
-              {' '}
-              <button className="btnSmall" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
-              {' '}
-              <span>{e.type}</span>
-            </div>
-          ))}
-        </div>
+        {stateRelations.length > 0 && (
+          <div>
+            <h3>Relacionamentos</h3>
+            {stateRelations.map((e, index) => (
+              <div key={uuidv4()}>
+                <button className="btnInvisible" type="button" onClick={() => deleteRelation(index)}>✖</button>
+                {' '}
+                <button className="btnSmall" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
+                {' '}
+                <span>{e.type}</span>
+              </div>
+            ))}
+          </div>
+        )}
         <div className="fullContent">
           <h3>Resumo</h3>
           <textarea
@@ -303,7 +314,8 @@ function CharacterDetail() {
         openModal={modalRelations}
         onClose={closeModal2}
         charList={characters}
-        currentCharacter={currentCharacter}
+        currentCharacter={stateCharacter}
+        updateCharacterRelations={updateCharacterRelations}
       />
       {prjSettings.typeWriterSound && (<TypeWriterSound />)}
     </div>

@@ -2,42 +2,37 @@ import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
 import ICharacter from '../../../../../domain/characterModel';
-import Alert from '../../../../components/alert';
-import indexedDBrepository from '../../../../../infra/repository/indexedDBrepository';
+import IRelation from '../../../../../domain/IRelation';
 
 interface GenericModalProps {
   onClose: () => void;
   openModal: boolean;
   charList: ICharacter[] | undefined;
-  currentCharacter: ICharacter | undefined;
+  currentCharacter: ICharacter | Partial<ICharacter>;
+  // eslint-disable-next-line no-unused-vars
+  updateCharacterRelations: (data: IRelation[]) => void;
 }
 
 function CharRelationsModal({
-  onClose, openModal, charList, currentCharacter,
+  onClose, openModal, charList, currentCharacter, updateCharacterRelations,
 }: GenericModalProps) {
   const [relationType, setRelationType] = useState('');
   const [relationCharID, setrelationCharID] = useState(0);
-  const [showAlert, setShowAlert] = useState(false);
   const hasType = relationType.trim() === '';
   const hasID = relationCharID === 0;
   const ref = useRef<HTMLDialogElement | null>(null);
 
-  const handleAlertClose = () => {
-    setShowAlert(true);
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 2000);
-  };
-
   const saveRelation = () => {
     const newRelation = { charID: relationCharID, type: relationType };
     if (currentCharacter) {
-      currentCharacter.relations?.push(newRelation);
-      indexedDBrepository.characterUpdate(currentCharacter.id, currentCharacter);
+      const updatedRelations = [...(currentCharacter.relations || []), newRelation];
+      // eslint-disable-next-line no-param-reassign
+      currentCharacter.relations = updatedRelations;
+      if (currentCharacter && currentCharacter.id) {
+        updateCharacterRelations(updatedRelations);
+      }
     }
-    handleAlertClose();
-    setRelationType('');
-    setrelationCharID(0);
+    onClose();
   };
 
   const handleKeyPress = (event: { key: string; }) => {
@@ -76,7 +71,6 @@ function CharRelationsModal({
 
   return (
     <dialog ref={ref} className="modal">
-      {showAlert && <Alert mensage="Adicionado!" />}
       <div className="modal-content">
         <h2>Definir relações</h2>
         <h3>Personagem:</h3>
