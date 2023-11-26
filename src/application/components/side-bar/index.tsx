@@ -10,7 +10,7 @@ import ICharacter from '../../../domain/characterModel';
 import CardInspect from './card-inspect';
 
 function SideBar() {
-  const [width, setWidth] = useState(400);
+  const [width, setWidth] = useState(600);
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [searchInput, setSearchInput] = useState('');
@@ -35,7 +35,7 @@ function SideBar() {
 
   const openSidebar = () => {
     setSidebarOpen(true);
-    setWidth(400);
+    setWidth(600);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +97,7 @@ function SideBar() {
                   <span className="ui-icon ui-icon-arrowreturnthick-1-w icon-color" />
                   Voltar
                 </button>
-                <button onClick={() => setSearchInput('')} className="btnSmall" type="button">Limpar</button>
+                <button onClick={() => setSearchInput('')} className="btnSmall" type="button">✖ Limpar</button>
               </div>
               {showInspect ? (
                 <div>

@@ -149,7 +149,7 @@ function CharacterDetail() {
               <button type="button" className="btnRandom" title="Gerar aleatoriamente uma cor" onClick={hadleRandomColor}>
                 ↻
               </button>
-              <button onClick={clearImage} className="btnSmall" type="button">Apagar imagem</button>
+              <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
             </div>
             <div className="detailBarButtonsItens">
               <button className="detailAdd" type="button">{ }</button>

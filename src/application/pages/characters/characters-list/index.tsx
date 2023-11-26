@@ -143,7 +143,7 @@ function CharactersList() {
               </option>
             ))}
           </select>
-          <button className="btnSmall" type="button" onClick={clearAllFilters}>Limpar Filtros</button>
+          <button className="btnSmall" type="button" onClick={clearAllFilters}>✖ Filtros</button>
           <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑ Az</button>
           <button className="btnSmall" type="button" onClick={handleSort} disabled={!isAscOrder}>↓ Za</button>
         </div>

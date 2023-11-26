@@ -133,7 +133,7 @@ function WorldDetail() {
                 <input id="file" type="file" accept=".jpg, jpeg, .png" onChange={(e) => handleFileInput(e.target)} />
               </label>
             </div>
-            <button onClick={clearImage} className="btnSmall" type="button">Apagar imagem</button>
+            <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
           </div>
           <div className="detailBarButtonsItens">
             <button onClick={openModal} className="btnSmall" type="button">
