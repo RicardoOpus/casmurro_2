@@ -3,6 +3,7 @@
   background-color: var(--bg-color-sec);
   border-right: 1px solid var(--border-color);
   box-shadow: inset 0 4px 4px -2px rgba(0, 0, 0, .5);
+  overflow: hidden;
 }
 
 .sideBar h3 {
@@ -17,7 +18,6 @@
 
 .sideBarContent {
   padding: 2rem 3rem 2rem 30px;
-  width: 15vw;
 }
 
 .spanSideBar {
@@ -35,6 +35,7 @@
 .inspectCard {
   max-height: 900px;
   overflow: scroll;
+  padding-right: 1em;
 }
 
 .circulo {
@@ -90,4 +91,21 @@
   border: solid 1px var(--border-color);
   border-radius: 5px;
   width: 90%;
+}
+
+.resizable {
+  position: relative;
+}
+
+.custom-handle {
+  cursor: col-resize;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 10px;
+}
+
+.custom-handle:hover {
+  background-color: #aaa;
 }
