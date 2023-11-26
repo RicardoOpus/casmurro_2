@@ -73,7 +73,7 @@ function CharRelationsModal({
     <dialog ref={ref} className="modal">
       <div className="modal-content">
         <h2>Definir relações</h2>
-        <h3>Personagem:</h3>
+        <h3 className="h3Relatoins">Personagem:</h3>
         <select
           value={relationCharID}
           className="selectFullWith"
@@ -90,17 +90,19 @@ function CharRelationsModal({
             )
           ))}
         </select>
-        <h3>Tipo de relação:</h3>
+        <h3 className="h3Relatoins">Tipo de relação:</h3>
         <input
-          className="cardInputTitle"
+          className="cardInput"
           type="text"
           placeholder="amigo, pai, filho, irmão, escudeiro, ajudante..."
           value={relationType}
           onChange={(e) => setRelationType(e.target.value)}
           onKeyDown={handleKeyPress}
         />
-        <button id="btnSavePr" onClick={saveRelation} type="button" disabled={hasID || hasType}>Adicionar</button>
-        <button onClick={handleCancel} type="button">Fechar</button>
+        <div className="button-container">
+          <button id="btnSavePr" onClick={saveRelation} type="button" disabled={hasID || hasType}>Adicionar</button>
+          <button onClick={handleCancel} type="button">Fechar</button>
+        </div>
       </div>
     </dialog>
   );

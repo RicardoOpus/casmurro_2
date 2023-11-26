@@ -195,9 +195,11 @@ function CharacterDetail() {
                 value={stateCharacter.color}
                 onChange={(e) => handleInputChange(e, 'color')}
               />
-              <button type="button" className="btnRandom" title="Gerar aleatoriamente uma cor" onClick={hadleRandomColor}>
-                ↻
-              </button>
+              <span className="tooltip-default" data-balloon aria-label="Cor aleatória" data-balloon-pos="down">
+                <button type="button" className="btnRandom" onClick={hadleRandomColor}>
+                  ↻
+                </button>
+              </span>
               <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
               <button onClick={openModal2} className="btnSmall" type="button">+ Relações</button>
             </div>
@@ -280,15 +282,17 @@ function CharacterDetail() {
           </div>
         </div>
         {stateRelations.length > 0 && (
-          <div>
+          <div className="fullContent">
             <h3>Relacionamentos</h3>
             {stateRelations.map((e, index) => (
               <div key={uuidv4()}>
-                <button className="btnInvisible" type="button" onClick={() => deleteRelation(index)}>✖</button>
+                <span className="tooltip-default" data-balloon aria-label="Remover relação" data-balloon-pos="down">
+                  <button className="removeRelationBtn" type="button" onClick={() => deleteRelation(index)}>✖</button>
+                  {' '}
+                </span>
+                <button onClick={() => navigate(`/characters/${e.charID}`)} className="relationBtn" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
                 {' '}
-                <button onClick={() => navigate(`/characters/${e.charID}`)} className="btnSmall" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
-                {' '}
-                <span>{e.type}</span>
+                <span>{`(${e.type})`}</span>
               </div>
             ))}
           </div>

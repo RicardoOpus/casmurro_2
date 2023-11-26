@@ -98,3 +98,28 @@
   padding: 1px 6px;
   width: 40px;
 }
+
+.removeRelationBtn {
+  background-color: transparent;
+  border: solid 1px transparent;
+  margin: 0 .5em 0 0;
+  padding: .5em 0;
+  text-align: left;
+}
+
+.removeRelationBtn:hover {
+  border: solid 1px transparent;
+  color: red;
+}
+
+.relationBtn {
+  color: white;
+  font-size: smaller;
+  margin-right: .5em;
+  padding: .2em .5em;
+}
+
+.h3Relatoins {
+  color: var(--text-color-inactive);
+  margin-bottom: 0;
+}

@@ -99,32 +99,34 @@ function SideBar() {
                 </button>
                 <button onClick={() => setSearchInput('')} className="btnSmall" type="button">✖ Limpar</button>
               </div>
-              {showInspect ? (
-                <div>
-                  {selectedCard && (
-                    <CardInspect card={selectedCard} />
-                  )}
-                </div>
-              ) : (
-                filtredCards.map((e) => (
-                  <div key={e.id}>
-                    <button
-                      className="btnInvisible"
-                      type="button"
-                      onClick={() => sideBarHandleClick(e)}
-                    >
-                      {e.title}
-                      <br />
-                      {' '}
-                      <span className="spanSideBar">
-                        (
-                        {e.type}
-                        )
-                      </span>
-                    </button>
+              <div className="sideBarList">
+                {showInspect ? (
+                  <div>
+                    {selectedCard && (
+                      <CardInspect card={selectedCard} />
+                    )}
                   </div>
-                ))
-              )}
+                ) : (
+                  filtredCards.map((e) => (
+                    <div key={e.id}>
+                      <button
+                        className="btnInvisible"
+                        type="button"
+                        onClick={() => sideBarHandleClick(e)}
+                      >
+                        {e.title}
+                        <br />
+                        {' '}
+                        <span className="spanSideBar">
+                          (
+                          {e.type}
+                          )
+                        </span>
+                      </button>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           )}
         </div>
