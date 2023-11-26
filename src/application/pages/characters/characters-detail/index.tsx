@@ -11,17 +11,21 @@ import GenericModal from '../../../components/generic-modal';
 import TypeWriterSound from '../../../components/type-write-sound';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
+import CharRelationsModal from './characters-relations';
 
 function CharacterDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
+  const [modalRelations, setModalRalations] = useState(false);
   const characters = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
   const prjSettings = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.projectSettings));
   const { id } = useParams();
   const currentCharacter = characters?.find((e) => e.id === Number(id));
+  const [stateRelations,
+    setStateRelations] = useState<{ char: string; color: string; type: string; }[]>([]);
 
   const openModal = () => {
     setModal(true);
@@ -29,6 +33,14 @@ function CharacterDetail() {
 
   const closeModal = () => {
     setModal(false);
+  };
+
+  const openModal2 = () => {
+    setModalRalations(true);
+  };
+
+  const closeModal2 = () => {
+    setModalRalations(false);
   };
 
   const handleDelete = async () => {
@@ -103,6 +115,26 @@ function CharacterDetail() {
     }
   };
 
+  const deleteRelation = (relationId: number) => {
+    const updatedRelations = stateCharacter.relations?.filter((_, index) => index !== relationId);
+    setEditedName({ ...stateCharacter, relations: updatedRelations });
+  };
+
+  useEffect(() => {
+    const relationsArray = stateCharacter.relations
+      ?.reduce<{ char: string; color: string; type: string; }[]>((accumulator, e) => {
+        const char = characters?.find((ele) => ele.id === e.charID);
+        if (char && char.color) {
+          const newdata = { char: char.title, color: char.color, type: e.type };
+          accumulator.push(newdata);
+        }
+        return accumulator;
+      }, []);
+    if (relationsArray) {
+      setStateRelations(relationsArray);
+    }
+  }, [stateCharacter.relations, characters]);
+
   useEffect(() => {
     utils.autoGrowAllTextareas();
   }, []);
@@ -150,6 +182,7 @@ function CharacterDetail() {
                 ↻
               </button>
               <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
+              <button onClick={openModal2} className="btnSmall" type="button">+ Relações</button>
             </div>
             <div className="detailBarButtonsItens">
               <button className="detailAdd" type="button">{ }</button>
@@ -229,7 +262,18 @@ function CharacterDetail() {
             </select>
           </div>
         </div>
-        <div className="divider div-transparent" />
+        <div>
+          <h3>Relacionamentos</h3>
+          {stateRelations.map((e, index) => (
+            <div key={e.char}>
+              <button className="btnInvisible" type="button" onClick={() => deleteRelation(index)}>✖</button>
+              {' '}
+              <button className="btnSmall" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
+              {' '}
+              <span>{e.type}</span>
+            </div>
+          ))}
+        </div>
         <div className="fullContent">
           <h3>Resumo</h3>
           <textarea
@@ -255,6 +299,12 @@ function CharacterDetail() {
         </div>
       </div>
       <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir personagem?" onDataSend={handleDelete} deleteType />
+      <CharRelationsModal
+        openModal={modalRelations}
+        onClose={closeModal2}
+        charList={characters}
+        currentCharacter={currentCharacter}
+      />
       {prjSettings.typeWriterSound && (<TypeWriterSound />)}
     </div>
   );

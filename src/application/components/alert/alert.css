@@ -1,0 +1,15 @@
+.genericWarning {
+  background-color: var(--green-color);
+  border-radius: 5px;
+  font-size: x-large;
+  margin: .5em 1em;
+  padding: 1rem;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.genericWarning p {
+  color: var(--text-color);
+  margin: 0;
+}

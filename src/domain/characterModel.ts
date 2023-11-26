@@ -1,3 +1,8 @@
+interface Irelations {
+  charID: number,
+  type: string
+}
+
 interface ICharacter {
   age?: string;
   category?: string;
@@ -12,7 +17,7 @@ interface ICharacter {
   last_edit: number;
   note?: string;
   occupation?: string;
-  relations?: unknown[];
+  relations?: Irelations[];
   resume?: string;
   title: string;
   type: string;
