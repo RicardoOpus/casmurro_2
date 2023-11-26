@@ -27,7 +27,10 @@ function CharacterDetail() {
   const { id } = useParams();
   const currentCharacter = characters?.find((e) => e.id === Number(id));
   const [stateRelations,
-    setStateRelations] = useState<{ char: string; color: string; type: string; }[]>([]);
+    setStateRelations] = useState<{
+      charID: number;
+      char: string; color: string; type: string;
+    }[]>([]);
 
   const openModal = () => {
     setModal(true);
@@ -131,10 +134,15 @@ function CharacterDetail() {
 
   useEffect(() => {
     const relationsArray = stateCharacter.relations
-      ?.reduce<{ char: string; color: string; type: string; }[]>((accumulator, e) => {
+      ?.reduce<{
+        charID: number;
+        char: string; color: string; type: string;
+      }[]>((accumulator, e) => {
         const char = characters?.find((ele) => ele.id === e.charID);
         if (char && char.color) {
-          const newdata = { char: char.title, color: char.color, type: e.type };
+          const newdata = {
+            charID: char.id, char: char.title, color: char.color, type: e.type,
+          };
           accumulator.push(newdata);
         }
         return accumulator;
@@ -278,7 +286,7 @@ function CharacterDetail() {
               <div key={uuidv4()}>
                 <button className="btnInvisible" type="button" onClick={() => deleteRelation(index)}>✖</button>
                 {' '}
-                <button className="btnSmall" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
+                <button onClick={() => navigate(`/characters/${e.charID}`)} className="btnSmall" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
                 {' '}
                 <span>{e.type}</span>
               </div>
