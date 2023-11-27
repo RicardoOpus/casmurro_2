@@ -1,0 +1,29 @@
+
+.loading {
+  border-radius: 15px;
+  left: 50%;
+  padding: 1rem;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+}
+
+@keyframes spin {
+
+  0% { transform: rotate(0deg); }
+
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spin {
+  animation: spin 1s linear infinite;
+  border: 8px solid #cecece;
+  border-radius: 50%;
+  border-top: 8px solid #3498db;
+  display: inline-block;
+  height: 70px;
+  width: 70px;
+}
+

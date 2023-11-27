@@ -8,9 +8,10 @@ import { fetchProjectDataAction } from '../../redux/actions/projectActions';
 interface NextPrevProps {
   id: number;
   dataTable: string;
+  callback: () => void;
 }
 
-function NextAndPrevCard({ id, dataTable }: NextPrevProps) {
+function NextAndPrevCard({ id, dataTable, callback }: NextPrevProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [idNext, setIdNext] = useState(0);
@@ -18,6 +19,7 @@ function NextAndPrevCard({ id, dataTable }: NextPrevProps) {
 
   const handleClick = (next: boolean) => {
     dispatch(fetchProjectDataAction(true));
+    callback();
     if (next) {
       navigate(`/${dataTable}/${idNext}`);
     } else {

@@ -14,8 +14,10 @@ import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
 import CharRelationsModal from './characters-relations';
 import IRelation from '../../../../domain/IRelation';
+import Loading from '../../../components/loading';
 
 function CharacterDetail() {
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
@@ -31,6 +33,10 @@ function CharacterDetail() {
       charID: number;
       char: string; color: string; type: string;
     }[]>([]);
+
+  const callBackLoading = () => {
+    setIsLoading(true);
+  };
 
   const openModal = () => {
     setModal(true);
@@ -82,12 +88,15 @@ function CharacterDetail() {
   };
 
   useEffect(() => {
-    if (Object.keys(stateCharacter).length === 0) {
-      navigate('/');
-    } else {
-      indexedDBrepository.characterUpdate(Number(id), stateCharacter as ICharacter);
-    }
-  }, [dispatch, stateCharacter, id, navigate]);
+    const fetchData = async () => {
+      if (Object.keys(stateCharacter).length === 0) {
+        navigate('/');
+      } if (!isLoading) {
+        indexedDBrepository.characterUpdate(Number(id), stateCharacter as ICharacter);
+      }
+    };
+    fetchData();
+  }, [dispatch, stateCharacter, id, navigate, isLoading]);
 
   const cleanupFunction = () => {
     dispatch(fetchProjectDataAction(true));
@@ -153,183 +162,190 @@ function CharacterDetail() {
   }, [stateCharacter.relations, characters]);
 
   useEffect(() => {
-    utils.autoGrowAllTextareas();
-  }, []);
+    if (!isLoading) {
+      utils.autoGrowAllTextareas();
+    }
+  }, [isLoading]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => cleanupFunction, []);
 
   useEffect(() => {
     setEditedName(currentCharacter || {});
+    setIsLoading(false);
   }, [currentCharacter, id]);
 
   return (
     <div className="innerContent">
-      <div className="card">
-        <BackButton page="/characters" />
-        <NextAndPrevCard id={Number(id)} dataTable="characters" />
-        <div className="profile-pic">
-          <label className="-label" htmlFor="file">
-            <span>Mudar imagem</span>
-            <input id="file" type="file" accept=".jpg, jpeg, .png" onChange={(e) => handleFileInput(e.target)} />
-          </label>
-          {stateCharacter.image ? (
-            <img src={stateCharacter.image} id="output" alt="character" />
-          ) : (
-            <img src="./person.png" id="output" alt="character" />
-          )}
-        </div>
-        <input
-          onChange={(e) => handleInputChange(e, 'title')}
-          value={stateCharacter?.title}
-          className="detailInputTitle"
-          type="text"
-          placeholder="Nome da personagem"
-        />
-        <div className="detailBar">
-          <div className="detailBarButtons">
-            <div className="detailBarButtonsItens">
-              <input
-                className="chartaterColor"
-                type="color"
-                value={stateCharacter.color}
-                onChange={(e) => handleInputChange(e, 'color')}
-              />
-              <span className="tooltip-default" data-balloon aria-label="Cor aleatória" data-balloon-pos="down">
-                <button type="button" className="btnRandom" onClick={hadleRandomColor}>
-                  ↻
-                </button>
-              </span>
-              <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
-              <button onClick={openModal2} className="btnSmall" type="button">+ Relações</button>
-            </div>
-            <div className="detailBarButtonsItens">
-              <button className="detailAdd" type="button">{ }</button>
-              <button className="btnSmall" type="button" onClick={openModal}>
-                <span className="ui-icon ui-icon-trash icon-color" />
-                {' '}
-                Excluir
-              </button>
-            </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className="card">
+          <BackButton page="/characters" />
+          <NextAndPrevCard id={Number(id)} dataTable="characters" callback={callBackLoading} />
+          <div className="profile-pic">
+            <label className="-label" htmlFor="file">
+              <span>Mudar imagem</span>
+              <input id="file" type="file" accept=".jpg, jpeg, .png" onChange={(e) => handleFileInput(e.target)} />
+            </label>
+            {stateCharacter.image ? (
+              <img src={stateCharacter.image} id="output" alt="character" />
+            ) : (
+              <img src="./person.png" id="output" alt="character" />
+            )}
           </div>
-        </div>
-        <div className="divider div-transparent" />
-        <div className="charBasicInfos">
-          <div>
-            <h3>Categoria</h3>
-            <select
-              className="selectFullWith"
-              value={stateCharacter?.category}
-              onChange={(e) => handleSelectChange(e, 'category')}
-            >
-              <option value="">{ }</option>
-              {prjSettings?.charactersCategory.map((e) => (
-                <option key={e} value={e}>
-                  •
-                  {' '}
-                  {e}
-                </option>
-              ))}
-            </select>
-            <h3>Idade</h3>
-            <input
-              className="cardInput"
-              type="number"
-              value={stateCharacter?.age}
-              onChange={(e) => handleInputChange(e, 'age')}
-            />
-          </div>
-          <div>
-            <h3>Gênero</h3>
-            <select
-              className="selectFullWith"
-              value={stateCharacter?.gender}
-              onChange={(e) => handleSelectChange(e, 'gender')}
-            >
-              <option value="">{ }</option>
-              {prjSettings?.charactersGenders.map((e) => (
-                <option key={e} value={e}>
-                  •
-                  {' '}
-                  {e}
-                </option>
-              ))}
-            </select>
-            <h3>Ocupação</h3>
-            <input
-              className="cardInput"
-              type="text"
-              value={stateCharacter?.occupation}
-              onChange={(e) => handleInputChange(e, 'occupation')}
-            />
-          </div>
-          <div>
-            <h3>Núcleo</h3>
-            <select
-              className="selectFullWith"
-              value={stateCharacter?.core_group}
-              onChange={(e) => handleSelectChange(e, 'core_group')}
-            >
-              <option value="">{ }</option>
-              {prjSettings?.charactersCoreGroupes.map((e) => (
-                <option key={e} value={e}>
-                  •
-                  {' '}
-                  {e}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        {stateRelations.length > 0 && (
-          <div className="fullContent">
-            <h3>Relações</h3>
-            {stateRelations.map((e, index) => (
-              <div key={uuidv4()}>
-                <span className="tooltip-default" data-balloon aria-label="Remover relação" data-balloon-pos="down">
-                  <button className="removeRelationBtn" type="button" onClick={() => deleteRelation(index)}>✖</button>
-                  {' '}
+          <input
+            onChange={(e) => handleInputChange(e, 'title')}
+            value={stateCharacter?.title}
+            className="detailInputTitle"
+            type="text"
+            placeholder="Nome da personagem"
+          />
+          <div className="detailBar">
+            <div className="detailBarButtons">
+              <div className="detailBarButtonsItens">
+                <input
+                  className="chartaterColor"
+                  type="color"
+                  value={stateCharacter.color}
+                  onChange={(e) => handleInputChange(e, 'color')}
+                />
+                <span className="tooltip-default" data-balloon aria-label="Cor aleatória" data-balloon-pos="down">
+                  <button type="button" className="btnRandom" onClick={hadleRandomColor}>
+                    ↻
+                  </button>
                 </span>
-                <button onClick={() => navigate(`/characters/${e.charID}`)} className="relationBtn" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
-                {' '}
-                <span>{`(${e.type})`}</span>
+                <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
+                <button onClick={openModal2} className="btnSmall" type="button">+ Relações</button>
               </div>
-            ))}
+              <div className="detailBarButtonsItens">
+                <button className="detailAdd" type="button">{ }</button>
+                <button className="btnSmall" type="button" onClick={openModal}>
+                  <span className="ui-icon ui-icon-trash icon-color" />
+                  {' '}
+                  Excluir
+                </button>
+              </div>
+            </div>
           </div>
-        )}
-        <div className="fullContent">
-          <h3>Resumo</h3>
-          <textarea
-            className="cardInputFull"
-            placeholder="Descreva de forma breve quem é essa personagem..."
-            value={stateCharacter?.resume}
-            onChange={(e) => handleTextAreaChange(e, 'resume')}
+          <div className="divider div-transparent" />
+          <div className="charBasicInfos">
+            <div>
+              <h3>Categoria</h3>
+              <select
+                className="selectFullWith"
+                value={stateCharacter?.category}
+                onChange={(e) => handleSelectChange(e, 'category')}
+              >
+                <option value="">{ }</option>
+                {prjSettings?.charactersCategory.map((e) => (
+                  <option key={e} value={e}>
+                    •
+                    {' '}
+                    {e}
+                  </option>
+                ))}
+              </select>
+              <h3>Idade</h3>
+              <input
+                className="cardInput"
+                type="number"
+                value={stateCharacter?.age}
+                onChange={(e) => handleInputChange(e, 'age')}
+              />
+            </div>
+            <div>
+              <h3>Gênero</h3>
+              <select
+                className="selectFullWith"
+                value={stateCharacter?.gender}
+                onChange={(e) => handleSelectChange(e, 'gender')}
+              >
+                <option value="">{ }</option>
+                {prjSettings?.charactersGenders.map((e) => (
+                  <option key={e} value={e}>
+                    •
+                    {' '}
+                    {e}
+                  </option>
+                ))}
+              </select>
+              <h3>Ocupação</h3>
+              <input
+                className="cardInput"
+                type="text"
+                value={stateCharacter?.occupation}
+                onChange={(e) => handleInputChange(e, 'occupation')}
+              />
+            </div>
+            <div>
+              <h3>Núcleo</h3>
+              <select
+                className="selectFullWith"
+                value={stateCharacter?.core_group}
+                onChange={(e) => handleSelectChange(e, 'core_group')}
+              >
+                <option value="">{ }</option>
+                {prjSettings?.charactersCoreGroupes.map((e) => (
+                  <option key={e} value={e}>
+                    •
+                    {' '}
+                    {e}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          {stateRelations.length > 0 && (
+            <div className="fullContent">
+              <h3>Relações</h3>
+              {stateRelations.map((e, index) => (
+                <div key={uuidv4()}>
+                  <span className="tooltip-default" data-balloon aria-label="Remover relação" data-balloon-pos="down">
+                    <button className="removeRelationBtn" type="button" onClick={() => deleteRelation(index)}>✖</button>
+                    {' '}
+                  </span>
+                  <button onClick={() => navigate(`/characters/${e.charID}`)} className="relationBtn" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
+                  {' '}
+                  <span>{`(${e.type})`}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <div className="fullContent">
+            <h3>Resumo</h3>
+            <textarea
+              className="cardInputFull"
+              placeholder="Descreva de forma breve quem é essa personagem..."
+              value={stateCharacter?.resume}
+              onChange={(e) => handleTextAreaChange(e, 'resume')}
+            />
+            <h3>Anotações</h3>
+            <textarea
+              className="cardInputFull"
+              placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
+              value={stateCharacter?.note}
+              onChange={(e) => handleTextAreaChange(e, 'note')}
+            />
+            <h3>Conteúdo</h3>
+            <textarea
+              className="cardInputFull"
+              placeholder="Campo de texto livre..."
+              value={stateCharacter?.content}
+              onChange={(e) => handleTextAreaChange(e, 'content')}
+            />
+          </div>
+          <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir personagem?" onDataSend={handleDelete} deleteType />
+          <CharRelationsModal
+            openModal={modalRelations}
+            onClose={closeModal2}
+            charList={characters}
+            currentCharacter={stateCharacter}
+            updateCharacterRelations={updateCharacterRelations}
           />
-          <h3>Anotações</h3>
-          <textarea
-            className="cardInputFull"
-            placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
-            value={stateCharacter?.note}
-            onChange={(e) => handleTextAreaChange(e, 'note')}
-          />
-          <h3>Conteúdo</h3>
-          <textarea
-            className="cardInputFull"
-            placeholder="Campo de texto livre..."
-            value={stateCharacter?.content}
-            onChange={(e) => handleTextAreaChange(e, 'content')}
-          />
+          {prjSettings.typeWriterSound && (<TypeWriterSound />)}
         </div>
-      </div>
-      <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir personagem?" onDataSend={handleDelete} deleteType />
-      <CharRelationsModal
-        openModal={modalRelations}
-        onClose={closeModal2}
-        charList={characters}
-        currentCharacter={stateCharacter}
-        updateCharacterRelations={updateCharacterRelations}
-      />
-      {prjSettings.typeWriterSound && (<TypeWriterSound />)}
+      )}
     </div>
   );
 }
