@@ -1,5 +1,9 @@
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import ICharacter from '../../../../../domain/characterModel';
+import IrootStateProject from '../../../../../domain/IrootStateProject';
 
 interface CardInspectProps {
   card: ICharacter;
@@ -7,6 +11,39 @@ interface CardInspectProps {
 
 function CharInspect({ card }: CardInspectProps) {
   const navigate = useNavigate();
+  const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
+  const [characters, setCharacters] = useState<ICharacter[]>([]);
+  const [stateRelations,
+    setStateRelations] = useState<{
+      charID: number;
+      char: string; color: string; type: string;
+    }[]>([]);
+
+  useEffect(() => {
+    if (projectData.data?.characters) {
+      setCharacters(projectData.data.characters);
+    }
+  }, [projectData.data?.characters]);
+
+  useEffect(() => {
+    const relationsArray = card.relations
+      ?.reduce<{
+        charID: number;
+        char: string; color: string; type: string;
+      }[]>((accumulator, e) => {
+        const char = characters?.find((ele) => ele.id === e.charID);
+        if (char && char.color) {
+          const newdata = {
+            charID: char.id, char: char.title, color: char.color, type: e.type,
+          };
+          accumulator.push(newdata);
+        }
+        return accumulator;
+      }, []);
+    if (relationsArray) {
+      setStateRelations(relationsArray);
+    }
+  }, [card.relations, characters]);
 
   return (
     <div className="inspectCard">
@@ -30,6 +67,19 @@ function CharInspect({ card }: CardInspectProps) {
         <p>{card.occupation}</p>
         {card.core_group ? <span>Núcleo:</span> : ''}
         <p>{card.core_group}</p>
+      </div>
+      <div className="inspectCharRelations">
+        {stateRelations.length > 0 ? <span>Relacões:</span> : ''}
+        {stateRelations.map((e) => (
+          <div key={uuidv4()}>
+            <span className="tooltip-default" data-balloon aria-label="Remover relação" data-balloon-pos="down">
+              {' '}
+            </span>
+            <button onClick={() => navigate(`/characters/${e.charID}`)} className="relationBtn" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
+            {' '}
+            <span>{`(${e.type})`}</span>
+          </div>
+        ))}
       </div>
       {card.resume ? <span>Resumo:</span> : ''}
       <p className="PtextInfos">{card.resume}</p>

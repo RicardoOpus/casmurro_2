@@ -283,7 +283,7 @@ function CharacterDetail() {
         </div>
         {stateRelations.length > 0 && (
           <div className="fullContent">
-            <h3>Relacionamentos</h3>
+            <h3>Relações</h3>
             {stateRelations.map((e, index) => (
               <div key={uuidv4()}>
                 <span className="tooltip-default" data-balloon aria-label="Remover relação" data-balloon-pos="down">
