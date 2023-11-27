@@ -15,6 +15,7 @@ import NextAndPrevCard from '../../../components/next-and-prev';
 import CharRelationsModal from './characters-relations';
 import IRelation from '../../../../domain/IRelation';
 import Loading from '../../../components/loading';
+import CharAddonsModal from './characters-addons';
 
 function CharacterDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +23,7 @@ function CharacterDetail() {
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [modalRelations, setModalRalations] = useState(false);
+  const [modalAddons, setModalAddons] = useState(false);
   const characters = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
   const prjSettings = useSelector((state: IrootStateProject) => (
@@ -52,6 +54,14 @@ function CharacterDetail() {
 
   const closeModal2 = () => {
     setModalRalations(false);
+  };
+
+  const openModal3 = () => {
+    setModalAddons(true);
+  };
+
+  const closeModal3 = () => {
+    setModalAddons(false);
   };
 
   const handleDelete = async () => {
@@ -85,6 +95,11 @@ function CharacterDetail() {
       ...prevCharacter,
       relations: newRelations,
     }));
+  };
+
+  const handleInputCheck = (e: boolean, key: string) => {
+    const now = Date.now();
+    setEditedName({ ...stateCharacter, [key]: e, last_edit: now });
   };
 
   useEffect(() => {
@@ -183,6 +198,7 @@ function CharacterDetail() {
         <div className="card">
           <BackButton page="/characters" />
           <NextAndPrevCard id={Number(id)} dataTable="characters" callback={callBackLoading} />
+          <input type="checkbox" name="" id="" onChange={(e) => handleInputCheck(e.target.checked, 'color')} />
           <div className="profile-pic">
             <label className="-label" htmlFor="file">
               <span>Mudar imagem</span>
@@ -219,7 +235,7 @@ function CharacterDetail() {
                 <button onClick={openModal2} className="btnSmall" type="button">+ Relações</button>
               </div>
               <div className="detailBarButtonsItens">
-                <button className="detailAdd" type="button">{ }</button>
+                <button className="detailAdd" type="button" onClick={openModal3}>{ }</button>
                 <button className="btnSmall" type="button" onClick={openModal}>
                   <span className="ui-icon ui-icon-trash icon-color" />
                   {' '}
@@ -298,18 +314,44 @@ function CharacterDetail() {
           </div>
           {stateRelations.length > 0 && (
             <div className="fullContent">
-              <h3>Relações</h3>
-              {stateRelations.map((e, index) => (
-                <div key={uuidv4()}>
-                  <span className="tooltip-default" data-balloon aria-label="Remover relação" data-balloon-pos="down">
-                    <button className="removeRelationBtn" type="button" onClick={() => deleteRelation(index)}>✖</button>
+              <fieldset className="cardFiedset">
+                <legend className="legendMedium">Relações</legend>
+                {stateRelations.map((e, index) => (
+                  <div key={uuidv4()}>
+                    <span className="tooltip-default" data-balloon aria-label="Remover relação" data-balloon-pos="down">
+                      <button className="removeRelationBtn" type="button" onClick={() => deleteRelation(index)}>✖</button>
+                      {' '}
+                    </span>
+                    <button onClick={() => navigate(`/characters/${e.charID}`)} className="relationBtn" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
                     {' '}
-                  </span>
-                  <button onClick={() => navigate(`/characters/${e.charID}`)} className="relationBtn" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
-                  {' '}
-                  <span>{`(${e.type})`}</span>
+                    <span>{`(${e.type})`}</span>
+                  </div>
+                ))}
+              </fieldset>
+            </div>
+          )}
+          {stateCharacter.showCharacteristics && (
+            <div className="fullContent">
+              <div className="characteristics">
+                <div className="fullContent charctDiv">
+                  <h3>Características Físicas</h3>
+                  <textarea
+                    className="cardInputFull"
+                    placeholder="cor dos olhos, cabelo, etc..."
+                    value={stateCharacter?.physical}
+                    onChange={(e) => handleTextAreaChange(e, 'physical')}
+                  />
                 </div>
-              ))}
+                <div className="fullContent charctDiv">
+                  <h3>Características Psicológicas</h3>
+                  <textarea
+                    className="cardInputFull"
+                    placeholder="atração, aversão, ideologia, traumas, etc..."
+                    value={stateCharacter?.psychological}
+                    onChange={(e) => handleTextAreaChange(e, 'psychological')}
+                  />
+                </div>
+              </div>
             </div>
           )}
           <div className="fullContent">
@@ -342,6 +384,14 @@ function CharacterDetail() {
             charList={characters}
             currentCharacter={stateCharacter}
             updateCharacterRelations={updateCharacterRelations}
+          />
+          <CharAddonsModal
+            openModal={modalAddons}
+            onClose={closeModal3}
+            showBirth={stateCharacter.showDate_birth || false}
+            showDeath={stateCharacter.showDate_death || false}
+            showCharact={stateCharacter.showCharacteristics || false}
+            handleInputCheck={handleInputCheck}
           />
           {prjSettings.typeWriterSound && (<TypeWriterSound />)}
         </div>

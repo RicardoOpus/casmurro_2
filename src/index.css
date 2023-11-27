@@ -20,9 +20,7 @@
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --scroll-color: #2D333B;
-
 }
-
 
 .light-mode {
   --bg-color: #b5b5b5;
@@ -320,6 +318,14 @@ option {
   --balloon-font-size: medium;
 }
 
+.legendMedium {
+  font-size: larger;
+}
+
+.cardFiedset {
+  margin: 0;
+}
+
 /* ============= List Cards  ================= */
 
 .cardListTitle {
@@ -380,6 +386,17 @@ option {
   box-shadow: 0px 0px 300px 400px rgba(0, 0, 0, .902);
   height: 300px;
 }
+
+.characteristics {
+  display: flex;
+  gap: 1em;
+}
+
+.charctDiv {
+  width: 100%;
+}
+
+
 
 /* ============= Settings List edit ================= */
 

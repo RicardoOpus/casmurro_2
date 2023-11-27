@@ -9,6 +9,8 @@ class CharacterService {
     const now = Date.now();
     if (ID) {
       const data: ICharacter = {
+        title: characterName,
+        id: ID,
         age: '',
         category: '',
         color: this.defaultColor,
@@ -17,15 +19,16 @@ class CharacterService {
         date_birth: '',
         date_death: '',
         gender: '',
-        id: ID,
         image: '',
         last_edit: now,
         note: '',
         occupation: '',
         relations: [],
         resume: '',
-        title: characterName,
         type: 'Personagem',
+        showCharacteristics: false,
+        showDate_birth: false,
+        showDate_death: false,
       };
       await indexedDBrepository.cardPost(data, 'characters');
     }
