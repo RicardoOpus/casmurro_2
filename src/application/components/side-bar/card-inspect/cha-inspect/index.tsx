@@ -88,6 +88,10 @@ function CharInspect({ card }: CardInspectProps) {
           </div>
         ))}
       </div>
+      {card.physical ? <span>Características Físicas:</span> : ''}
+      <p className="PtextInfos">{card.physical}</p>
+      {card.psychological ? <span>Características Psicológicas:</span> : ''}
+      <p className="PtextInfos">{card.psychological}</p>
       {card.resume ? <span>Resumo:</span> : ''}
       <p className="PtextInfos">{card.resume}</p>
       {card.note ? <span>Notas:</span> : ''}
