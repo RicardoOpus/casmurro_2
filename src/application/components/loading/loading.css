@@ -21,7 +21,7 @@
   animation: spin 1s linear infinite;
   border: 8px solid #cecece;
   border-radius: 50%;
-  border-top: 8px solid #3498db;
+  border-top: 8px solid var(--accent-color);
   display: inline-block;
   height: 70px;
   width: 70px;

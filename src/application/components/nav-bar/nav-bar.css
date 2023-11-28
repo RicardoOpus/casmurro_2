@@ -18,7 +18,7 @@
 }
 
 .NavBarActive {
-  border-bottom: solid 4px var(--text-color-inactive);
+  border-bottom: solid 4px var(--accent-color);
   color: var(--text-color);
 }
 

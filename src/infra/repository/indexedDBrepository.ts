@@ -149,6 +149,29 @@ class IndexedDBrepository {
     }
   }
 
+  async noteUpdate(noteItemId: number, data: IWorld) {
+    const projectID = await this.getCurrentProjectID();
+    const project = await db.projects.where({ id: projectID }).first();
+    if (project) {
+      if (!project.data) {
+        project.data = { notes: [] };
+      }
+      const notesItens = project.data.notes || [];
+      const noteIndex = notesItens.findIndex((char) => char.id === noteItemId);
+      if (noteIndex !== -1) {
+        notesItens[noteIndex] = data;
+        project.data.notes = notesItens;
+        await db.projects.update(projectID, { data: project.data });
+        this.updateLastEdit();
+        console.log('Nota atualizado com sucesso!');
+      } else {
+        console.error('Nota não encontrado no projeto.');
+      }
+    } else {
+      console.error('Projeto não encontrado.');
+    }
+  }
+
   async getCurrentCard(
     currentCardID: number,
     tableProperty: string,
@@ -195,6 +218,9 @@ class IndexedDBrepository {
             break;
           case 'world':
             e.data?.world?.splice(currentCard, 1);
+            break;
+          case 'notes':
+            e.data?.notes?.splice(currentCard, 1);
             break;
           default:
             break;
