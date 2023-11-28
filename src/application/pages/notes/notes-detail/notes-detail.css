@@ -1,0 +1,9 @@
+.selected {
+  background-color: #444C56;
+  border-radius: 12px;
+  padding: 5px;
+}
+
+.completed {
+  text-decoration: line-through;
+}
