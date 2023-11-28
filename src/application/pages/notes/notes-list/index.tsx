@@ -1,34 +1,47 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import INotes from '../../../../domain/InotesModel';
 import NoData from '../../../components/no-dada';
-import NotFound from '../../not-found';
+import NotFound from '../../../components/not-found';
 import utils from '../../../../service/utils';
+import { notesFilterCategoryAction, notesFilterSortAction, notesFilterTitleAction } from '../../../redux/actions/notesActions';
 
-// type RootStateWorld = {
-//   worldFilterReducer: {
-//     selectedTitle: string,
-//     selectedCategory: string,
-//     isAscOrder: boolean,
-//   }
-// };
+type RootStateWorld = {
+  notesFilterReducer: {
+    selectedTitle: string,
+    selectedCategory: string,
+    isAscOrder: boolean,
+  }
+};
 
 function NotesList() {
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
-  // const prjSettings = useSelector((state: IrootStateProject) => (
-  //   state.projectDataReducer.projectData.projectSettings));
+  const prjSettings = useSelector((state: IrootStateProject) => (
+    state.projectDataReducer.projectData.projectSettings));
   const [NotesItens, setNotesItens] = useState<INotes[]>([]);
   const [filtredNotesItens, setfiltredNotesItens] = useState<INotes[]>([]);
-  // const [, setClearFilters] = useState(false);
+  const [, setClearFilters] = useState(false);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const {
-  //   selectedTitle,
-  //   selectedCategory,
-  //   isAscOrder,
-  // } = useSelector((state: RootStateWorld) => state.worldFilterReducer);
+  const dispatch = useDispatch();
+  const {
+    selectedTitle,
+    selectedCategory,
+    isAscOrder,
+  } = useSelector((state: RootStateWorld) => state.notesFilterReducer);
+
+  const clearAllFilters = () => {
+    dispatch(notesFilterTitleAction(''));
+    dispatch(notesFilterCategoryAction(''));
+    setClearFilters(true);
+  };
+
+  const handleSort = () => {
+    const sortedList = [...filtredNotesItens].reverse();
+    setfiltredNotesItens(sortedList);
+    dispatch(notesFilterSortAction(!isAscOrder));
+  };
 
   useEffect(() => {
     if (projectData.data?.notes) {
@@ -37,11 +50,54 @@ function NotesList() {
     }
   }, [projectData.data?.notes]);
 
+  useEffect(() => {
+    const handleFilter = (notesList: INotes[]) => {
+      const result = notesList.filter((note) => {
+        const titleMatch = !selectedTitle || note.title.includes(selectedTitle);
+        const categoryMatch = !selectedCategory || note.category === selectedCategory;
+        return titleMatch && categoryMatch;
+      });
+      if (!isAscOrder) {
+        const sortedList = [...result].reverse();
+        setfiltredNotesItens(sortedList);
+        dispatch(notesFilterSortAction(isAscOrder));
+      } else {
+        setfiltredNotesItens(result);
+      }
+    };
+    handleFilter(NotesItens);
+  }, [NotesItens,
+    selectedTitle, selectedCategory, isAscOrder, dispatch]);
+
   return (
     NotesItens.length === 0 ? (
       <NoData dataType="notas" />
     ) : (
       <div>
+        <div className="filterBar">
+          <input
+            type="text"
+            value={selectedTitle}
+            placeholder="Pesquisar pelo título..."
+            onInput={(e) => {
+              const target = e.target as HTMLTextAreaElement;
+              dispatch(notesFilterTitleAction(target.value));
+            }}
+            className="cardInputSearch"
+          />
+          <select
+            value={selectedCategory}
+            onChange={(e) => dispatch(notesFilterCategoryAction(e.target.value))}
+          >
+            <option value="">Categoria</option>
+            {prjSettings.notesCategory.map((e) => (
+              <option key={e} value={e}>{`• ${e}`}</option>
+            ))}
+          </select>
+          <button className="btnSmall" type="button" onClick={clearAllFilters}>✖ Filtros</button>
+          <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑ Az</button>
+          <button className="btnSmall" type="button" onClick={handleSort} disabled={!isAscOrder}>↓ Za</button>
+        </div>
         {filtredNotesItens.length === 0 ? (
           <NotFound />
         ) : (

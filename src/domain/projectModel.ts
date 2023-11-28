@@ -15,6 +15,7 @@ interface IProject {
     charactersGenders: string[],
     charactersCoreGroupes: string[],
     worldCategory: string[],
+    notesCategory: string[],
   };
   id_controler: number;
   cards_qty: number;

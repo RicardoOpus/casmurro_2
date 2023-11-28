@@ -92,12 +92,7 @@ function WorldList() {
           >
             <option value="">Categoria</option>
             {prjSettings.worldCategory.map((e) => (
-              <option key={e} value={e}>
-                {' '}
-                •
-                {' '}
-                {e}
-              </option>
+              <option key={e} value={e}>{`• ${e}`}</option>
             ))}
           </select>
           <button className="btnSmall" type="button" onClick={clearAllFilters}>✖ Filtros</button>
