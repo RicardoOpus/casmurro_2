@@ -127,7 +127,6 @@ function WorldList() {
                     <p>{utils.abreviarString(worldItem.resume, 300)}</p>
                   </div>
                   {worldItem.image ? (
-                    // <div className="" style={{ backgroundImage: `url(${worldItem.image})` }} />
                     <img className="worldListImage" src={worldItem.image} alt="card img" />
                   ) : (
                     <div />

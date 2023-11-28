@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import GenericModal from '../../components/generic-modal';
 import notesService from '../../../service/notesService';
 import { fetchProjectDataAction } from '../../redux/actions/projectActions';
+import NotesList from './notes-list';
 
 function Notes() {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ function Notes() {
           </button>
         </div>
         <GenericModal openModal={modal} onClose={closeModal} typeName="Nova nota" onDataSend={handleSaveData} deleteType={false} />
-        {/* <WorldList /> */}
+        <NotesList />
       </div>
     </div>
   );
