@@ -310,13 +310,13 @@ function CharacterDetail() {
               {stateCharacter.showDate_birth && (
                 <div>
                   <h3>Data Nascimento</h3>
-                  <input className="cardInputDate" onChange={(e) => handleInputChange(e, 'date_birth')} type="date" />
+                  <input value={stateCharacter.date_birth} className="cardInputDate" onChange={(e) => handleInputChange(e, 'date_birth')} type="date" />
                 </div>
               )}
               {stateCharacter.showDate_death && (
                 <div>
                   <h3>Data de morte</h3>
-                  <input className="cardInputDate" onChange={(e) => handleInputChange(e, 'date_death')} type="date" />
+                  <input value={stateCharacter.date_death} className="cardInputDate" onChange={(e) => handleInputChange(e, 'date_death')} type="date" />
                 </div>
               )}
             </div>

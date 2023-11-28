@@ -21,6 +21,16 @@ class Utils {
     return result;
   }
 
+  convertDatePTBR(dateUS: string | undefined) {
+    let dateBR = '';
+    if (dateUS) {
+      const date = dateUS;
+      const [year, month, day] = date.split('-');
+      dateBR = [day, month, year].join('/');
+    }
+    return dateBR;
+  }
+
   abreviarString(str: string | undefined, maxLenght: number): string | undefined {
     if (str && str.length > maxLenght) {
       return `${str.substring(0, maxLenght)}…`;

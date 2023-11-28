@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ICharacter from '../../../../../domain/characterModel';
 import IrootStateProject from '../../../../../domain/IrootStateProject';
+import utils from '../../../../../service/utils';
 
 interface CardInspectProps {
   card: ICharacter;
@@ -57,6 +58,8 @@ function CharInspect({ card }: CardInspectProps) {
         <button onClick={() => navigate(`/characters/${card.id}`)} className="btnInvisible" type="button">{card.title}</button>
       </div>
       <div className="inspecInfos">
+        {card.full_name ? <span>Nome:</span> : ''}
+        <p>{card.full_name }</p>
         {card.age ? <span>Idade:</span> : ''}
         <p>{card.age ? `${card.age} anos` : ''}</p>
         {card.gender ? <span>Gênero:</span> : ''}
@@ -67,6 +70,10 @@ function CharInspect({ card }: CardInspectProps) {
         <p>{card.occupation}</p>
         {card.core_group ? <span>Núcleo:</span> : ''}
         <p>{card.core_group}</p>
+        {card.date_birth ? <span>Nascimento:</span> : ''}
+        <p>{utils.convertDatePTBR(card.date_birth)}</p>
+        {card.date_death ? <span>Morte:</span> : ''}
+        <p>{utils.convertDatePTBR(card.date_death)}</p>
       </div>
       <div className="inspectCharRelations">
         {stateRelations.length > 0 ? <span>Relacões:</span> : ''}
