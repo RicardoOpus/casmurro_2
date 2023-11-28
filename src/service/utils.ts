@@ -91,6 +91,8 @@ class Utils {
       reader.readAsDataURL(file);
     });
   }
+
+  isImageFile = (fileName: string) => fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') || fileName.endsWith('.png') || fileName.endsWith('.webp');
 }
 
 const utils = new Utils();

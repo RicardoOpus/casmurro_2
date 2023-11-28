@@ -111,11 +111,7 @@ function CharacterDetail() {
   };
 
   const handleFileInput = (event: EventTarget & HTMLInputElement) => {
-    const fileName = event.value;
-    const isJpg = fileName.endsWith('.jpg') || fileName.endsWith('.jpeg');
-    const isPng = fileName.endsWith('.png');
-    const isWebp = fileName.endsWith('.webp');
-    if (isJpg || isPng || isWebp) {
+    if (utils.isImageFile(event.value)) {
       saveImage(event);
     } else {
       // eslint-disable-next-line no-alert
