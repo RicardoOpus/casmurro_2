@@ -11,6 +11,7 @@ import CharactersDetail from './application/pages/characters/characters-detail';
 import Settings from './application/pages/settings';
 import World from './application/pages/world';
 import WorldDetail from './application/pages/world/world-detail';
+import Notes from './application/pages/notes';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -54,6 +55,7 @@ function App() {
             <Route path="/characters/:id" element={<CharactersDetail />} />
             <Route path="/world" element={<World />} />
             <Route path="/world/:id" element={<WorldDetail />} />
+            <Route path="/notes" element={<Notes />} />
             <Route path="/settings" element={<Settings />} />
           </Route>
           <Route path="/splash" element={<Splash />} />

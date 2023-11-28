@@ -39,7 +39,15 @@ function NavBar() {
       </button>
       <button id="Rascunho" className="navBarItem" type="button">Rascunho</button>
       <button id="Timeline" className="navBarItem" type="button">Timeline</button>
-      <button id="Notas" className="navBarItem" type="button">Notas</button>
+      <button
+        onClick={() => handleButtonClick('/notes', 'Notas')}
+        id="Notas"
+        className={`navBarItem ${activeButton === 'Notas' ? 'NavBarActive' : ''}`}
+        type="button"
+      >
+        Notas
+
+      </button>
       <div className="nav-right">
         <button
           id="Settings"
