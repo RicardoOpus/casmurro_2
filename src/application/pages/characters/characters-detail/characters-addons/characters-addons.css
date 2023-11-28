@@ -1,0 +1,10 @@
+.addonsChar {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  padding: 1em;
+}
+
+.addonsCharE {
+  text-align: left;
+}

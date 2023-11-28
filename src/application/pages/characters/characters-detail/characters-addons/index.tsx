@@ -1,6 +1,7 @@
 import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
+import './characters-addons.css';
 
 interface GenericModalProps {
   onClose: () => void;
@@ -56,71 +57,75 @@ function CharAddonsModal({
     <dialog ref={ref} className="modal">
       <div className="modal-content">
         <h2>Adicionar campos extras</h2>
-        <div className="checkbox-wrapper">
-          <div>
-            <label htmlFor="showFieldFull">
-              <input
-                className="inputChkBox"
-                type="checkbox"
-                id="showFieldFull"
-                checked={showFieldFull}
-                onChange={(e) => handleInputType(e, 'full')}
-              />
-              {' '}
-              Nome completo
-            </label>
-          </div>
-          <div>
-            <label htmlFor="showFieldBirth">
-              <input
-                className="inputChkBox"
-                type="checkbox"
-                id="showFieldBirth"
-                checked={showFieldBirth}
-                onChange={(e) => handleInputType(e, 'birth')}
-              />
-              {' '}
-              Data de nascimento
-            </label>
-          </div>
-          <div>
-            <label htmlFor="showFieldDeath">
-              <input
-                className="inputChkBox"
-                type="checkbox"
-                id="showFieldDeath"
-                checked={showFieldDeath}
-                onChange={(e) => handleInputType(e, 'death')}
-              />
-              {' '}
-              Data de falecimento
-            </label>
-          </div>
-          <div>
-            <label htmlFor="showFieldChara">
-              <input
-                className="inputChkBox"
-                type="checkbox"
-                id="showFieldChara"
-                checked={showFieldChara}
-                onChange={(e) => handleInputType(e, 'char')}
-              />
-              {' '}
-              Características física e psicológicas
-            </label>
-          </div>
-          <div>
-            <label htmlFor="showFieldNotes">
-              <input
-                className="inputChkBox"
-                type="checkbox"
-                id="showFieldNotes"
-                checked={showFieldNotes}
-                onChange={(e) => handleInputType(e, 'notes')}
-              />
-              {' '}
-              Anotações
-            </label>
+        <div className="addonsChar">
+          <div className="addonsCharE">
+            <div className="checkbox-wrapper">
+              <div>
+                <label htmlFor="showFieldFull">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldFull"
+                    checked={showFieldFull}
+                    onChange={(e) => handleInputType(e, 'full')}
+                  />
+                  {' '}
+                  Nome completo
+                </label>
+              </div>
+              <div>
+                <label htmlFor="showFieldBirth">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldBirth"
+                    checked={showFieldBirth}
+                    onChange={(e) => handleInputType(e, 'birth')}
+                  />
+                  {' '}
+                  Data de nascimento
+                </label>
+              </div>
+              <div>
+                <label htmlFor="showFieldDeath">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldDeath"
+                    checked={showFieldDeath}
+                    onChange={(e) => handleInputType(e, 'death')}
+                  />
+                  {' '}
+                  Data de falecimento
+                </label>
+              </div>
+              <div>
+                <label htmlFor="showFieldChara">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldChara"
+                    checked={showFieldChara}
+                    onChange={(e) => handleInputType(e, 'char')}
+                  />
+                  {' '}
+                  Características física e psicológicas
+                </label>
+              </div>
+              <div>
+                <label htmlFor="showFieldNotes">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldNotes"
+                    checked={showFieldNotes}
+                    onChange={(e) => handleInputType(e, 'notes')}
+                  />
+                  {' '}
+                  Anotações
+                </label>
+              </div>
+            </div>
           </div>
         </div>
         <button onClick={onClose} type="button">Fechar</button>
