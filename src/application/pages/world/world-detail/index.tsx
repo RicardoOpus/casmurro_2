@@ -26,34 +26,22 @@ function WorldDetail() {
   const [stateWorldItem,
     setStateWorldItem] = useState<IWorld | Partial<IWorld>>(currentWorldItem || {});
 
+  const callBackLoading = () => setIsLoading(true);
+  const closeModal = () => setModal(false);
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
-    const now = Date.now();
-    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value, last_edit: now });
+    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value, last_edit: Date.now() });
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, key: string) => {
-    const now = Date.now();
-    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value, last_edit: now });
+    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value, last_edit: Date.now() });
   };
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    const now = Date.now();
-    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value, last_edit: now });
+    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value, last_edit: Date.now() });
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
-  };
-
-  const callBackLoading = () => {
-    setIsLoading(true);
-  };
-
-  const openModal = () => {
-    setModal(true);
-  };
-
-  const closeModal = () => {
-    setModal(false);
   };
 
   const handleDelete = async () => {
@@ -143,13 +131,13 @@ function WorldDetail() {
               <div className="profile-pic">
                 <label className="-label2" htmlFor="file">
                   + imagem
-                  <input id="file" type="file" accept=".jpg, jpeg, .png" onChange={(e) => handleFileInput(e.target)} />
+                  <input id="file" type="file" accept=".jpg, .jpeg, .png, .webp" onChange={(e) => handleFileInput(e.target)} />
                 </label>
               </div>
               <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
             </div>
             <div className="detailBarButtonsItens">
-              <button onClick={openModal} className="btnSmall" type="button">
+              <button onClick={() => setModal(true)} className="btnSmall" type="button">
                 <span className="ui-icon ui-icon-trash icon-color" />
                 {' '}
                 Excluir
@@ -167,11 +155,7 @@ function WorldDetail() {
               >
                 <option value="">{ }</option>
                 {prjSettings?.worldCategory.map((e) => (
-                  <option key={e} value={e}>
-                    •
-                    {' '}
-                    {e}
-                  </option>
+                  <option key={e} value={e}>{`• ${e}`}</option>
                 ))}
               </select>
             </div>

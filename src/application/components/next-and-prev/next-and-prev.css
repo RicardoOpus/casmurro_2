@@ -1,5 +1,3 @@
-.nexAndPrevBtns {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+.NextBtn {
+  float: right;
 }

@@ -42,20 +42,16 @@ function NextAndPrevCard({ id, dataTable, callback }: NextPrevProps) {
 
   return (
     <div className="nexAndPrevBtns">
-      {idPrev !== 0 && idPrev !== id && (
-        <button className="btnInvisible" type="button" onClick={() => handleClick(false)}>
-          <span className="ui-icon ui-icon-circle-arrow-w icon-color" />
-          {' '}
-          Anterior
-        </button>
-      )}
-      {idNext !== 0 && idNext !== id && (
-        <button className="btnInvisible" type="button" onClick={() => handleClick(true)}>
-          Próximo
-          {' '}
-          <span className="ui-icon ui-icon-circle-arrow-e icon-color" />
-        </button>
-      )}
+      <button disabled={idPrev === 0 && idPrev !== id} className="btnInvisible" type="button" onClick={() => handleClick(false)}>
+        <span className="ui-icon ui-icon-circle-arrow-w icon-color" />
+        {' '}
+        Anterior
+      </button>
+      <button disabled={idNext === 0 && idNext !== id} className="btnInvisible NextBtn" type="button" onClick={() => handleClick(true)}>
+        Próximo
+        {' '}
+        <span className="ui-icon ui-icon-circle-arrow-e icon-color" />
+      </button>
     </div>
   );
 }

@@ -41,11 +41,6 @@ function CharacterDetail() {
   const closeModal2 = () => setModalRalations(false);
   const closeModal3 = () => setModalAddons(false);
 
-  const handleDelete = async () => {
-    await indexedDBrepository.deleteCard(Number(id), 'characters');
-    navigate('/characters');
-  };
-
   const [stateCharacter,
     setEditedName] = useState<ICharacter | Partial<ICharacter>>(currentCharacter || {});
 
@@ -76,16 +71,10 @@ function CharacterDetail() {
     setEditedName({ ...stateCharacter, [key]: e, last_edit: Date.now() });
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (Object.keys(stateCharacter).length === 0) {
-        navigate('/');
-      } if (!isLoading) {
-        indexedDBrepository.characterUpdate(Number(id), stateCharacter as ICharacter);
-      }
-    };
-    fetchData();
-  }, [dispatch, stateCharacter, id, navigate, isLoading]);
+  const handleDelete = async () => {
+    await indexedDBrepository.deleteCard(Number(id), 'characters');
+    navigate('/characters');
+  };
 
   const cleanupFunction = () => {
     dispatch(fetchProjectDataAction(true));
@@ -123,6 +112,18 @@ function CharacterDetail() {
     const updatedRelations = stateCharacter.relations?.filter((_, index) => index !== relationId);
     setEditedName({ ...stateCharacter, relations: updatedRelations });
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (Object.keys(stateCharacter).length === 0) {
+        navigate('/');
+      } if (!isLoading) {
+        indexedDBrepository.characterUpdate(Number(id), stateCharacter as ICharacter);
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [dispatch, stateCharacter, id, navigate, isLoading]);
 
   useEffect(() => {
     const relationsArray = stateCharacter.relations
@@ -169,7 +170,7 @@ function CharacterDetail() {
           <div className="profile-pic">
             <label className="-label" htmlFor="file">
               <span>Mudar imagem</span>
-              <input id="file" type="file" accept=".jpg, jpeg, .png, .webp" onChange={(e) => handleFileInput(e.target)} />
+              <input id="file" type="file" accept=".jpg, .jpeg, .png, .webp" onChange={(e) => handleFileInput(e.target)} />
             </label>
             {stateCharacter.image ? (
               <img src={stateCharacter.image} id="output" alt="character" />

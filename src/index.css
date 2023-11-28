@@ -167,6 +167,15 @@ button:disabled:hover {
   text-decoration: underline;
 }
 
+.btnInvisible:disabled {
+  border: solid 1px transparent;
+}
+
+.btnInvisible:disabled:hover {
+  border: solid 1px transparent;
+  text-decoration: none;
+}
+
 .btnMedium {
   padding: .4em 1em;
 }
