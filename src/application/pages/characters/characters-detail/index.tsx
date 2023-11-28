@@ -36,33 +36,10 @@ function CharacterDetail() {
       char: string; color: string; type: string;
     }[]>([]);
 
-  const callBackLoading = () => {
-    setIsLoading(true);
-  };
-
-  const openModal = () => {
-    setModal(true);
-  };
-
-  const closeModal = () => {
-    setModal(false);
-  };
-
-  const openModal2 = () => {
-    setModalRalations(true);
-  };
-
-  const closeModal2 = () => {
-    setModalRalations(false);
-  };
-
-  const openModal3 = () => {
-    setModalAddons(true);
-  };
-
-  const closeModal3 = () => {
-    setModalAddons(false);
-  };
+  const callBackLoading = () => setIsLoading(true);
+  const closeModal = () => setModal(false);
+  const closeModal2 = () => setModalRalations(false);
+  const closeModal3 = () => setModalAddons(false);
 
   const handleDelete = async () => {
     await indexedDBrepository.deleteCard(Number(id), 'characters');
@@ -73,18 +50,15 @@ function CharacterDetail() {
     setEditedName] = useState<ICharacter | Partial<ICharacter>>(currentCharacter || {});
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
-    const now = Date.now();
-    setEditedName({ ...stateCharacter, [key]: e.target.value, last_edit: now });
+    setEditedName({ ...stateCharacter, [key]: e.target.value, last_edit: Date.now() });
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, key: string) => {
-    const now = Date.now();
-    setEditedName({ ...stateCharacter, [key]: e.target.value, last_edit: now });
+    setEditedName({ ...stateCharacter, [key]: e.target.value, last_edit: Date.now() });
   };
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    const now = Date.now();
-    setEditedName({ ...stateCharacter, [key]: e.target.value, last_edit: now });
+    setEditedName({ ...stateCharacter, [key]: e.target.value, last_edit: Date.now() });
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
@@ -99,8 +73,7 @@ function CharacterDetail() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleInputCheck = (e: boolean, key: string) => {
-    const now = Date.now();
-    setEditedName({ ...stateCharacter, [key]: e, last_edit: now });
+    setEditedName({ ...stateCharacter, [key]: e, last_edit: Date.now() });
   };
 
   useEffect(() => {
@@ -144,7 +117,8 @@ function CharacterDetail() {
     const fileName = event.value;
     const isJpg = fileName.endsWith('.jpg') || fileName.endsWith('.jpeg');
     const isPng = fileName.endsWith('.png');
-    if (isJpg || isPng) {
+    const isWebp = fileName.endsWith('.webp');
+    if (isJpg || isPng || isWebp) {
       saveImage(event);
     } else {
       // eslint-disable-next-line no-alert
@@ -202,7 +176,7 @@ function CharacterDetail() {
           <div className="profile-pic">
             <label className="-label" htmlFor="file">
               <span>Mudar imagem</span>
-              <input id="file" type="file" accept=".jpg, jpeg, .png" onChange={(e) => handleFileInput(e.target)} />
+              <input id="file" type="file" accept=".jpg, jpeg, .png, .webp" onChange={(e) => handleFileInput(e.target)} />
             </label>
             {stateCharacter.image ? (
               <img src={stateCharacter.image} id="output" alt="character" />
@@ -232,11 +206,11 @@ function CharacterDetail() {
                   </button>
                 </span>
                 <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
-                <button onClick={openModal2} className="btnSmall" type="button">+ Relações</button>
+                <button onClick={() => setModalRalations(true)} className="btnSmall" type="button">+ Relações</button>
               </div>
               <div className="detailBarButtonsItens">
-                <button className="detailAdd" type="button" onClick={openModal3}>{ }</button>
-                <button className="btnSmall" type="button" onClick={openModal}>
+                <button className="detailAdd" type="button" onClick={() => setModalAddons(true)}>{ }</button>
+                <button className="btnSmall" type="button" onClick={() => setModal(true)}>
                   <span className="ui-icon ui-icon-trash icon-color" />
                   {' '}
                   Excluir
@@ -267,11 +241,7 @@ function CharacterDetail() {
               >
                 <option value="">{ }</option>
                 {prjSettings?.charactersCategory.map((e) => (
-                  <option key={e} value={e}>
-                    •
-                    {' '}
-                    {e}
-                  </option>
+                  <option key={e} value={e}>{`• ${e}`}</option>
                 ))}
               </select>
               <h3>Idade</h3>
@@ -291,11 +261,7 @@ function CharacterDetail() {
               >
                 <option value="">{ }</option>
                 {prjSettings?.charactersGenders.map((e) => (
-                  <option key={e} value={e}>
-                    •
-                    {' '}
-                    {e}
-                  </option>
+                  <option key={e} value={e}>{`• ${e}`}</option>
                 ))}
               </select>
               <h3>Ocupação</h3>
@@ -329,11 +295,7 @@ function CharacterDetail() {
               >
                 <option value="">{ }</option>
                 {prjSettings?.charactersCoreGroupes.map((e) => (
-                  <option key={e} value={e}>
-                    •
-                    {' '}
-                    {e}
-                  </option>
+                  <option key={e} value={e}>{`• ${e}`}</option>
                 ))}
               </select>
             </div>
