@@ -51,6 +51,7 @@ class ProjectServide {
       data: {
         characters: [],
         world: [],
+        notes: [],
       },
     };
 

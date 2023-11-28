@@ -19,7 +19,7 @@ function getIconPath(category: string): string {
       return './scene.png';
     case 'Linha do tempo':
       return './timeline.png';
-    case 'Nota':
+    case 'Nova nota':
       return './notes.png';
     default:
       return './delete.png';

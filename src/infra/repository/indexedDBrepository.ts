@@ -88,6 +88,10 @@ class IndexedDBrepository {
           projectData.data?.world?.unshift(newData);
           projectData.data?.world?.sort((a, b) => a.title.localeCompare(b.title));
           break;
+        case 'notes':
+          projectData.data?.notes?.unshift(newData);
+          projectData.data?.notes?.sort((a, b) => a.title.localeCompare(b.title));
+          break;
         default:
           break;
       }

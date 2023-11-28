@@ -1,3 +1,4 @@
+import INotes from './InotesModel';
 import ICharacter from './characterModel';
 import IWorld from './worldModel';
 
@@ -22,6 +23,7 @@ interface IProject {
   data?: {
     characters?: ICharacter[];
     world?: IWorld[];
+    notes?: INotes[];
   };
   subtitle?: string;
   author?: string;
