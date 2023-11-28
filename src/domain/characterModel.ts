@@ -12,7 +12,7 @@ interface ICharacter {
   conflict?: string;
   date_birth?: string;
   date_death?: string;
-  physical? : string;
+  full_name?: string;
   gender?: string;
   id: number;
   image?: string;
@@ -20,12 +20,15 @@ interface ICharacter {
   motivation?: string;
   note?: string;
   occupation?: string;
+  physical? : string;
   psychological?: string;
   relations?: Irelations[];
   resume?: string;
   showCharacteristics?: boolean;
   showDate_birth?: boolean;
   showDate_death?: boolean;
+  show_notes?: boolean;
+  show_full_name?: boolean;
   title: string;
   transformation?: string;
   type: string;

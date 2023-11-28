@@ -97,6 +97,7 @@ function CharacterDetail() {
     }));
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleInputCheck = (e: boolean, key: string) => {
     const now = Date.now();
     setEditedName({ ...stateCharacter, [key]: e, last_edit: now });
@@ -180,7 +181,7 @@ function CharacterDetail() {
     if (!isLoading) {
       utils.autoGrowAllTextareas();
     }
-  }, [isLoading]);
+  }, [isLoading, handleInputCheck]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => cleanupFunction, []);
@@ -198,7 +199,6 @@ function CharacterDetail() {
         <div className="card">
           <BackButton page="/characters" />
           <NextAndPrevCard id={Number(id)} dataTable="characters" callback={callBackLoading} />
-          <input type="checkbox" name="" id="" onChange={(e) => handleInputCheck(e.target.checked, 'color')} />
           <div className="profile-pic">
             <label className="-label" htmlFor="file">
               <span>Mudar imagem</span>
@@ -245,6 +245,18 @@ function CharacterDetail() {
             </div>
           </div>
           <div className="divider div-transparent" />
+          {stateCharacter.show_full_name && (
+            <div className="fullContent">
+              <h3>Nome completo</h3>
+              <input
+                onChange={(e) => handleInputChange(e, 'full_name')}
+                value={stateCharacter?.full_name}
+                className="cardInput"
+                type="text"
+                placeholder="Nome completo"
+              />
+            </div>
+          )}
           <div className="charBasicInfos">
             <div>
               <h3>Categoria</h3>
@@ -293,6 +305,20 @@ function CharacterDetail() {
                 value={stateCharacter?.occupation}
                 onChange={(e) => handleInputChange(e, 'occupation')}
               />
+            </div>
+            <div>
+              {stateCharacter.showDate_birth && (
+                <div>
+                  <h3>Data Nascimento</h3>
+                  <input className="cardInputDate" onChange={(e) => handleInputChange(e, 'date_birth')} type="date" />
+                </div>
+              )}
+              {stateCharacter.showDate_death && (
+                <div>
+                  <h3>Data de morte</h3>
+                  <input className="cardInputDate" onChange={(e) => handleInputChange(e, 'date_death')} type="date" />
+                </div>
+              )}
             </div>
             <div>
               <h3>Núcleo</h3>
@@ -358,17 +384,21 @@ function CharacterDetail() {
             <h3>Resumo</h3>
             <textarea
               className="cardInputFull"
-              placeholder="Descreva de forma breve quem é essa personagem..."
+              placeholder="Descreva em poucas palavras quem é essa personagem"
               value={stateCharacter?.resume}
               onChange={(e) => handleTextAreaChange(e, 'resume')}
             />
-            <h3>Anotações</h3>
-            <textarea
-              className="cardInputFull"
-              placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
-              value={stateCharacter?.note}
-              onChange={(e) => handleTextAreaChange(e, 'note')}
-            />
+            {stateCharacter.show_notes && (
+              <div>
+                <h3>Anotações</h3>
+                <textarea
+                  className="cardInputFull"
+                  placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
+                  value={stateCharacter?.note}
+                  onChange={(e) => handleTextAreaChange(e, 'note')}
+                />
+              </div>
+            )}
             <h3>Conteúdo</h3>
             <textarea
               className="cardInputFull"
@@ -391,6 +421,8 @@ function CharacterDetail() {
             showBirth={stateCharacter.showDate_birth || false}
             showDeath={stateCharacter.showDate_death || false}
             showCharact={stateCharacter.showCharacteristics || false}
+            showFullName={stateCharacter.show_full_name || false}
+            showNotes={stateCharacter.show_notes || false}
             handleInputCheck={handleInputCheck}
           />
           {prjSettings.typeWriterSound && (<TypeWriterSound />)}

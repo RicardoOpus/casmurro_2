@@ -20,6 +20,7 @@
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --scroll-color: #2D333B;
+  --calendar-picker: 0;
 }
 
 .light-mode {
@@ -41,6 +42,7 @@
   --config-icon: url("../settings-outline.svg");
   --config-icon2: url("../config2_black.svg");
   --scroll-color: #cecece;
+  --calendar-picker: 1;
 }
 
 @font-face {
@@ -235,11 +237,12 @@ button:disabled:hover {
   width: 100%;
 }
 
+
 .cardInputDate {
-  background-color: var(--bg-color-sec);
+  background: 1.4em,
+    linear-gradient(to left, var(--btn-color) 3em, var(--bg-color-sec) 3em);
   border: solid 1px var(--border-color);
   border-radius: 5px;
-  box-sizing: border-box;
   color: var(--text-color);
   cursor: text;
   font-size: medium;
@@ -247,6 +250,10 @@ button:disabled:hover {
   margin: .5em 0;
   outline: 0;
   padding: 0px 1em 0px 1em;
+}
+
+.cardInputDate::-webkit-calendar-picker-indicator {
+  filter: invert(var(--calendar-picker));
 }
 
 .listItens {
