@@ -155,7 +155,9 @@ function WorldDetail() {
               <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
             </div>
             <div className="detailBarButtonsItens">
-              <button className="detailAdd" type="button" onClick={() => setModalAddons(true)}>{ }</button>
+              <span className="tooltip-default" data-balloon aria-label="Mostrar/ocultar campos extras" data-balloon-pos="down">
+                <button className="detailAdd" type="button" onClick={() => setModalAddons(true)}>{ }</button>
+              </span>
               <button onClick={() => setModal(true)} className="btnSmall" type="button">
                 <span className="ui-icon ui-icon-trash icon-color" />
                 {' '}
