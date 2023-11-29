@@ -98,6 +98,13 @@ function NotesList() {
           <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑ Az</button>
           <button className="btnSmall" type="button" onClick={handleSort} disabled={!isAscOrder}>↓ Za</button>
         </div>
+        <div className="amountInfoBar">
+          <h3>
+            Total
+            {' '}
+            {filtredNotesItens.length}
+          </h3>
+        </div>
         {filtredNotesItens.length === 0 ? (
           <NotFound />
         ) : (
