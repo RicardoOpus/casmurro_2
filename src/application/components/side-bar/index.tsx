@@ -8,6 +8,7 @@ import IrootStateProject from '../../../domain/IrootStateProject';
 import IWorld from '../../../domain/worldModel';
 import ICharacter from '../../../domain/characterModel';
 import CardInspect from './card-inspect';
+import INotes from '../../../domain/InotesModel';
 
 function SideBar() {
   const [width, setWidth] = useState(600);
@@ -15,9 +16,9 @@ function SideBar() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [searchInput, setSearchInput] = useState('');
   const [showInspect, setShowInspect] = useState(false);
-  const [allCards, setAllCards] = useState<(IWorld | ICharacter)[]>([]);
-  const [filtredCards, setFiltredCards] = useState<(IWorld | ICharacter)[]>([]);
-  const [selectedCard, setSelectedCar] = useState<IWorld | ICharacter>();
+  const [allCards, setAllCards] = useState<(IWorld | ICharacter | INotes)[]>([]);
+  const [filtredCards, setFiltredCards] = useState<(IWorld | ICharacter | INotes)[]>([]);
+  const [selectedCard, setSelectedCar] = useState<IWorld | ICharacter | INotes>();
 
   const onResize = (
     _e: SyntheticEvent<Element, Event>,
@@ -42,7 +43,7 @@ function SideBar() {
     setSearchInput(e.target.value);
   };
 
-  const sideBarHandleClick = (value: IWorld | ICharacter) => {
+  const sideBarHandleClick = (value: IWorld | ICharacter | INotes) => {
     setSelectedCar(value);
     setShowInspect(true);
   };
@@ -50,15 +51,16 @@ function SideBar() {
   useEffect(() => {
     const array1 = projectData.data?.characters;
     const array2 = projectData.data?.world;
-    if (array1 && array2) {
-      const newArray = [...array1, ...array2];
+    const array3 = projectData.data?.notes;
+    if (array1 && array2 && array3) {
+      const newArray = [...array1, ...array2, ...array3];
       newArray.sort((a, b) => (b.last_edit || 0) - (a.last_edit || 0));
       setAllCards(newArray);
     }
-  }, [projectData.data?.characters, projectData.data?.world]);
+  }, [projectData.data?.characters, projectData.data?.notes, projectData.data?.world]);
 
   useEffect(() => {
-    const handleFilter = (cardList: IWorld[] | ICharacter[]) => {
+    const handleFilter = (cardList: IWorld[] | ICharacter[] | INotes[]) => {
       const result = cardList.filter((card) => {
         const titleMatch = !searchInput || card.title.includes(searchInput);
         return titleMatch;

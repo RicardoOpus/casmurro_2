@@ -1,5 +1,6 @@
 import ICardInspectProps from '../../../../domain/IcardInspectProps';
 import CharInspect from './cha-inspect';
+import NotesInspect from './notes-inspect';
 import WorldInspect from './world-inspect';
 
 function CardInspect({ card }: ICardInspectProps) {
@@ -9,6 +10,8 @@ function CardInspect({ card }: ICardInspectProps) {
         return <CharInspect card={card} />;
       case 'Mundo':
         return <WorldInspect card={card} />;
+      case 'Notas':
+        return <NotesInspect card={card} />;
       default:
         return null;
     }
