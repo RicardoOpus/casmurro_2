@@ -2,6 +2,7 @@ import {
   useEffect, useRef, useState,
 } from 'react';
 import ILinks from '../../../domain/ILinks';
+import utils from '../../../service/utils';
 
 interface GenericModalProps {
   onClose: () => void;
@@ -21,14 +22,18 @@ function LinksModal({
   const ref = useRef<HTMLDialogElement | null>(null);
 
   const saveRelation = () => {
-    const newLink = { linkName, URL: linkURL };
-    if (currentList) {
-      const updatedLinks = [...(currentList || []), newLink];
-      // eslint-disable-next-line no-param-reassign
-      // currentList = updatedRelations;
-      updateLinks(updatedLinks);
+    const isValid = utils.isValideURL(linkURL);
+    if (isValid) {
+      const newLink = { linkName, URL: linkURL };
+      if (currentList) {
+        const updatedLinks = [...(currentList || []), newLink];
+        updateLinks(updatedLinks);
+      }
+      onClose();
+    } else {
+      // eslint-disable-next-line no-alert
+      alert("O endereço UEL deve começar com 'https://' ou 'http://'");
     }
-    onClose();
   };
 
   const handleKeyPress = (event: { key: string; }) => {

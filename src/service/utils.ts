@@ -93,6 +93,8 @@ class Utils {
   }
 
   isImageFile = (fileName: string) => fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') || fileName.endsWith('.png') || fileName.endsWith('.webp');
+
+  isValideURL = (str: string) => str.startsWith('https://') || str.startsWith('https://');
 }
 
 const utils = new Utils();
