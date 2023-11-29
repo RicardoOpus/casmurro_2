@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangeEvent, useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
 import IrootStateProject from '../../../../domain/IrootStateProject';
@@ -14,6 +15,8 @@ import INotes from '../../../../domain/InotesModel';
 import TaskList from '../../../components/task-list';
 import ITaskList from '../../../../domain/ITaskList';
 import NotesAddonsModal from '../notes-addons';
+import ILinks from '../../../../domain/ILinks';
+import LinksModal from '../../../components/add-link-modal';
 
 function NotesDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -21,6 +24,7 @@ function NotesDetail() {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [modalAddons, setModalAddons] = useState(false);
+  const [modalLink, setModalLink] = useState(false);
   const notesItens = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.notes));
   const prjSettings = useSelector((state: IrootStateProject) => (
@@ -32,6 +36,8 @@ function NotesDetail() {
 
   const callBackLoading = () => setIsLoading(true);
   const closeModal = () => setModal(false);
+  const closeModal2 = () => setModalAddons(false);
+  const closeModal4 = () => setModalLink(false);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     setStateNoteItem({ ...stateNoteItem, [key]: e.target.value, last_edit: Date.now() });
@@ -52,6 +58,13 @@ function NotesDetail() {
     setStateNoteItem((prevtask) => ({
       ...prevtask,
       task_list: newtask,
+    }));
+  };
+
+  const updateLinks = (newLinks: ILinks[]) => {
+    setStateNoteItem((prevLinks) => ({
+      ...prevLinks,
+      link_list: newLinks,
     }));
   };
 
@@ -92,7 +105,10 @@ function NotesDetail() {
     }
   };
 
-  const closeModal2 = () => setModalAddons(false);
+  const deleteLink = (indexLis: number) => {
+    const updatedLinks = stateNoteItem.link_list?.filter((_, index) => index !== indexLis);
+    setStateNoteItem({ ...stateNoteItem, link_list: updatedLinks });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -153,6 +169,7 @@ function NotesDetail() {
                 </label>
               </div>
               <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
+              <button onClick={() => setModalLink(true)} className="btnSmall" type="button">+ Link</button>
             </div>
             <div className="detailBarButtonsItens">
               <span className="tooltip-default" data-balloon aria-label="Mostrar/ocultar campos extras" data-balloon-pos="down">
@@ -181,6 +198,19 @@ function NotesDetail() {
               </select>
             </div>
           </div>
+          {stateNoteItem.link_list && stateNoteItem.link_list.length > 0 && (
+            <div className="fullContent">
+              <h3>Links</h3>
+              <div className="linkList">
+                {stateNoteItem.link_list.map((e, index) => (
+                  <div key={uuidv4()}>
+                    <button className="removeRelationBtn" type="button" onClick={() => deleteLink(index)}>✖</button>
+                    <a href={e.URL} target="_blank" rel="noreferrer">{e.linkName}</a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           {stateNoteItem.show_taskList && (
             <TaskList list={stateNoteItem.task_list} onDataSend={updateCharacterTasks} />
           )}
@@ -199,6 +229,12 @@ function NotesDetail() {
             onClose={closeModal2}
             showtaskList={stateNoteItem.show_taskList || false}
             handleInputCheck={handleInputCheck}
+          />
+          <LinksModal
+            openModal={modalLink}
+            onClose={closeModal4}
+            currentList={stateNoteItem.link_list || []}
+            updateLinks={updateLinks}
           />
           {prjSettings.typeWriterSound && (<TypeWriterSound />)}
         </div>
