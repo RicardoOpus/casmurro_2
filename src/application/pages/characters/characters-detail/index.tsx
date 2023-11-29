@@ -18,6 +18,8 @@ import Loading from '../../../components/loading';
 import CharAddonsModal from './characters-addons';
 import TaskList from '../../../components/task-list';
 import ITaskList from '../../../../domain/ITaskList';
+import LinksModal from '../../../components/add-link-modal';
+import ILinks from '../../../../domain/ILinks';
 
 function CharacterDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,6 +28,7 @@ function CharacterDetail() {
   const [modal, setModal] = useState(false);
   const [modalRelations, setModalRalations] = useState(false);
   const [modalAddons, setModalAddons] = useState(false);
+  const [modalLink, setModalLink] = useState(false);
   const characters = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
   const prjSettings = useSelector((state: IrootStateProject) => (
@@ -42,6 +45,7 @@ function CharacterDetail() {
   const closeModal = () => setModal(false);
   const closeModal2 = () => setModalRalations(false);
   const closeModal3 = () => setModalAddons(false);
+  const closeModal4 = () => setModalLink(false);
 
   const [stateCharacter,
     setEditedName] = useState<ICharacter | Partial<ICharacter>>(currentCharacter || {});
@@ -72,6 +76,13 @@ function CharacterDetail() {
     setEditedName((prevtask) => ({
       ...prevtask,
       task_list: newtask,
+    }));
+  };
+
+  const updateLinks = (newLinks: ILinks[]) => {
+    setEditedName((prevLinks) => ({
+      ...prevLinks,
+      link_list: newLinks,
     }));
   };
 
@@ -210,6 +221,7 @@ function CharacterDetail() {
                 </span>
                 <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
                 <button onClick={() => setModalRalations(true)} className="btnSmall" type="button">+ Relações</button>
+                <button onClick={() => setModalLink(true)} className="btnSmall" type="button">+ Link</button>
               </div>
               <div className="detailBarButtonsItens">
                 <span className="tooltip-default" data-balloon aria-label="Mostrar/ocultar campos extras" data-balloon-pos="down">
@@ -347,6 +359,9 @@ function CharacterDetail() {
               </div>
             </div>
           )}
+                    {stateCharacter.show_taskList && (
+            <TaskList list={stateCharacter.task_list} onDataSend={updateCharacterTasks} />
+          )}
           {stateCharacter.show_taskList && (
             <TaskList list={stateCharacter.task_list} onDataSend={updateCharacterTasks} />
           )}
@@ -395,6 +410,12 @@ function CharacterDetail() {
             showNotes={stateCharacter.show_notes || false}
             showtaskList={stateCharacter.show_taskList || false}
             handleInputCheck={handleInputCheck}
+          />
+          <LinksModal
+            openModal={modalLink}
+            onClose={closeModal4}
+            currentList={stateCharacter.link_list || []}
+            updateLinks={updateLinks}
           />
           {prjSettings.typeWriterSound && (<TypeWriterSound />)}
         </div>
