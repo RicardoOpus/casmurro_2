@@ -1,3 +1,5 @@
+import ITaskList from './ITaskList';
+
 interface Irelations {
   charID: number,
   type: string
@@ -9,7 +11,6 @@ interface ICharacter {
   color?: string;
   core_group?: string;
   content?: string;
-  conflict?: string;
   date_birth?: string;
   date_death?: string;
   full_name?: string;
@@ -17,10 +18,9 @@ interface ICharacter {
   id: number;
   image?: string;
   last_edit: number;
-  motivation?: string;
   note?: string;
   occupation?: string;
-  physical? : string;
+  physical?: string;
   psychological?: string;
   relations?: Irelations[];
   resume?: string;
@@ -29,6 +29,7 @@ interface ICharacter {
   showDate_death?: boolean;
   show_notes?: boolean;
   show_full_name?: boolean;
+  task_list?: ITaskList[];
   title: string;
   transformation?: string;
   type: string;

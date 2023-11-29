@@ -16,6 +16,8 @@ import CharRelationsModal from './characters-relations';
 import IRelation from '../../../../domain/IRelation';
 import Loading from '../../../components/loading';
 import CharAddonsModal from './characters-addons';
+import TaskList from '../../../components/task-list';
+import ITaskList from '../../../../domain/ITaskList';
 
 function CharacterDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,6 +65,13 @@ function CharacterDetail() {
     setEditedName((prevCharacter) => ({
       ...prevCharacter,
       relations: newRelations,
+    }));
+  };
+
+  const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
+    setEditedName((prevtask) => ({
+      ...prevtask,
+      task_list: newtask,
     }));
   };
 
@@ -336,6 +345,7 @@ function CharacterDetail() {
               </div>
             </div>
           )}
+          <TaskList list={stateCharacter.task_list} onDataSend={updateCharacterTasks} />
           <div className="fullContent">
             <h3>Resumo</h3>
             <textarea

@@ -1,0 +1,13 @@
+.taskListContainer {
+  color: var(--text-color);
+  margin-left: 1em;
+}
+
+.doneTask {
+  color: var(--text-color-inactive);
+  text-decoration: line-through;
+}
+
+.done {
+  color: green;
+}

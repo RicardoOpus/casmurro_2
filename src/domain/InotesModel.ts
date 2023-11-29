@@ -1,3 +1,5 @@
+import ITaskList from './ITaskList';
+
 interface INotes {
   category?: string;
   content?: string;
@@ -6,7 +8,7 @@ interface INotes {
   last_edit: number,
   title: string;
   type: string;
-  task_list?: string;
+  task_list?: ITaskList[];
 }
 
 export default INotes;

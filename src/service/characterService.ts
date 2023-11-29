@@ -24,6 +24,7 @@ class CharacterService {
         note: '',
         occupation: '',
         relations: [],
+        task_list: [],
         resume: '',
         type: 'Personagem',
         showCharacteristics: false,

@@ -1,3 +1,5 @@
+import ITaskList from './ITaskList';
+
 interface IWorld {
   category?: string;
   content?: string;
@@ -8,6 +10,7 @@ interface IWorld {
   resume?: string;
   title: string;
   type: string;
+  task_list?: ITaskList[];
 }
 
 export default IWorld;
