@@ -11,12 +11,16 @@ import GenericModal from '../../../components/generic-modal';
 import TypeWriterSound from '../../../components/type-write-sound';
 import utils from '../../../../service/utils';
 import Loading from '../../../components/loading';
+import WorldAddonsModal from '../world-addons';
+import TaskList from '../../../components/task-list';
+import ITaskList from '../../../../domain/ITaskList';
 
 function WorldDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
+  const [modalAddons, setModalAddons] = useState(false);
   const worldItens = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.world));
   const prjSettings = useSelector((state: IrootStateProject) => (
@@ -42,6 +46,18 @@ function WorldDetail() {
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
+    setStateWorldItem((prevtask) => ({
+      ...prevtask,
+      task_list: newtask,
+    }));
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleInputCheck = (e: boolean, key: string) => {
+    setStateWorldItem({ ...stateWorldItem, [key]: e, last_edit: Date.now() });
   };
 
   const handleDelete = async () => {
@@ -76,6 +92,8 @@ function WorldDetail() {
     }
   };
 
+  const closeModal2 = () => setModalAddons(false);
+
   useEffect(() => {
     const fetchData = async () => {
       if (Object.keys(stateWorldItem).length === 0) {
@@ -92,7 +110,7 @@ function WorldDetail() {
     if (!isLoading) {
       utils.autoGrowAllTextareas();
     }
-  }, [isLoading]);
+  }, [isLoading, handleInputCheck]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => cleanupFunction, []);
@@ -137,6 +155,7 @@ function WorldDetail() {
               <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
             </div>
             <div className="detailBarButtonsItens">
+              <button className="detailAdd" type="button" onClick={() => setModalAddons(true)}>{ }</button>
               <button onClick={() => setModal(true)} className="btnSmall" type="button">
                 <span className="ui-icon ui-icon-trash icon-color" />
                 {' '}
@@ -159,22 +178,35 @@ function WorldDetail() {
                 ))}
               </select>
             </div>
+            {stateWorldItem.show_date && (
+              <div>
+                <h3>Data</h3>
+                <input value={stateWorldItem.date} className="cardInputDate" onChange={(e) => handleInputChange(e, 'date')} type="date" />
+              </div>
+            )}
           </div>
+          {stateWorldItem.show_taskList && (
+            <TaskList list={stateWorldItem.task_list} onDataSend={updateCharacterTasks} />
+          )}
           <div className="fullContent">
             <h3>Resumo</h3>
             <textarea
               className="cardInputFull"
-              placeholder="Descreva de forma breve quem é essa personagem..."
+              placeholder="Descreva de forma breve o item..."
               value={stateWorldItem?.resume}
               onChange={(e) => handleTextAreaChange(e, 'resume')}
             />
-            <h3>Anotações</h3>
-            <textarea
-              className="cardInputFull"
-              placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
-              value={stateWorldItem?.note}
-              onChange={(e) => handleTextAreaChange(e, 'note')}
-            />
+            {stateWorldItem.show_note && (
+              <div>
+                <h3>Anotações</h3>
+                <textarea
+                  className="cardInputFull"
+                  placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
+                  value={stateWorldItem?.note}
+                  onChange={(e) => handleTextAreaChange(e, 'note')}
+                />
+              </div>
+            )}
             <h3>Conteúdo</h3>
             <textarea
               className="cardInputFull"
@@ -184,6 +216,14 @@ function WorldDetail() {
             />
           </div>
           <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir item mundo?" onDataSend={handleDelete} deleteType />
+          <WorldAddonsModal
+            openModal={modalAddons}
+            onClose={closeModal2}
+            showDate={stateWorldItem.show_date || false}
+            showNote={stateWorldItem.show_note || false}
+            showtaskList={stateWorldItem.show_taskList || false}
+            handleInputCheck={handleInputCheck}
+          />
           {prjSettings.typeWriterSound && (<TypeWriterSound />)}
         </div>
       )}

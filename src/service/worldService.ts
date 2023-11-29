@@ -9,15 +9,19 @@ class WorldService {
     const now = Date.now();
     if (ID) {
       const data: IWorld = {
+        title: itemName,
+        id: ID,
+        date: '',
         category: '',
         content: '',
-        id: ID,
         image: '',
         last_edit: now,
         note: '',
         resume: '',
-        title: itemName,
         type: this.typeItem,
+        show_date: false,
+        show_note: false,
+        show_taskList: false,
       };
       await indexedDBrepository.cardPost(data, 'world');
     }
