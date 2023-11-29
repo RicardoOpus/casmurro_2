@@ -345,7 +345,9 @@ function CharacterDetail() {
               </div>
             </div>
           )}
-          <TaskList list={stateCharacter.task_list} onDataSend={updateCharacterTasks} />
+          {stateCharacter.show_taskList && (
+            <TaskList list={stateCharacter.task_list} onDataSend={updateCharacterTasks} />
+          )}
           <div className="fullContent">
             <h3>Resumo</h3>
             <textarea
@@ -389,6 +391,7 @@ function CharacterDetail() {
             showCharact={stateCharacter.showCharacteristics || false}
             showFullName={stateCharacter.show_full_name || false}
             showNotes={stateCharacter.show_notes || false}
+            showtaskList={stateCharacter.show_taskList || false}
             handleInputCheck={handleInputCheck}
           />
           {prjSettings.typeWriterSound && (<TypeWriterSound />)}

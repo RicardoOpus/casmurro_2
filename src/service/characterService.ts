@@ -30,6 +30,9 @@ class CharacterService {
         showCharacteristics: false,
         showDate_birth: false,
         showDate_death: false,
+        show_taskList: false,
+        show_full_name: false,
+        show_notes: false,
       };
       await indexedDBrepository.cardPost(data, 'characters');
     }

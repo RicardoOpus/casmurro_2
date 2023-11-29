@@ -29,6 +29,7 @@ interface ICharacter {
   showDate_death?: boolean;
   show_notes?: boolean;
   show_full_name?: boolean;
+  show_taskList?: boolean;
   task_list?: ITaskList[];
   title: string;
   transformation?: string;

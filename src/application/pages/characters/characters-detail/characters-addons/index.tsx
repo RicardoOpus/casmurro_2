@@ -11,13 +11,15 @@ interface GenericModalProps {
   showCharact: boolean;
   showFullName: boolean;
   showNotes: boolean;
+  showtaskList: boolean;
   // eslint-disable-next-line no-unused-vars
   handleInputCheck: (e: boolean, key: string) => void;
 }
 
 function CharAddonsModal({
   onClose,
-  openModal, showBirth, showDeath, showCharact, showFullName, showNotes, handleInputCheck,
+  openModal, showBirth, showDeath, showCharact,
+  showFullName, showNotes, showtaskList, handleInputCheck,
 }: GenericModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
   const [showFieldBirth, setShowFieldBirth] = useState(showBirth);
@@ -25,6 +27,7 @@ function CharAddonsModal({
   const [showFieldChara, setshowFieldChara] = useState(showCharact);
   const [showFieldFull, setshowFieldFull] = useState(showFullName);
   const [showFieldNotes, setshowFieldNotes] = useState(showNotes);
+  const [showFieldTask, setShowFieldTask] = useState(showtaskList);
 
   const handleInputType = (e: ChangeEvent<HTMLInputElement>, type: string) => {
     if (type === 'birth') {
@@ -42,6 +45,9 @@ function CharAddonsModal({
     } if (type === 'notes') {
       setshowFieldNotes(e.target.checked);
       handleInputCheck(e.target.checked, 'show_notes');
+    } if (type === 'task') {
+      setShowFieldTask(e.target.checked);
+      handleInputCheck(e.target.checked, 'show_taskList');
     }
   };
 
@@ -110,6 +116,19 @@ function CharAddonsModal({
                   />
                   {' '}
                   Características física e psicológicas
+                </label>
+              </div>
+              <div>
+                <label htmlFor="showFieldTask">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldTask"
+                    checked={showFieldTask}
+                    onChange={(e) => handleInputType(e, 'task')}
+                  />
+                  {' '}
+                  Lista de tarefas
                 </label>
               </div>
               <div>
