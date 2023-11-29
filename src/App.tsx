@@ -13,6 +13,7 @@ import World from './application/pages/world';
 import WorldDetail from './application/pages/world/world-detail';
 import Notes from './application/pages/notes';
 import NotesDetail from './application/pages/notes/notes-detail';
+import Manuscript from './application/pages/manuscript';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -56,6 +57,7 @@ function App() {
             <Route path="/characters/:id" element={<CharactersDetail />} />
             <Route path="/world" element={<World />} />
             <Route path="/world/:id" element={<WorldDetail />} />
+            <Route path="/manuscript" element={<Manuscript />} />
             <Route path="/notes" element={<Notes />} />
             <Route path="/notes/:id" element={<NotesDetail />} />
             <Route path="/settings" element={<Settings />} />
