@@ -11,12 +11,16 @@ import TypeWriterSound from '../../../components/type-write-sound';
 import utils from '../../../../service/utils';
 import Loading from '../../../components/loading';
 import INotes from '../../../../domain/InotesModel';
+import TaskList from '../../../components/task-list';
+import ITaskList from '../../../../domain/ITaskList';
+import NotesAddonsModal from '../notes-addons';
 
 function NotesDetail() {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
+  const [modalAddons, setModalAddons] = useState(false);
   const notesItens = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.notes));
   const prjSettings = useSelector((state: IrootStateProject) => (
@@ -42,6 +46,18 @@ function NotesDetail() {
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
+    setStateNoteItem((prevtask) => ({
+      ...prevtask,
+      task_list: newtask,
+    }));
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleInputCheck = (e: boolean, key: string) => {
+    setStateNoteItem({ ...stateNoteItem, [key]: e, last_edit: Date.now() });
   };
 
   const handleDelete = async () => {
@@ -75,6 +91,8 @@ function NotesDetail() {
       alert('O arquivo selecionado não é uma imagem!');
     }
   };
+
+  const closeModal2 = () => setModalAddons(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -137,6 +155,7 @@ function NotesDetail() {
               <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
             </div>
             <div className="detailBarButtonsItens">
+              <button className="detailAdd" type="button" onClick={() => setModalAddons(true)}>{ }</button>
               <button onClick={() => setModal(true)} className="btnSmall" type="button">
                 <span className="ui-icon ui-icon-trash icon-color" />
                 {' '}
@@ -160,6 +179,9 @@ function NotesDetail() {
               </select>
             </div>
           </div>
+          {stateNoteItem.show_taskList && (
+            <TaskList list={stateNoteItem.task_list} onDataSend={updateCharacterTasks} />
+          )}
           <div className="fullContent">
             <h3>Conteúdo</h3>
             <textarea
@@ -170,6 +192,12 @@ function NotesDetail() {
             />
           </div>
           <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir nota?" onDataSend={handleDelete} deleteType />
+          <NotesAddonsModal
+            openModal={modalAddons}
+            onClose={closeModal2}
+            showtaskList={stateNoteItem.show_taskList || false}
+            handleInputCheck={handleInputCheck}
+          />
           {prjSettings.typeWriterSound && (<TypeWriterSound />)}
         </div>
       )}

@@ -9,6 +9,7 @@ interface INotes {
   title: string;
   type: string;
   task_list?: ITaskList[];
+  show_taskList?: boolean;
 }
 
 export default INotes;

@@ -16,6 +16,7 @@ class NotesService {
         image: '',
         last_edit: now,
         type: this.typeItem,
+        show_taskList: false,
       };
       await indexedDBrepository.cardPost(data, 'notes');
     }
