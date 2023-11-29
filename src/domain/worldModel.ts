@@ -1,3 +1,4 @@
+import ILinks from './ILinks';
 import ITaskList from './ITaskList';
 
 interface IWorld {
@@ -7,6 +8,7 @@ interface IWorld {
   id: number;
   image?: string;
   last_edit: number,
+  link_list?: ILinks[]
   note?: string;
   resume?: string;
   show_date?: boolean;

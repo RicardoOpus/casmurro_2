@@ -133,6 +133,11 @@ function CharacterDetail() {
     setEditedName({ ...stateCharacter, relations: updatedRelations });
   };
 
+  const deleteLink = (indexLis: number) => {
+    const updatedLinks = stateCharacter.link_list?.filter((_, index) => index !== indexLis);
+    setEditedName({ ...stateCharacter, link_list: updatedLinks });
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       if (Object.keys(stateCharacter).length === 0) {
@@ -359,8 +364,18 @@ function CharacterDetail() {
               </div>
             </div>
           )}
-                    {stateCharacter.show_taskList && (
-            <TaskList list={stateCharacter.task_list} onDataSend={updateCharacterTasks} />
+          {stateCharacter.link_list && stateCharacter.link_list.length > 0 && (
+            <div className="fullContent">
+              <h3>Links</h3>
+              <div className="linkList">
+                {stateCharacter.link_list.map((e, index) => (
+                  <div key={uuidv4()}>
+                    <button className="removeRelationBtn" type="button" onClick={() => deleteLink(index)}>✖</button>
+                    <a href={e.URL} target="_blank" rel="noreferrer">{e.linkName}</a>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
           {stateCharacter.show_taskList && (
             <TaskList list={stateCharacter.task_list} onDataSend={updateCharacterTasks} />
