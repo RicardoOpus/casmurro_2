@@ -117,3 +117,7 @@
 .inspectCharRelations {
   margin-bottom: 1em;
 }
+
+.spanTaskLit {
+  margin: 0;
+}

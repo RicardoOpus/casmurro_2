@@ -59,7 +59,7 @@ function CharInspect({ card }: CardInspectProps) {
       </div>
       <div className="inspecInfos">
         {card.full_name ? <span>Nome:</span> : ''}
-        <p>{card.full_name }</p>
+        <p>{card.full_name}</p>
         {card.age ? <span>Idade:</span> : ''}
         <p>{card.age ? `${card.age} anos` : ''}</p>
         {card.gender ? <span>Gênero:</span> : ''}
@@ -85,6 +85,22 @@ function CharInspect({ card }: CardInspectProps) {
             <button onClick={() => navigate(`/characters/${e.charID}`)} className="relationBtn" type="button" style={{ backgroundColor: e.color }}>{e.char}</button>
             {' '}
             <span>{`(${e.type})`}</span>
+          </div>
+        ))}
+      </div>
+      <div className="inspectCharRelations">
+        {card.link_list && card.link_list.length > 0 ? <span>Links:</span> : ''}
+        {card.link_list?.map((e) => (
+          <div key={uuidv4()}>
+            <a href={e.URL} target="_blank" rel="noreferrer">{e.linkName}</a>
+          </div>
+        ))}
+      </div>
+      <div className="inspectCharRelations">
+        {card.task_list && card.task_list.length > 0 ? <span>Tarefas:</span> : ''}
+        {card.task_list?.map((e) => (
+          <div key={uuidv4()}>
+            <p className={e.isDone ? 'doneTask spanTaskLit' : 'spanTaskLit'}>{`• ${e.task}`}</p>
           </div>
         ))}
       </div>
