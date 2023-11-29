@@ -3,6 +3,7 @@ import { useState } from 'react';
 import CharactersSettings from './characters';
 import GeneralSettings from './general';
 import WorldSettings from './world';
+import NotesSettings from './notes';
 
 function Settings() {
   const [activeTab, setActiveTab] = useState('Geral');
@@ -14,6 +15,8 @@ function Settings() {
         return <CharactersSettings />;
       case 'Mundo':
         return <WorldSettings />;
+      case 'Notas':
+        return <NotesSettings />;
       default:
         return null;
     }
@@ -54,6 +57,15 @@ function Settings() {
                 type="button"
               >
                 Mundo
+              </button>
+            </li>
+            <li>
+              <button
+                className={activeTab === 'Notas' ? 'active-tab' : ''}
+                onClick={() => setActiveTab('Notas')}
+                type="button"
+              >
+                Notas
               </button>
             </li>
           </ul>
