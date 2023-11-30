@@ -5,6 +5,7 @@ import db from '../database/dexieDB';
 import IProject from '../../domain/projectModel';
 import ICharacter from '../../domain/characterModel';
 import IWorld from '../../domain/worldModel';
+import IManuscript from '../../domain/IManuscript';
 
 class IndexedDBrepository {
   startValueForID = 0;
@@ -103,6 +104,105 @@ class IndexedDBrepository {
         ele.data = projectData.data;
       });
       this.updateLastEdit();
+    }
+  }
+
+  async manuscriptPost(newData: IManuscript, pathString: string) {
+    const path: number[] = pathString.split('-').map(Number);
+    const projectID = await this.getCurrentProjectID();
+    const project = await db.projects.where({ id: projectID }).first();
+    if (project) {
+      if (!project.data) {
+        project.data = { manuscript: [] };
+      }
+      let currentLevel = project.data.manuscript || [];
+      let parentIndex = -1;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const id of path) {
+        parentIndex = currentLevel.findIndex((e) => e.id === id);
+        if (parentIndex === -1) {
+          console.error(`Element with ID ${id} not found.`);
+          return;
+        }
+        currentLevel = currentLevel[parentIndex].children || [];
+      }
+      if (parentIndex !== -1) {
+        currentLevel.push(newData);
+        await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+          const updatedManuscript = project.data?.manuscript || [];
+          // eslint-disable-next-line no-param-reassign
+          ele.data = { ...ele.data, manuscript: updatedManuscript };
+        });
+        this.updateLastEdit();
+      }
+    }
+  }
+
+  async manuscriptPostAsSibling(newData: IManuscript, pathString: string) {
+    const path: number[] = pathString.split('-').map(Number);
+    const projectID = await this.getCurrentProjectID();
+    const project = await db.projects.where({ id: projectID }).first();
+    if (project) {
+      if (!project.data) {
+        project.data = { manuscript: [] };
+      }
+      let currentLevel = project.data.manuscript || [];
+      let parentIndex = -1;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [index, id] of path.entries()) {
+        parentIndex = currentLevel.findIndex((e) => e.id === id);
+        if (parentIndex === -1) {
+          console.error(`Element with ID ${id} not found.`);
+          return;
+        }
+        if (index < path.length - 1) {
+          currentLevel = currentLevel[parentIndex].children || [];
+        }
+      }
+      if (parentIndex !== -1) {
+        currentLevel.push(newData);
+        await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+          const updatedManuscript = project.data?.manuscript || [];
+          // eslint-disable-next-line no-param-reassign
+          ele.data = { ...ele.data, manuscript: updatedManuscript };
+        });
+        this.updateLastEdit();
+      }
+    }
+  }
+
+  async manuscriptDelete(idToDelete: number, pathString: string) {
+    const path: number[] = pathString.split('-').map(Number);
+    const projectID = await this.getCurrentProjectID();
+    const project = await db.projects.where({ id: projectID }).first();
+    if (project && project.data) {
+      let currentLevel = project.data.manuscript || [];
+      let parentIndex = -1;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [index, id] of path.entries()) {
+        parentIndex = currentLevel.findIndex((e) => e.id === id);
+        if (parentIndex === -1) {
+          console.error(`Element with ID ${id} not found.`);
+          return;
+        }
+        if (index < path.length - 1) {
+          currentLevel = currentLevel[parentIndex].children || [];
+        }
+      }
+      if (parentIndex !== -1) {
+        const deletedItemIndex = currentLevel.findIndex((e) => e.id === idToDelete);
+        if (deletedItemIndex !== -1) {
+          currentLevel.splice(deletedItemIndex, 1);
+          await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+            const updatedManuscript = project.data?.manuscript || [];
+            // eslint-disable-next-line no-param-reassign
+            ele.data = { ...ele.data, manuscript: updatedManuscript };
+          });
+          this.updateLastEdit();
+        } else {
+          console.error(`Element with ID ${idToDelete} not found.`);
+        }
+      }
     }
   }
 

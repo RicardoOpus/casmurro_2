@@ -9,3 +9,7 @@
   color: var(--accent-color);
   font-style: italic;
 }
+
+.itemListM {
+  margin-left: 1em;
+}

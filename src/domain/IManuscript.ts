@@ -2,6 +2,7 @@ import ITaskList from './ITaskList';
 
 interface IManuscript {
   category?: string;
+  children?: IManuscript[];
   content?: string;
   date?: string;
   id: number;

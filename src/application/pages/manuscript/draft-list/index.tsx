@@ -9,13 +9,23 @@ import IManuscript from '../../../../domain/IManuscript';
 
 function DraftList() {
   const [width, setWidth] = useState(300);
+  const [selectedItemPath, setSelectedItemPath] = useState('0');
+  const [selectedItemID, setSelectedItemID] = useState(0);
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const [cenesList, setCenesList] = useState<IManuscript[]>([]);
   const dispatch = useDispatch();
 
-  const creatNewCene = async () => {
-    // const selectItem = document.querySelectorAll('.selected');
-    await manuscriptService.createScene();
+  const creatNewCene = async (position: string) => {
+    if (selectedItemPath === '0') {
+      await manuscriptService.createScene(selectedItemPath, 'default');
+    } else {
+      await manuscriptService.createScene(selectedItemPath, position);
+    }
+    dispatch(fetchProjectDataAction(true));
+  };
+
+  const deleteCene = async () => {
+    await manuscriptService.deleteScene(selectedItemID, selectedItemPath);
     dispatch(fetchProjectDataAction(true));
   };
 
@@ -28,59 +38,50 @@ function DraftList() {
     }
   };
 
+  const handleCheckboxChange = (item: string, ID: number) => {
+    setSelectedItemPath(item === selectedItemPath ? '' : item);
+    setSelectedItemID(ID);
+  };
+
+  const renderCeneList = (cenes: IManuscript[], path: number[] = []) => (
+    cenes.map((cene) => (
+      <div key={cene.id} className="itemListM">
+        <label htmlFor={[...path, cene.id].join('-')}>
+          <input
+            checked={[...path, cene.id].join('-') === selectedItemPath}
+            onChange={() => handleCheckboxChange([...path, cene.id].join('-'), cene.id)}
+            type="checkbox"
+            id={[...path, cene.id].join('-')}
+          />
+          {cene.title}
+        </label>
+        {cene.children && cene.children.length > 0
+          && renderCeneList(cene.children, [...path, cene.id])}
+      </div>
+    ))
+  );
+
   useEffect(() => {
     if (projectData.data?.manuscript) {
       setCenesList(projectData.data.manuscript);
     }
   }, [projectData.data?.manuscript]);
 
-  useEffect(() => {
-    const selectTask = (event: MouseEvent) => {
-      const element = event.target as HTMLElement;
-      if (element) {
-        const className = element.classList[0];
-        if (className === 'selected') {
-          element.classList.remove('selected');
-        } else {
-          const mouseClick = document.querySelectorAll('.selected');
-          for (let i = 0; i < mouseClick.length; i += 1) {
-            mouseClick[i].classList.remove('selected');
-          }
-          element.classList.add('selected');
-        }
-      }
-    };
-
-    const taskDone = (event: MouseEvent) => {
-      const element = event.target as HTMLElement;
-      if (element) {
-        const verify = element.classList.contains('completed');
-        if (verify) {
-          element.classList.remove('completed');
-        } else {
-          element.classList.add('completed');
-        }
-      }
-    };
-
-    const selectItem = document.getElementById('lista-tarefas');
-    if (selectItem) {
-      selectItem.addEventListener('click', selectTask);
-      selectItem.addEventListener('dblclick', taskDone);
-    }
-  }, []);
-
   return (
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
       <div style={{ width: `${width}px`, height: '100%' }}>
-        <button onClick={creatNewCene} type="button">Nova cena</button>
-        <h1>DraftList</h1>
+        <button onClick={() => creatNewCene('child')} type="button" className="btnSmall">Add Filho</button>
+        <button onClick={() => creatNewCene('sibling')} type="button" className="btnSmall">Add Irmão</button>
+        {/* <button onClick="" type="button" className="btnSmall">▲ Send Up</button>
+        <button onClick="" type="button" className="btnSmall">▼ Send Donw</button> */}
+        <button onClick={deleteCene} className="btnSmall" type="button">
+          <span className="ui-icon ui-icon-trash icon-color" />
+          {' '}
+          Excluir
+        </button>
+        <h2>Rascunho</h2>
         <div id="lista-tarefas">
-          {cenesList.map((e) => (
-            <div>
-              {e.title}
-            </div>
-          ))}
+          {cenesList && cenesList.length > 0 && renderCeneList(cenesList)}
         </div>
       </div>
     </Resizable>
