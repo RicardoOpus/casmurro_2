@@ -346,6 +346,38 @@ option {
   margin-left: 1em;
 }
 
+/* ============= resizables  ================= */
+
+.resizable {
+  position: relative;
+}
+
+.custom-handle {
+  cursor: col-resize;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 10px;
+}
+
+.custom-handle:hover {
+  background-color: var(--accent-color);
+}
+
+.custom-handle-x {
+  bottom: 0;
+  cursor: row-resize;
+  height: 10px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.custom-handle-x:hover {
+  background-color: var(--accent-color);
+}
+
 /* ============= List Cards  ================= */
 
 .cardListTitle {

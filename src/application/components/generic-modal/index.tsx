@@ -15,7 +15,7 @@ function getIconPath(category: string): string {
       return './characters.png';
     case 'Novo item mundo':
       return './world.png';
-    case 'Cena':
+    case 'Nova Cena':
       return './scene.png';
     case 'Linha do tempo':
       return './timeline.png';

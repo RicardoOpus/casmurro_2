@@ -94,23 +94,6 @@
   width: 90%;
 }
 
-.resizable {
-  position: relative;
-}
-
-.custom-handle {
-  cursor: col-resize;
-  height: 100%;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 10px;
-}
-
-.custom-handle:hover {
-  background-color: #aaa;
-}
-
 .sideBarList {
   margin-top: 1em;
 }
