@@ -1,22 +1,22 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { Resizable, ResizeCallbackData } from 'react-resizable';
 import './draft-list.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
-import GenericModal from '../../../components/generic-modal';
+import manuscriptService from '../../../../service/manuscriptService';
+import IrootStateProject from '../../../../domain/IrootStateProject';
+import IManuscript from '../../../../domain/IManuscript';
 
 function DraftList() {
   const [width, setWidth] = useState(300);
+  const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
+  const [cenesList, setCenesList] = useState<IManuscript[]>([]);
   const dispatch = useDispatch();
-  const [modal, setModal] = useState(false);
-  const openModal = () => setModal(true);
-  const closeModal = () => setModal(false);
 
-  const handleSaveData = async (data: string) => {
-    // await characterService.create(data);
-    console.log(data);
+  const creatNewCene = async () => {
+    // const selectItem = document.querySelectorAll('.selected');
+    await manuscriptService.createScene();
     dispatch(fetchProjectDataAction(true));
-    setModal(false);
   };
 
   const onResize = (
@@ -28,42 +28,60 @@ function DraftList() {
     }
   };
 
+  useEffect(() => {
+    if (projectData.data?.manuscript) {
+      setCenesList(projectData.data.manuscript);
+    }
+  }, [projectData.data?.manuscript]);
+
+  useEffect(() => {
+    const selectTask = (event: MouseEvent) => {
+      const element = event.target as HTMLElement;
+      if (element) {
+        const className = element.classList[0];
+        if (className === 'selected') {
+          element.classList.remove('selected');
+        } else {
+          const mouseClick = document.querySelectorAll('.selected');
+          for (let i = 0; i < mouseClick.length; i += 1) {
+            mouseClick[i].classList.remove('selected');
+          }
+          element.classList.add('selected');
+        }
+      }
+    };
+
+    const taskDone = (event: MouseEvent) => {
+      const element = event.target as HTMLElement;
+      if (element) {
+        const verify = element.classList.contains('completed');
+        if (verify) {
+          element.classList.remove('completed');
+        } else {
+          element.classList.add('completed');
+        }
+      }
+    };
+
+    const selectItem = document.getElementById('lista-tarefas');
+    if (selectItem) {
+      selectItem.addEventListener('click', selectTask);
+      selectItem.addEventListener('dblclick', taskDone);
+    }
+  }, []);
+
   return (
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
-      <div className="" style={{ width: `${width}px`, height: '100%' }}>
-        <div className="btnNew">
-          <button type="button" onClick={openModal}>
-            <span className="ui-icon ui-icon-plusthick icon-color" />
-            {' '}
-            Novo
-          </button>
-        </div>
+      <div style={{ width: `${width}px`, height: '100%' }}>
+        <button onClick={creatNewCene} type="button">Nova cena</button>
         <h1>DraftList</h1>
-        <p>Um parágrafo</p>
-        {/* <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p>
-        <p>Um parágrafo</p> */}
-        <GenericModal openModal={modal} onClose={closeModal} typeName="Nova Cena" onDataSend={handleSaveData} deleteType={false} />
+        <div id="lista-tarefas">
+          {cenesList.map((e) => (
+            <div>
+              {e.title}
+            </div>
+          ))}
+        </div>
       </div>
     </Resizable>
   );

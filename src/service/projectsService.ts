@@ -51,6 +51,14 @@ class ProjectServide {
           'Diário de bordo',
           'Playlist',
         ],
+        manuscriptStatus: [
+          'Pronto',
+          'Revisado',
+          'Em andamento',
+          'Pausado',
+          'Problema',
+          'Não iniciado',
+        ],
         projectColor: '#0099ff',
         typeWriterSound: false,
         typeWriterVolume: 0.5,
@@ -61,6 +69,7 @@ class ProjectServide {
         characters: [],
         world: [],
         notes: [],
+        manuscript: [],
       },
     };
 

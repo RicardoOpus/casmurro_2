@@ -1,3 +1,4 @@
+import IManuscript from './IManuscript';
 import INotes from './InotesModel';
 import ICharacter from './characterModel';
 import IWorld from './worldModel';
@@ -16,6 +17,7 @@ interface IProject {
     charactersCoreGroupes: string[],
     worldCategory: string[],
     notesCategory: string[],
+    manuscriptStatus: string[]
   };
   id_controler: number;
   cards_qty: number;
@@ -25,6 +27,7 @@ interface IProject {
     characters?: ICharacter[];
     world?: IWorld[];
     notes?: INotes[];
+    manuscript?: IManuscript[];
   };
   subtitle?: string;
   author?: string;

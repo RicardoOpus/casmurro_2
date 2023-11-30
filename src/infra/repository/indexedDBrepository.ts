@@ -92,6 +92,9 @@ class IndexedDBrepository {
           projectData.data?.notes?.unshift(newData);
           projectData.data?.notes?.sort((a, b) => a.title.localeCompare(b.title));
           break;
+        case 'manuscript':
+          projectData.data?.manuscript?.push(newData);
+          break;
         default:
           break;
       }

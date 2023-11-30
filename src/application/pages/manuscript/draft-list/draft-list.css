@@ -3,3 +3,9 @@
   overflow-y: hidden;
   position: relative;
 }
+
+.selected {
+  background-color: var(--bg-color);
+  color: var(--accent-color);
+  font-style: italic;
+}
