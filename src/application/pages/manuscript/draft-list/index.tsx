@@ -29,6 +29,16 @@ function DraftList() {
     dispatch(fetchProjectDataAction(true));
   };
 
+  const moveUp = async () => {
+    await manuscriptService.UpScene(selectedItemID, selectedItemPath);
+    dispatch(fetchProjectDataAction(true));
+  };
+
+  const moveDown = async () => {
+    await manuscriptService.DownScene(selectedItemID, selectedItemPath);
+    dispatch(fetchProjectDataAction(true));
+  };
+
   const onResize = (
     _e: SyntheticEvent<Element, Event>,
     data: ResizeCallbackData,
@@ -54,6 +64,8 @@ function DraftList() {
             id={[...path, cene.id].join('-')}
           />
           {cene.title}
+          {' '}
+          {cene.id}
         </label>
         {cene.children && cene.children.length > 0
           && renderCeneList(cene.children, [...path, cene.id])}
@@ -72,8 +84,8 @@ function DraftList() {
       <div style={{ width: `${width}px`, height: '100%' }}>
         <button onClick={() => creatNewCene('child')} type="button" className="btnSmall">Add Filho</button>
         <button onClick={() => creatNewCene('sibling')} type="button" className="btnSmall">Add Irmão</button>
-        {/* <button onClick="" type="button" className="btnSmall">▲ Send Up</button>
-        <button onClick="" type="button" className="btnSmall">▼ Send Donw</button> */}
+        <button onClick={moveUp} type="button" className="btnSmall">▲ Send Up</button>
+        <button onClick={moveDown} type="button" className="btnSmall">▼ Send Donw</button>
         <button onClick={deleteCene} className="btnSmall" type="button">
           <span className="ui-icon ui-icon-trash icon-color" />
           {' '}

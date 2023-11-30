@@ -46,6 +46,14 @@ class ManuscriptService {
   async deleteScene(idItem: number, path: string) {
     await indexedDBrepository.manuscriptDelete(idItem, path);
   }
+
+  async UpScene(idItem: number, path: string) {
+    await indexedDBrepository.sendUp(idItem, path);
+  }
+
+  async DownScene(idItem: number, path: string) {
+    await indexedDBrepository.sendDown(idItem, path);
+  }
 }
 const manuscriptService = new ManuscriptService();
 

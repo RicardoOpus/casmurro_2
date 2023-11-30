@@ -206,6 +206,70 @@ class IndexedDBrepository {
     }
   }
 
+  async sendUp(idToMove: number, pathString: string) {
+    const path: number[] = pathString.split('-').map(Number);
+    const projectID = await this.getCurrentProjectID();
+    const project = await db.projects.where({ id: projectID }).first();
+    if (project) {
+      let currentLevel = project.data?.manuscript || [];
+      let parentIndex = -1;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [index, id] of path.entries()) {
+        parentIndex = currentLevel.findIndex((e) => e.id === id);
+        if (parentIndex === -1) {
+          console.error(`Element with ID ${id} not found.`);
+          return;
+        }
+        if (index < path.length - 1) {
+          currentLevel = currentLevel[parentIndex].children || [];
+        }
+      }
+      const currentIndex = currentLevel.findIndex((e) => e.id === idToMove);
+      if (currentIndex > 0) {
+        const temp = currentLevel[currentIndex];
+        currentLevel[currentIndex] = currentLevel[currentIndex - 1];
+        currentLevel[currentIndex - 1] = temp;
+        await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+          // eslint-disable-next-line no-param-reassign
+          ele.data = { ...ele.data, manuscript: project.data?.manuscript || [] };
+        });
+        this.updateLastEdit();
+      }
+    }
+  }
+
+  async sendDown(idToMove: number, pathString: string) {
+    const path: number[] = pathString.split('-').map(Number);
+    const projectID = await this.getCurrentProjectID();
+    const project = await db.projects.where({ id: projectID }).first();
+    if (project) {
+      let currentLevel = project.data?.manuscript || [];
+      let parentIndex = -1;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [index, id] of path.entries()) {
+        parentIndex = currentLevel.findIndex((e) => e.id === id);
+        if (parentIndex === -1) {
+          console.error(`Element with ID ${id} not found.`);
+          return;
+        }
+        if (index < path.length - 1) {
+          currentLevel = currentLevel[parentIndex].children || [];
+        }
+      }
+      const currentIndex = currentLevel.findIndex((e) => e.id === idToMove);
+      if (currentIndex < currentLevel.length - 1) {
+        const temp = currentLevel[currentIndex];
+        currentLevel[currentIndex] = currentLevel[currentIndex + 1];
+        currentLevel[currentIndex + 1] = temp;
+        await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+          // eslint-disable-next-line no-param-reassign
+          ele.data = { ...ele.data, manuscript: project.data?.manuscript || [] };
+        });
+        this.updateLastEdit();
+      }
+    }
+  }
+
   async characterUpdate(characterId: number, data: ICharacter) {
     const projectID = await this.getCurrentProjectID();
     const project = await db.projects.where({ id: projectID }).first();
