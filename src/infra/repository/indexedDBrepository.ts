@@ -208,6 +208,7 @@ class IndexedDBrepository {
 
   async sendUp(idToMove: number, pathString: string) {
     const path: number[] = pathString.split('-').map(Number);
+    const pathParent = path.slice(0, -1);
     const projectID = await this.getCurrentProjectID();
     const project = await db.projects.where({ id: projectID }).first();
     if (project) {
@@ -224,6 +225,19 @@ class IndexedDBrepository {
           currentLevel = currentLevel[parentIndex].children || [];
         }
       }
+      let parentLevel = project.data?.manuscript || [];
+      let parentIndex2 = -1;
+      // eslint-disable-next-line no-restricted-syntax
+      for (const [index, id] of pathParent.entries()) {
+        parentIndex2 = parentLevel.findIndex((e) => e.id === id);
+        if (parentIndex2 === -1) {
+          console.error(`Element with ID ${id} not found.`);
+          return;
+        }
+        if (index < pathParent.length - 1) {
+          parentLevel = parentLevel[parentIndex2].children || [];
+        }
+      }
       const currentIndex = currentLevel.findIndex((e) => e.id === idToMove);
       if (currentIndex > 0) {
         const temp = currentLevel[currentIndex];
@@ -234,6 +248,24 @@ class IndexedDBrepository {
           ele.data = { ...ele.data, manuscript: project.data?.manuscript || [] };
         });
         this.updateLastEdit();
+      }
+      if (currentIndex === 0) {
+        const currentItem = currentLevel.find((e) => e.id === idToMove);
+        if (currentItem) {
+          if (parentIndex !== -1) {
+            const parent = currentLevel[parentIndex];
+            parent.children = parent.children || [];
+            currentLevel.splice(parentIndex, 1);
+            parentLevel.unshift(currentItem);
+            await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+              // eslint-disable-next-line no-param-reassign
+              ele.data = { ...ele.data, manuscript: project.data?.manuscript || [] };
+            });
+            this.updateLastEdit();
+          }
+        } else {
+          console.error(`Item with ID ${idToMove} not found in current level.`);
+        }
       }
     }
   }
