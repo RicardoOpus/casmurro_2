@@ -82,10 +82,12 @@ function DraftList() {
   return (
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
       <div style={{ width: `${width}px`, height: '100%' }}>
-        <button onClick={() => creatNewCene('child')} type="button" className="btnSmall">Add Filho</button>
-        <button onClick={() => creatNewCene('sibling')} type="button" className="btnSmall">Add Irmão</button>
-        <button onClick={moveUp} type="button" className="btnSmall">▲ Send Up</button>
-        <button onClick={moveDown} type="button" className="btnSmall">▼ Send Donw</button>
+        <div>
+          <button onClick={() => creatNewCene('child')} type="button" className="btnSmall">Add Filho</button>
+          <button onClick={() => creatNewCene('sibling')} type="button" className="btnSmall">Add Irmão</button>
+        </div>
+        <button onClick={moveUp} type="button" className="btnSmall">▲</button>
+        <button onClick={moveDown} type="button" className="btnSmall">▼</button>
         <button onClick={deleteCene} className="btnSmall" type="button">
           <span className="ui-icon ui-icon-trash icon-color" />
           {' '}
