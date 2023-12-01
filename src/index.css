@@ -41,8 +41,6 @@
   --green-color: #4c8637db;
   --bg-texture: url("../texture.png");
   --corner-img: url("../corner.png");
-  --config-icon: url("../settings-outline.svg");
-  --config-icon2: url("../config2_black.svg");
   --scroll-color: #cecece;
   --calendar-picker: 1;
 }
