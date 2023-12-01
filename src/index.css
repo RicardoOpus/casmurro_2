@@ -20,6 +20,7 @@
   --text-icon: url("../text.svg");
   --folder-icon: url("../folder.svg");
   --tag-icon: url("../tag.svg");
+  --reload-icon: url("../reload.svg");
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --scroll-color: #2D333B;
@@ -827,7 +828,7 @@ option {
 }
 
 .detailBarButtons {
-  align-items: baseline;
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -841,19 +842,17 @@ option {
 }
 
 .detailAdd {
-  background-color: transparent;
-  background-image: var(--config-icon2);
-  background-repeat: no-repeat;
-  background-size: cover;
-  border: solid 1px transparent;
+  background-color: var(--text-color);
   cursor: pointer;
   display: inline-block;
   height: 25px;
+  -webkit-mask: var(--config-icon2) no-repeat center / contain;
+  mask: var(--config-icon2) no-repeat center / contain;
   padding: 0;
   vertical-align: middle;
   width: 25px;
 }
 
 .detailAdd:hover {
-  border-color: var(--accent-color);
+  background-color: var(--accent-color);
 }

@@ -220,9 +220,11 @@ function CharacterDetail() {
                   onChange={(e) => handleInputChange(e, 'color')}
                 />
                 <span className="tooltip-default" data-balloon aria-label="Cor aleatória" data-balloon-pos="down">
-                  <button type="button" className="btnRandom" onClick={hadleRandomColor}>
-                    ↻
-                  </button>
+                  <div className="btnRandom">
+                    <button type="button" className="btnInvisible" onClick={hadleRandomColor}>
+                      { }
+                    </button>
+                  </div>
                 </span>
                 <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
                 <button onClick={() => setModalRalations(true)} className="btnSmall" type="button">+ Relações</button>

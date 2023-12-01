@@ -86,17 +86,29 @@
   border: solid 1px transparent;
   cursor: pointer;
   height: 40px;
-  margin: .5em 0;
+  margin: 0;
+  width: 40px;
+}
+
+.btnRandom2 {
+  border-radius: 50%;
+  font-size: 1em;
+  height: 40px;
+  margin: 0;
+  padding: 1px 6px;
   width: 40px;
 }
 
 .btnRandom {
-  border-radius: 50%;
-  font-size: 1em;
-  height: 40px;
-  margin: .5em 0;
-  padding: 1px 6px;
-  width: 40px;
+  background-color: var(--text-color);
+  height: 20px;
+  -webkit-mask: var(--reload-icon) no-repeat center / contain;
+  mask: var(--reload-icon) no-repeat center / contain;
+  width: 20px;
+}
+
+.btnRandom:hover {
+  background-color: var(--accent-color);
 }
 
 .removeRelationBtn {
