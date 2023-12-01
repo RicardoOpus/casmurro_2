@@ -9,7 +9,7 @@ interface IManuscript {
   date?: string;
   image?: string
   last_edit: number;
-  level_hierarchy?: number;
+  level_hierarchy: number;
   note?: string;
   pov_id?: number;
   resume?: string;

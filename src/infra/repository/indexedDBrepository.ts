@@ -93,6 +93,22 @@ class IndexedDBrepository {
           projectData.data?.notes?.unshift(newData);
           projectData.data?.notes?.sort((a, b) => a.title.localeCompare(b.title));
           break;
+        default:
+          break;
+      }
+      await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+        // eslint-disable-next-line no-param-reassign
+        ele.data = projectData.data;
+      });
+      this.updateLastEdit();
+    }
+  }
+
+  async manuscriptPost(newData: IManuscript, table: string) {
+    const projectID = await this.getCurrentProjectID();
+    const projectData: IProject | undefined = await db.projects.where('id').equals(projectID).first();
+    if (projectData) {
+      switch (table) {
         case 'manuscript':
           projectData.data?.manuscript?.push(newData);
           break;
@@ -106,21 +122,6 @@ class IndexedDBrepository {
       this.updateLastEdit();
     }
   }
-
-  // async manuscriptAdd(id: number, newData: IManuscript) {
-  //   const projectID = await this.getCurrentProjectID();
-  //   const project = await db.projects.where({ id: projectID }).first();
-  //   if (project && project.data) {
-  //     const currentLevel = project.data.manuscript || [];
-  //     const deletedItemIndex = currentLevel.findIndex((e) => e.id === id);
-  //     if (deletedItemIndex !== -1) {
-  //       // CHATgpt, implemntar...
-  //       this.updateLastEdit();
-  //     } else {
-  //       console.error(`Element with ID ${id} not found.`);
-  //     }
-  //   }
-  // }
 
   async manuscriptAdd(id: number, newData: IManuscript) {
     const projectID = await this.getCurrentProjectID();
@@ -141,7 +142,7 @@ class IndexedDBrepository {
         });
         this.updateLastEdit();
       } else {
-        console.error(`Element with ID ${id} not found.`);
+        await this.manuscriptPost(newData, 'manuscript');
       }
     }
   }
@@ -150,14 +151,27 @@ class IndexedDBrepository {
     const projectID = await this.getCurrentProjectID();
     const project = await db.projects.where({ id: projectID }).first();
     if (project && project.data) {
-      const currentLevel = project.data.manuscript || [];
-      const deletedItemIndex = currentLevel.findIndex((e) => e.id === idToDelete);
+      const cL = project.data.manuscript || [];
+      const deletedItemIndex = cL.findIndex((e) => e.id === idToDelete);
       if (deletedItemIndex !== -1) {
-        currentLevel.splice(deletedItemIndex, 1);
+        const delHierarchy = cL[deletedItemIndex].level_hierarchy;
+        cL.splice(deletedItemIndex, 1);
+        let last = delHierarchy;
+        for (let i = deletedItemIndex; i < cL.length; i += 1) {
+          if (
+            cL[i].level_hierarchy !== undefined
+            && last !== undefined
+            && cL[i].level_hierarchy > last
+          ) {
+            cL[i].level_hierarchy = last;
+            last += 1;
+          } else {
+            break;
+          }
+        }
         await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
-          const updatedManuscript = project.data?.manuscript || [];
           // eslint-disable-next-line no-param-reassign
-          ele.data = { ...ele.data, manuscript: updatedManuscript };
+          ele.data = { ...ele.data, manuscript: cL };
         });
         this.updateLastEdit();
       } else {

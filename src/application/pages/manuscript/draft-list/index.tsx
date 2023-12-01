@@ -15,6 +15,7 @@ function DraftList() {
   const dispatch = useDispatch();
 
   const creatNewCene = async (type: string) => {
+    console.log('clicou');
     await manuscriptService.createScene(selectedItem, type);
     dispatch(fetchProjectDataAction(true));
   };

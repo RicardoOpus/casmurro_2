@@ -31,7 +31,7 @@ class ManuscriptService {
         type,
       };
       if (id === 0) {
-        await indexedDBrepository.cardPost(data, 'manuscript');
+        await indexedDBrepository.manuscriptPost(data, 'manuscript');
       } else {
         await indexedDBrepository.manuscriptAdd(id, data);
       }
