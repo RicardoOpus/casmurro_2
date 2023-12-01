@@ -8,10 +8,11 @@ class ManuscriptService {
   async createScene(id: number, type: string) {
     const ID = await indexedDBrepository.idManager();
     const now = Date.now();
+    const title = type === 'Cena' ? 'Nova Cena' : 'Novo Capítulo';
     if (ID) {
       const data: IManuscript = {
         id: ID,
-        title: 'Nova cena',
+        title,
         category: '',
         content: '',
         current: true,

@@ -4,12 +4,37 @@
   position: relative;
 }
 
+.invisibleChk {
+  appearance: none;
+}
+
+.itemDraft {
+  cursor: pointer;
+}
+
 .selected {
-  background-color: var(--bg-color);
-  color: var(--accent-color);
+  background-color: var(--accent-color);
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  color: #000000de;
   font-style: italic;
 }
 
-.itemListM {
-  margin-left: 1em;
+.folderIcon {
+  -webkit-mask: var(--folder-icon) no-repeat center / contain;
+  mask: var(--folder-icon) no-repeat center / contain;
+}
+
+.textIcon {
+  -webkit-mask: var(--text-icon) no-repeat center / contain;
+  mask: var(--text-icon) no-repeat center / contain;
+}
+
+.textIcon,
+.folderIcon {
+  background-color: var(--text-color);
+  display: inline-block;
+  height: 1em;
+  margin-right: .3em;
+  width: 1em;
 }

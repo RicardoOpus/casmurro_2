@@ -15,7 +15,6 @@ function DraftList() {
   const dispatch = useDispatch();
 
   const creatNewCene = async (type: string) => {
-    console.log('clicou');
     await manuscriptService.createScene(selectedItem, type);
     dispatch(fetchProjectDataAction(true));
   };
@@ -55,14 +54,16 @@ function DraftList() {
 
   const renderCeneList = (cenes: IManuscript[]) => (
     cenes.map((cene) => (
-      <div key={cene.id} className="itemListM" style={{ marginLeft: `${cene.level_hierarchy}em` }}>
-        <label htmlFor={cene.id.toString()}>
+      <div key={cene.id} style={{ marginLeft: `${cene.level_hierarchy}em` }} className={cene.id === selectedItem ? 'selected' : ''}>
+        <label htmlFor={cene.id.toString()} className="itemDraft">
           <input
             checked={cene.id === selectedItem}
             onChange={() => handleCheckboxChange(cene.id)}
             type="checkbox"
             id={cene.id.toString()}
+            className="invisibleChk"
           />
+          <div className={cene.type === 'Cena' ? 'textIcon' : 'folderIcon'} />
           {cene.title}
           {' '}
           {cene.id}

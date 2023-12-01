@@ -17,6 +17,8 @@
   --corner-img: url("../corner-dark.png");
   --config-icon: url("../config.svg");
   --config-icon2: url("../config2.svg");
+  --text-icon: url("../text.svg");
+  --folder-icon: url("../folder.svg");
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --scroll-color: #2D333B;
