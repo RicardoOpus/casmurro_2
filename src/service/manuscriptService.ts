@@ -5,7 +5,7 @@ import indexedDBrepository from '../infra/repository/indexedDBrepository';
 class ManuscriptService {
   status = 'novo';
 
-  async createScene() {
+  async createScene(id: number, type: string) {
     const ID = await indexedDBrepository.idManager();
     const now = Date.now();
     if (ID) {
@@ -28,9 +28,13 @@ class ManuscriptService {
         show_taskList: false,
         status: this.status,
         task_list: [],
-        type: 'Cena',
+        type,
       };
-      await indexedDBrepository.cardPost(data, 'manuscript');
+      if (id === 0) {
+        await indexedDBrepository.cardPost(data, 'manuscript');
+      } else {
+        await indexedDBrepository.manuscriptAdd(id, data);
+      }
     }
   }
 
@@ -39,11 +43,15 @@ class ManuscriptService {
   }
 
   async UpScene(idItem: number) {
-    await indexedDBrepository.sendUp(idItem);
+    await indexedDBrepository.SceneSendUp(idItem);
   }
 
   async DownScene(idItem: number) {
-    await indexedDBrepository.sendDown(idItem);
+    await indexedDBrepository.SceneSendDown(idItem);
+  }
+
+  async levelScene(idItem: number, toIncrease: boolean) {
+    await indexedDBrepository.SceneModifyLevel(idItem, toIncrease);
   }
 }
 const manuscriptService = new ManuscriptService();

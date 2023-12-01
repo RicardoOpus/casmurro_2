@@ -14,8 +14,8 @@ function DraftList() {
   const [cenesList, setCenesList] = useState<IManuscript[]>([]);
   const dispatch = useDispatch();
 
-  const creatNewCene = async () => {
-    await manuscriptService.createScene();
+  const creatNewCene = async (type: string) => {
+    await manuscriptService.createScene(selectedItem, type);
     dispatch(fetchProjectDataAction(true));
   };
 
@@ -34,6 +34,11 @@ function DraftList() {
     dispatch(fetchProjectDataAction(true));
   };
 
+  const moveLevel = async (toIncrease: boolean) => {
+    await manuscriptService.levelScene(selectedItem, toIncrease);
+    dispatch(fetchProjectDataAction(true));
+  };
+
   const onResize = (
     _e: SyntheticEvent<Element, Event>,
     data: ResizeCallbackData,
@@ -49,7 +54,7 @@ function DraftList() {
 
   const renderCeneList = (cenes: IManuscript[]) => (
     cenes.map((cene) => (
-      <div key={cene.id} className="itemListM">
+      <div key={cene.id} className="itemListM" style={{ marginLeft: `${cene.level_hierarchy}em` }}>
         <label htmlFor={cene.id.toString()}>
           <input
             checked={cene.id === selectedItem}
@@ -75,11 +80,15 @@ function DraftList() {
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
       <div style={{ width: `${width}px`, height: '100%' }}>
         <div>
-          <button onClick={creatNewCene} type="button" className="btnSmall">Add Filho</button>
-          <button onClick={creatNewCene} type="button" className="btnSmall">Add Irmão</button>
+          <button onClick={() => creatNewCene('Cena')} type="button" className="btnSmall">Add Cena</button>
+          <button onClick={() => creatNewCene('Capítulo')} type="button" className="btnSmall">Add Capítulo</button>
         </div>
         <button onClick={moveUp} type="button" className="btnSmall">▲</button>
         <button onClick={moveDown} type="button" className="btnSmall">▼</button>
+        <div>
+          <button onClick={() => moveLevel(true)} type="button" className="btnSmall">+ level</button>
+          <button onClick={() => moveLevel(false)} type="button" className="btnSmall">- level</button>
+        </div>
         <button onClick={deleteCene} className="btnSmall" type="button">
           <span className="ui-icon ui-icon-trash icon-color" />
           {' '}
