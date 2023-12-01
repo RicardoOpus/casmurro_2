@@ -220,15 +220,27 @@ function CharacterDetail() {
                   onChange={(e) => handleInputChange(e, 'color')}
                 />
                 <span className="tooltip-default" data-balloon aria-label="Cor aleatória" data-balloon-pos="down">
-                  <div className="btnRandom">
-                    <button type="button" className="btnInvisible" onClick={hadleRandomColor}>
+                  <label className="btnRandom" htmlFor="btnRandom">
+                    <button id="btnRandom" type="button" className="btnInvisible" onClick={hadleRandomColor}>
                       { }
                     </button>
-                  </div>
+                  </label>
                 </span>
-                <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
-                <button onClick={() => setModalRalations(true)} className="btnSmall" type="button">+ Relações</button>
-                <button onClick={() => setModalLink(true)} className="btnSmall" type="button">+ Link</button>
+                <span className="tooltip-default" data-balloon aria-label="Remover imagem" data-balloon-pos="down">
+                  <label className="removeImage" htmlFor="removeImage">
+                    <button id="removeImage" onClick={clearImage} className="btnInvisible" type="button">{ }</button>
+                  </label>
+                </span>
+                <span className="tooltip-default" data-balloon aria-label="Adicionar relação" data-balloon-pos="down">
+                  <label className="addRelations" htmlFor="addRelations">
+                    <button id="addRelations" onClick={() => setModalRalations(true)} className="btnInvisible" type="button">{ }</button>
+                  </label>
+                </span>
+                <span className="tooltip-default" data-balloon aria-label="Adicionar link externo" data-balloon-pos="down">
+                  <label className="addLink" htmlFor="addLink">
+                    <button id="addLink" onClick={() => setModalLink(true)} className="btnInvisible" type="button">{ }</button>
+                  </label>
+                </span>
               </div>
               <div className="detailBarButtonsItens">
                 <span className="tooltip-default" data-balloon aria-label="Mostrar/ocultar campos extras" data-balloon-pos="down">

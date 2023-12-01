@@ -21,6 +21,9 @@
   --folder-icon: url("../folder.svg");
   --tag-icon: url("../tag.svg");
   --reload-icon: url("../reload.svg");
+  --remove-image-icon: url("../remove-image.svg");
+  --relations-icon: url("../relations.svg");
+  --link-icon: url("../link.svg");
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --scroll-color: #2D333B;
@@ -854,5 +857,47 @@ option {
 }
 
 .detailAdd:hover {
+  background-color: var(--accent-color);
+}
+
+.removeImage {
+  background-color: var(--text-color-inactive);
+  cursor: pointer;
+  display: inline-block;
+  height: 25px;
+  -webkit-mask: var(--remove-image-icon) no-repeat center / contain;
+  mask: var(--remove-image-icon) no-repeat center / contain;
+  width: 25px;
+}
+
+.removeImage:hover {
+  background-color: var(--accent-color);
+}
+
+.addRelations {
+  background-color: var(--text-color-inactive);
+  cursor: pointer;
+  display: inline-block;
+  height: 25px;
+  -webkit-mask: var(--relations-icon) no-repeat center / contain;
+  mask: var(--relations-icon) no-repeat center / contain;
+  width: 25px;
+}
+
+.addRelations:hover {
+  background-color: var(--accent-color);
+}
+
+.addLink {
+  background-color: var(--text-color-inactive);
+  cursor: pointer;
+  display: inline-block;
+  height: 27px;
+  -webkit-mask: var(--link-icon) no-repeat center / contain;
+  mask: var(--link-icon) no-repeat center / contain;
+  width: 27px;
+}
+
+.addLink:hover {
   background-color: var(--accent-color);
 }
