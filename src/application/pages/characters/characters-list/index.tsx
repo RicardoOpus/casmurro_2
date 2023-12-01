@@ -167,7 +167,7 @@ function CharactersList() {
                 )}
                 <div>
                   <h3 className="cardListTitle">
-                    <span style={{ color: character.color || 'var(--text-color-sec)' }}>🯊 </span>
+                    <span className="charTagIcon" style={{ backgroundColor: `${character.color || 'var(--text-color-sec)'}` }} />
                     {character.title}
                   </h3>
                   <p className="categoryListItem">

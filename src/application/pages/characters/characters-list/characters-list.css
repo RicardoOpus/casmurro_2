@@ -22,3 +22,12 @@
 .listCard:hover {
   border: solid 1px var(--accent-color);
 }
+
+.charTagIcon {
+  display: inline-block;
+  height: 20px;
+  margin-right: .3em;
+  -webkit-mask: var(--tag-icon) no-repeat center / contain;
+  mask: var(--tag-icon) no-repeat center / contain;
+  width: 20px;
+}
