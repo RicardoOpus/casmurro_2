@@ -5,7 +5,7 @@ import indexedDBrepository from '../infra/repository/indexedDBrepository';
 class ManuscriptService {
   status = 'novo';
 
-  async createScene(idItem: string, typePosition: string) {
+  async createScene() {
     const ID = await indexedDBrepository.idManager();
     const now = Date.now();
     if (ID) {
@@ -13,11 +13,12 @@ class ManuscriptService {
         id: ID,
         title: 'Nova cena',
         category: '',
-        children: [],
         content: '',
+        current: true,
         date: '',
         image: '',
         last_edit: now,
+        level_hierarchy: 0,
         note: '',
         pov_id: 0,
         resume: '',
@@ -29,30 +30,20 @@ class ManuscriptService {
         task_list: [],
         type: 'Cena',
       };
-      switch (typePosition) {
-        case 'sibling':
-          await indexedDBrepository.manuscriptPostAsSibling(data, idItem);
-          break;
-        case 'child':
-          await indexedDBrepository.manuscriptPost(data, idItem);
-          break;
-        default:
-          await indexedDBrepository.cardPost(data, 'manuscript');
-          break;
-      }
+      await indexedDBrepository.cardPost(data, 'manuscript');
     }
   }
 
-  async deleteScene(idItem: number, path: string) {
-    await indexedDBrepository.manuscriptDelete(idItem, path);
+  async deleteScene(idItem: number) {
+    await indexedDBrepository.manuscriptDelete(idItem);
   }
 
-  async UpScene(idItem: number, path: string) {
-    await indexedDBrepository.sendUp(idItem, path);
+  async UpScene(idItem: number) {
+    await indexedDBrepository.sendUp(idItem);
   }
 
-  async DownScene(idItem: number, path: string) {
-    await indexedDBrepository.sendDown(idItem, path);
+  async DownScene(idItem: number) {
+    await indexedDBrepository.sendDown(idItem);
   }
 }
 const manuscriptService = new ManuscriptService();

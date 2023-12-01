@@ -5,7 +5,7 @@ import db from '../database/dexieDB';
 import IProject from '../../domain/projectModel';
 import ICharacter from '../../domain/characterModel';
 import IWorld from '../../domain/worldModel';
-import IManuscript from '../../domain/IManuscript';
+// import IManuscript from '../../domain/IManuscript';
 
 class IndexedDBrepository {
   startValueForID = 0;
@@ -107,137 +107,95 @@ class IndexedDBrepository {
     }
   }
 
-  async manuscriptPost(newData: IManuscript, pathString: string) {
-    const path: number[] = pathString.split('-').map(Number);
-    const projectID = await this.getCurrentProjectID();
-    const project = await db.projects.where({ id: projectID }).first();
-    if (project) {
-      if (!project.data) {
-        project.data = { manuscript: [] };
-      }
-      let currentLevel = project.data.manuscript || [];
-      let parentIndex = -1;
-      // eslint-disable-next-line no-restricted-syntax
-      for (const id of path) {
-        parentIndex = currentLevel.findIndex((e) => e.id === id);
-        if (parentIndex === -1) {
-          console.error(`Element with ID ${id} not found.`);
-          return;
-        }
-        currentLevel = currentLevel[parentIndex].children || [];
-      }
-      if (parentIndex !== -1) {
-        currentLevel.push(newData);
-        await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
-          const updatedManuscript = project.data?.manuscript || [];
-          // eslint-disable-next-line no-param-reassign
-          ele.data = { ...ele.data, manuscript: updatedManuscript };
-        });
-        this.updateLastEdit();
-      }
-    }
-  }
+  // async manuscriptPost(newData: IManuscript, pathString: string) {
+  //   const path: number[] = pathString.split('-').map(Number);
+  //   const projectID = await this.getCurrentProjectID();
+  //   const project = await db.projects.where({ id: projectID }).first();
+  //   if (project) {
+  //     if (!project.data) {
+  //       project.data = { manuscript: [] };
+  //     }
+  //     let currentLevel = project.data.manuscript || [];
+  //     let parentIndex = -1;
+  //     // eslint-disable-next-line no-restricted-syntax
+  //     for (const id of path) {
+  //       parentIndex = currentLevel.findIndex((e) => e.id === id);
+  //       if (parentIndex === -1) {
+  //         console.error(`Element with ID ${id} not found.`);
+  //         return;
+  //       }
+  //       currentLevel = currentLevel[parentIndex].children || [];
+  //     }
+  //     if (parentIndex !== -1) {
+  //       currentLevel.push(newData);
+  //       await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+  //         const updatedManuscript = project.data?.manuscript || [];
+  //         // eslint-disable-next-line no-param-reassign
+  //         ele.data = { ...ele.data, manuscript: updatedManuscript };
+  //       });
+  //       this.updateLastEdit();
+  //     }
+  //   }
+  // }
 
-  async manuscriptPostAsSibling(newData: IManuscript, pathString: string) {
-    const path: number[] = pathString.split('-').map(Number);
-    const projectID = await this.getCurrentProjectID();
-    const project = await db.projects.where({ id: projectID }).first();
-    if (project) {
-      if (!project.data) {
-        project.data = { manuscript: [] };
-      }
-      let currentLevel = project.data.manuscript || [];
-      let parentIndex = -1;
-      // eslint-disable-next-line no-restricted-syntax
-      for (const [index, id] of path.entries()) {
-        parentIndex = currentLevel.findIndex((e) => e.id === id);
-        if (parentIndex === -1) {
-          console.error(`Element with ID ${id} not found.`);
-          return;
-        }
-        if (index < path.length - 1) {
-          currentLevel = currentLevel[parentIndex].children || [];
-        }
-      }
-      if (parentIndex !== -1) {
-        currentLevel.push(newData);
-        await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
-          const updatedManuscript = project.data?.manuscript || [];
-          // eslint-disable-next-line no-param-reassign
-          ele.data = { ...ele.data, manuscript: updatedManuscript };
-        });
-        this.updateLastEdit();
-      }
-    }
-  }
+  // async manuscriptPostAsSibling(newData: IManuscript, pathString: string) {
+  //   const path: number[] = pathString.split('-').map(Number);
+  //   const projectID = await this.getCurrentProjectID();
+  //   const project = await db.projects.where({ id: projectID }).first();
+  //   if (project) {
+  //     if (!project.data) {
+  //       project.data = { manuscript: [] };
+  //     }
+  //     let currentLevel = project.data.manuscript || [];
+  //     let parentIndex = -1;
+  //     // eslint-disable-next-line no-restricted-syntax
+  //     for (const [index, id] of path.entries()) {
+  //       parentIndex = currentLevel.findIndex((e) => e.id === id);
+  //       if (parentIndex === -1) {
+  //         console.error(`Element with ID ${id} not found.`);
+  //         return;
+  //       }
+  //       if (index < path.length - 1) {
+  //         currentLevel = currentLevel[parentIndex].children || [];
+  //       }
+  //     }
+  //     if (parentIndex !== -1) {
+  //       currentLevel.push(newData);
+  //       await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+  //         const updatedManuscript = project.data?.manuscript || [];
+  //         // eslint-disable-next-line no-param-reassign
+  //         ele.data = { ...ele.data, manuscript: updatedManuscript };
+  //       });
+  //       this.updateLastEdit();
+  //     }
+  //   }
+  // }
 
-  async manuscriptDelete(idToDelete: number, pathString: string) {
-    const path: number[] = pathString.split('-').map(Number);
+  async manuscriptDelete(idToDelete: number) {
     const projectID = await this.getCurrentProjectID();
     const project = await db.projects.where({ id: projectID }).first();
     if (project && project.data) {
-      let currentLevel = project.data.manuscript || [];
-      let parentIndex = -1;
-      // eslint-disable-next-line no-restricted-syntax
-      for (const [index, id] of path.entries()) {
-        parentIndex = currentLevel.findIndex((e) => e.id === id);
-        if (parentIndex === -1) {
-          console.error(`Element with ID ${id} not found.`);
-          return;
-        }
-        if (index < path.length - 1) {
-          currentLevel = currentLevel[parentIndex].children || [];
-        }
-      }
-      if (parentIndex !== -1) {
-        const deletedItemIndex = currentLevel.findIndex((e) => e.id === idToDelete);
-        if (deletedItemIndex !== -1) {
-          currentLevel.splice(deletedItemIndex, 1);
-          await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
-            const updatedManuscript = project.data?.manuscript || [];
-            // eslint-disable-next-line no-param-reassign
-            ele.data = { ...ele.data, manuscript: updatedManuscript };
-          });
-          this.updateLastEdit();
-        } else {
-          console.error(`Element with ID ${idToDelete} not found.`);
-        }
+      const currentLevel = project.data.manuscript || [];
+      const deletedItemIndex = currentLevel.findIndex((e) => e.id === idToDelete);
+      if (deletedItemIndex !== -1) {
+        currentLevel.splice(deletedItemIndex, 1);
+        await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+          const updatedManuscript = project.data?.manuscript || [];
+          // eslint-disable-next-line no-param-reassign
+          ele.data = { ...ele.data, manuscript: updatedManuscript };
+        });
+        this.updateLastEdit();
+      } else {
+        console.error(`Element with ID ${idToDelete} not found.`);
       }
     }
   }
 
-  async sendUp(idToMove: number, pathString: string) {
-    const path: number[] = pathString.split('-').map(Number);
-    const pathParent = path.slice(0, -1);
+  async sendUp(idToMove: number) {
     const projectID = await this.getCurrentProjectID();
     const project = await db.projects.where({ id: projectID }).first();
     if (project) {
-      let currentLevel = project.data?.manuscript || [];
-      let parentIndex = -1;
-      // eslint-disable-next-line no-restricted-syntax
-      for (const [index, id] of path.entries()) {
-        parentIndex = currentLevel.findIndex((e) => e.id === id);
-        if (parentIndex === -1) {
-          console.error(`Element with ID ${id} not found.`);
-          return;
-        }
-        if (index < path.length - 1) {
-          currentLevel = currentLevel[parentIndex].children || [];
-        }
-      }
-      let parentLevel = project.data?.manuscript || [];
-      let parentIndex2 = -1;
-      // eslint-disable-next-line no-restricted-syntax
-      for (const [index, id] of pathParent.entries()) {
-        parentIndex2 = parentLevel.findIndex((e) => e.id === id);
-        if (parentIndex2 === -1) {
-          console.error(`Element with ID ${id} not found.`);
-          return;
-        }
-        if (index < pathParent.length - 1) {
-          parentLevel = parentLevel[parentIndex2].children || [];
-        }
-      }
+      const currentLevel = project.data?.manuscript || [];
       const currentIndex = currentLevel.findIndex((e) => e.id === idToMove);
       if (currentIndex > 0) {
         const temp = currentLevel[currentIndex];
@@ -249,45 +207,14 @@ class IndexedDBrepository {
         });
         this.updateLastEdit();
       }
-      if (currentIndex === 0) {
-        const currentItem = currentLevel.find((e) => e.id === idToMove);
-        if (currentItem) {
-          if (parentIndex !== -1) {
-            const parent = currentLevel[parentIndex];
-            parent.children = parent.children || [];
-            currentLevel.splice(parentIndex, 1);
-            parentLevel.unshift(currentItem);
-            await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
-              // eslint-disable-next-line no-param-reassign
-              ele.data = { ...ele.data, manuscript: project.data?.manuscript || [] };
-            });
-            this.updateLastEdit();
-          }
-        } else {
-          console.error(`Item with ID ${idToMove} not found in current level.`);
-        }
-      }
     }
   }
 
-  async sendDown(idToMove: number, pathString: string) {
-    const path: number[] = pathString.split('-').map(Number);
+  async sendDown(idToMove: number) {
     const projectID = await this.getCurrentProjectID();
     const project = await db.projects.where({ id: projectID }).first();
     if (project) {
-      let currentLevel = project.data?.manuscript || [];
-      let parentIndex = -1;
-      // eslint-disable-next-line no-restricted-syntax
-      for (const [index, id] of path.entries()) {
-        parentIndex = currentLevel.findIndex((e) => e.id === id);
-        if (parentIndex === -1) {
-          console.error(`Element with ID ${id} not found.`);
-          return;
-        }
-        if (index < path.length - 1) {
-          currentLevel = currentLevel[parentIndex].children || [];
-        }
-      }
+      const currentLevel = project.data?.manuscript || [];
       const currentIndex = currentLevel.findIndex((e) => e.id === idToMove);
       if (currentIndex < currentLevel.length - 1) {
         const temp = currentLevel[currentIndex];

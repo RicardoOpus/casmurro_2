@@ -9,33 +9,28 @@ import IManuscript from '../../../../domain/IManuscript';
 
 function DraftList() {
   const [width, setWidth] = useState(300);
-  const [selectedItemPath, setSelectedItemPath] = useState('0');
-  const [selectedItemID, setSelectedItemID] = useState(0);
+  const [selectedItem, setSelectedItem] = useState<number>(0);
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const [cenesList, setCenesList] = useState<IManuscript[]>([]);
   const dispatch = useDispatch();
 
-  const creatNewCene = async (position: string) => {
-    if (selectedItemPath === '0') {
-      await manuscriptService.createScene(selectedItemPath, 'default');
-    } else {
-      await manuscriptService.createScene(selectedItemPath, position);
-    }
+  const creatNewCene = async () => {
+    await manuscriptService.createScene();
     dispatch(fetchProjectDataAction(true));
   };
 
   const deleteCene = async () => {
-    await manuscriptService.deleteScene(selectedItemID, selectedItemPath);
+    await manuscriptService.deleteScene(selectedItem);
     dispatch(fetchProjectDataAction(true));
   };
 
   const moveUp = async () => {
-    await manuscriptService.UpScene(selectedItemID, selectedItemPath);
+    await manuscriptService.UpScene(selectedItem);
     dispatch(fetchProjectDataAction(true));
   };
 
   const moveDown = async () => {
-    await manuscriptService.DownScene(selectedItemID, selectedItemPath);
+    await manuscriptService.DownScene(selectedItem);
     dispatch(fetchProjectDataAction(true));
   };
 
@@ -48,27 +43,24 @@ function DraftList() {
     }
   };
 
-  const handleCheckboxChange = (item: string, ID: number) => {
-    setSelectedItemPath(item === selectedItemPath ? '' : item);
-    setSelectedItemID(ID);
+  const handleCheckboxChange = (item: number) => {
+    setSelectedItem(item === selectedItem ? 0 : item);
   };
 
-  const renderCeneList = (cenes: IManuscript[], path: number[] = []) => (
+  const renderCeneList = (cenes: IManuscript[]) => (
     cenes.map((cene) => (
       <div key={cene.id} className="itemListM">
-        <label htmlFor={[...path, cene.id].join('-')}>
+        <label htmlFor={cene.id.toString()}>
           <input
-            checked={[...path, cene.id].join('-') === selectedItemPath}
-            onChange={() => handleCheckboxChange([...path, cene.id].join('-'), cene.id)}
+            checked={cene.id === selectedItem}
+            onChange={() => handleCheckboxChange(cene.id)}
             type="checkbox"
-            id={[...path, cene.id].join('-')}
+            id={cene.id.toString()}
           />
           {cene.title}
           {' '}
           {cene.id}
         </label>
-        {cene.children && cene.children.length > 0
-          && renderCeneList(cene.children, [...path, cene.id])}
       </div>
     ))
   );
@@ -83,8 +75,8 @@ function DraftList() {
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
       <div style={{ width: `${width}px`, height: '100%' }}>
         <div>
-          <button onClick={() => creatNewCene('child')} type="button" className="btnSmall">Add Filho</button>
-          <button onClick={() => creatNewCene('sibling')} type="button" className="btnSmall">Add Irmão</button>
+          <button onClick={creatNewCene} type="button" className="btnSmall">Add Filho</button>
+          <button onClick={creatNewCene} type="button" className="btnSmall">Add Irmão</button>
         </div>
         <button onClick={moveUp} type="button" className="btnSmall">▲</button>
         <button onClick={moveDown} type="button" className="btnSmall">▼</button>

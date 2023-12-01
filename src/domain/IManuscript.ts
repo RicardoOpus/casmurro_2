@@ -1,13 +1,15 @@
 import ITaskList from './ITaskList';
 
 interface IManuscript {
-  category?: string;
-  children?: IManuscript[];
-  content?: string;
-  date?: string;
   id: number;
-  image?: string;
+  title: string;
+  category?: string;
+  content?: string;
+  current?: boolean;
+  date?: string;
+  image?: string
   last_edit: number;
+  level_hierarchy?: number;
   note?: string;
   pov_id?: number;
   resume?: string;
@@ -17,7 +19,6 @@ interface IManuscript {
   show_taskList?: boolean;
   status?: string;
   task_list?: ITaskList[];
-  title: string;
   type: string;
 }
 
