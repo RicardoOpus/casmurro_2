@@ -10,6 +10,8 @@ interface EditListsProps {
   onDataSend: (data: string[], table: string) => void;
 }
 
+const denyList = ['Local'];
+
 function EditLists({
   list, projSettingsI, listTitle, onDataSend,
 }: EditListsProps) {
@@ -98,16 +100,25 @@ function EditLists({
         {items && items.length ? (
           items.map((e) => (
             <div key={uuidv4()} className="checkboxCustom">
-              <label htmlFor={e} className="labelChk label-checkbox">
-                {e}
-                <input
-                  id={e}
-                  type="checkbox"
-                  checked={e === selectedItem}
-                  onChange={() => handleCheckboxChange(e)}
-                />
-                <div className="chk_indicator" />
-              </label>
+              {denyList.includes(e) ? (
+                <label htmlFor={e} className="labelChk label-checkbox disabled">
+                  {e}
+                  {' '}
+                  <span style={{ fontSize: 'small' }}>obrigatório</span>
+                  <div className="chk_indicator" />
+                </label>
+              ) : (
+                <label htmlFor={e} className="labelChk label-checkbox">
+                  {e}
+                  <input
+                    id={e}
+                    type="checkbox"
+                    checked={e === selectedItem}
+                    onChange={() => handleCheckboxChange(e)}
+                  />
+                  <div className="chk_indicator" />
+                </label>
+              )}
             </div>
           ))
         ) : (

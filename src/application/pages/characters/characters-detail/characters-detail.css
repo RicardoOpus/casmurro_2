@@ -70,6 +70,7 @@
 }
 
 .charBasicInfos h3 {
+  color: var(--text-color-inactive);
   margin: 0;
 }
 
