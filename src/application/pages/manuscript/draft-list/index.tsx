@@ -39,6 +39,12 @@ function DraftList() {
     dispatch(fetchProjectDataAction(true));
   };
 
+  const handleCheckboxChange = async (item: number) => {
+    await manuscriptService.updateCurrent(item);
+    dispatch(fetchProjectDataAction(true));
+    setSelectedItem(item === selectedItem ? 0 : item);
+  };
+
   const onResize = (
     _e: SyntheticEvent<Element, Event>,
     data: ResizeCallbackData,
@@ -46,10 +52,6 @@ function DraftList() {
     if (data.size && Number(data.size.width) > 60) {
       setWidth(data.size.width);
     }
-  };
-
-  const handleCheckboxChange = (item: number) => {
-    setSelectedItem(item === selectedItem ? 0 : item);
   };
 
   const renderBtns = () => (
@@ -60,10 +62,10 @@ function DraftList() {
 
   const renderCeneList = (cenes: IManuscript[]) => (
     cenes.map((cene) => (
-      <div key={cene.id} style={{ marginLeft: `${cene.level_hierarchy}em` }} className={cene.id === selectedItem ? 'selected' : ''}>
+      <div key={cene.id} style={{ marginLeft: `${cene.level_hierarchy}em` }} className={cene.current ? 'selected' : ''}>
         <label htmlFor={cene.id.toString()} className="itemDraft">
           <input
-            checked={cene.id === selectedItem}
+            checked={cene.current}
             onChange={() => handleCheckboxChange(cene.id)}
             type="checkbox"
             id={cene.id.toString()}
@@ -73,7 +75,7 @@ function DraftList() {
           {cene.title}
           {' '}
           {cene.id}
-          {cene.id === selectedItem && renderBtns()}
+          {cene.current && renderBtns()}
         </label>
       </div>
     ))

@@ -15,7 +15,7 @@ class ManuscriptService {
         title,
         category: '',
         content: '',
-        current: true,
+        current: false,
         date: '',
         image: '',
         last_edit: now,
@@ -53,6 +53,10 @@ class ManuscriptService {
 
   async levelScene(idItem: number, toIncrease: boolean) {
     await indexedDBrepository.SceneModifyLevel(idItem, toIncrease);
+  }
+
+  async updateCurrent(idItem: number) {
+    await indexedDBrepository.manuscriptCurrentHandle(idItem);
   }
 }
 const manuscriptService = new ManuscriptService();

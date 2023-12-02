@@ -180,6 +180,32 @@ class IndexedDBrepository {
     }
   }
 
+  async manuscriptCurrentHandle(idToUpdate: number) {
+    const projectID = await this.getCurrentProjectID();
+    const project = await db.projects.where({ id: projectID }).first();
+    if (project && project.data) {
+      const actual = project.data.manuscript || [];
+      const itemIndexToUpdate = actual.findIndex((e) => e.id === idToUpdate);
+      if (itemIndexToUpdate !== -1) {
+        const isAlreadyCurrent = actual[itemIndexToUpdate].current;
+        actual.forEach((item) => {
+          // eslint-disable-next-line no-param-reassign
+          item.current = false;
+        });
+        if (!isAlreadyCurrent) {
+          actual[itemIndexToUpdate].current = true;
+        }
+        await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+          // eslint-disable-next-line no-param-reassign
+          ele.data = { ...ele.data, manuscript: actual };
+        });
+        this.updateLastEdit();
+      } else {
+        console.error(`Element with ID ${idToUpdate} not found.`);
+      }
+    }
+  }
+
   async SceneSendUp(idToMove: number) {
     const projectID = await this.getCurrentProjectID();
     const project = await db.projects.where({ id: projectID }).first();
