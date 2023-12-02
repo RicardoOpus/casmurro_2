@@ -1,15 +1,16 @@
+import ILinks from './ILinks';
 import ITaskList from './ITaskList';
 
 interface IManuscript {
   id: number;
   title: string;
-  category?: string;
   content?: string;
   current?: boolean;
   date?: string;
   image?: string
   last_edit: number;
   level_hierarchy: number;
+  link_list?: ILinks[];
   note?: string;
   pov_id?: number;
   resume?: string;

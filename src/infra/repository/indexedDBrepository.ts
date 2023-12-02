@@ -345,6 +345,29 @@ class IndexedDBrepository {
     }
   }
 
+  async manuscriptUpdate(ItemId: number, data: IManuscript) {
+    const projectID = await this.getCurrentProjectID();
+    const project = await db.projects.where({ id: projectID }).first();
+    if (project) {
+      if (!project.data) {
+        project.data = { manuscript: [] };
+      }
+      const manuItens = project.data.manuscript || [];
+      const noteIndex = manuItens.findIndex((char) => char.id === ItemId);
+      if (noteIndex !== -1) {
+        manuItens[noteIndex] = data;
+        project.data.manuscript = manuItens;
+        await db.projects.update(projectID, { data: project.data });
+        this.updateLastEdit();
+        console.log(' atualizado com sucesso!');
+      } else {
+        console.error(' não encontrado no projeto.');
+      }
+    } else {
+      console.error('Projeto não encontrado.');
+    }
+  }
+
   async getCurrentCard(
     currentCardID: number,
     tableProperty: string,

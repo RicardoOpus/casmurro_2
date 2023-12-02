@@ -1,5 +1,11 @@
 .resizableDraftDetail {
+  background: var(--bg-texture);
+  background-color: var(--bg-color-sec);
   border-bottom: 1px solid var(--border-color);
   box-shadow: 0 4px 4px -2px rgba(0, 0, 0, .5);
   position: relative;
+}
+
+.detailMContainer {
+  padding: 1rem 2rem 5rem 2rem;
 }

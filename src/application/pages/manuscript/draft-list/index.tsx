@@ -73,8 +73,6 @@ function DraftList() {
           />
           <div className={cene.type === 'Cena' ? 'textIcon' : 'folderIcon'} />
           {cene.title}
-          {' '}
-          {cene.id}
           {cene.current && renderBtns()}
         </label>
       </div>

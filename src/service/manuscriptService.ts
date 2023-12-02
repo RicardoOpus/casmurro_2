@@ -13,13 +13,13 @@ class ManuscriptService {
       const data: IManuscript = {
         id: ID,
         title,
-        category: '',
         content: '',
         current: false,
         date: '',
         image: '',
         last_edit: now,
         level_hierarchy: 0,
+        link_list: [],
         note: '',
         pov_id: 0,
         resume: '',
@@ -57,6 +57,10 @@ class ManuscriptService {
 
   async updateCurrent(idItem: number) {
     await indexedDBrepository.manuscriptCurrentHandle(idItem);
+  }
+
+  async upDate(idItem: number, data: IManuscript) {
+    await indexedDBrepository.manuscriptUpdate(idItem, data);
   }
 }
 const manuscriptService = new ManuscriptService();
