@@ -310,6 +310,10 @@ option {
   background-color: var(--bg-color-sec);
 }
 
+option:hover {
+  background-color: var(--accent-color);
+}
+
 .dataNotFound {
   margin: 5em;
   text-align: center;

@@ -68,7 +68,6 @@ function NotesDetail() {
     }));
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleInputCheck = (e: boolean, key: string) => {
     setStateNoteItem({ ...stateNoteItem, [key]: e, last_edit: Date.now() });
   };

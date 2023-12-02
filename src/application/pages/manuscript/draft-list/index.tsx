@@ -52,6 +52,12 @@ function DraftList() {
     setSelectedItem(item === selectedItem ? 0 : item);
   };
 
+  const renderBtns = () => (
+    <span>
+      <button onClick={deleteCene} className="btnInvisibleDel" type="button">✖</button>
+    </span>
+  );
+
   const renderCeneList = (cenes: IManuscript[]) => (
     cenes.map((cene) => (
       <div key={cene.id} style={{ marginLeft: `${cene.level_hierarchy}em` }} className={cene.id === selectedItem ? 'selected' : ''}>
@@ -67,6 +73,7 @@ function DraftList() {
           {cene.title}
           {' '}
           {cene.id}
+          {cene.id === selectedItem && renderBtns()}
         </label>
       </div>
     ))
@@ -81,24 +88,23 @@ function DraftList() {
   return (
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
       <div style={{ width: `${width}px`, height: '100%' }}>
-        <div>
-          <button onClick={() => creatNewCene('Cena')} type="button" className="btnSmall">Add Cena</button>
-          <button onClick={() => creatNewCene('Capítulo')} type="button" className="btnSmall">Add Capítulo</button>
+        <div className="divBtnM">
+          <div className="AddButtonsM">
+            <button onClick={() => creatNewCene('Cena')} type="button" className="btnInvisibleM">+ Cena</button>
+            <button onClick={() => creatNewCene('Capítulo')} type="button" className="btnInvisibleM">+ Capítulo</button>
+          </div>
+          <div className="moveButtonsM">
+            <button onClick={moveUp} type="button" className="btnMoveInvisibleM">▲</button>
+            <button onClick={moveDown} type="button" className="btnMoveInvisibleM">▼</button>
+            <button onClick={() => moveLevel(false)} type="button" className="btnMoveInvisibleM">🡰</button>
+            <button onClick={() => moveLevel(true)} type="button" className="btnMoveInvisibleM">🡲</button>
+          </div>
         </div>
-        <button onClick={moveUp} type="button" className="btnSmall">▲</button>
-        <button onClick={moveDown} type="button" className="btnSmall">▼</button>
-        <div>
-          <button onClick={() => moveLevel(true)} type="button" className="btnSmall">+ level</button>
-          <button onClick={() => moveLevel(false)} type="button" className="btnSmall">- level</button>
-        </div>
-        <button onClick={deleteCene} className="btnSmall" type="button">
-          <span className="ui-icon ui-icon-trash icon-color" />
-          {' '}
-          Excluir
-        </button>
-        <h2>Rascunho</h2>
-        <div id="lista-tarefas">
-          {cenesList && cenesList.length > 0 && renderCeneList(cenesList)}
+        <div className="listDraft">
+          <h2>Rascunho</h2>
+          <div>
+            {cenesList && cenesList.length > 0 && renderCeneList(cenesList)}
+          </div>
         </div>
       </div>
     </Resizable>
