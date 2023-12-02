@@ -82,21 +82,14 @@
 }
 
 .chartaterColor {
+  all: unset;
   background: transparent;
   border: solid 1px transparent;
   cursor: pointer;
-  height: 40px;
+  height: 30px;
   margin: 0;
-  width: 40px;
-}
-
-.btnRandom2 {
-  border-radius: 50%;
-  font-size: 1em;
-  height: 40px;
-  margin: 0;
-  padding: 1px 6px;
-  width: 40px;
+  padding: 0;
+  width: 30px;
 }
 
 .btnRandom {

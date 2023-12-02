@@ -54,7 +54,7 @@ function CharInspect({ card }: CardInspectProps) {
         )}
       </div>
       <div className="inspectTitle">
-        <div className="circulo" style={{ backgroundColor: card.color }} />
+        <span className="charTagIcon" style={{ backgroundColor: `${card.color || 'var(--text-color-sec)'}`, marginRight: '.5em' }} />
         <button onClick={() => navigate(`/characters/${card.id}`)} className="btnInvisible" type="button">{card.title}</button>
       </div>
       <div className="inspecInfos">

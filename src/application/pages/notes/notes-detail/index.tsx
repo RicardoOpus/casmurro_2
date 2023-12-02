@@ -162,14 +162,27 @@ function NotesDetail() {
           />
           <div className="detailBarButtons">
             <div className="detailBarButtonsItens">
-              <div className="profile-pic">
-                <label className="-label2" htmlFor="file">
-                  + imagem
-                  <input id="file" type="file" accept=".jpg, .jpeg, .png, .webp" onChange={(e) => handleFileInput(e.target)} />
+              <span className="tooltip-default" data-balloon aria-label="Adicionar imagem" data-balloon-pos="down">
+                <label htmlFor="addImage">
+                  <div className="profile-pic addImage">
+                    <input
+                      id="addImage"
+                      onChange={(e) => handleFileInput(e.target)}
+                      type="file"
+                    />
+                  </div>
                 </label>
-              </div>
-              <button onClick={clearImage} className="btnSmall" type="button">✖ imagem</button>
-              <button onClick={() => setModalLink(true)} className="btnSmall" type="button">+ Link</button>
+              </span>
+              <span className="tooltip-default" data-balloon aria-label="Remover imagem" data-balloon-pos="down">
+                <label className="removeImage" htmlFor="removeImage">
+                  <button id="removeImage" onClick={clearImage} className="btnInvisible" type="button">{ }</button>
+                </label>
+              </span>
+              <span className="tooltip-default" data-balloon aria-label="Adicionar link externo" data-balloon-pos="down">
+                <label className="addLink" htmlFor="addLink">
+                  <button id="addLink" onClick={() => setModalLink(true)} className="btnInvisible" type="button">{ }</button>
+                </label>
+              </span>
             </div>
             <div className="detailBarButtonsItens">
               <span className="tooltip-default" data-balloon aria-label="Mostrar/ocultar campos extras" data-balloon-pos="down">

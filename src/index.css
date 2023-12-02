@@ -21,6 +21,7 @@
   --folder-icon: url("../folder.svg");
   --tag-icon: url("../tag.svg");
   --reload-icon: url("../reload.svg");
+  --add-image-icon: url("../add-image.svg");
   --remove-image-icon: url("../remove-image.svg");
   --relations-icon: url("../relations.svg");
   --link-icon: url("../link.svg");
@@ -857,6 +858,19 @@ option {
 }
 
 .detailAdd:hover {
+  background-color: var(--accent-color);
+}
+
+.addImage {
+  background-color: var(--text-color-inactive);
+  cursor: pointer;
+  height: 25px;
+  -webkit-mask: var(--add-image-icon) no-repeat center / contain;
+  mask: var(--add-image-icon) no-repeat center / contain;
+  width: 25px;
+}
+
+.addImage:hover {
   background-color: var(--accent-color);
 }
 
