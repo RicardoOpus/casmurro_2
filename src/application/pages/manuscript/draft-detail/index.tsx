@@ -256,6 +256,12 @@ function DraftDetail() {
                       <input value={stateMItem.date} className="cardInputDate" onChange={(e) => handleInputChange(e, 'date')} type="date" />
                     </div>
                   )}
+                  {stateMItem.show_time && (
+                    <div>
+                      <h3>Hora</h3>
+                      <input value={stateMItem.time} className="cardInputDate" onChange={(e) => handleInputChange(e, 'time')} type="time" />
+                    </div>
+                  )}
                 </div>
                 {stateMItem.link_list && stateMItem.link_list.length > 0 && (
                   <div className="fullContent">
@@ -277,7 +283,7 @@ function DraftDetail() {
                   <h3>Resumo</h3>
                   <textarea
                     className="cardInputFull"
-                    placeholder="Descreva de forma breve o item..."
+                    placeholder="Descreva de forma breve a cena..."
                     value={stateMItem?.resume}
                     onChange={(e) => handleTextAreaChange(e, 'resume')}
                   />
@@ -299,6 +305,7 @@ function DraftDetail() {
                 openModal={modalAddons}
                 onClose={closeModalAddons}
                 showDate={stateMItem.show_date || false}
+                showTime={stateMItem.show_time || false}
                 showNote={stateMItem.show_notes || false}
                 showtaskList={stateMItem.show_taskList || false}
                 handleInputCheck={handleInputCheck}

@@ -6,6 +6,7 @@ interface GenericModalProps {
   onClose: () => void;
   openModal: boolean;
   showDate: boolean;
+  showTime: boolean;
   showNote: boolean;
   showtaskList: boolean;
   // eslint-disable-next-line no-unused-vars
@@ -14,10 +15,11 @@ interface GenericModalProps {
 
 function DraftAddonsModal({
   onClose,
-  openModal, showDate, showNote, showtaskList, handleInputCheck,
+  openModal, showDate, showNote, showtaskList, showTime, handleInputCheck,
 }: GenericModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
   const [showFieldDate, setshowFieldDate] = useState(showDate);
+  const [showFieldTime, setshowFieldTime] = useState(showTime);
   const [showFieldNote, setshowFieldNote] = useState(showNote);
   const [showFieldTask, setShowFieldTask] = useState(showtaskList);
 
@@ -31,6 +33,9 @@ function DraftAddonsModal({
     } if (type === 'task') {
       setShowFieldTask(e.target.checked);
       handleInputCheck(e.target.checked, 'show_taskList');
+    } if (type === 'time') {
+      setshowFieldTime(e.target.checked);
+      handleInputCheck(e.target.checked, 'show_time');
     }
   };
 
@@ -60,6 +65,19 @@ function DraftAddonsModal({
                   />
                   {' '}
                   Data
+                </label>
+              </div>
+              <div>
+                <label htmlFor="showFieldTime">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldTime"
+                    checked={showFieldTime}
+                    onChange={(e) => handleInputType(e, 'time')}
+                  />
+                  {' '}
+                  Hora
                 </label>
               </div>
               <div>

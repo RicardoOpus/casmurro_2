@@ -27,8 +27,10 @@ class ManuscriptService {
         show_date: false,
         show_notes: false,
         show_taskList: false,
+        show_time: false,
         status: this.status,
         task_list: [],
+        time: '',
         type,
       };
       if (id === 0) {

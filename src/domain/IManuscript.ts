@@ -18,8 +18,10 @@ interface IManuscript {
   show_date?: boolean;
   show_notes?: boolean;
   show_taskList?: boolean;
+  show_time?: boolean;
   status?: string;
   task_list?: ITaskList[];
+  time?: string;
   type: string;
 }
 
