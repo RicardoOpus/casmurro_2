@@ -28,6 +28,9 @@ function DraftDetail() {
   const [modalAddons, setModalAddons] = useState(false);
   const charList = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
+  const worldList = useSelector((state: IrootStateProject) => (
+    state.projectDataReducer.projectData.data?.world));
+  const placeList = worldList?.filter((e) => e.category === 'Local');
   const manuscriptItens = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.manuscript));
   const prjSettings = useSelector((state: IrootStateProject) => (
@@ -232,6 +235,25 @@ function DraftDetail() {
                         <option key={e} value={e}>{`• ${e}`}</option>
                       ))}
                     </select>
+                    {stateMItem.show_place && (
+                      <div>
+                        <h3>Local</h3>
+                        <select
+                          value={stateMItem.place}
+                          className="selectFullWith"
+                          onChange={(e) => handleSelectChange(e, 'place')}
+                        >
+                          <option value="">{ }</option>
+                          {placeList?.map((char) => (
+                            <option key={char.id} value={char.id}>
+                              •
+                              {' '}
+                              {char.title}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
                   </div>
                   <div>
                     <h3>POV</h3>
@@ -306,6 +328,7 @@ function DraftDetail() {
                 onClose={closeModalAddons}
                 showDate={stateMItem.show_date || false}
                 showTime={stateMItem.show_time || false}
+                showPlace={stateMItem.show_place || false}
                 showNote={stateMItem.show_notes || false}
                 showtaskList={stateMItem.show_taskList || false}
                 handleInputCheck={handleInputCheck}

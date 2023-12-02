@@ -12,10 +12,12 @@ interface IManuscript {
   level_hierarchy: number;
   link_list?: ILinks[];
   note?: string;
+  place?: number;
   pov_id?: number;
   resume?: string;
   scene_characters?: string[];
   show_date?: boolean;
+  show_place?: boolean;
   show_notes?: boolean;
   show_taskList?: boolean;
   show_time?: boolean;
