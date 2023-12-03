@@ -31,28 +31,42 @@ function DraftAddonsModal({
   const [showFieldTask, setShowFieldTask] = useState(showtaskList);
 
   const handleInputType = (e: ChangeEvent<HTMLInputElement>, type: string) => {
-    if (type === 'date') {
-      setshowFieldDate(e.target.checked);
-      handleInputCheck(e.target.checked, 'show_date');
-    } if (type === 'note') {
-      setshowFieldNote(e.target.checked);
-      handleInputCheck(e.target.checked, 'show_notes');
-    } if (type === 'task') {
-      setShowFieldTask(e.target.checked);
-      handleInputCheck(e.target.checked, 'show_taskList');
-    } if (type === 'time') {
-      setshowFieldTime(e.target.checked);
-      handleInputCheck(e.target.checked, 'show_time');
-    } if (type === 'place') {
-      setsshowFieldPlace(e.target.checked);
-      handleInputCheck(e.target.checked, 'show_place');
-    } if (type === 'weather') {
-      setsshowFieldWeather(e.target.checked);
-      handleInputCheck(e.target.checked, 'show_weather');
-    } if (type === 'goalWC') {
-      setsshowFieldGoalWC(e.target.checked);
-      handleInputCheck(e.target.checked, 'show_goalWC');
+    let showField;
+    let inputType;
+    switch (type) {
+      case 'date':
+        showField = setshowFieldDate;
+        inputType = 'show_date';
+        break;
+      case 'note':
+        showField = setshowFieldNote;
+        inputType = 'show_notes';
+        break;
+      case 'task':
+        showField = setShowFieldTask;
+        inputType = 'show_taskList';
+        break;
+      case 'time':
+        showField = setshowFieldTime;
+        inputType = 'show_time';
+        break;
+      case 'place':
+        showField = setsshowFieldPlace;
+        inputType = 'show_place';
+        break;
+      case 'weather':
+        showField = setsshowFieldWeather;
+        inputType = 'show_weather';
+        break;
+      case 'goalWC':
+        showField = setsshowFieldGoalWC;
+        inputType = 'show_goalWC';
+        break;
+      default:
+        return;
     }
+    showField(e.target.checked);
+    handleInputCheck(e.target.checked, inputType);
   };
 
   useEffect(() => {

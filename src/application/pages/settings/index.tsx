@@ -4,6 +4,7 @@ import CharactersSettings from './characters';
 import GeneralSettings from './general';
 import WorldSettings from './world';
 import NotesSettings from './notes';
+import ManuscriptSettings from './manuscript';
 
 function Settings() {
   const [activeTab, setActiveTab] = useState('Geral');
@@ -17,6 +18,8 @@ function Settings() {
         return <WorldSettings />;
       case 'Notas':
         return <NotesSettings />;
+      case 'Manuscrito':
+        return <ManuscriptSettings />;
       default:
         return null;
     }
@@ -66,6 +69,15 @@ function Settings() {
                 type="button"
               >
                 Notas
+              </button>
+            </li>
+            <li>
+              <button
+                className={activeTab === 'Manuscrito' ? 'active-tab' : ''}
+                onClick={() => setActiveTab('Manuscrito')}
+                type="button"
+              >
+                Manuscrito
               </button>
             </li>
           </ul>

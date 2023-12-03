@@ -7,5 +7,6 @@
 }
 
 .detailMContainer {
+  color: var(--text-color-inactive);
   padding: 1rem 2rem 5rem 2rem;
 }
