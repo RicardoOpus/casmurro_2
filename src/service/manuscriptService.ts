@@ -16,6 +16,7 @@ class ManuscriptService {
         content: '',
         current: false,
         date: '',
+        goalWC: '',
         image: '',
         last_edit: now,
         level_hierarchy: 0,
@@ -26,14 +27,17 @@ class ManuscriptService {
         resume: '',
         scene_characters: [],
         show_date: false,
+        show_goalWC: false,
         show_place: false,
         show_notes: false,
         show_taskList: false,
         show_time: false,
+        show_weather: false,
         status: this.status,
         task_list: [],
         time: '',
         type,
+        weather: '',
       };
       if (id === 0) {
         await indexedDBrepository.manuscriptPost(data, 'manuscript');

@@ -8,6 +8,8 @@ interface GenericModalProps {
   showDate: boolean;
   showTime: boolean;
   showPlace: boolean;
+  showWeather: boolean;
+  showGoalWC: boolean;
   showNote: boolean;
   showtaskList: boolean;
   // eslint-disable-next-line no-unused-vars
@@ -17,12 +19,14 @@ interface GenericModalProps {
 function DraftAddonsModal({
   onClose,
   openModal, showDate, showNote, showtaskList, showTime,
-  showPlace, handleInputCheck,
+  showPlace, showWeather, showGoalWC, handleInputCheck,
 }: GenericModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
   const [showFieldDate, setshowFieldDate] = useState(showDate);
   const [showFieldTime, setshowFieldTime] = useState(showTime);
   const [showFieldPlace, setsshowFieldPlace] = useState(showPlace);
+  const [showFieldWeather, setsshowFieldWeather] = useState(showWeather);
+  const [showFieldGoalWC, setsshowFieldGoalWC] = useState(showGoalWC);
   const [showFieldNote, setshowFieldNote] = useState(showNote);
   const [showFieldTask, setShowFieldTask] = useState(showtaskList);
 
@@ -42,6 +46,12 @@ function DraftAddonsModal({
     } if (type === 'place') {
       setsshowFieldPlace(e.target.checked);
       handleInputCheck(e.target.checked, 'show_place');
+    } if (type === 'weather') {
+      setsshowFieldWeather(e.target.checked);
+      handleInputCheck(e.target.checked, 'show_weather');
+    } if (type === 'goalWC') {
+      setsshowFieldGoalWC(e.target.checked);
+      handleInputCheck(e.target.checked, 'show_goalWC');
     }
   };
 
@@ -97,6 +107,32 @@ function DraftAddonsModal({
                   />
                   {' '}
                   Local
+                </label>
+              </div>
+              <div>
+                <label htmlFor="showFieldWeather">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldWeather"
+                    checked={showFieldWeather}
+                    onChange={(e) => handleInputType(e, 'weather')}
+                  />
+                  {' '}
+                  Clima
+                </label>
+              </div>
+              <div>
+                <label htmlFor="showFieldGoalWC">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldGoalWC"
+                    checked={showFieldGoalWC}
+                    onChange={(e) => handleInputType(e, 'goalWC')}
+                  />
+                  {' '}
+                  Meta de palavras
                 </label>
               </div>
               <div>

@@ -271,17 +271,45 @@ function DraftDetail() {
                         </option>
                       ))}
                     </select>
+                    {stateMItem.show_weather && (
+                      <div>
+                        <h3>Clima</h3>
+                        <select
+                          className="selectFullWith"
+                          value={stateMItem?.weather}
+                          onChange={(e) => handleSelectChange(e, 'weather')}
+                        >
+                          <option value="">{ }</option>
+                          {prjSettings?.manuscriptWeather.map((e) => (
+                            <option key={e} value={e}>{`• ${e}`}</option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
                   </div>
-                  {stateMItem.show_date && (
+                  <div>
+                    {stateMItem.show_date && (
+                      <div>
+                        <h3>Data</h3>
+                        <input value={stateMItem.date} className="cardInputDate" onChange={(e) => handleInputChange(e, 'date')} type="date" />
+                      </div>
+                    )}
+                    {stateMItem.show_time && (
+                      <div>
+                        <h3>Hora</h3>
+                        <input value={stateMItem.time} className="cardInputDate" onChange={(e) => handleInputChange(e, 'time')} type="time" />
+                      </div>
+                    )}
+                  </div>
+                  {stateMItem.show_goalWC && (
                     <div>
-                      <h3>Data</h3>
-                      <input value={stateMItem.date} className="cardInputDate" onChange={(e) => handleInputChange(e, 'date')} type="date" />
-                    </div>
-                  )}
-                  {stateMItem.show_time && (
-                    <div>
-                      <h3>Hora</h3>
-                      <input value={stateMItem.time} className="cardInputDate" onChange={(e) => handleInputChange(e, 'time')} type="time" />
+                      <h3>Meta de palavras</h3>
+                      <input
+                        className="cardInput"
+                        type="number"
+                        value={stateMItem.goalWC}
+                        onChange={(e) => handleInputChange(e, 'goalWC')}
+                      />
                     </div>
                   )}
                 </div>
@@ -328,6 +356,8 @@ function DraftDetail() {
                 onClose={closeModalAddons}
                 showDate={stateMItem.show_date || false}
                 showTime={stateMItem.show_time || false}
+                showWeather={stateMItem.show_weather || false}
+                showGoalWC={stateMItem.show_goalWC || false}
                 showPlace={stateMItem.show_place || false}
                 showNote={stateMItem.show_notes || false}
                 showtaskList={stateMItem.show_taskList || false}

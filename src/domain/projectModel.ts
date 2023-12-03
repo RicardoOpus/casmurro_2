@@ -17,7 +17,8 @@ interface IProject {
     charactersCoreGroupes: string[],
     worldCategory: string[],
     notesCategory: string[],
-    manuscriptStatus: string[]
+    manuscriptStatus: string[],
+    manuscriptWeather: string[],
   };
   id_controler: number;
   cards_qty: number;
