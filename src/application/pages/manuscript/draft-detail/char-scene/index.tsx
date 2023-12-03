@@ -53,6 +53,10 @@ function CharSceneModal({
     }
   }, [openModal]);
 
+  useEffect(() => {
+    setIdsList(sceneCharacters);
+  }, [sceneCharacters]);
+
   return (
     <dialog ref={ref} className="modal">
       <div className="modal-content">

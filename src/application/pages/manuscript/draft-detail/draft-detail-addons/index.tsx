@@ -83,6 +83,17 @@ function DraftAddonsModal({
     }
   }, [openModal]);
 
+  useEffect(() => {
+    setshowFieldDate(showDate);
+    setshowFieldTime(showTime);
+    setsshowFieldPlace(showPlace);
+    setsshowFieldPOV(showPOV);
+    setsshowFieldWeather(showWeather);
+    setsshowFieldGoalWC(showGoalWC);
+    setshowFieldNote(showNote);
+    setShowFieldTask(showtaskList);
+  }, [showDate, showTime, showPlace, showPOV, showWeather, showGoalWC, showNote, showtaskList]);
+
   return (
     <dialog ref={ref} className="modal">
       <div className="modal-content">
