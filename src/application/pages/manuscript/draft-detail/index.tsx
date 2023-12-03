@@ -5,6 +5,7 @@ import { Resizable, ResizeCallbackData } from 'react-resizable';
 import './draft-detail.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import IManuscript from '../../../../domain/IManuscript';
 import Loading from '../../../components/loading';
@@ -18,14 +19,17 @@ import GenericModal from '../../../components/generic-modal';
 import DraftAddonsModal from './draft-detail-addons';
 import TaskList from '../../../components/task-list';
 import ITaskList from '../../../../domain/ITaskList';
+import CharSceneModal from './char-scene';
 
 function DraftDetail() {
   const [height, setHeight] = useState(300);
   const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [modalLink, setModalLink] = useState(false);
   const [modalAddons, setModalAddons] = useState(false);
+  const [modalCharScene, setModalCharScene] = useState(false);
   const charList = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
   const worldList = useSelector((state: IrootStateProject) => (
@@ -51,6 +55,7 @@ function DraftDetail() {
   const closeModal = () => setModal(false);
   const closeModalLink = () => setModalLink(false);
   const closeModalAddons = () => setModalAddons(false);
+  const closeModalChar = () => setModalCharScene(false);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     const updatedState = { ...stateMItem, [key]: e.target.value, last_edit: Date.now() };
@@ -84,6 +89,13 @@ function DraftDetail() {
 
   const handleTitleBlur = () => {
     cleanupFunction();
+  };
+
+  const updateCharacterRelations = (e: number[]) => {
+    setStateManuItem((prevtask) => ({
+      ...prevtask,
+      scene_characters: e,
+    }));
   };
 
   const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
@@ -188,6 +200,11 @@ function DraftDetail() {
                 />
                 <div className="detailBarButtons">
                   <div className="detailBarButtonsItens">
+                    <span className="tooltip-default" data-balloon aria-label="Personagens em cena" data-balloon-pos="right">
+                      <label className="addCharScene" htmlFor="addCharScene">
+                        <button id="addCharScene" onClick={() => setModalCharScene(true)} className="btnInvisible" type="button">{ }</button>
+                      </label>
+                    </span>
                     <span className="tooltip-default" data-balloon aria-label="Adicionar imagem" data-balloon-pos="down">
                       <label htmlFor="addImage">
                         <div className="profile-pic addImage">
@@ -317,6 +334,21 @@ function DraftDetail() {
                     </div>
                   )}
                 </div>
+                {stateMItem.scene_characters && stateMItem.scene_characters.length > 0 && (
+                  <div className="fullContent">
+                    <h3>Personagens em cena</h3>
+                    <div className="characters_scene_list">
+                      {charList?.map((char) => (
+                        (stateMItem?.scene_characters ?? []).includes(char.id) && (
+                          <div key={char.id} className="elementCharScene">
+                            <img className="imgCharScene" src={char.image ? char.image : './person.png'} alt="Character" />
+                            <button onClick={() => navigate(`/characters/${char.id}`)} className="relationBtn" type="button" style={{ backgroundColor: char.color }}>{char.title}</button>
+                          </div>
+                        )
+                      ))}
+                    </div>
+                  </div>
+                )}
                 {stateMItem.link_list && stateMItem.link_list.length > 0 && (
                   <div className="fullContent">
                     <h3>Links</h3>
@@ -355,6 +387,13 @@ function DraftDetail() {
                 </div>
               </div>
               <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir Cena?" onDataSend={handleDelete} deleteType />
+              <CharSceneModal
+                openModal={modalCharScene}
+                onClose={closeModalChar}
+                charList={charList}
+                sceneCharacters={stateMItem.scene_characters || []}
+                updateCharacterRelations={updateCharacterRelations}
+              />
               <DraftAddonsModal
                 openModal={modalAddons}
                 onClose={closeModalAddons}

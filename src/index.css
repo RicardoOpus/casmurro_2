@@ -25,6 +25,7 @@
   --remove-image-icon: url("../remove-image.svg");
   --relations-icon: url("../relations.svg");
   --link-icon: url("../link.svg");
+  --group-icon: url("../group.svg");
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --scroll-color: #2D333B;
@@ -265,6 +266,7 @@ button:disabled:hover {
   margin: .5em 0;
   outline: 0;
   padding: 0px 1em 0px 1em;
+  width: -webkit-fill-available;
 }
 
 .cardInputDate::-webkit-calendar-picker-indicator {
@@ -917,5 +919,19 @@ option:hover {
 }
 
 .addLink:hover {
+  background-color: var(--accent-color);
+}
+
+.addCharScene {
+  background-color: var(--text-color-inactive);
+  cursor: pointer;
+  display: inline-block;
+  height: 27px;
+  -webkit-mask: var(--group-icon) no-repeat center / contain;
+  mask: var(--group-icon) no-repeat center / contain;
+  width: 27px;
+}
+
+.addCharScene:hover {
   background-color: var(--accent-color);
 }

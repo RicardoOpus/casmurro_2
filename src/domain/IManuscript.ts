@@ -16,7 +16,7 @@ interface IManuscript {
   place?: number;
   pov_id?: number;
   resume?: string;
-  scene_characters?: string[];
+  scene_characters?: number[];
   show_date?: boolean;
   show_goalWC?: boolean;
   show_pov?: boolean;

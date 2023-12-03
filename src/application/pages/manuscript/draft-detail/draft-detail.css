@@ -10,3 +10,23 @@
   color: var(--text-color-inactive);
   padding: 1rem 2rem 5rem 2rem;
 }
+
+.characters_scene_list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px;
+}
+
+.elementCharScene {
+  margin: 5px;
+  max-width: 100px;
+  text-align: center;
+}
+
+.imgCharScene {
+  border: solid 1px var(--border-color);
+  border-radius: 100%;
+  height: 100px;
+  object-fit: cover;
+  width: 100px;
+}

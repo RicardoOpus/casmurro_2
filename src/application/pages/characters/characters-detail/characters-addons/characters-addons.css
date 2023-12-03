@@ -1,7 +1,11 @@
 .addonsChar {
+  background-color: var(--bg-color-sec);
+  border-radius: 5px;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
+  max-height: 200px;
+  overflow: scroll;
   padding: 1em;
 }
 
