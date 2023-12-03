@@ -52,6 +52,7 @@ class ProjectServide {
           'Playlist',
         ],
         manuscriptStatus: [
+          'Novo',
           'Pronto',
           'Revisado',
           'Em andamento',

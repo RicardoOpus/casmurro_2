@@ -19,6 +19,7 @@ interface IManuscript {
   scene_characters?: string[];
   show_date?: boolean;
   show_goalWC?: boolean;
+  show_pov?: boolean;
   show_place?: boolean;
   show_notes?: boolean;
   show_taskList?: boolean;

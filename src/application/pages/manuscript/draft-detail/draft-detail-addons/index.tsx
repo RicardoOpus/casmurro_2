@@ -7,6 +7,7 @@ interface GenericModalProps {
   openModal: boolean;
   showDate: boolean;
   showTime: boolean;
+  showPOV: boolean;
   showPlace: boolean;
   showWeather: boolean;
   showGoalWC: boolean;
@@ -19,12 +20,13 @@ interface GenericModalProps {
 function DraftAddonsModal({
   onClose,
   openModal, showDate, showNote, showtaskList, showTime,
-  showPlace, showWeather, showGoalWC, handleInputCheck,
+  showPlace, showPOV, showWeather, showGoalWC, handleInputCheck,
 }: GenericModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
   const [showFieldDate, setshowFieldDate] = useState(showDate);
   const [showFieldTime, setshowFieldTime] = useState(showTime);
   const [showFieldPlace, setsshowFieldPlace] = useState(showPlace);
+  const [showFieldPOV, setsshowFieldPOV] = useState(showPOV);
   const [showFieldWeather, setsshowFieldWeather] = useState(showWeather);
   const [showFieldGoalWC, setsshowFieldGoalWC] = useState(showGoalWC);
   const [showFieldNote, setshowFieldNote] = useState(showNote);
@@ -62,6 +64,10 @@ function DraftAddonsModal({
         showField = setsshowFieldGoalWC;
         inputType = 'show_goalWC';
         break;
+      case 'POV':
+        showField = setsshowFieldPOV;
+        inputType = 'show_pov';
+        break;
       default:
         return;
     }
@@ -84,6 +90,19 @@ function DraftAddonsModal({
         <div className="addonsChar">
           <div className="addonsCharE">
             <div className="checkbox-wrapper">
+              <div>
+                <label htmlFor="showFieldPOV">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldPOV"
+                    checked={showFieldPOV}
+                    onChange={(e) => handleInputType(e, 'POV')}
+                  />
+                  {' '}
+                  POV - Ponto de vista
+                </label>
+              </div>
               <div>
                 <label htmlFor="showFieldDate">
                   <input

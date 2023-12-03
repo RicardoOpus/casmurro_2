@@ -256,21 +256,25 @@ function DraftDetail() {
                     )}
                   </div>
                   <div>
-                    <h3>POV</h3>
-                    <select
-                      value={stateMItem.pov_id}
-                      className="selectFullWith"
-                      onChange={(e) => handleSelectChange(e, 'pov_id')}
-                    >
-                      <option value="">{ }</option>
-                      {charList?.map((char) => (
-                        <option key={char.id} value={char.id}>
-                          •
-                          {' '}
-                          {char.title}
-                        </option>
-                      ))}
-                    </select>
+                    {stateMItem.show_pov && (
+                      <div>
+                        <h3>POV</h3>
+                        <select
+                          value={stateMItem.pov_id}
+                          className="selectFullWith"
+                          onChange={(e) => handleSelectChange(e, 'pov_id')}
+                        >
+                          <option value="">{ }</option>
+                          {charList?.map((char) => (
+                            <option key={char.id} value={char.id}>
+                              •
+                              {' '}
+                              {char.title}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
                     {stateMItem.show_weather && (
                       <div>
                         <h3>Clima</h3>
@@ -358,6 +362,7 @@ function DraftDetail() {
                 showTime={stateMItem.show_time || false}
                 showWeather={stateMItem.show_weather || false}
                 showGoalWC={stateMItem.show_goalWC || false}
+                showPOV={stateMItem.show_pov || false}
                 showPlace={stateMItem.show_place || false}
                 showNote={stateMItem.show_notes || false}
                 showtaskList={stateMItem.show_taskList || false}

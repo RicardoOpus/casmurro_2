@@ -3,7 +3,7 @@ import IManuscript from '../domain/IManuscript';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class ManuscriptService {
-  status = 'novo';
+  status = 'Novo';
 
   async createScene(id: number, type: string) {
     const ID = await indexedDBrepository.idManager();
@@ -28,6 +28,7 @@ class ManuscriptService {
         scene_characters: [],
         show_date: false,
         show_goalWC: false,
+        show_pov: false,
         show_place: false,
         show_notes: false,
         show_taskList: false,
