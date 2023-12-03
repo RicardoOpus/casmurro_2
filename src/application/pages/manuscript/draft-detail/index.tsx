@@ -183,9 +183,7 @@ function DraftDetail() {
               <div className="detailMContainer">
                 {stateMItem.image ? (
                   <div className="imageCardBackgournd">
-                    <div className="cardImageDiv" style={{ backgroundImage: `url(${stateMItem.image})` }}>
-                      <img className="cardIstateWorldItemage" src={stateMItem.image} id="output" alt="character" />
-                    </div>
+                    <div className="cardImageDiv" style={{ backgroundImage: `url(${stateMItem.image})` }} />
                   </div>
                 ) : (
                   <div />
