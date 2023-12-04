@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
 import IrootStateProject from '../../../../domain/IrootStateProject';
-import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import GenericModal from '../../../components/generic-modal';
 import TypeWriterSound from '../../../components/type-write-sound';
@@ -17,6 +16,7 @@ import ITaskList from '../../../../domain/ITaskList';
 import NotesAddonsModal from '../notes-addons';
 import ILinks from '../../../../domain/ILinks';
 import LinksModal from '../../../components/add-link-modal';
+import notesService from '../../../../service/notesService';
 
 function NotesDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -40,40 +40,47 @@ function NotesDetail() {
   const closeModal4 = () => setModalLink(false);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
-    setStateNoteItem({ ...stateNoteItem, [key]: e.target.value, last_edit: Date.now() });
+    const updatedState = { ...stateNoteItem, [key]: e.target.value, last_edit: Date.now() };
+    setStateNoteItem(updatedState);
+    notesService.upDate(Number(id), updatedState as INotes);
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, key: string) => {
-    setStateNoteItem({ ...stateNoteItem, [key]: e.target.value, last_edit: Date.now() });
+    const updatedState = { ...stateNoteItem, [key]: e.target.value, last_edit: Date.now() };
+    setStateNoteItem(updatedState);
+    notesService.upDate(Number(id), updatedState as INotes);
   };
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    setStateNoteItem({ ...stateNoteItem, [key]: e.target.value, last_edit: Date.now() });
+    const updatedState = { ...stateNoteItem, [key]: e.target.value, last_edit: Date.now() };
+    setStateNoteItem(updatedState);
+    notesService.upDate(Number(id), updatedState as INotes);
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
   const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
-    setStateNoteItem((prevtask) => ({
-      ...prevtask,
-      task_list: newtask,
-    }));
+    const updatedState = { ...stateNoteItem, task_list: newtask };
+    setStateNoteItem(updatedState);
+    notesService.upDate(Number(id), updatedState as INotes);
   };
 
   const updateLinks = (newLinks: ILinks[]) => {
-    setStateNoteItem((prevLinks) => ({
-      ...prevLinks,
-      link_list: newLinks,
-    }));
+    const updatedState = { ...stateNoteItem, link_list: newLinks };
+    setStateNoteItem(updatedState);
+    notesService.upDate(Number(id), updatedState as INotes);
   };
 
   const handleInputCheck = (e: boolean, key: string) => {
-    setStateNoteItem({ ...stateNoteItem, [key]: e, last_edit: Date.now() });
+    const updatedState = { ...stateNoteItem, [key]: e, last_edit: Date.now() };
+    setStateNoteItem(updatedState);
+    notesService.upDate(Number(id), updatedState as INotes);
   };
 
   const handleDelete = async () => {
-    await indexedDBrepository.deleteCard(Number(id), 'notes');
+    await notesService.deleteNote(Number(id));
+    dispatch(fetchProjectDataAction(true));
     navigate('/notes');
   };
 
@@ -86,13 +93,17 @@ function NotesDetail() {
       const base64Data = await utils.convertBase64(event.files[0]);
       const base64String = base64Data?.toString();
       if (base64String) {
-        setStateNoteItem({ ...stateNoteItem, image: base64String.toString() });
+        const updatedState = { ...stateNoteItem, image: base64String.toString() };
+        setStateNoteItem(updatedState);
+        notesService.upDate(Number(id), updatedState as INotes);
       }
     }
   };
 
   const clearImage = () => {
-    setStateNoteItem({ ...stateNoteItem, image: '' });
+    const updatedState = { ...stateNoteItem, image: '' };
+    setStateNoteItem(updatedState);
+    notesService.upDate(Number(id), updatedState as INotes);
   };
 
   const handleFileInput = (event: EventTarget & HTMLInputElement) => {
@@ -106,16 +117,15 @@ function NotesDetail() {
 
   const deleteLink = (indexLis: number) => {
     const updatedLinks = stateNoteItem.link_list?.filter((_, index) => index !== indexLis);
-    setStateNoteItem({ ...stateNoteItem, link_list: updatedLinks });
+    const updatedState = { ...stateNoteItem, link_list: updatedLinks };
+    setStateNoteItem(updatedState);
+    notesService.upDate(Number(id), updatedState as INotes);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       if (Object.keys(stateNoteItem).length === 0) {
         navigate('/');
-      } if (!isLoading) {
-        await indexedDBrepository.noteUpdate(Number(id), stateNoteItem as INotes);
-        setIsLoading(false);
       }
     };
     fetchData();

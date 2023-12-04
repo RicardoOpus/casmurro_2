@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import INotes from '../domain/InotesModel';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
@@ -21,6 +22,14 @@ class NotesService {
       };
       await indexedDBrepository.cardPost(data, 'notes');
     }
+  }
+
+  async deleteNote(id: number) {
+    await indexedDBrepository.deleteCard(Number(id), 'notes');
+  }
+
+  async upDate(idItem: number, data: INotes) {
+    await indexedDBrepository.noteUpdate(idItem, data);
   }
 }
 
