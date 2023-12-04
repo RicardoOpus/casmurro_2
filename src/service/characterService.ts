@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import ICharacter from '../domain/characterModel';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
@@ -37,6 +38,14 @@ class CharacterService {
       };
       await indexedDBrepository.cardPost(data, 'characters');
     }
+  }
+
+  async deleteChar(id: number) {
+    await indexedDBrepository.deleteCard(Number(id), 'characters');
+  }
+
+  async upDate(idItem: number, data: ICharacter) {
+    await indexedDBrepository.characterUpdate(idItem, data);
   }
 }
 const characterService = new CharacterService();

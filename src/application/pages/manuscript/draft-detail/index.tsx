@@ -61,8 +61,7 @@ function DraftDetail() {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     const updatedState = { ...stateMItem, [key]: e.target.value, last_edit: Date.now() };
     setStateManuItem(updatedState);
-    manuscriptService
-      .upDate(Number(id), updatedState as IManuscript);
+    manuscriptService.upDate(Number(id), updatedState as IManuscript);
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, key: string) => {

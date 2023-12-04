@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from 'uuid';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import './characters-detail.css';
 import ICharacter from '../../../../domain/characterModel';
-import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import utils from '../../../../service/utils';
 import GenericModal from '../../../components/generic-modal';
@@ -20,6 +19,7 @@ import TaskList from '../../../components/task-list';
 import ITaskList from '../../../../domain/ITaskList';
 import LinksModal from '../../../components/add-link-modal';
 import ILinks from '../../../../domain/ILinks';
+import characterService from '../../../../service/characterService';
 
 function CharacterDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -51,48 +51,54 @@ function CharacterDetail() {
     setEditedName] = useState<ICharacter | Partial<ICharacter>>(currentCharacter || {});
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
-    setEditedName({ ...stateCharacter, [key]: e.target.value, last_edit: Date.now() });
+    const updatedState = { ...stateCharacter, [key]: e.target.value, last_edit: Date.now() };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, key: string) => {
-    setEditedName({ ...stateCharacter, [key]: e.target.value, last_edit: Date.now() });
+    const updatedState = { ...stateCharacter, [key]: e.target.value, last_edit: Date.now() };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    setEditedName({ ...stateCharacter, [key]: e.target.value, last_edit: Date.now() });
+    const updatedState = { ...stateCharacter, [key]: e.target.value, last_edit: Date.now() };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
   const updateCharacterRelations = (newRelations: IRelation[]) => {
-    setEditedName((prevCharacter) => ({
-      ...prevCharacter,
-      relations: newRelations,
-    }));
+    const updatedState = { ...stateCharacter, relations: newRelations };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
   const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
-    setEditedName((prevtask) => ({
-      ...prevtask,
-      task_list: newtask,
-    }));
+    const updatedState = { ...stateCharacter, task_list: newtask };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
   const updateLinks = (newLinks: ILinks[]) => {
-    setEditedName((prevLinks) => ({
-      ...prevLinks,
-      link_list: newLinks,
-    }));
+    const updatedState = { ...stateCharacter, link_list: newLinks };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleInputCheck = (e: boolean, key: string) => {
-    setEditedName({ ...stateCharacter, [key]: e, last_edit: Date.now() });
+    const updatedState = { ...stateCharacter, [key]: e, last_edit: Date.now() };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
   const handleDelete = async () => {
-    await indexedDBrepository.deleteCard(Number(id), 'characters');
+    await characterService.deleteChar(Number(id));
+    dispatch(fetchProjectDataAction(true));
     navigate('/characters');
   };
 
@@ -102,7 +108,9 @@ function CharacterDetail() {
 
   const hadleRandomColor = () => {
     const colorRandon = utils.randomColor();
-    setEditedName({ ...stateCharacter, color: colorRandon });
+    const updatedState = { ...stateCharacter, color: colorRandon };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
   const saveImage = async (event: EventTarget & HTMLInputElement) => {
@@ -110,13 +118,17 @@ function CharacterDetail() {
       const base64Data = await utils.convertBase64(event.files[0]);
       const base64String = base64Data?.toString();
       if (base64String) {
-        setEditedName({ ...stateCharacter, image: base64String });
+        const updatedState = { ...stateCharacter, image: base64String.toString() };
+        setEditedName(updatedState);
+        characterService.upDate(Number(id), updatedState as ICharacter);
       }
     }
   };
 
   const clearImage = () => {
-    setEditedName({ ...stateCharacter, image: '' });
+    const updatedState = { ...stateCharacter, image: '' };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
   const handleFileInput = (event: EventTarget & HTMLInputElement) => {
@@ -130,25 +142,26 @@ function CharacterDetail() {
 
   const deleteRelation = (relationId: number) => {
     const updatedRelations = stateCharacter.relations?.filter((_, index) => index !== relationId);
-    setEditedName({ ...stateCharacter, relations: updatedRelations });
+    const updatedState = { ...stateCharacter, relations: updatedRelations };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
   const deleteLink = (indexLis: number) => {
     const updatedLinks = stateCharacter.link_list?.filter((_, index) => index !== indexLis);
-    setEditedName({ ...stateCharacter, link_list: updatedLinks });
+    const updatedState = { ...stateCharacter, link_list: updatedLinks };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       if (Object.keys(stateCharacter).length === 0) {
         navigate('/');
-      } if (!isLoading) {
-        indexedDBrepository.characterUpdate(Number(id), stateCharacter as ICharacter);
-        setIsLoading(false);
       }
     };
     fetchData();
-  }, [dispatch, stateCharacter, id, navigate, isLoading]);
+  }, [dispatch, stateCharacter, id, navigate]);
 
   useEffect(() => {
     const relationsArray = stateCharacter.relations
