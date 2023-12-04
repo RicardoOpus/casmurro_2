@@ -359,9 +359,9 @@ class IndexedDBrepository {
         project.data.manuscript = manuItens;
         await db.projects.update(projectID, { data: project.data });
         this.updateLastEdit();
-        console.log(' atualizado com sucesso!');
+        console.log('Manuscripto atualizado com sucesso!');
       } else {
-        console.error(' não encontrado no projeto.');
+        console.error('Manuscripto não encontrado no projeto.');
       }
     } else {
       console.error('Projeto não encontrado.');

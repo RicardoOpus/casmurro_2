@@ -58,6 +58,7 @@ function App() {
             <Route path="/world" element={<World />} />
             <Route path="/world/:id" element={<WorldDetail />} />
             <Route path="/manuscript" element={<Manuscript />} />
+            <Route path="/manuscript/:id" element={<Manuscript />} />
             <Route path="/notes" element={<Notes />} />
             <Route path="/notes/:id" element={<NotesDetail />} />
             <Route path="/settings" element={<Settings />} />

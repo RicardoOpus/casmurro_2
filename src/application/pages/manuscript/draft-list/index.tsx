@@ -2,20 +2,25 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import { Resizable, ResizeCallbackData } from 'react-resizable';
 import './draft-list.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import manuscriptService from '../../../../service/manuscriptService';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import IManuscript from '../../../../domain/IManuscript';
+import Loading from '../../../components/loading';
 
 function DraftList() {
   const [width, setWidth] = useState(300);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState<number>(0);
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const [cenesList, setCenesList] = useState<IManuscript[]>([]);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const creatNewCene = async (type: string) => {
-    await manuscriptService.createScene(selectedItem, type);
+    setIsLoading(true);
+    await manuscriptService.createScene(selectedItem, type).then(() => setIsLoading(false));
     dispatch(fetchProjectDataAction(true));
   };
 
@@ -40,7 +45,9 @@ function DraftList() {
   };
 
   const handleCheckboxChange = async (item: number) => {
-    await manuscriptService.updateCurrent(item);
+    setIsLoading(true);
+    await manuscriptService.updateCurrent(item).then(() => setIsLoading(false));
+    navigate(`/manuscript/${item}`);
     dispatch(fetchProjectDataAction(true));
     setSelectedItem(item === selectedItem ? 0 : item);
   };
@@ -85,6 +92,15 @@ function DraftList() {
     }
   }, [projectData.data?.manuscript]);
 
+  useEffect(() => {
+    const current = cenesList.find((e) => e.current);
+    if (current && current.id) {
+      navigate(`/manuscript/${current.id}`);
+    } else {
+      navigate('/manuscript');
+    }
+  }, [cenesList, navigate]);
+
   return (
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
       <div style={{ width: `${width}px`, height: '100%' }}>
@@ -103,7 +119,13 @@ function DraftList() {
         <div className="listDraft">
           <h2>Rascunho</h2>
           <div>
-            {cenesList && cenesList.length > 0 && renderCeneList(cenesList)}
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <div>
+                {cenesList && cenesList.length > 0 && renderCeneList(cenesList)}
+              </div>
+            )}
           </div>
         </div>
       </div>

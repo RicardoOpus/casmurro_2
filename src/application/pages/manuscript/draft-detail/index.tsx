@@ -5,7 +5,7 @@ import { Resizable, ResizeCallbackData } from 'react-resizable';
 import './draft-detail.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import IManuscript from '../../../../domain/IManuscript';
 import Loading from '../../../components/loading';
@@ -39,9 +39,10 @@ function DraftDetail() {
     state.projectDataReducer.projectData.data?.manuscript));
   const prjSettings = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.projectSettings));
-  const currentMItem = manuscriptItens?.find((e) => e.current === true);
+  const { id } = useParams();
+  const currentMItem = manuscriptItens?.find((e) => e.id === Number(id));
   const [stateMItem,
-    setStateManuItem] = useState<IManuscript | Partial<IManuscript>>(currentMItem || {});
+    setStateManuItem] = useState<IManuscript | Partial<IManuscript>>({});
 
   const onResize = (
     _e: SyntheticEvent<Element, Event>,
@@ -60,18 +61,26 @@ function DraftDetail() {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     const updatedState = { ...stateMItem, [key]: e.target.value, last_edit: Date.now() };
     setStateManuItem(updatedState);
+    manuscriptService
+      .upDate(Number(id), updatedState as IManuscript);
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, key: string) => {
     if (key === 'pov_id') {
-      setStateManuItem({ ...stateMItem, [key]: Number(e.target.value), last_edit: Date.now() });
+      const updatedState = { ...stateMItem, [key]: Number(e.target.value) };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(Number(id), updatedState as IManuscript);
     } else {
-      setStateManuItem({ ...stateMItem, [key]: e.target.value, last_edit: Date.now() });
+      const updatedState = { ...stateMItem, [key]: e.target.value };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(Number(id), updatedState as IManuscript);
     }
   };
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    setStateManuItem({ ...stateMItem, [key]: e.target.value, last_edit: Date.now() });
+    const updatedState = { ...stateMItem, [key]: e.target.value, last_edit: Date.now() };
+    setStateManuItem(updatedState);
+    manuscriptService.upDate(Number(id), updatedState as IManuscript);
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
@@ -91,34 +100,35 @@ function DraftDetail() {
     cleanupFunction();
   };
 
-  const updateCharacterRelations = (e: number[]) => {
-    setStateManuItem((prevtask) => ({
-      ...prevtask,
-      scene_characters: e,
-    }));
+  const updateCharScene = (e: number[]) => {
+    const updatedState = { ...stateMItem, scene_characters: e };
+    setStateManuItem(updatedState);
+    manuscriptService.upDate(Number(id), updatedState as IManuscript);
   };
 
-  const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
-    setStateManuItem((prevtask) => ({
-      ...prevtask,
-      task_list: newtask,
-    }));
+  const updateSceneTasks = (newtask: ITaskList[] | undefined) => {
+    const updatedState = { ...stateMItem, task_list: newtask };
+    setStateManuItem(updatedState);
+    manuscriptService.upDate(Number(id), updatedState as IManuscript);
   };
 
   const updateLinks = (newLinks: ILinks[]) => {
-    setStateManuItem((prevLinks) => ({
-      ...prevLinks,
-      link_list: newLinks,
-    }));
+    const updatedState = { ...stateMItem, link_list: newLinks };
+    setStateManuItem(updatedState);
+    manuscriptService.upDate(Number(id), updatedState as IManuscript);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleInputCheck = (e: boolean, key: string) => {
-    setStateManuItem({ ...stateMItem, [key]: e, last_edit: Date.now() });
+    const updatedState = { ...stateMItem, [key]: e, last_edit: Date.now() };
+    setStateManuItem(updatedState);
+    manuscriptService.upDate(Number(id), updatedState as IManuscript);
   };
 
   const clearImage = () => {
-    setStateManuItem({ ...stateMItem, image: '' });
+    const updatedState = { ...stateMItem, image: '' };
+    setStateManuItem(updatedState);
+    manuscriptService.upDate(Number(id), updatedState as IManuscript);
   };
 
   const saveImage = async (event: EventTarget & HTMLInputElement) => {
@@ -126,7 +136,9 @@ function DraftDetail() {
       const base64Data = await utils.convertBase64(event.files[0]);
       const base64String = base64Data?.toString();
       if (base64String) {
-        setStateManuItem({ ...stateMItem, image: base64String.toString() });
+        const updatedState = { ...stateMItem, image: base64String.toString() };
+        setStateManuItem(updatedState);
+        manuscriptService.upDate(Number(id), updatedState as IManuscript);
       }
     }
   };
@@ -142,24 +154,10 @@ function DraftDetail() {
 
   const deleteLink = (indexLis: number) => {
     const updatedLinks = stateMItem.link_list?.filter((_, index) => index !== indexLis);
-    setStateManuItem({ ...stateMItem, link_list: updatedLinks });
+    const updatedState = { ...stateMItem, link_list: updatedLinks };
+    setStateManuItem(updatedState);
+    manuscriptService.upDate(Number(id), updatedState as IManuscript);
   };
-
-  useEffect(() => {
-    if (currentMItem) {
-      setStateManuItem((prevState) => ({ ...prevState, ...currentMItem }));
-    }
-  }, [currentMItem]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (currentMItem) {
-        await manuscriptService.upDate(currentMItem.id, stateMItem as IManuscript)
-          .then(() => setIsLoading(false));
-      }
-    };
-    fetchData();
-  }, [currentMItem, stateMItem]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -169,6 +167,13 @@ function DraftDetail() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => cleanupFunction, []);
+
+  useEffect(() => {
+    if (currentMItem) {
+      setStateManuItem(currentMItem);
+      setIsLoading(false);
+    }
+  }, [currentMItem, id]);
 
   return (
     !currentMItem ? (
@@ -361,7 +366,7 @@ function DraftDetail() {
                   </div>
                 )}
                 {stateMItem.show_taskList && (
-                  <TaskList list={stateMItem.task_list} onDataSend={updateCharacterTasks} />
+                  <TaskList list={stateMItem.task_list} onDataSend={updateSceneTasks} />
                 )}
                 <div className="fullContent">
                   <h3>Resumo</h3>
@@ -390,7 +395,7 @@ function DraftDetail() {
                 onClose={closeModalChar}
                 charList={charList}
                 sceneCharacters={stateMItem.scene_characters || []}
-                updateCharacterRelations={updateCharacterRelations}
+                updateCharacterRelations={updateCharScene}
               />
               <DraftAddonsModal
                 openModal={modalAddons}
