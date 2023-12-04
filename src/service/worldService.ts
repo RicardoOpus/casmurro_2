@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import IWorld from '../domain/worldModel';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
@@ -26,6 +27,14 @@ class WorldService {
       };
       await indexedDBrepository.cardPost(data, 'world');
     }
+  }
+
+  async deleteWorldItem(id: number) {
+    await indexedDBrepository.deleteCard(Number(id), 'world');
+  }
+
+  async upDate(idItem: number, data: IWorld) {
+    await indexedDBrepository.worldUpdate(idItem, data);
   }
 }
 

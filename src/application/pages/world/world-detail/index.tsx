@@ -6,7 +6,6 @@ import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import IWorld from '../../../../domain/worldModel';
-import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import GenericModal from '../../../components/generic-modal';
 import TypeWriterSound from '../../../components/type-write-sound';
@@ -17,6 +16,7 @@ import TaskList from '../../../components/task-list';
 import ITaskList from '../../../../domain/ITaskList';
 import LinksModal from '../../../components/add-link-modal';
 import ILinks from '../../../../domain/ILinks';
+import worldService from '../../../../service/worldService';
 
 function WorldDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -40,41 +40,48 @@ function WorldDetail() {
   const closeModal4 = () => setModalLink(false);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
-    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value, last_edit: Date.now() });
+    const updatedState = { ...stateWorldItem, [key]: e.target.value, last_edit: Date.now() };
+    setStateWorldItem(updatedState);
+    worldService.upDate(Number(id), updatedState as IWorld);
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, key: string) => {
-    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value, last_edit: Date.now() });
+    const updatedState = { ...stateWorldItem, [key]: e.target.value, last_edit: Date.now() };
+    setStateWorldItem(updatedState);
+    worldService.upDate(Number(id), updatedState as IWorld);
   };
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    setStateWorldItem({ ...stateWorldItem, [key]: e.target.value, last_edit: Date.now() });
+    const updatedState = { ...stateWorldItem, [key]: e.target.value, last_edit: Date.now() };
+    setStateWorldItem(updatedState);
+    worldService.upDate(Number(id), updatedState as IWorld);
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
   const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
-    setStateWorldItem((prevtask) => ({
-      ...prevtask,
-      task_list: newtask,
-    }));
+    const updatedState = { ...stateWorldItem, task_list: newtask };
+    setStateWorldItem(updatedState);
+    worldService.upDate(Number(id), updatedState as IWorld);
   };
 
   const updateLinks = (newLinks: ILinks[]) => {
-    setStateWorldItem((prevLinks) => ({
-      ...prevLinks,
-      link_list: newLinks,
-    }));
+    const updatedState = { ...stateWorldItem, link_list: newLinks };
+    setStateWorldItem(updatedState);
+    worldService.upDate(Number(id), updatedState as IWorld);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleInputCheck = (e: boolean, key: string) => {
-    setStateWorldItem({ ...stateWorldItem, [key]: e, last_edit: Date.now() });
+    const updatedState = { ...stateWorldItem, [key]: e, last_edit: Date.now() };
+    setStateWorldItem(updatedState);
+    worldService.upDate(Number(id), updatedState as IWorld);
   };
 
   const handleDelete = async () => {
-    await indexedDBrepository.deleteCard(Number(id), 'world');
+    await worldService.deleteWorldItem(Number(id));
+    dispatch(fetchProjectDataAction(true));
     navigate('/world');
   };
 
@@ -87,13 +94,17 @@ function WorldDetail() {
       const base64Data = await utils.convertBase64(event.files[0]);
       const base64String = base64Data?.toString();
       if (base64String) {
-        setStateWorldItem({ ...stateWorldItem, image: base64String.toString() });
+        const updatedState = { ...stateWorldItem, image: base64String.toString() };
+        setStateWorldItem(updatedState);
+        worldService.upDate(Number(id), updatedState as IWorld);
       }
     }
   };
 
   const clearImage = () => {
-    setStateWorldItem({ ...stateWorldItem, image: '' });
+    const updatedState = { ...stateWorldItem, image: '' };
+    setStateWorldItem(updatedState);
+    worldService.upDate(Number(id), updatedState as IWorld);
   };
 
   const handleFileInput = (event: EventTarget & HTMLInputElement) => {
@@ -107,16 +118,15 @@ function WorldDetail() {
 
   const deleteLink = (indexLis: number) => {
     const updatedLinks = stateWorldItem.link_list?.filter((_, index) => index !== indexLis);
-    setStateWorldItem({ ...stateWorldItem, link_list: updatedLinks });
+    const updatedState = { ...stateWorldItem, link_list: updatedLinks };
+    setStateWorldItem(updatedState);
+    worldService.upDate(Number(id), updatedState as IWorld);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       if (Object.keys(stateWorldItem).length === 0) {
         navigate('/');
-      } if (!isLoading) {
-        await indexedDBrepository.worldUpdate(Number(id), stateWorldItem as IWorld);
-        setIsLoading(false);
       }
     };
     fetchData();
