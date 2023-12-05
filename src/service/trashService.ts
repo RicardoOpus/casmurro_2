@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import IManuscript from '../domain/IManuscript';
 import ICharacter from '../domain/characterModel';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
@@ -19,6 +20,12 @@ class TrashService {
 
   async restoreNote(data: ICharacter) {
     await indexedDBrepository.cardPost(data, 'notes');
+    await this.deleteTotal(data.id);
+  }
+
+  async restoreManuscript(data: IManuscript) {
+    const newTitle = `${data.title} - Restuarado da lixeira`;
+    await indexedDBrepository.manuscriptPost({ ...data, current: false, title: newTitle }, 'manuscript');
     await this.deleteTotal(data.id);
   }
 }

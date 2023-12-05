@@ -49,6 +49,7 @@ class ManuscriptService {
   }
 
   async deleteScene(idItem: number) {
+    await indexedDBrepository.sendManuscriptTrash(idItem);
     await indexedDBrepository.manuscriptDelete(idItem);
   }
 

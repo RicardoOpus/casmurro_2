@@ -148,6 +148,19 @@ class IndexedDBrepository {
     }
   }
 
+  async sendManuscriptTrash(cardID: number) {
+    const currentID = await this.getCurrentProjectID();
+    if (currentID !== null) {
+      const project = db.projects.where('id').equals(currentID);
+      project.modify((e) => {
+        const item = e.data?.manuscript?.find((ele) => ele.id === cardID);
+        if (item) {
+          e.data?.trash?.push(item as ICharacter & INotes & IManuscript & IWorld);
+        }
+      });
+    }
+  }
+
   async manuscriptDelete(idToDelete: number) {
     const projectID = await this.getCurrentProjectID();
     const project = await db.projects.where({ id: projectID }).first();

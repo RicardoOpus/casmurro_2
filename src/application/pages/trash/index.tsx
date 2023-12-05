@@ -32,6 +32,10 @@ function Trash() {
         await trashService.restoreNote(data);
         dispatch(fetchProjectDataAction(true));
         break;
+      case 'Cena' || 'Capítulo':
+        await trashService.restoreManuscript(data as IManuscript);
+        dispatch(fetchProjectDataAction(true));
+        break;
       default:
         break;
     }
