@@ -20,6 +20,7 @@ import DraftAddonsModal from './draft-detail-addons';
 import TaskList from '../../../components/task-list';
 import ITaskList from '../../../../domain/ITaskList';
 import CharSceneModal from './char-scene';
+import NextAndPrevCard from '../../../components/next-and-prev';
 
 function DraftDetail() {
   const [height, setHeight] = useState(300);
@@ -158,6 +159,15 @@ function DraftDetail() {
     manuscriptService.upDate(Number(id), updatedState as IManuscript);
   };
 
+  const callBackLoading = () => {
+    setIsLoading(true);
+  };
+
+  const callbackScene = async (e: number) => {
+    await manuscriptService.updateCurrent(e).then(() => setIsLoading(false));
+    dispatch(fetchProjectDataAction(true));
+  };
+
   useEffect(() => {
     if (!isLoading) {
       utils.autoGrowAllTextareas();
@@ -185,6 +195,7 @@ function DraftDetail() {
           ) : (
             <div style={{ overflow: 'scroll', height: `${height}px` }}>
               <div className="detailMContainer">
+                <NextAndPrevCard id={Number(id)} dataTable="manuscript" callback={callBackLoading} callbackScene={callbackScene} />
                 {stateMItem.image ? (
                   <div className="imageCardBackgournd">
                     <div className="cardImageDiv" style={{ backgroundImage: `url(${stateMItem.image})` }} />
