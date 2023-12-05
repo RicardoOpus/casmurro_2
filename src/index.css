@@ -374,6 +374,10 @@ td {
   padding: 0 1em;
 }
 
+td {
+  color: var(--text-color)
+}
+
 th {
   background-color: var(--bg-color);
 }
@@ -797,7 +801,8 @@ tr:nth-child(even) {
   width: 100%;
 }
 
-.modal h2 {
+.modal h2,
+p {
   color: var(--text-color);
   margin: 0;
 }

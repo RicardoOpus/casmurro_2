@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 interface GenericModalProps {
   onClose: () => void;
   typeName: string;
+  subTitle?: string;
   // eslint-disable-next-line no-unused-vars
   onDataSend: (data: string) => void;
   deleteType: boolean;
@@ -27,7 +28,7 @@ function getIconPath(category: string): string {
 }
 
 function GenericModal({
-  onClose, typeName, onDataSend, deleteType, openModal,
+  onClose, typeName, subTitle, onDataSend, deleteType, openModal,
 }: GenericModalProps) {
   const [newItemTitle, SetNewItemTitle] = useState('');
   const isSaveButtonDisabled = newItemTitle.trim() === '';
@@ -76,6 +77,9 @@ function GenericModal({
           <h2>
             {typeName}
           </h2>
+          {subTitle && (
+            <p>{subTitle}</p>
+          )}
           {!deleteType && (
             <input
               className="cardInputTitle"
@@ -101,5 +105,9 @@ function GenericModal({
     </dialog>
   );
 }
+
+GenericModal.defaultProps = {
+  subTitle: undefined,
+};
 
 export default GenericModal;
