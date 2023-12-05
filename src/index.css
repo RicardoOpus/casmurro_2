@@ -62,6 +62,12 @@
   src: url("../roboto.ttf") format("truetype");
 }
 
+
+@font-face {
+  font-family: RobotoI;
+  src: url("../roboto-italic.ttf") format("truetype");
+}
+
 @font-face {
   font-family: TypeCurier;
   src: url("../courier.ttf") format("truetype");
