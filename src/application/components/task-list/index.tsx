@@ -65,14 +65,16 @@ function TaskList({
   };
 
   const markasDone = () => {
-    if (!selectedItem) return;
-    if (items) {
-      const updatedItems = items
-        .map((item) => (item.task === selectedItem ? { ...item, isDone: true } : item));
-      setItems(updatedItems);
-      onDataSend(updatedItems);
-      setSelectedItem(null);
-    }
+    if (!selectedItem || !items) return;
+    const updatedItems = items.map((item) => {
+      if (item.task === selectedItem) {
+        return { ...item, isDone: !item.isDone };
+      }
+      return item;
+    });
+    setItems(updatedItems);
+    onDataSend(updatedItems);
+    setSelectedItem(null);
   };
 
   const removeDone = () => {
@@ -110,7 +112,7 @@ function TaskList({
           </button>
           <button onClick={() => moveItem(true)} type="button" className="btnSmall">▲</button>
           <button onClick={() => moveItem(false)} type="button" className="btnSmall">▼</button>
-          <span className="tooltip-default" data-balloon aria-label="Marcar concluída" data-balloon-pos="down">
+          <span className="tooltip-default" data-balloon aria-label="Marcar/Desmarcar concluída" data-balloon-pos="down">
             <button onClick={markasDone} type="button" className="btnSmall">🗸</button>
           </span>
           <span className="tooltip-default" data-balloon aria-label="Remover selecionada" data-balloon-pos="down">
