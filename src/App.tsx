@@ -14,6 +14,7 @@ import WorldDetail from './application/pages/world/world-detail';
 import Notes from './application/pages/notes';
 import NotesDetail from './application/pages/notes/notes-detail';
 import Manuscript from './application/pages/manuscript';
+import Trash from './application/pages/trash';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -61,6 +62,7 @@ function App() {
             <Route path="/manuscript/:id" element={<Manuscript />} />
             <Route path="/notes" element={<Notes />} />
             <Route path="/notes/:id" element={<NotesDetail />} />
+            <Route path="/trash" element={<Trash />} />
             <Route path="/settings" element={<Settings />} />
           </Route>
           <Route path="/splash" element={<Splash />} />

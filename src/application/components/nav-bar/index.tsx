@@ -57,6 +57,14 @@ function NavBar() {
       <div className="nav-right">
         <button
           id="Settings"
+          onClick={() => handleButtonClick('/trash', 'Trash')}
+          type="button"
+          className={`${activeButton === 'Trash' ? 'trashIconActive' : 'trashIcon'}`}
+        >
+          { }
+        </button>
+        <button
+          id="Settings"
           onClick={() => handleButtonClick('/settings', 'Settings')}
           type="button"
           className={`${activeButton === 'Settings' ? 'settingsIconActive' : 'settingsIcon'}`}
