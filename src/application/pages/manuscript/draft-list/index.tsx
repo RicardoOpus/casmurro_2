@@ -8,15 +8,19 @@ import manuscriptService from '../../../../service/manuscriptService';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import IManuscript from '../../../../domain/IManuscript';
 import Loading from '../../../components/loading';
+import GenericModal from '../../../components/generic-modal';
 
 function DraftList() {
   const [width, setWidth] = useState(300);
   const [isLoading, setIsLoading] = useState(false);
+  const [modal, setModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState<number>(0);
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const [cenesList, setCenesList] = useState<IManuscript[]>([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const closeModal = () => setModal(false);
 
   const creatNewCene = async (type: string) => {
     setIsLoading(true);
@@ -25,6 +29,26 @@ function DraftList() {
   };
 
   const deleteCene = async () => {
+    if (!selectedItem) return;
+    const item = projectData.data?.manuscript?.find((e) => e.id === selectedItem);
+    const sceneData = item;
+    const hasData = (
+      sceneData?.content
+      || sceneData?.date
+      || sceneData?.image
+      || sceneData?.note
+      || sceneData?.resume
+      || (sceneData?.title && sceneData?.title !== 'Nova Cena')
+    );
+    if (hasData) {
+      setModal(true);
+    } else {
+      await manuscriptService.deleteScene(selectedItem);
+      dispatch(fetchProjectDataAction(true));
+    }
+  };
+
+  const handleDelete = async () => {
     await manuscriptService.deleteScene(selectedItem);
     dispatch(fetchProjectDataAction(true));
   };
@@ -96,6 +120,7 @@ function DraftList() {
     const current = cenesList.find((e) => e.current);
     if (current && current.id) {
       navigate(`/manuscript/${current.id}`);
+      setSelectedItem(current.id);
     } else {
       navigate('/manuscript');
     }
@@ -128,6 +153,7 @@ function DraftList() {
             )}
           </div>
         </div>
+        <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir Cena? Ela foi modificada." onDataSend={handleDelete} deleteType />
       </div>
     </Resizable>
   );
