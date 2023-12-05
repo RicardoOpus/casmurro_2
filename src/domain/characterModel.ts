@@ -26,11 +26,15 @@ interface ICharacter {
   psychological?: string;
   relations?: Irelations[];
   resume?: string;
+  show_age?: boolean;
   showCharacteristics?: boolean;
+  show_core_group?: boolean;
   showDate_birth?: boolean;
   showDate_death?: boolean;
   show_notes?: boolean;
+  show_occupation?: boolean;
   show_full_name?: boolean;
+  show_gender?: boolean;
   show_taskList?: boolean;
   task_list?: ITaskList[];
   title: string;

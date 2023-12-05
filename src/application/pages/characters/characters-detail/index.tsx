@@ -293,33 +293,45 @@ function CharacterDetail() {
                   <option key={e} value={e}>{`• ${e}`}</option>
                 ))}
               </select>
-              <h3>Idade</h3>
-              <input
-                className="cardInput"
-                type="number"
-                value={stateCharacter?.age}
-                onChange={(e) => handleInputChange(e, 'age')}
-              />
+              {stateCharacter.show_age && (
+                <div>
+                  <h3>Idade</h3>
+                  <input
+                    className="cardInput"
+                    type="number"
+                    value={stateCharacter?.age}
+                    onChange={(e) => handleInputChange(e, 'age')}
+                  />
+                </div>
+              )}
             </div>
             <div>
-              <h3>Gênero</h3>
-              <select
-                className="selectFullWith"
-                value={stateCharacter?.gender}
-                onChange={(e) => handleSelectChange(e, 'gender')}
-              >
-                <option value="">{ }</option>
-                {prjSettings?.charactersGenders.map((e) => (
-                  <option key={e} value={e}>{`• ${e}`}</option>
-                ))}
-              </select>
-              <h3>Ocupação</h3>
-              <input
-                className="cardInput"
-                type="text"
-                value={stateCharacter?.occupation}
-                onChange={(e) => handleInputChange(e, 'occupation')}
-              />
+              {stateCharacter.show_gender && (
+                <div>
+                  <h3>Gênero</h3>
+                  <select
+                    className="selectFullWith"
+                    value={stateCharacter?.gender}
+                    onChange={(e) => handleSelectChange(e, 'gender')}
+                  >
+                    <option value="">{ }</option>
+                    {prjSettings?.charactersGenders.map((e) => (
+                      <option key={e} value={e}>{`• ${e}`}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+              {stateCharacter.show_occupation && (
+                <div>
+                  <h3>Ocupação</h3>
+                  <input
+                    className="cardInput"
+                    type="text"
+                    value={stateCharacter?.occupation}
+                    onChange={(e) => handleInputChange(e, 'occupation')}
+                  />
+                </div>
+              )}
             </div>
             <div>
               {stateCharacter.showDate_birth && (
@@ -336,17 +348,21 @@ function CharacterDetail() {
               )}
             </div>
             <div>
-              <h3>Núcleo</h3>
-              <select
-                className="selectFullWith"
-                value={stateCharacter?.core_group}
-                onChange={(e) => handleSelectChange(e, 'core_group')}
-              >
-                <option value="">{ }</option>
-                {prjSettings?.charactersCoreGroupes.map((e) => (
-                  <option key={e} value={e}>{`• ${e}`}</option>
-                ))}
-              </select>
+              {stateCharacter.show_core_group && (
+                <div>
+                  <h3>Núcleo</h3>
+                  <select
+                    className="selectFullWith"
+                    value={stateCharacter?.core_group}
+                    onChange={(e) => handleSelectChange(e, 'core_group')}
+                  >
+                    <option value="">{ }</option>
+                    {prjSettings?.charactersCoreGroupes.map((e) => (
+                      <option key={e} value={e}>{`• ${e}`}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
           </div>
           {stateRelations.length > 0 && (
@@ -445,6 +461,10 @@ function CharacterDetail() {
           <CharAddonsModal
             openModal={modalAddons}
             onClose={closeModal3}
+            showAge={stateCharacter.show_age || false}
+            showCoreGroup={stateCharacter.show_core_group || false}
+            showGender={stateCharacter.show_gender || false}
+            showOccupation={stateCharacter.show_occupation || false}
             showBirth={stateCharacter.showDate_birth || false}
             showDeath={stateCharacter.showDate_death || false}
             showCharact={stateCharacter.showCharacteristics || false}

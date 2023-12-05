@@ -12,6 +12,10 @@ interface GenericModalProps {
   showFullName: boolean;
   showNotes: boolean;
   showtaskList: boolean;
+  showAge: boolean;
+  showCoreGroup: boolean;
+  showGender: boolean;
+  showOccupation: boolean;
   // eslint-disable-next-line no-unused-vars
   handleInputCheck: (e: boolean, key: string) => void;
 }
@@ -19,7 +23,9 @@ interface GenericModalProps {
 function CharAddonsModal({
   onClose,
   openModal, showBirth, showDeath, showCharact,
-  showFullName, showNotes, showtaskList, handleInputCheck,
+  showFullName, showNotes, showtaskList,
+  showAge, showCoreGroup, showGender, showOccupation,
+  handleInputCheck,
 }: GenericModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
   const [showFieldBirth, setShowFieldBirth] = useState(showBirth);
@@ -28,27 +34,60 @@ function CharAddonsModal({
   const [showFieldFull, setshowFieldFull] = useState(showFullName);
   const [showFieldNotes, setshowFieldNotes] = useState(showNotes);
   const [showFieldTask, setShowFieldTask] = useState(showtaskList);
+  const [showFieldAge, setshowFieldAge] = useState(showAge);
+  const [showFieldCoreGroup, setshowFieldCoreGroup] = useState(showCoreGroup);
+  const [showFieldGender, setshowFieldGender] = useState(showGender);
+  const [showFieldOccupation, setshowFieldOccupation] = useState(showOccupation);
 
   const handleInputType = (e: ChangeEvent<HTMLInputElement>, type: string) => {
-    if (type === 'birth') {
-      setShowFieldBirth(e.target.checked);
-      handleInputCheck(e.target.checked, 'showDate_birth');
-    } if (type === 'death') {
-      setShowFieldDeath(e.target.checked);
-      handleInputCheck(e.target.checked, 'showDate_death');
-    } if (type === 'char') {
-      setshowFieldChara(e.target.checked);
-      handleInputCheck(e.target.checked, 'showCharacteristics');
-    } if (type === 'full') {
-      setshowFieldFull(e.target.checked);
-      handleInputCheck(e.target.checked, 'show_full_name');
-    } if (type === 'notes') {
-      setshowFieldNotes(e.target.checked);
-      handleInputCheck(e.target.checked, 'show_notes');
-    } if (type === 'task') {
-      setShowFieldTask(e.target.checked);
-      handleInputCheck(e.target.checked, 'show_taskList');
+    let inputType;
+    let showField;
+    switch (type) {
+      case 'birth':
+        inputType = 'showDate_birth';
+        showField = setShowFieldBirth;
+        break;
+      case 'death':
+        inputType = 'showDate_death';
+        showField = setShowFieldDeath;
+        break;
+      case 'char':
+        inputType = 'showCharacteristics';
+        showField = setshowFieldChara;
+        break;
+      case 'full':
+        inputType = 'show_full_name';
+        showField = setshowFieldFull;
+        break;
+      case 'notes':
+        inputType = 'show_notes';
+        showField = setshowFieldNotes;
+        break;
+      case 'task':
+        inputType = 'show_taskList';
+        showField = setShowFieldTask;
+        break;
+      case 'age':
+        inputType = 'show_age';
+        showField = setshowFieldAge;
+        break;
+      case 'core_group':
+        inputType = 'show_core_group';
+        showField = setshowFieldCoreGroup;
+        break;
+      case 'gender':
+        inputType = 'show_gender';
+        showField = setshowFieldGender;
+        break;
+      case 'occupation':
+        inputType = 'show_occupation';
+        showField = setshowFieldOccupation;
+        break;
+      default:
+        return;
     }
+    showField(e.target.checked);
+    handleInputCheck(e.target.checked, inputType);
   };
 
   useEffect(() => {
@@ -77,6 +116,58 @@ function CharAddonsModal({
                   />
                   {' '}
                   Nome completo
+                </label>
+              </div>
+              <div>
+                <label htmlFor="showFieldGender">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldGender"
+                    checked={showFieldGender}
+                    onChange={(e) => handleInputType(e, 'gender')}
+                  />
+                  {' '}
+                  Gênero
+                </label>
+              </div>
+              <div>
+                <label htmlFor="showFieldCoreGroup">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldCoreGroup"
+                    checked={showFieldCoreGroup}
+                    onChange={(e) => handleInputType(e, 'core_group')}
+                  />
+                  {' '}
+                  Núcleo
+                </label>
+              </div>
+              <div>
+                <label htmlFor="showFieldAge">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldAge"
+                    checked={showFieldAge}
+                    onChange={(e) => handleInputType(e, 'age')}
+                  />
+                  {' '}
+                  Idade
+                </label>
+              </div>
+              <div>
+                <label htmlFor="showFieldOccupation">
+                  <input
+                    className="inputChkBox"
+                    type="checkbox"
+                    id="showFieldOccupation"
+                    checked={showFieldOccupation}
+                    onChange={(e) => handleInputType(e, 'occupation')}
+                  />
+                  {' '}
+                  Ocupação
                 </label>
               </div>
               <div>
