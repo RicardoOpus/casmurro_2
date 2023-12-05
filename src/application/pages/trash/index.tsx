@@ -9,6 +9,8 @@ import NoData from '../../components/no-dada';
 import NotFound from '../not-found';
 import trashService from '../../../service/trashService';
 import { fetchProjectDataAction } from '../../redux/actions/projectActions';
+import './trash.css';
+import utils from '../../../service/utils';
 
 function Trash() {
   const dispatch = useDispatch();
@@ -32,7 +34,11 @@ function Trash() {
         await trashService.restoreNote(data);
         dispatch(fetchProjectDataAction(true));
         break;
-      case 'Cena' || 'Capítulo':
+      case 'Cena':
+        await trashService.restoreManuscript(data as IManuscript);
+        dispatch(fetchProjectDataAction(true));
+        break;
+      case 'Capítulo':
         await trashService.restoreManuscript(data as IManuscript);
         dispatch(fetchProjectDataAction(true));
         break;
@@ -57,46 +63,48 @@ function Trash() {
     trashItens.length === 0 ? (
       <NoData dataType="notas" />
     ) : (
-      <div>
-        <div>
-          <h1>Trash</h1>
-        </div>
-        {filtredTrashItens.length === 0 ? (
-          <NotFound />
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>Título</th>
-                <th>Tipo</th>
-                <th>Resumo</th>
-                <th>Conteúdo</th>
-                <th>Ação</th>
-                <th>Deletar</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtredTrashItens.map((e) => (
-                <tr key={e.id}>
-                  <td>{e.title}</td>
-                  <td>{e.type}</td>
-                  <td>{e.resume}</td>
-                  <td>{e.content}</td>
-                  <td>
-                    <button type="button" className="btnSmall" onClick={() => handleRestore(e, e.type)}>
-                      Restaurar
-                    </button>
-                  </td>
-                  <td>
-                    <button type="button" className="btnSmall" onClick={() => deleteForever(e.id)}>
-                      X
-                    </button>
-                  </td>
+      <div className="innerContent">
+        <div className="card">
+          <div>
+            <h1>Lixeira</h1>
+          </div>
+          {filtredTrashItens.length === 0 ? (
+            <NotFound />
+          ) : (
+            <table>
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Tipo</th>
+                  <th>Resumo</th>
+                  <th>Conteúdo</th>
+                  <th>Ação</th>
+                  <th>Deletar</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+              </thead>
+              <tbody>
+                {filtredTrashItens.map((e) => (
+                  <tr key={e.id}>
+                    <td>{e.title}</td>
+                    <td>{e.type}</td>
+                    <td>{utils.abreviarString(e.resume, 50)}</td>
+                    <td>{utils.abreviarString(e.content, 100)}</td>
+                    <td>
+                      <button type="button" className="btnSmall" onClick={() => handleRestore(e, e.type)}>
+                        Restaurar
+                      </button>
+                    </td>
+                    <td style={{ textAlign: 'center' }}>
+                      <button type="button" className="removeRelationBtn" onClick={() => deleteForever(e.id)}>
+                        ✖
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
       </div>
     )
   );

@@ -365,6 +365,23 @@ option:hover {
   margin-left: 1em;
 }
 
+table,
+th,
+td {
+  border: solid 1px var(--border-color);
+  border-collapse: collapse;
+  padding: 0 1em;
+}
+
+th {
+  background-color: var(--bg-color);
+}
+
+tr:nth-child(even) {
+  background-color: var(--bg-color-sec);
+}
+
+
 /* ============= resizables  ================= */
 
 .resizable {
