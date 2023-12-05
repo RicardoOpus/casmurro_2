@@ -370,6 +370,7 @@ th,
 td {
   border: solid 1px var(--border-color);
   border-collapse: collapse;
+  margin-top: 1em;
   padding: 0 1em;
 }
 

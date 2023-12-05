@@ -19,6 +19,9 @@ function Trash() {
     | IWorld[] | INotes[] | IManuscript[]>([]);
   const [filtredTrashItens, setFiltredTrashItens] = useState<ICharacter[]
     | IWorld[] | INotes[] | IManuscript[]>([]);
+  const [selectedTitle, setSelectedTitle] = useState('');
+  const [selectedType, setSelectedType] = useState('');
+  const [isAscOrder, setIsAscOrdere] = useState(true);
 
   const handleRestore = async (data: INotes | IManuscript, type: string) => {
     switch (type) {
@@ -52,12 +55,41 @@ function Trash() {
     dispatch(fetchProjectDataAction(true));
   };
 
+  const clearAllFilters = () => {
+    setSelectedTitle('');
+    setSelectedType('');
+  };
+
+  const handleSort = () => {
+    const sortedList = [...filtredTrashItens].reverse();
+    setFiltredTrashItens(sortedList);
+    setIsAscOrdere(!isAscOrder);
+  };
+
   useEffect(() => {
     if (projectData.data?.trash) {
       setTrashItens(projectData.data.trash);
       setFiltredTrashItens(projectData.data.trash);
     }
   }, [projectData.data?.trash]);
+
+  useEffect(() => {
+    const handleFilter = (trashList: ICharacter[]) => {
+      const result = trashList.filter((trash) => {
+        const titleMatch = !selectedTitle || trash.title.includes(selectedTitle);
+        const categoryMatch = !selectedType || trash.type === selectedType;
+        return titleMatch && categoryMatch;
+      });
+      if (!isAscOrder) {
+        const sortedList = [...result].reverse();
+        setFiltredTrashItens(sortedList);
+      } else {
+        setFiltredTrashItens(result);
+      }
+    };
+    handleFilter(trashItens);
+  }, [trashItens,
+    selectedTitle, selectedType, isAscOrder]);
 
   return (
     trashItens.length === 0 ? (
@@ -67,6 +99,32 @@ function Trash() {
         <div className="card">
           <div>
             <h1>Lixeira</h1>
+            <div className="filterBar">
+              <input
+                type="text"
+                value={selectedTitle}
+                placeholder="Pesquisar pelo título..."
+                onInput={(e) => {
+                  const target = e.target as HTMLTextAreaElement;
+                  setSelectedTitle(target.value);
+                }}
+                className="cardInputSearch"
+              />
+              <select
+                value={selectedType}
+                onChange={(e) => setSelectedType(e.target.value)}
+                style={{ color: 'var(--text-color-inactive)' }}
+              >
+                <option value="" disabled>-- Tipo --</option>
+                <option value="Personagem">Personagem</option>
+                <option value="Mundo">Mundo</option>
+                <option value="Cena">Cena</option>
+                <option value="Capítulo">Capítulo</option>
+              </select>
+              <button className="btnSmall" type="button" onClick={clearAllFilters}>✖ Filtros</button>
+              <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑</button>
+              <button className="btnSmall" type="button" onClick={handleSort} disabled={!isAscOrder}>↓</button>
+            </div>
           </div>
           {filtredTrashItens.length === 0 ? (
             <NotFound />
