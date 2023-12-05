@@ -86,6 +86,7 @@ class ProjectServide {
         world: [],
         notes: [],
         manuscript: [],
+        trash: [],
       },
     };
 

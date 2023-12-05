@@ -29,6 +29,7 @@ interface IProject {
     world?: IWorld[];
     notes?: INotes[];
     manuscript?: IManuscript[];
+    trash?: ICharacter[] | IWorld[] | INotes[] | IManuscript[];
   };
   subtitle?: string;
   author?: string;

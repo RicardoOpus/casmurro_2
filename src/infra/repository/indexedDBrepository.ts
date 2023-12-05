@@ -6,6 +6,7 @@ import IProject from '../../domain/projectModel';
 import ICharacter from '../../domain/characterModel';
 import IWorld from '../../domain/worldModel';
 import IManuscript from '../../domain/IManuscript';
+import INotes from '../../domain/InotesModel';
 
 class IndexedDBrepository {
   startValueForID = 0;
@@ -407,20 +408,42 @@ class IndexedDBrepository {
     const currentID = await this.getCurrentProjectID();
     const currentCard = await this.getCurrentCard(cardID, table) ?? -1;
     if (currentID !== null && currentCard !== undefined) {
-      db.projects.where('id').equals(currentID).modify((e) => {
-        switch (table) {
-          case 'characters':
-            e.data?.characters?.splice(currentCard, 1);
-            break;
-          case 'world':
-            e.data?.world?.splice(currentCard, 1);
-            break;
-          case 'notes':
-            e.data?.notes?.splice(currentCard, 1);
-            break;
-          default:
-            break;
-        }
+      const project = db.projects.where('id').equals(currentID);
+      if (table === 'characters') {
+        project.modify((e) => {
+          const item = e.data?.characters?.find((ele) => ele.id === cardID);
+          if (item) {
+            e.data?.trash?.push(item as ICharacter & INotes & IManuscript & IWorld);
+          }
+          e.data?.characters?.splice(currentCard, 1);
+        });
+      } else if (table === 'world') {
+        project.modify((e) => {
+          const item = e.data?.world?.find((ele) => ele.id === cardID);
+          if (item) {
+            e.data?.trash?.push(item as ICharacter & INotes & IManuscript & IWorld);
+          }
+          e.data?.world?.splice(currentCard, 1);
+        });
+      } else if (table === 'notes') {
+        project.modify((e) => {
+          const item = e.data?.notes?.find((ele) => ele.id === cardID);
+          if (item) {
+            e.data?.trash?.push(item as ICharacter & INotes & IManuscript & IWorld);
+          }
+          e.data?.notes?.splice(currentCard, 1);
+        });
+      }
+    }
+  }
+
+  async deleteCardTrash(cardID: number) {
+    const currentID = await this.getCurrentProjectID();
+    const currentCard = await this.getCurrentCard(cardID, 'trash') ?? -1;
+    if (currentID !== null && currentCard !== undefined) {
+      const project = db.projects.where('id').equals(currentID);
+      project.modify((e) => {
+        e.data?.trash?.splice(currentCard, 1);
       });
     }
   }

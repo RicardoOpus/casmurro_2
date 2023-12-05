@@ -8,6 +8,7 @@ interface INotes {
   image?: string;
   last_edit: number,
   link_list?: ILinks[]
+  resume?: string;
   title: string;
   type: string;
   task_list?: ITaskList[];
