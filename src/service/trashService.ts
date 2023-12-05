@@ -8,6 +8,10 @@ class TrashService {
     await indexedDBrepository.deleteCardTrash(id);
   }
 
+  async deleteAllTotal() {
+    await indexedDBrepository.deleteAllCardTrash();
+  }
+
   async restoreCharacter(data: ICharacter) {
     await indexedDBrepository.cardPost(data, 'characters');
     await this.deleteTotal(data.id);

@@ -55,6 +55,11 @@ function Trash() {
     dispatch(fetchProjectDataAction(true));
   };
 
+  const deleteAllForever = async () => {
+    await trashService.deleteAllTotal();
+    dispatch(fetchProjectDataAction(true));
+  };
+
   const clearAllFilters = () => {
     setSelectedTitle('');
     setSelectedType('');
@@ -99,31 +104,34 @@ function Trash() {
         <div className="card">
           <div>
             <h1>Lixeira</h1>
-            <div className="filterBar">
-              <input
-                type="text"
-                value={selectedTitle}
-                placeholder="Pesquisar pelo título..."
-                onInput={(e) => {
-                  const target = e.target as HTMLTextAreaElement;
-                  setSelectedTitle(target.value);
-                }}
-                className="cardInputSearch"
-              />
-              <select
-                value={selectedType}
-                onChange={(e) => setSelectedType(e.target.value)}
-                style={{ color: 'var(--text-color-inactive)' }}
-              >
-                <option value="" disabled>-- Tipo --</option>
-                <option value="Personagem">Personagem</option>
-                <option value="Mundo">Mundo</option>
-                <option value="Cena">Cena</option>
-                <option value="Capítulo">Capítulo</option>
-              </select>
-              <button className="btnSmall" type="button" onClick={clearAllFilters}>✖ Filtros</button>
-              <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑</button>
-              <button className="btnSmall" type="button" onClick={handleSort} disabled={!isAscOrder}>↓</button>
+            <div className="filterBarTrash">
+              <div className="filterBar">
+                <input
+                  type="text"
+                  value={selectedTitle}
+                  placeholder="Pesquisar pelo título..."
+                  onInput={(e) => {
+                    const target = e.target as HTMLTextAreaElement;
+                    setSelectedTitle(target.value);
+                  }}
+                  className="cardInputSearch"
+                />
+                <select
+                  value={selectedType}
+                  onChange={(e) => setSelectedType(e.target.value)}
+                  style={{ color: 'var(--text-color-inactive)' }}
+                >
+                  <option value="" disabled>-- Tipo --</option>
+                  <option value="Personagem">Personagem</option>
+                  <option value="Mundo">Mundo</option>
+                  <option value="Cena">Cena</option>
+                  <option value="Capítulo">Capítulo</option>
+                </select>
+                <button className="btnSmall" type="button" onClick={clearAllFilters}>✖ Filtros</button>
+                <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑</button>
+                <button className="btnSmall" type="button" onClick={handleSort} disabled={!isAscOrder}>↓</button>
+              </div>
+              <button className="btnSmall" type="button" onClick={deleteAllForever}>✖ Limpar lixeira</button>
             </div>
           </div>
           {filtredTrashItens.length === 0 ? (
@@ -140,10 +148,10 @@ function Trash() {
                   <th>Deletar</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="trashListImportant">
                 {filtredTrashItens.map((e) => (
                   <tr key={e.id}>
-                    <td>{e.title}</td>
+                    <td>{utils.abreviarString(e.title, 25)}</td>
                     <td>{e.type}</td>
                     <td>{utils.abreviarString(e.resume, 50)}</td>
                     <td>{utils.abreviarString(e.content, 100)}</td>

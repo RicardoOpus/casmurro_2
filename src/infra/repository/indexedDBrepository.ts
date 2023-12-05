@@ -461,6 +461,18 @@ class IndexedDBrepository {
     }
   }
 
+  async deleteAllCardTrash() {
+    const currentID = await this.getCurrentProjectID();
+    if (currentID !== null) {
+      const project = db.projects.where('id').equals(currentID);
+      project.modify((e) => {
+        if (e.data) {
+          e.data.trash = [];
+        }
+      });
+    }
+  }
+
   async updateProjectSettingsList(newData: string[], table: string) {
     const projectID = await this.getCurrentProjectID();
     const currentProject = await this.getCurrentProject();
