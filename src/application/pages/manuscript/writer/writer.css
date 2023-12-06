@@ -1,8 +1,10 @@
 .writerButtons {
+  align-items: center;
   background-color: var(--btn-color);
   border-bottom: solid 1px  var(--border-color);
   display: flex;
   flex-wrap: wrap;
+  gap: 1em;
   padding: 0 1em;
 }
 
@@ -11,22 +13,43 @@
   border-bottom: solid 1px  var(--border-color);
   border-color: transparent;
   border-radius: 0;
-  padding: .5em 0;
+  padding: 8px 0;
   text-align: center;
 }
 
 .writerContainter {
   max-height: 900px;
   overflow: scroll;
-  padding: 1em;
+  padding: 1em 2em;
+}
+
+.lightScene {
+  background: url("/public/pageWhite.jpg");
+  background-color: #FFFFFF;
+  background-size: cover;
+  color: #000000;
+}
+
+.sepiaScene {
+  background: url("/public/pageSepia.jpg");
+  background-color: #e7dec7;
+  background-size: cover;
+  color: #5d4232;
+}
+
+.darkScene {
+  background: url("/public/texture.png");
+  background-color: #060707;
+  background-size: cover;
+  color: #878787;
 }
 
 .writerTitle {
   align-items: baseline;
-  color: var(--text-color-inactive);
   display: flex;
   font-family: Amaranth;
   font-size: 2.5em;
+  opacity: .6;
   text-align: center;
 }
 
@@ -43,7 +66,6 @@
   all: unset;
   border-radius: 5px;
   box-sizing: border-box;
-  color: var(--text-color);
   font-family: var(--user-scene-type);
   font-size: var(--user-scene-size);
   margin: .5em 0;
@@ -51,4 +73,29 @@
   padding: 1em;
   padding: 0px;
   width: 100%;
+}
+
+.writeSelect {
+  height: 2em;
+  margin: 0;
+}
+
+.ornament1 {
+  background-color: var(--text-color-inactive);
+  display: inline-block;
+  height: 2em;
+  margin-right: 5px;
+  -webkit-mask: var(--ornament1-icon) no-repeat center / contain;
+  mask: var(--ornament1-icon) no-repeat center / contain;
+  width: 2em;
+}
+
+.ornament2 {
+  background-color: var(--text-color-inactive);
+  display: inline-block;
+  height: 2em;
+  margin-left: 5px;
+  -webkit-mask: var(--ornament2-icon) no-repeat center / contain;
+  mask: var(--ornament2-icon) no-repeat center / contain;
+  width: 2em;
 }
