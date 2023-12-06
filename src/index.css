@@ -29,6 +29,8 @@
   --trash-icon: url("../trash.svg");
   --check-icon: url("../check.svg");
   --double-check-icon: url("../double-check.svg");
+  --ornament1-icon: url("../ornament1.svg");
+  --ornament2-icon: url("../ornament2.svg");
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --scroll-color: #2D333B;
@@ -967,3 +969,27 @@ p {
 .addCharScene:hover {
   background-color: var(--accent-color);
 }
+
+.ornament1 {
+  background-color: var(--text-color-inactive);
+  display: inline-block;
+  height: 2em;
+  margin-right: 5px;
+  -webkit-mask: var(--ornament1-icon) no-repeat center / contain;
+  mask: var(--ornament1-icon) no-repeat center / contain;
+  opacity: .3;
+  width: 2em;
+}
+
+.ornament2 {
+  background-color: var(--text-color-inactive);
+  cursor: pointer;
+  display: inline-block;
+  height: 2em;
+  margin-left: 5px;
+  -webkit-mask: var(--ornament2-icon) no-repeat center / contain;
+  mask: var(--ornament2-icon) no-repeat center / contain;
+  opacity: .3;
+  width: 2em;
+}
+

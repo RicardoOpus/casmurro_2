@@ -1,0 +1,48 @@
+.writerButtons {
+  background-color: var(--btn-color);
+  border-bottom: solid 1px  var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.writerContainter {
+  max-height: 900px;
+  overflow: scroll;
+  padding: 1em;
+}
+
+.writerTitle {
+  align-items: baseline;
+  color: var(--text-color-inactive);
+  display: flex;
+  font-family: Amaranth;
+  font-size: 2.5em;
+  text-align: center;
+}
+
+.writerTitle {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  font-family: Amaranth;
+  justify-content: center;
+  text-align: center;
+}
+
+.writeArea {
+  all: unset;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-family: var(--user-text-type);
+  font-family: var(--user-text-type);
+  font-size: var(--user-text-size);
+  font-size: medium;
+  font-size: var(--user-text-size);
+  margin: .5em 0;
+  overflow: hidden;
+  padding: 1em;
+  padding: 0px;
+  width: 100%;
+}

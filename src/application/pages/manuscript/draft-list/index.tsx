@@ -3,6 +3,7 @@ import { Resizable, ResizeCallbackData } from 'react-resizable';
 import './draft-list.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import manuscriptService from '../../../../service/manuscriptService';
 import IrootStateProject from '../../../../domain/IrootStateProject';
@@ -122,7 +123,7 @@ function DraftList() {
   const renderCeneList = (cenes: IManuscript[]) => (
     cenes.map((cene) => (
       <div key={cene.id} style={{ marginLeft: `${cene.level_hierarchy}em` }} className={cene.current ? 'selected' : ''}>
-        <label key={cene.id} htmlFor={cene.id.toString()} className="itemDraft">
+        <label key={uuidv4()} htmlFor={cene.id.toString()} className="itemDraft">
           <input
             checked={cene.current}
             onChange={() => handleCheckboxChange(cene.id)}
@@ -132,7 +133,7 @@ function DraftList() {
           />
           {prjSettings.manuscriptShowPovColor && (
             charList?.map((e) => e.id === cene.pov_id && (
-              <span className="charTagIcon" style={{ backgroundColor: e.color }} />
+              <span key={uuidv4()} className="charTagIcon" style={{ backgroundColor: e.color }} />
             ))
           )}
           <div className={cene.type === 'Cena' ? 'textIcon' : 'folderIcon'} />
