@@ -64,7 +64,7 @@ function ManuscriptSettings() {
               onChange={(e) => handleInputType(e, 'WC')}
             />
             {' '}
-            Mostar total de palavras na lista de cenas
+            Mostrar total de palavras na lista de cenas
           </label>
         </div>
         <div className="checkbox-wrapper">
@@ -77,8 +77,8 @@ function ManuscriptSettings() {
               onChange={(e) => handleInputType(e, 'checks')}
             />
             {' '}
-            Mostar sinal ✔ quando o status
-            de uma cena for &apos;Pronto&apos; e ✔✔ quando for &apos;Revisado&apos;
+            Mostrar sinal ✔ quando o status
+            da cena for &apos;Pronto&apos; e ✔✔ quando for &apos;Revisado&apos;
           </label>
         </div>
         <div className="listDraftExeplie">
@@ -143,7 +143,7 @@ function ManuscriptSettings() {
                   <div className="textIcon" />
                   Cena 5
                   {sceneWC && (
-                    <span className="wordCountSpan" style={{ marginLeft: 'em' }}>(0)</span>
+                    <span className="wordCountSpan" style={{ marginLeft: '.5em' }}>(0)</span>
                   )}
                 </label>
               </div>

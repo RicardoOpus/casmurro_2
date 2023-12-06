@@ -86,7 +86,7 @@ function SideBar() {
         <div className="sideBarContent">
           {isSidebarOpen && (
             <div>
-              <h3>Consulta rápida</h3>
+              <h3 style={{ color: 'var(--text-color-inactive)' }}>Consulta rápida</h3>
               <input
                 type="text"
                 value={searchInput}
