@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { ChangeEvent, useEffect, useState } from 'react';
 import IrootStateProject from '../../../../domain/IrootStateProject';
@@ -6,9 +6,12 @@ import IManuscript from '../../../../domain/IManuscript';
 import manuscriptService from '../../../../service/manuscriptService';
 import utils from '../../../../service/utils';
 import './writer.css';
+import manuscriptColapseDetail from '../../../redux/actions/manuscriptActons';
 
 function Writer() {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  const [colapseState, setColapseState] = useState(false);
   const manuscriptItens = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.manuscript));
   const currentMItem = manuscriptItens?.find((e) => e.id === Number(id));
@@ -24,6 +27,11 @@ function Writer() {
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
+  const colapeDetails = (colapse: boolean) => {
+    dispatch(manuscriptColapseDetail(colapse));
+    setColapseState(colapse);
+  };
+
   useEffect(() => {
     utils.autoGrowAllTextareas();
   }, []);
@@ -36,7 +44,11 @@ function Writer() {
   return (
     <div>
       <div className="writerButtons">
-        <button className="btnInvisibleM" type="button">Botão 1</button>
+        {!colapseState ? (
+          <button onClick={() => colapeDetails(true)} className="btnWriter" type="button">🡹</button>
+        ) : (
+          <button onClick={() => colapeDetails(false)} className="btnWriter" type="button">🡻</button>
+        )}
       </div>
       <div className="writerContainter">
         <h1 className="writerTitle">
