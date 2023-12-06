@@ -1,5 +1,7 @@
 .pSettings {
+  color: var(--text-color-inactive);
   margin: 0;
+  margin-bottom: 1em;
 }
 
 .colorInterfaceSection {

@@ -34,12 +34,12 @@ function ManuscriptSettings() {
 
   return (
     <div>
-      <h1>
+      <h2 className="cardSettingsH2">
         <img className="settingsSectionIcon icon-color" src="./scene.png" alt="Character icon" />
         {' '}
         Manuscrito
-      </h1>
-      <fieldset>
+      </h2>
+      <fieldset className="cardFiedset">
         <legend>Informações extras</legend>
         <div className="checkbox-wrapper">
           <label htmlFor="povColor">
@@ -153,7 +153,7 @@ function ManuscriptSettings() {
       </fieldset>
       <fieldset>
         <legend>
-          Listas pré-definidas
+          Listas predefinidas
         </legend>
         <div className="listsSection">
           <EditLists list={prjSettings.manuscriptStatus} projSettingsI="manuscriptStatus" listTitle="Status" onDataSend={saveSettings} />

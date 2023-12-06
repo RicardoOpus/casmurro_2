@@ -16,11 +16,14 @@ function WorldSettings() {
 
   return (
     <div>
-      <fieldset>
+      <h2 className="cardSettingsH2">
+        <img className="settingsSectionIcon icon-color" src="./world.png" alt="World icon" />
+        {' '}
+        Mundo
+      </h2>
+      <fieldset className="cardFiedset">
         <legend>
-          <img className="settingsSectionIcon icon-color" src="./world.png" alt="World icon" />
-          {' '}
-          Mundo
+          Listas predefinidas
         </legend>
         <div className="listsSection">
           <EditLists list={prjSettings.worldCategory} projSettingsI="worldCategory" listTitle="Categorias" onDataSend={saveSettings} />

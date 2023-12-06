@@ -8,6 +8,16 @@
   padding: 0;
 }
 
+.cardSettings p {
+  color: var(--text-color-inactive);
+  margin-bottom: 1em;
+}
+
+.cardSettingsH2 {
+  margin-bottom: 1em;
+}
+
+
 .settingsTabs li {
   border-right: 1px solid var(--border-color);
   float: left;

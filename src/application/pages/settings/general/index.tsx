@@ -76,7 +76,10 @@ function GeneralSettings() {
 
   return (
     <div>
-      <fieldset>
+      <h2 className="cardSettingsH2">
+        Geral
+      </h2>
+      <fieldset className="cardFiedset">
         <legend>
           Cor de destaque
         </legend>
@@ -140,7 +143,7 @@ function GeneralSettings() {
             Habilitar som de máquina de escrever nos campos de escrita.
           </label>
           <div className="slidecontainerP">
-            <p>
+            <p className="pSettings">
               Volume Control:
               {' '}
               {typeVolume}
@@ -159,7 +162,7 @@ function GeneralSettings() {
               />
             </div>
           </div>
-          <p>
+          <p className="pSettings">
             Além de proporcionar uma sensação nostálgica, o som das teclas serve
             como um feedback auditivo valioso, auxiliando o escritor a manter o ritmo
             da digitação durante uma sessão intensiva de escrita.

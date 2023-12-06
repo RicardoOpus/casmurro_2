@@ -16,11 +16,14 @@ function NotesSettings() {
 
   return (
     <div>
-      <fieldset>
+      <h2 className="cardSettingsH2">
+        <img className="settingsSectionIcon icon-color" src="./notes.png" alt="World icon" />
+        {' '}
+        Personagens
+      </h2>
+      <fieldset className="cardFiedset">
         <legend>
-          <img className="settingsSectionIcon icon-color" src="./notes.png" alt="World icon" />
-          {' '}
-          Notas
+          Listas predefinidas
         </legend>
         <div className="listsSection">
           <EditLists list={prjSettings.notesCategory} projSettingsI="notesCategory" listTitle="Categorias" onDataSend={saveSettings} />

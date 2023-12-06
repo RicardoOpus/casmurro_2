@@ -16,11 +16,14 @@ function CharactersSettings() {
 
   return (
     <div>
-      <fieldset>
+      <h2 className="cardSettingsH2">
+        <img className="settingsSectionIcon icon-color" src="./characters.png" alt="Character icon" />
+        {' '}
+        Personagens
+      </h2>
+      <fieldset className="cardFiedset">
         <legend>
-          <img className="settingsSectionIcon icon-color" src="./characters.png" alt="Character icon" />
-          {' '}
-          Personagens
+          Listas predefinidas
         </legend>
         <div className="listsSection">
           <EditLists list={prjSettings.charactersCategory} projSettingsI="charactersCategory" listTitle="Categorias" onDataSend={saveSettings} />
