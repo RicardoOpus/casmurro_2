@@ -33,6 +33,8 @@
   --ornament2-icon: url("../ornament2.svg");
   --user-text-size: 16px;
   --user-text-type: Roboto;
+  --user-scene-size: 25px;
+  --user-scene-type: Texgyretermes;
   --scroll-color: #2D333B;
   --calendar-picker: 0;
 }

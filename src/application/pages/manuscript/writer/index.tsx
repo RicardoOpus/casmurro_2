@@ -12,6 +12,10 @@ function Writer() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [colapseState, setColapseState] = useState(false);
+  const typeSet = localStorage.getItem('sceneTypeFont') || 'Texgyretermes';
+  const [typeFontUser, setTypeFontUSer] = useState(typeSet);
+  const fontSizeSet = localStorage.getItem('sceneSize') || '25px';
+  const [sizeFontUser, setSizeFontUser] = useState(fontSizeSet);
   const manuscriptItens = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.manuscript));
   const currentMItem = manuscriptItens?.find((e) => e.id === Number(id));
@@ -25,6 +29,27 @@ function Writer() {
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  const adjustTextSize = (increaseStep: number, increase: boolean) => {
+    const root = document.documentElement;
+    const currentSizeInPixels = parseInt(fontSizeSet, 10);
+    let newSizeInPixels;
+    if (increase) {
+      newSizeInPixels = currentSizeInPixels + increaseStep;
+    } else {
+      newSizeInPixels = currentSizeInPixels - increaseStep;
+    }
+    root.style.setProperty('--user-scene-size', `${newSizeInPixels}px`);
+    localStorage.setItem('sceneSize', `${newSizeInPixels}px`);
+    setSizeFontUser(`${newSizeInPixels}px`);
+  };
+
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const root = document.documentElement;
+    root.style.setProperty('--user-scene-type', e.target.value);
+    localStorage.setItem('sceneTypeFont', e.target.value);
+    setTypeFontUSer(e.target.value);
   };
 
   const colapeDetails = (colapse: boolean) => {
@@ -49,9 +74,22 @@ function Writer() {
         ) : (
           <button onClick={() => colapeDetails(false)} className="btnWriter" type="button">🡻</button>
         )}
+        <button onClick={() => adjustTextSize(1, true)} className="btnSmall" type="button">+ A</button>
+        <button onClick={() => adjustTextSize(1, false)} className="btnSmall" type="button">- A</button>
+        <select
+          className="ui-button ui-corner-all"
+          onChange={(e) => handleSelectChange(e)}
+          value={typeFontUser}
+          style={{ color: 'var(--text-color-inactive)' }}
+        >
+          <option disabled>Tido da Fonte</option>
+          <option value="Texgyretermes"> • Serifa</option>
+          <option value="Roboto"> • Sem Serifa</option>
+          <option value="TypeCurier"> • Mono</option>
+        </select>
       </div>
       <div className="writerContainter">
-        <h1 className="writerTitle">
+        <h1 className="writerTitle" style={{ fontFamily: typeFontUser }}>
           <span className="ornament1" />
           {stateMItem.title}
           <span className="ornament2" />
@@ -59,6 +97,7 @@ function Writer() {
         <div>
           <textarea
             className="writeArea"
+            style={{ fontFamily: typeFontUser, fontSize: sizeFontUser }}
             value={stateMItem?.content}
             onChange={(e) => handleTextAreaChange(e, 'content')}
             placeholder="Não iniciado..."

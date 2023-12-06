@@ -34,7 +34,7 @@
   align-items: center;
   display: flex;
   flex-wrap: nowrap;
-  font-family: Amaranth;
+  font-family: Texgyretermes;
   justify-content: center;
   text-align: center;
 }
@@ -44,11 +44,8 @@
   border-radius: 5px;
   box-sizing: border-box;
   color: var(--text-color);
-  font-family: var(--user-text-type);
-  font-family: var(--user-text-type);
-  font-size: var(--user-text-size);
-  font-size: medium;
-  font-size: var(--user-text-size);
+  font-family: var(--user-scene-type);
+  font-size: var(--user-scene-size);
   margin: .5em 0;
   overflow: hidden;
   padding: 1em;
