@@ -89,6 +89,7 @@ function WorldList() {
           <select
             value={selectedCategory}
             onChange={(e) => dispatch(worldFilterCategoryAction(e.target.value))}
+            style={{ color: 'var(--text-color-inactive)' }}
           >
             <option value="">Categoria</option>
             {prjSettings.worldCategory.map((e) => (

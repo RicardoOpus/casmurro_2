@@ -34,6 +34,7 @@ function FilterBar({
       <select
         value={selectedStatus}
         onChange={(e) => setSelectedStatus(e.target.value)}
+        style={{ color: 'var(--text-color-inactive)' }}
       >
         <option value="">Todos os Status</option>
         <option value="Arquivado">Arquivado</option>
@@ -45,6 +46,7 @@ function FilterBar({
       <select
         value={selectedGenre}
         onChange={(e) => setSelectedGenre(e.target.value)}
+        style={{ color: 'var(--text-color-inactive)' }}
       >
         <option value="">Todos os Gêneros</option>
         <option value="Romance">Romance</option>

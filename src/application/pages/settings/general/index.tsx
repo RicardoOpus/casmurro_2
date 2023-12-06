@@ -109,6 +109,7 @@ function GeneralSettings() {
             className="ui-button ui-corner-all"
             onChange={(e) => handleSelectChange(e)}
             value={typeFontUser}
+            style={{ color: 'var(--text-color-inactive)' }}
           >
             <option disabled>Tido da Fonte</option>
             <option value="Texgyretermes"> • Serifa</option>

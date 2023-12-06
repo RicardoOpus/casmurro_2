@@ -104,6 +104,7 @@ function CharactersList() {
           <select
             value={selectedCategory}
             onChange={(e) => dispatch(charFilterCategoryAction(e.target.value))}
+            style={{ color: 'var(--text-color-inactive)' }}
           >
             <option value="">Categoria</option>
             {prjSettings.charactersCategory.map((e) => (
@@ -118,6 +119,7 @@ function CharactersList() {
           <select
             value={selectedGender}
             onChange={(e) => dispatch(charFilterGenderAction(e.target.value))}
+            style={{ color: 'var(--text-color-inactive)' }}
           >
             <option value="">Gênero</option>
             {prjSettings.charactersGenders.map((e) => (
@@ -132,6 +134,7 @@ function CharactersList() {
           <select
             value={selectedCoreGroup}
             onChange={(e) => dispatch(charFilterCoreGroupAction(e.target.value))}
+            style={{ color: 'var(--text-color-inactive)' }}
           >
             <option value="">Núcleo</option>
             {prjSettings.charactersCoreGroupes.map((e) => (

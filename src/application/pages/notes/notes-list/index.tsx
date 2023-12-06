@@ -88,6 +88,7 @@ function NotesList() {
           <select
             value={selectedCategory}
             onChange={(e) => dispatch(notesFilterCategoryAction(e.target.value))}
+            style={{ color: 'var(--text-color-inactive)' }}
           >
             <option value="">Categoria</option>
             {prjSettings.notesCategory.map((e) => (
