@@ -19,6 +19,9 @@ interface IProject {
     notesCategory: string[],
     manuscriptStatus: string[],
     manuscriptWeather: string[],
+    manuscriptShowPovColor: boolean,
+    manuscriptShowWC: boolean,
+    manuscriptShowChecks: boolean,
   };
   id_controler: number;
   cards_qty: number;

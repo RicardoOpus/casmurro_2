@@ -11,7 +11,7 @@ import CardInspect from './card-inspect';
 import INotes from '../../../domain/InotesModel';
 
 function SideBar() {
-  const [width, setWidth] = useState(600);
+  const [width, setWidth] = useState(500);
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [searchInput, setSearchInput] = useState('');
@@ -36,7 +36,7 @@ function SideBar() {
 
   const openSidebar = () => {
     setSidebarOpen(true);
-    setWidth(600);
+    setWidth(500);
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

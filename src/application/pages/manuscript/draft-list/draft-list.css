@@ -48,8 +48,17 @@
   padding-left: 1em;
 }
 
+.listDraftItens {
+  min-width: 400px;
+  overflow: scroll;
+}
+
 .listDraft h2 {
   margin-bottom: .3em;
+}
+
+.listDraft span {
+  color: var(--text-color-inactive);
 }
 
 .invisibleChk {
@@ -73,6 +82,7 @@
 .btnInvisibleDel {
   background-color: transparent;
   border: solid 1px transparent;
+  color: black;
   margin-left: 1em;
   padding: 0;
   text-align: left;

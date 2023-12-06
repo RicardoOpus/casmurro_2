@@ -9,13 +9,18 @@ import IrootStateProject from '../../../../domain/IrootStateProject';
 import IManuscript from '../../../../domain/IManuscript';
 import Loading from '../../../components/loading';
 import GenericModal from '../../../components/generic-modal';
+import utils from '../../../../service/utils';
 
 function DraftList() {
-  const [width, setWidth] = useState(300);
+  const [width, setWidth] = useState(400);
   const [isLoading, setIsLoading] = useState(false);
   const [modal, setModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState<number>(0);
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
+  const prjSettings = useSelector((state: IrootStateProject) => (
+    state.projectDataReducer.projectData.projectSettings));
+  const charList = useSelector((state: IrootStateProject) => (
+    state.projectDataReducer.projectData.data?.characters));
   const [cenesList, setCenesList] = useState<IManuscript[]>([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -91,10 +96,33 @@ function DraftList() {
     </span>
   );
 
+  const renderChecks = (type: string | undefined) => {
+    switch (type) {
+      case 'Pronto':
+        return (
+          <span className="checkSceneList" style={{ color: 'var(--green-color)' }}>
+            ✔
+          </span>
+        );
+      case 'Revisado':
+        return (
+          <span className="checkSceneList" style={{ color: 'var(--green-color)' }}>
+            ✔✔
+          </span>
+        );
+      default:
+        return (
+          <div>
+            <span />
+          </div>
+        );
+    }
+  };
+
   const renderCeneList = (cenes: IManuscript[]) => (
     cenes.map((cene) => (
       <div key={cene.id} style={{ marginLeft: `${cene.level_hierarchy}em` }} className={cene.current ? 'selected' : ''}>
-        <label htmlFor={cene.id.toString()} className="itemDraft">
+        <label key={cene.id} htmlFor={cene.id.toString()} className="itemDraft">
           <input
             checked={cene.current}
             onChange={() => handleCheckboxChange(cene.id)}
@@ -102,8 +130,24 @@ function DraftList() {
             id={cene.id.toString()}
             className="invisibleChk"
           />
+          {prjSettings.manuscriptShowPovColor && (
+            charList?.map((e) => e.id === cene.pov_id && (
+              <span className="charTagIcon" style={{ backgroundColor: e.color }} />
+            ))
+          )}
           <div className={cene.type === 'Cena' ? 'textIcon' : 'folderIcon'} />
           {cene.title}
+          {prjSettings.manuscriptShowWC && (
+            <span
+              className="wordCountSpan"
+              style={{ color: cene.current ? '#000000de' : '', marginLeft: '.5em' }}
+            >
+              {`(${utils.countWords(cene.resume)})`}
+            </span>
+          )}
+          {prjSettings.manuscriptShowChecks && (
+            renderChecks(cene.status)
+          )}
           {cene.current && renderBtns()}
         </label>
       </div>
@@ -128,7 +172,7 @@ function DraftList() {
 
   return (
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
-      <div style={{ width: `${width}px`, height: '100%' }}>
+      <div style={{ width: `${width}px`, height: 'auto' }}>
         <div className="divBtnM">
           <div className="AddButtonsM">
             <button onClick={() => creatNewCene('Cena')} type="button" className="btnInvisibleM">+ Cena</button>
@@ -143,11 +187,11 @@ function DraftList() {
         </div>
         <div className="listDraft">
           <h2>Rascunho</h2>
-          <div>
+          <div style={{ overflow: 'auto' }}>
             {isLoading ? (
               <Loading />
             ) : (
-              <div>
+              <div className="listDraftItens">
                 {cenesList && cenesList.length > 0 && renderCeneList(cenesList)}
               </div>
             )}

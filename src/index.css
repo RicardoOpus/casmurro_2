@@ -27,6 +27,8 @@
   --link-icon: url("../link.svg");
   --group-icon: url("../group.svg");
   --trash-icon: url("../trash.svg");
+  --check-icon: url("../check.svg");
+  --double-check-icon: url("../double-check.svg");
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --scroll-color: #2D333B;
@@ -375,7 +377,7 @@ td {
 }
 
 td {
-  color: var(--text-color)
+  color: var(--text-color);
 }
 
 th {

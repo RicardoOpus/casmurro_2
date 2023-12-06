@@ -34,3 +34,34 @@
   background-color: var(--accent-color);
   color: var(--text-color);
 }
+
+.listDraftExeplie {
+  background-color: var(--bg-color);
+  border-radius: 5px;
+  color: var(--text-color);
+  margin-top: 1em;
+  padding: 1em;
+}
+
+.listDraftExeplie h2 {
+  margin-top: 0;
+}
+
+.ceneListWhitPOV {
+  border-radius: 5px;
+  color: black;
+}
+
+.checkSceneList {
+  color: var(--green-color);
+  margin-left: .5em;
+}
+
+.btnDelDraftlist {
+  background-color: transparent;
+  border: solid 1px transparent;
+  color: black;
+  margin-left: 1em;
+  padding: 0;
+  text-align: left;
+}

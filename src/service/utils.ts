@@ -38,6 +38,15 @@ class Utils {
     return str;
   }
 
+  countWords(text: string | undefined) {
+    if (text) {
+      const textoLimpo = text.trim().replace(/\s+/g, ' ');
+      const palavras = textoLimpo.split(' ');
+      return palavras.length;
+    }
+    return 0;
+  }
+
   autoGrowAllTextareas() {
     const textareas = document.querySelectorAll('textarea');
     textareas.forEach((textarea) => {
