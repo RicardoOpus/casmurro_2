@@ -9,7 +9,6 @@ import './writer.css';
 import manuscriptColapseDetail from '../../../redux/actions/manuscriptActons';
 import TimerModal from './timer-modal';
 import TimerDisplay from './timer-display';
-import DistractionFree from './distraction-free';
 
 function Writer() {
   const { id } = useParams();
@@ -128,6 +127,10 @@ function Writer() {
     }
   };
 
+  const distractionFreeMode = () => {
+    setnoDisctration(!noDisctration);
+  };
+
   const colapeDetails = (colapse: boolean) => {
     dispatch(manuscriptColapseDetail(colapse));
     setColapseState(colapse);
@@ -154,7 +157,7 @@ function Writer() {
   }, [currentMItem, id]);
 
   return (
-    <div>
+    <div className={noDisctration ? 'distractionFree' : ''}>
       <div className="writerButtons">
         {!colapseState ? (
           <button onClick={() => colapeDetails(true)} className="btnWriter" type="button">🡹</button>
@@ -186,7 +189,7 @@ function Writer() {
           <option value="darkScene"> • Escuro</option>
         </select>
         <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
-        <button onClick={() => setnoDisctration(true)} className="distractionFreeIcon" type="button">{' '}</button>
+        <button onClick={distractionFreeMode} className="distractionFreeIcon" type="button">{' '}</button>
       </div>
       <div className={`writerContainter ${stateColorScheme}`}>
         <h1 className="writerTitle" style={{ fontFamily: stateFontUser }}>
@@ -213,7 +216,6 @@ function Writer() {
       {showTimer && (
         <TimerDisplay onClose={closeModalTimer} countDown={countDown} />
       )}
-      <DistractionFree openModal={noDisctration} onClose={() => setnoDisctration(false)} />
     </div>
   );
 }
