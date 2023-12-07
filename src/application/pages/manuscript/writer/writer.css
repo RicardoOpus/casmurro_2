@@ -106,7 +106,7 @@
 }
 
 .timerIcon {
-  background-color: var(--text-color-inactive);
+  background-color: var(--text-color);
   display: inline-block;
   height: 25px;
   -webkit-mask: var(--timer-icon) no-repeat center / contain;
@@ -159,7 +159,7 @@
 }
 
 .distractionFreeIcon {
-  background-color: var(--text-color-inactive);
+  background-color: var(--text-color);
   display: inline-block;
   height: 25px;
   -webkit-mask: var(--distractionFree-icon) no-repeat center / contain;
@@ -172,7 +172,7 @@
 }
 
 .btnFocus {
-  background-color: var(--text-color-inactive);
+  background-color: var(--text-color);
   display: inline-block;
   height: 25px;
   -webkit-mask: var(--fullScreen-icon) no-repeat center / contain;
@@ -190,4 +190,8 @@
   position: fixed;
   top: 0;
   width: 100%;
+}
+
+.writerContainer {
+  display: flex;
 }

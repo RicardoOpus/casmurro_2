@@ -26,6 +26,8 @@ function Writer() {
   const [stateColorScheme, setStateColorScheme] = useState(storageColorScheme);
   const storageColorHex = localStorage.getItem('sceneColorHex') || '#878787';
   const [stateColorHex, setStateColorHex] = useState(storageColorHex);
+  const storagePaddingUser = localStorage.getItem('sceneArea') || '1';
+  const [statePaddingUser, setstateWithUser] = useState(storagePaddingUser);
   const manuscriptItens = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.manuscript));
   const currentMItem = manuscriptItens?.find((e) => e.id === Number(id));
@@ -53,6 +55,18 @@ function Writer() {
     root.style.setProperty('--user-scene-size', `${newSizeInPixels}px`);
     localStorage.setItem('sceneSize', `${newSizeInPixels}px`);
     setStateSizeFontUser(`${newSizeInPixels}px`);
+  };
+
+  const adjustTextArea = (increase: boolean) => {
+    let newSizeInPixels: number;
+    if (increase) {
+      newSizeInPixels = Number(statePaddingUser) + 1;
+    } else {
+      newSizeInPixels = Number(statePaddingUser) - 1;
+      newSizeInPixels = Math.max(0, newSizeInPixels);
+    }
+    localStorage.setItem('sceneArea', newSizeInPixels.toString());
+    setstateWithUser(newSizeInPixels.toString());
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -159,13 +173,22 @@ function Writer() {
   return (
     <div className={noDisctration ? 'distractionFree' : ''}>
       <div className="writerButtons">
-        {!colapseState ? (
-          <button onClick={() => colapeDetails(true)} className="btnWriter" type="button">🡹</button>
-        ) : (
-          <button onClick={() => colapeDetails(false)} className="btnWriter" type="button">🡻</button>
+        {!noDisctration && (
+          !colapseState ? (
+            <button onClick={() => colapeDetails(true)} className="btnWriter" type="button">🡹</button>
+          ) : (
+            <button onClick={() => colapeDetails(false)} className="btnWriter" type="button">🡻</button>
+          )
         )}
+        <button onClick={distractionFreeMode} className="distractionFreeIcon" type="button">{' '}</button>
         <button onClick={() => adjustTextSize(1, true)} className="btnWriter" type="button">+ A</button>
         <button onClick={() => adjustTextSize(1, false)} className="btnWriter" type="button">- A</button>
+        {noDisctration && (
+          <>
+            <button onClick={() => adjustTextArea(true)} className="btnWriter" type="button">↔+</button>
+            <button onClick={() => adjustTextArea(false)} className="btnWriter" type="button">↔-</button>
+          </>
+        )}
         <select
           className="ui-button ui-corner-all writeSelect"
           onChange={(e) => handleSelectChange(e)}
@@ -189,7 +212,6 @@ function Writer() {
           <option value="darkScene"> • Escuro</option>
         </select>
         <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
-        <button onClick={distractionFreeMode} className="distractionFreeIcon" type="button">{' '}</button>
       </div>
       <div className={`writerContainter ${stateColorScheme}`}>
         <h1 className="writerTitle" style={{ fontFamily: stateFontUser }}>
@@ -197,7 +219,7 @@ function Writer() {
           {stateMItem.title}
           {handleDecoration2(stateFontUser)}
         </h1>
-        <div>
+        <div style={{ padding: noDisctration ? `0 ${statePaddingUser}em` : '1em' }}>
           <textarea
             className="writeArea"
             style={{ fontFamily: stateFontUser, fontSize: stateSizeFontUser }}
