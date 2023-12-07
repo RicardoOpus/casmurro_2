@@ -1,0 +1,34 @@
+
+.distractionFree {
+  background-color: black;
+  border: solid 4px black;
+  height: 100%;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.writingArea {
+  border: solid 0px transparent;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  left: 50%;
+  padding: 1em;
+  position: fixed;
+  top: 0;
+  transform: translateX(-50%);
+}
+
+.writingBtns {
+  background-color: #555;
+  border-radius: 9px;
+  bottom: 20px;
+  color: #cbcbcb;
+  left: 50%;
+  outline: none;
+  padding: 10px;
+  position: fixed;
+  transform: translateX(-50%);
+  width: 850px;
+  z-index: 99;
+}
