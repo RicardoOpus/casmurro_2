@@ -7,11 +7,16 @@ import manuscriptService from '../../../../service/manuscriptService';
 import utils from '../../../../service/utils';
 import './writer.css';
 import manuscriptColapseDetail from '../../../redux/actions/manuscriptActons';
+import TimerModal from './timer-modal';
+import TimerDisplay from './timer-display';
 
 function Writer() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
+  const [showTimer, setShowTimer] = useState(false);
   const [colapseState, setColapseState] = useState(false);
+  const [countDown, setCountDown] = useState('99:99');
   const storagetypeFont = localStorage.getItem('sceneTypeFont') || 'Texgyretermes';
   const [stateFontUser, setStateFontUSer] = useState(storagetypeFont);
   const storageFontSizeSet = localStorage.getItem('sceneSize') || '25px';
@@ -126,6 +131,16 @@ function Writer() {
     setColapseState(colapse);
   };
 
+  const closeModal = () => {
+    setModal(false);
+    setCountDown('99:99');
+  };
+
+  const closeModalTimer = () => {
+    setShowTimer(false);
+    setCountDown('99:99');
+  };
+
   useEffect(() => {
     utils.autoGrowAllTextareas();
   }, []);
@@ -167,6 +182,7 @@ function Writer() {
           <option value="sepiaScene"> • Sépia</option>
           <option value="darkScene"> • Escuro</option>
         </select>
+        <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
       </div>
       <div className={`writerContainter ${stateColorScheme}`}>
         <h1 className="writerTitle" style={{ fontFamily: stateFontUser }}>
@@ -184,6 +200,15 @@ function Writer() {
           />
         </div>
       </div>
+      <TimerModal
+        openModal={modal}
+        showTimer={() => setShowTimer(true)}
+        onClose={closeModal}
+        updateTimer={(e) => setCountDown(e)}
+      />
+      {showTimer && (
+        <TimerDisplay onClose={closeModalTimer} countDown={countDown} />
+      )}
     </div>
   );
 }

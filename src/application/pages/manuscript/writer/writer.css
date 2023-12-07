@@ -17,6 +17,11 @@
   text-align: center;
 }
 
+.btnWriter:hover {
+  border-color: transparent;
+  color: var(--accent-color);
+}
+
 .writerContainter {
   max-height: 900px;
   overflow: scroll;
@@ -98,4 +103,57 @@
   -webkit-mask: var(--ornament2-icon) no-repeat center / contain;
   mask: var(--ornament2-icon) no-repeat center / contain;
   width: 2em;
+}
+
+.timerIcon {
+  background-color: var(--text-color-inactive);
+  display: inline-block;
+  height: 25px;
+  -webkit-mask: var(--timer-icon) no-repeat center / contain;
+  mask: var(--timer-icon) no-repeat center / contain;
+  width: 25px;
+}
+
+.timerIcon:hover {
+  background-color: var(--accent-color);
+}
+
+.Timer {
+  align-content: center;
+  align-items: center;
+  background-color: var(--bg-color);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  bottom: 0;
+  display: flex;
+  gap: .5em;
+  justify-content: center;
+  margin: 1em;
+  padding: .1em .5em 0em 1em;
+  position: fixed;
+  right: 0;
+}
+
+.displayTimer {
+  font-family: Timer;
+  font-size: x-large;
+}
+
+.displayTimer h3 {
+  margin: 0em;
+}
+
+.btnCloseTimer {
+  background-color: transparent;
+  border-bottom: solid 1px  var(--border-color);
+  border-color: transparent;
+  border-radius: 0;
+  padding: 8px 0;
+  text-align: center;
+}
+
+.btnCloseTimer:hover {
+  background-color: transparent;
+  border-color: transparent;
+  color: red;
 }

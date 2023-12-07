@@ -31,6 +31,7 @@
   --double-check-icon: url("../double-check.svg");
   --ornament1-icon: url("../ornament1.svg");
   --ornament2-icon: url("../ornament2.svg");
+  --timer-icon: url("../timer.svg");
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --user-scene-size: 25px;
@@ -83,6 +84,11 @@
 @font-face {
   font-family: Texgyretermes;
   src: url("../texgyretermes.otf") format("truetype");
+}
+
+@font-face {
+  font-family: Timer;
+  src: url("../Timer.otf") format("truetype");
 }
 
 :root {
