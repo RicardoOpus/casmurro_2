@@ -69,6 +69,7 @@
 
 .writeArea {
   all: unset;
+  background: transparent;
   border-radius: 5px;
   box-sizing: border-box;
   font-family: var(--user-scene-type);
@@ -194,4 +195,20 @@
 
 .writerContainer {
   display: flex;
+}
+
+/* Versão não muda cor da fonte */
+
+/* .markWord {
+  background: transparent;
+  background-color: var(--accent-color);
+  border-radius: 5px;
+  color: transparent;
+} */
+
+.markWord {
+  background: transparent;
+  color: transparent;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-color);
 }

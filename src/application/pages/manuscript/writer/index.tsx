@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { ChangeEvent, useEffect, useState } from 'react';
+import {
+  ChangeEvent, useEffect, useState,
+} from 'react';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import IManuscript from '../../../../domain/IManuscript';
 import manuscriptService from '../../../../service/manuscriptService';
@@ -18,6 +20,8 @@ function Writer() {
   const [noDisctration, setnoDisctration] = useState(false);
   const [colapseState, setColapseState] = useState(false);
   const [countDown, setCountDown] = useState('99:99');
+  const [cardTitles, setCardTitles] = useState(['']);
+  const [textHl, setTextHl] = useState('');
   const storagetypeFont = localStorage.getItem('sceneTypeFont') || 'Texgyretermes';
   const [stateFontUser, setStateFontUSer] = useState(storagetypeFont);
   const storageFontSizeSet = localStorage.getItem('sceneSize') || '25px';
@@ -28,6 +32,8 @@ function Writer() {
   const [stateColorHex, setStateColorHex] = useState(storageColorHex);
   const storagePaddingUser = localStorage.getItem('sceneArea') || '1';
   const [statePaddingUser, setstateWithUser] = useState(storagePaddingUser);
+  const projectItens = useSelector((state: IrootStateProject) => (
+    state.projectDataReducer.projectData.data));
   const manuscriptItens = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.manuscript));
   const currentMItem = manuscriptItens?.find((e) => e.id === Number(id));
@@ -161,6 +167,38 @@ function Writer() {
   };
 
   useEffect(() => {
+    const content = stateMItem?.content;
+    if (content && cardTitles.length > 0) {
+      const result = cardTitles.reduce((acc, keyword) => {
+        const regexp = new RegExp(keyword, 'gi');
+        return acc.replace(regexp, '<mark class="markWord">$&</mark>');
+      }, content);
+      setTextHl(result);
+    }
+  }, [cardTitles, stateMItem]);
+
+  const knowsItens = () => {
+    if (projectItens) {
+      let allTitles:string[] = [];
+      if (projectItens.characters) {
+        allTitles = [...allTitles, ...projectItens.characters.map((e) => e.title)];
+      }
+      if (projectItens.world) {
+        allTitles = [...allTitles, ...projectItens.world.map((e) => e.title)];
+      }
+      setCardTitles(allTitles);
+    }
+  };
+
+  const handleSelectMark = (e: ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value === 'knows') {
+      knowsItens();
+    } else {
+      setCardTitles(['']);
+    }
+  };
+
+  useEffect(() => {
     utils.autoGrowAllTextareas();
   }, []);
 
@@ -211,6 +249,15 @@ function Writer() {
           <option value="sepiaScene"> • Sépia</option>
           <option value="darkScene"> • Escuro</option>
         </select>
+        <select
+          className="ui-button ui-corner-all writeSelect"
+          onChange={(e) => handleSelectMark(e)}
+          style={{ color: 'var(--text-color-inactive)' }}
+        >
+          <option disabled>Marcar palavras</option>
+          <option value="nothing"> • Nenhuma</option>
+          <option value="knows"> • Conhecidas</option>
+        </select>
         <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
       </div>
       <div className={`writerContainter ${stateColorScheme}`}>
@@ -220,13 +267,32 @@ function Writer() {
           {handleDecoration2(stateFontUser)}
         </h1>
         <div style={{ padding: noDisctration ? `0 ${statePaddingUser}em` : '1em' }}>
-          <textarea
-            className="writeArea"
-            style={{ fontFamily: stateFontUser, fontSize: stateSizeFontUser }}
-            value={stateMItem?.content}
-            onChange={(e) => handleTextAreaChange(e, 'content')}
-            placeholder="Não iniciado..."
-          />
+          <div style={{ position: 'relative' }}>
+            <div>
+              <div
+                // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{ __html: textHl }}
+                className="writeArea"
+                style={{
+                  fontFamily: stateFontUser,
+                  fontSize: stateSizeFontUser,
+                  position: 'absolute',
+                  top: '0',
+                  left: '0',
+                  overflow: 'hidden',
+                  color: 'transparent',
+                  whiteSpace: 'pre-line',
+                }}
+              />
+            </div>
+            <textarea
+              className="writeArea"
+              style={{ fontFamily: stateFontUser, fontSize: stateSizeFontUser, position: 'relative' }}
+              value={stateMItem?.content}
+              onChange={(e) => handleTextAreaChange(e, 'content')}
+              placeholder="Não iniciado..."
+            />
+          </div>
         </div>
       </div>
       <TimerModal
