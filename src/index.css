@@ -37,7 +37,7 @@
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --user-scene-size: 25px;
-  --user-scene-type: Texgyretermes;
+  --user-scene-type: PT;
   --scroll-color: #2D333B;
   --calendar-picker: 0;
 }
@@ -84,8 +84,8 @@
 }
 
 @font-face {
-  font-family: Texgyretermes;
-  src: url("../texgyretermes.otf") format("truetype");
+  font-family: PT;
+  src: url("../PT.ttf") format("truetype");
 }
 
 @font-face {

@@ -26,7 +26,7 @@ function Writer() {
   const [categoryMark, setCategoryMark] = useState('');
   const [markWords, setmarkWords] = useState(['']);
   const [textHl, setTextHl] = useState('');
-  const storagetypeFont = localStorage.getItem('sceneTypeFont') || 'Texgyretermes';
+  const storagetypeFont = localStorage.getItem('sceneTypeFont') || 'PT';
   const [stateFontUser, setStateFontUSer] = useState(storagetypeFont);
   const storageFontSizeSet = localStorage.getItem('sceneSize') || '25px';
   const [stateSizeFontUser, setStateSizeFontUser] = useState(storageFontSizeSet);
@@ -109,7 +109,7 @@ function Writer() {
 
   const handleDecoration = (type: string) => {
     switch (type) {
-      case 'Texgyretermes':
+      case 'PT':
         return (<span className="ornament1" style={{ backgroundColor: stateColorHex }} />);
       case 'Roboto':
         return (<span style={{ marginRight: '.2em' }}>●</span>);
@@ -122,7 +122,7 @@ function Writer() {
 
   const handleDecoration2 = (type: string) => {
     switch (type) {
-      case 'Texgyretermes':
+      case 'PT':
         return (<span className="ornament2" style={{ backgroundColor: stateColorHex }} />);
       case 'Roboto':
         return (<span style={{ marginLeft: '.2em' }}>●</span>);
@@ -254,7 +254,7 @@ function Writer() {
           style={{ color: 'var(--text-color-inactive)' }}
         >
           <option disabled>Tido da Fonte</option>
-          <option value="Texgyretermes"> • Serifa</option>
+          <option value="PT"> • Serifa</option>
           <option value="Roboto"> • Sem Serifa</option>
           <option value="TypeCurier"> • Mono</option>
         </select>
@@ -308,7 +308,7 @@ function Writer() {
                   left: '0',
                   overflow: 'hidden',
                   color: 'transparent',
-                  whiteSpace: 'pre-line',
+                  whiteSpace: 'pre-wrap',
                 }}
               />
             </div>

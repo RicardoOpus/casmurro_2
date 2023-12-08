@@ -112,7 +112,7 @@ function GeneralSettings() {
             style={{ color: 'var(--text-color-inactive)' }}
           >
             <option disabled>Tido da Fonte</option>
-            <option value="Texgyretermes"> • Serifa</option>
+            <option value="PT"> • Serifa</option>
             <option value="Roboto"> • Sem Serifa</option>
             <option value="TypeCurier"> • Mono</option>
           </select>
