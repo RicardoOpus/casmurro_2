@@ -40,6 +40,8 @@ function Writer() {
     state.projectDataReducer.projectData.data));
   const manuscriptItens = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.manuscript));
+  const prjSettings = useSelector((state: IrootStateProject) => (
+    state.projectDataReducer.projectData.projectSettings));
   const currentMItem = manuscriptItens?.find((e) => e.id === Number(id));
   const [stateMItem,
     setStateManuItem] = useState<IManuscript | Partial<IManuscript>>({});
@@ -108,46 +110,26 @@ function Writer() {
   const handleDecoration = (type: string) => {
     switch (type) {
       case 'Texgyretermes':
-        return (
-          <span className="ornament1" style={{ backgroundColor: stateColorHex }} />
-        );
+        return (<span className="ornament1" style={{ backgroundColor: stateColorHex }} />);
       case 'Roboto':
-        return (
-          <span style={{ marginRight: '.2em' }}>●</span>
-        );
+        return (<span style={{ marginRight: '.2em' }}>●</span>);
       case 'TypeCurier':
-        return (
-          <span style={{ marginRight: '.2em' }}>--</span>
-        );
+        return (<span style={{ marginRight: '.2em' }}>--</span>);
       default:
-        return (
-          <div>
-            <span />
-          </div>
-        );
+        return (<div><span /></div>);
     }
   };
 
   const handleDecoration2 = (type: string) => {
     switch (type) {
       case 'Texgyretermes':
-        return (
-          <span className="ornament2" style={{ backgroundColor: stateColorHex }} />
-        );
+        return (<span className="ornament2" style={{ backgroundColor: stateColorHex }} />);
       case 'Roboto':
-        return (
-          <span style={{ marginLeft: '.2em' }}>●</span>
-        );
+        return (<span style={{ marginLeft: '.2em' }}>●</span>);
       case 'TypeCurier':
-        return (
-          <span style={{ marginLeft: '.2em' }}>--</span>
-        );
+        return (<span style={{ marginLeft: '.2em' }}>--</span>);
       default:
-        return (
-          <div>
-            <span />
-          </div>
-        );
+        return (<div><span /></div>);
     }
   };
 
@@ -182,7 +164,8 @@ function Writer() {
         result = content.replace(/"([^"\n]*\b[^"\n]*)"/g, (match) => `<mark class="markWordHL">${match}</mark>`);
       } else {
         result = markWords.reduce((acc, keyword) => {
-          const regexp = new RegExp(keyword, 'gi');
+          // const regexp = new RegExp(keyword, 'gi');
+          const regexp = new RegExp(`\\b${keyword}\\b`, 'gi');
           return acc.replace(regexp, '<mark class="markWord">$&</mark>');
         }, content);
       }
@@ -203,6 +186,8 @@ function Writer() {
       setCategoryMark('dialogos');
     } if (e.target.value === 'aspas') {
       setCategoryMark('aspas');
+    } if (e.target.value === 'pessoal') {
+      setCategoryMark('pessoal');
     } if (e.target.value === 'nothing') {
       setCategoryMark('nothing');
     }
@@ -226,10 +211,12 @@ function Writer() {
       setmarkWords(clichesList);
     } if (categoryMark === 'pleonasmos') {
       setmarkWords(pleonasmosList);
+    } if (categoryMark === 'pessoal') {
+      setmarkWords(prjSettings?.manuscriptPersonalWords);
     } if (categoryMark === 'nothing') {
       setmarkWords(['']);
     }
-  }, [categoryMark, projectItens]);
+  }, [categoryMark, prjSettings?.manuscriptPersonalWords, projectItens]);
 
   useEffect(() => {
     utils.autoGrowAllTextareas();

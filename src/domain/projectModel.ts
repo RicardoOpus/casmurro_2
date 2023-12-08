@@ -22,6 +22,7 @@ interface IProject {
     manuscriptShowPovColor: boolean,
     manuscriptShowWC: boolean,
     manuscriptShowChecks: boolean,
+    manuscriptPersonalWords: string[],
   };
   id_controler: number;
   cards_qty: number;

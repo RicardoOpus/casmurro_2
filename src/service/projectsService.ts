@@ -75,6 +75,7 @@ class ProjectServide {
           'Granizo',
           'Neblina',
         ],
+        manuscriptPersonalWords: [],
         manuscriptShowPovColor: false,
         manuscriptShowWC: false,
         manuscriptShowChecks: false,
