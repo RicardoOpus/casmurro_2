@@ -89,21 +89,21 @@
 .ornament1 {
   background-color: var(--text-color-inactive);
   display: inline-block;
-  height: 2em;
+  height: 60px;
   margin-right: 5px;
   -webkit-mask: var(--ornament1-icon) no-repeat center / contain;
   mask: var(--ornament1-icon) no-repeat center / contain;
-  width: 2em;
+  width: 60px;
 }
 
 .ornament2 {
   background-color: var(--text-color-inactive);
   display: inline-block;
-  height: 2em;
+  height: 60px;
   margin-left: 5px;
   -webkit-mask: var(--ornament2-icon) no-repeat center / contain;
   mask: var(--ornament2-icon) no-repeat center / contain;
-  width: 2em;
+  width: 60px;
 }
 
 .timerIcon {
@@ -197,14 +197,13 @@
   display: flex;
 }
 
-/* Versão não muda cor da fonte */
-
-/* .markWord {
+.markWordHL {
   background: transparent;
   background-color: var(--accent-color);
   border-radius: 5px;
   color: transparent;
-} */
+  opacity: .2;
+}
 
 .markWord {
   background: transparent;

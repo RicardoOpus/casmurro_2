@@ -172,14 +172,21 @@ function Writer() {
 
   useEffect(() => {
     const content = stateMItem?.content;
-    if (content && markWords.length > 0) {
-      const result = markWords.reduce((acc, keyword) => {
-        const regexp = new RegExp(keyword, 'gi');
-        return acc.replace(regexp, '<mark class="markWord">$&</mark>');
-      }, content);
+    if (content) {
+      let result;
+      if (categoryMark === 'dialogos') {
+        result = content.replace(/—([^—\n]+)—/g, (match) => `<mark class="markWordHL">${match}</mark>`);
+        result = result.replace(/—([^\n]*)$/g, (match) => `<mark class="markWordHL">${match}</mark>`);
+        result = result.replace(/^—([^\n]*)$/gm, (match) => `<mark class="markWordHL">${match}</mark>`);
+      } else {
+        result = markWords.reduce((acc, keyword) => {
+          const regexp = new RegExp(keyword, 'gi');
+          return acc.replace(regexp, '<mark class="markWord">$&</mark>');
+        }, content);
+      }
       setTextHl(result);
     }
-  }, [markWords, stateMItem]);
+  }, [markWords, categoryMark, stateMItem]);
 
   const handleSelectMark = (e: ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === 'cards') {
@@ -190,6 +197,8 @@ function Writer() {
       setCategoryMark('cliches');
     } if (e.target.value === 'pleonasmos') {
       setCategoryMark('pleonasmos');
+    } if (e.target.value === 'dialogos') {
+      setCategoryMark('dialogos');
     } if (e.target.value === 'nothing') {
       setCategoryMark('nothing');
     }
@@ -279,8 +288,9 @@ function Writer() {
           <option value="nothing"> • Nenhuma</option>
           <option value="adv"> • Advérbios</option>
           <option value="cliches"> • Clichês</option>
-          <option value="pleonasmos"> • Pleonasmos</option>
+          <option value="dialogos"> • Diálogos</option>
           <option value="cards"> • Personagens/Mundo</option>
+          <option value="pleonasmos"> • Pleonasmos</option>
         </select>
         <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
       </div>
