@@ -178,6 +178,8 @@ function Writer() {
         result = content.replace(/—([^—\n]+)—/g, (match) => `<mark class="markWordHL">${match}</mark>`);
         result = result.replace(/—([^\n]*)$/g, (match) => `<mark class="markWordHL">${match}</mark>`);
         result = result.replace(/^—([^\n]*)$/gm, (match) => `<mark class="markWordHL">${match}</mark>`);
+      } else if (categoryMark === 'aspas') {
+        result = content.replace(/"([^"\n]*\b[^"\n]*)"/g, (match) => `<mark class="markWordHL">${match}</mark>`);
       } else {
         result = markWords.reduce((acc, keyword) => {
           const regexp = new RegExp(keyword, 'gi');
@@ -199,6 +201,8 @@ function Writer() {
       setCategoryMark('pleonasmos');
     } if (e.target.value === 'dialogos') {
       setCategoryMark('dialogos');
+    } if (e.target.value === 'aspas') {
+      setCategoryMark('aspas');
     } if (e.target.value === 'nothing') {
       setCategoryMark('nothing');
     }
@@ -289,6 +293,8 @@ function Writer() {
           <option value="adv"> • Advérbios</option>
           <option value="cliches"> • Clichês</option>
           <option value="dialogos"> • Diálogos</option>
+          <option value="aspas"> • Entre aspas</option>
+          <option value="pessoal"> • Liata pessoal</option>
           <option value="cards"> • Personagens/Mundo</option>
           <option value="pleonasmos"> • Pleonasmos</option>
         </select>
