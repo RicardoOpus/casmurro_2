@@ -11,6 +11,7 @@ import './writer.css';
 import manuscriptColapseDetail from '../../../redux/actions/manuscriptActons';
 import TimerModal from './timer-modal';
 import TimerDisplay from './timer-display';
+import adverbiosList from '../../../../templates/adverbiosList';
 
 function Writer() {
   const { id } = useParams();
@@ -20,7 +21,8 @@ function Writer() {
   const [noDisctration, setnoDisctration] = useState(false);
   const [colapseState, setColapseState] = useState(false);
   const [countDown, setCountDown] = useState('99:99');
-  const [cardTitles, setCardTitles] = useState(['']);
+  const [categoryMark, setCategoryMark] = useState('');
+  const [markWords, setmarkWords] = useState(['']);
   const [textHl, setTextHl] = useState('');
   const storagetypeFont = localStorage.getItem('sceneTypeFont') || 'Texgyretermes';
   const [stateFontUser, setStateFontUSer] = useState(storagetypeFont);
@@ -168,35 +170,45 @@ function Writer() {
 
   useEffect(() => {
     const content = stateMItem?.content;
-    if (content && cardTitles.length > 0) {
-      const result = cardTitles.reduce((acc, keyword) => {
+    if (content && markWords.length > 0) {
+      const result = markWords.reduce((acc, keyword) => {
         const regexp = new RegExp(keyword, 'gi');
         return acc.replace(regexp, '<mark class="markWord">$&</mark>');
       }, content);
       setTextHl(result);
     }
-  }, [cardTitles, stateMItem]);
-
-  const knowsItens = () => {
-    if (projectItens) {
-      let allTitles:string[] = [];
-      if (projectItens.characters) {
-        allTitles = [...allTitles, ...projectItens.characters.map((e) => e.title)];
-      }
-      if (projectItens.world) {
-        allTitles = [...allTitles, ...projectItens.world.map((e) => e.title)];
-      }
-      setCardTitles(allTitles);
-    }
-  };
+  }, [markWords, stateMItem]);
 
   const handleSelectMark = (e: ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value === 'knows') {
-      knowsItens();
-    } else {
-      setCardTitles(['']);
+    if (e.target.value === 'cards') {
+      setCategoryMark('cards');
+    } if (e.target.value === 'adv') {
+      setCategoryMark('adv');
+    } if (e.target.value === 'merda') {
+      setCategoryMark('merda');
+    } if (e.target.value === 'nothing') {
+      setCategoryMark('nothing');
     }
   };
+
+  useEffect(() => {
+    if (categoryMark === 'cards') {
+      if (projectItens) {
+        let allTitles:string[] = [];
+        if (projectItens.characters) {
+          allTitles = [...allTitles, ...projectItens.characters.map((e) => e.title)];
+        }
+        if (projectItens.world) {
+          allTitles = [...allTitles, ...projectItens.world.map((e) => e.title)];
+        }
+        setmarkWords(allTitles);
+      }
+    } if (categoryMark === 'adv') {
+      setmarkWords(adverbiosList);
+    } if (categoryMark === 'nothing') {
+      setmarkWords(['']);
+    }
+  }, [categoryMark, projectItens]);
 
   useEffect(() => {
     utils.autoGrowAllTextareas();
@@ -251,12 +263,15 @@ function Writer() {
         </select>
         <select
           className="ui-button ui-corner-all writeSelect"
+          value={categoryMark}
           onChange={(e) => handleSelectMark(e)}
           style={{ color: 'var(--text-color-inactive)' }}
         >
           <option disabled>Marcar palavras</option>
           <option value="nothing"> • Nenhuma</option>
-          <option value="knows"> • Conhecidas</option>
+          <option value="cards"> • Conhecidas</option>
+          <option value="adv"> • Advérbios</option>
+          <option value="merda"> • merda</option>
         </select>
         <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
       </div>

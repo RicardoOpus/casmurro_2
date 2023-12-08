@@ -3,7 +3,7 @@ import { ChangeEvent, SetStateAction, useState } from 'react';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
-import paragraphyMock from '../../../../mocks/paragraph';
+import paragraphyMock from '../../../../templates/paragraph';
 import './general.css';
 
 function GeneralSettings() {
