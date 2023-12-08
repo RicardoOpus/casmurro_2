@@ -12,6 +12,8 @@ import manuscriptColapseDetail from '../../../redux/actions/manuscriptActons';
 import TimerModal from './timer-modal';
 import TimerDisplay from './timer-display';
 import adverbiosList from '../../../../templates/adverbiosList';
+import clichesList from '../../../../templates/clichesList';
+import pleonasmosList from '../../../../templates/pleonasmosList';
 
 function Writer() {
   const { id } = useParams();
@@ -184,8 +186,10 @@ function Writer() {
       setCategoryMark('cards');
     } if (e.target.value === 'adv') {
       setCategoryMark('adv');
-    } if (e.target.value === 'merda') {
-      setCategoryMark('merda');
+    } if (e.target.value === 'cliches') {
+      setCategoryMark('cliches');
+    } if (e.target.value === 'pleonasmos') {
+      setCategoryMark('pleonasmos');
     } if (e.target.value === 'nothing') {
       setCategoryMark('nothing');
     }
@@ -194,7 +198,7 @@ function Writer() {
   useEffect(() => {
     if (categoryMark === 'cards') {
       if (projectItens) {
-        let allTitles:string[] = [];
+        let allTitles: string[] = [];
         if (projectItens.characters) {
           allTitles = [...allTitles, ...projectItens.characters.map((e) => e.title)];
         }
@@ -205,6 +209,10 @@ function Writer() {
       }
     } if (categoryMark === 'adv') {
       setmarkWords(adverbiosList);
+    } if (categoryMark === 'cliches') {
+      setmarkWords(clichesList);
+    } if (categoryMark === 'pleonasmos') {
+      setmarkWords(pleonasmosList);
     } if (categoryMark === 'nothing') {
       setmarkWords(['']);
     }
@@ -269,9 +277,10 @@ function Writer() {
         >
           <option disabled>Marcar palavras</option>
           <option value="nothing"> • Nenhuma</option>
-          <option value="cards"> • Conhecidas</option>
           <option value="adv"> • Advérbios</option>
-          <option value="merda"> • merda</option>
+          <option value="cliches"> • Clichês</option>
+          <option value="pleonasmos"> • Pleonasmos</option>
+          <option value="cards"> • Personagens/Mundo</option>
         </select>
         <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
       </div>
