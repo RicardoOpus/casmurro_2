@@ -72,6 +72,10 @@ class ManuscriptService {
   async upDate(idItem: number, data: IManuscript) {
     await indexedDBrepository.manuscriptUpdate(idItem, data);
   }
+
+  async upDate2(idItem: number, data: string) {
+    await indexedDBrepository.manuscriptUpdate2(idItem, data);
+  }
 }
 const manuscriptService = new ManuscriptService();
 

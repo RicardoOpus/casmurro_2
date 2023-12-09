@@ -104,6 +104,19 @@ class Utils {
   isImageFile = (fileName: string) => fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') || fileName.endsWith('.png') || fileName.endsWith('.webp');
 
   isValideURL = (str: string) => str.startsWith('https://') || str.startsWith('https://');
+
+  getCPos = () => {
+    let caretPos: number | undefined;
+    const sel = document.getSelection();
+    if (sel) {
+      const range = sel.getRangeAt(0);
+      if (range) {
+        const rect = range.getBoundingClientRect();
+        caretPos = rect.y;
+      }
+    }
+    return caretPos;
+  };
 }
 
 const utils = new Utils();

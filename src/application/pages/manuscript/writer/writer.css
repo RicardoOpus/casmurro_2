@@ -23,9 +23,9 @@
 }
 
 .writerContainter {
-  max-height: 900px;
-  overflow: scroll;
-  padding: 1em 2em;
+  /* max-height: 900px;
+  overflow: scroll; */
+  padding: 0em 2em;
 }
 
 .lightScene {
@@ -50,20 +50,14 @@
 }
 
 .writerTitle {
-  align-items: baseline;
-  display: flex;
-  font-family: Amaranth;
-  font-size: 2.5em;
-  opacity: .6;
-  text-align: center;
-}
-
-.writerTitle {
   align-items: center;
   display: flex;
   flex-wrap: nowrap;
   font-family: TP;
+  font-size: 2.5em;
   justify-content: center;
+  margin: 0;
+  opacity: .6;
   text-align: center;
 }
 
@@ -74,8 +68,7 @@
   box-sizing: border-box;
   font-family: var(--user-scene-type);
   font-size: var(--user-scene-size);
-  margin: .5em 0;
-  overflow: hidden;
+  margin: 0;
   padding: 1em;
   padding: 0px;
   width: 100%;

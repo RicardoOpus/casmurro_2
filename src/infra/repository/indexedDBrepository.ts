@@ -396,6 +396,21 @@ class IndexedDBrepository {
     return null;
   }
 
+  async manuscriptUpdate2(ItemId: number, data: string) {
+    const projectID = await this.getCurrentProjectID();
+    const positionInArray = await this.getCurrentCard(ItemId, 'manuscript');
+    if (positionInArray !== -1 && projectID) {
+      await db.projects.where('id').equals(projectID).modify((e) => {
+        if (e.data?.manuscript) {
+          const item = e.data.manuscript.find((ele) => ele.id === ItemId);
+          if (item) {
+            item.content = data;
+          }
+        }
+      });
+    }
+  }
+
   async getNextAndPrevCardID(
     currentCardID: number,
     tableProperty: string,

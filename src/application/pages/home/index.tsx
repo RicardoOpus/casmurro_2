@@ -1,35 +1,57 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 function Dashboard() {
-  const navigate = useNavigate();
+  const [content, setContent] = useState('Começe por aqui');
+
+  const getCPos = () => {
+    let caretPos: number | undefined;
+    const sel = document.getSelection();
+    if (sel) {
+      const range = sel.getRangeAt(0);
+      if (range) {
+        const rect = range.getBoundingClientRect();
+        caretPos = rect.y;
+      }
+    }
+    return caretPos;
+  };
+
+  const dosave = () => {
+    console.log('chamou');
+    const textArea = document.getElementById('nodeText');
+    if (textArea) {
+      // Salve o conteúdo de nodeText no estado
+      setContent(textArea.innerText);
+    }
+  };
+
+  useEffect(() => {
+    const textArea = document.getElementById('nodeText');
+    if (textArea) {
+      textArea.addEventListener('input', () => {
+        const halfway = textArea.offsetHeight / 2;
+        const caret = getCPos();
+        if (caret !== undefined) {
+          if (caret > halfway) {
+            const fix = caret - halfway;
+            textArea.scrollTop += fix;
+          }
+        }
+        dosave();
+      });
+    }
+  }, []);
 
   return (
     <div className="innerContent">
       <div className="card">
-        <h1>Esse é um h1</h1>
-        <h2>Esse é um h2</h2>
-        <h3>Esse é um h3</h3>
-        <p>Isso é  um paragráfo comum</p>
-        <a href="./">Essa é uma link</a>
-        <button type="button" onClick={() => navigate('/dev')}>
-          Botão padrão sem classe
-        </button>
-        <button className="btnDiscret" type="button">Botão discreto</button>
-        <button className="btnMedium" type="button">botão M</button>
-        <button className="btnSmall" type="button">botão P</button>
-        <div>
-          Inputs
-          <input className="cardInput" type="text" placeholder="input text padrão" />
-          <input className="cardInput" type="number" />
-          <div className="checkbox-wrapper-2">
-            <input className="sc-gJwTLC ikxBAC" type="checkbox" />
-          </div>
-          <input className="cardInputDate" type="date" name="" id="" />
-          <select className="">
-            <option value="">-- selecione --</option>
-            <option value="">Opção 1</option>
-          </select>
-        </div>
+        <div
+          id="nodeText"
+          contentEditable
+          style={{
+            border: 'solid ', height: '50px', overflow: 'scroll', paddingBottom: '100%',
+          }}
+        />
       </div>
     </div>
   );

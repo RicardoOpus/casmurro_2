@@ -14,7 +14,6 @@ import TimerDisplay from './timer-display';
 import adverbiosList from '../../../../templates/adverbiosList';
 import clichesList from '../../../../templates/clichesList';
 import pleonasmosList from '../../../../templates/pleonasmosList';
-import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 
 function Writer() {
   const { id } = useParams();
@@ -46,6 +45,15 @@ function Writer() {
   const currentMItem = manuscriptItens?.find((e) => e.id === Number(id));
   const [stateMItem,
     setStateManuItem] = useState<IManuscript | Partial<IManuscript>>({});
+
+  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
+    const updatedState = { ...stateMItem, [key]: e.target.value, last_edit: Date.now() };
+    setStateManuItem(updatedState);
+    manuscriptService.upDate(Number(id), updatedState as IManuscript);
+    const textarea = e.target;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  };
 
   const adjustTextSize = (increaseStep: number, increase: boolean) => {
     const root = document.documentElement;
@@ -126,7 +134,6 @@ function Writer() {
   };
 
   const distractionFreeMode = () => {
-    dispatch(fetchProjectDataAction(true));
     setnoDisctration(!noDisctration);
   };
 
@@ -212,40 +219,14 @@ function Writer() {
   }, [categoryMark, prjSettings?.manuscriptPersonalWords, projectItens]);
 
   useEffect(() => {
-    if (currentMItem) {
-      setStateManuItem(currentMItem);
-      const textArea = document.getElementById('nodeText');
-      if (textArea && currentMItem) {
-        textArea.innerHTML = currentMItem.content || '';
-      }
-    }
-  }, [currentMItem, id]);
-
-  const dosave = async (currentId: number | undefined) => {
-    const textArea = document.getElementById('nodeText');
-    if (textArea && currentId) {
-      await manuscriptService.upDate2(Number(currentId), textArea.innerHTML);
-    }
-  };
+    utils.autoGrowAllTextareas();
+  }, []);
 
   useEffect(() => {
-    const textArea = document.getElementById('nodeText');
-    if (textArea) {
-      textArea.addEventListener('input', () => {
-        const halfway = textArea.offsetHeight / 2;
-        const caret = utils.getCPos();
-        if (caret !== undefined) {
-          // console.log('caret', caret, 'halfway', halfway);
-          if (caret > halfway) {
-            const fix = caret - halfway;
-            // console.log('fix', fix, 'caret', caret, 'halfway', halfway);
-            textArea.scrollTop += fix;
-          }
-        }
-        // dosave(id);
-      });
+    if (currentMItem) {
+      setStateManuItem(currentMItem);
     }
-  }, []);
+  }, [currentMItem, id]);
 
   return (
     <div className={noDisctration ? 'distractionFree' : ''}>
@@ -314,7 +295,7 @@ function Writer() {
         </h1>
         <div style={{ padding: noDisctration ? `0 ${statePaddingUser}em` : '1em' }}>
           <div style={{ position: 'relative' }}>
-            {/* <div>
+            <div>
               <div
                 // eslint-disable-next-line react/no-danger
                 dangerouslySetInnerHTML={{ __html: textHl }}
@@ -330,31 +311,13 @@ function Writer() {
                   whiteSpace: 'pre-wrap',
                 }}
               />
-            </div> */}
-            {/* <textarea
+            </div>
+            <textarea
               className="writeArea"
-              style={{
-                fontFamily: stateFontUser,
-                fontSize: stateSizeFontUser,
-                position: 'relative',
-              }}
+              style={{ fontFamily: stateFontUser, fontSize: stateSizeFontUser, position: 'relative' }}
               value={stateMItem?.content}
               onChange={(e) => handleTextAreaChange(e, 'content')}
               placeholder="Não iniciado..."
-            /> */}
-            <div
-              id="nodeText"
-              // className='writeArea'
-              onInput={() => dosave(stateMItem.id)}
-              contentEditable
-              style={{
-                fontFamily: stateFontUser,
-                fontSize: stateSizeFontUser,
-                position: 'relative',
-                paddingBottom: '100%',
-                height: '50px',
-                overflow: 'scroll',
-              }}
             />
           </div>
         </div>
