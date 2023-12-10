@@ -13,6 +13,7 @@ import TimerDisplay from './timer-display';
 import adverbiosList from '../../../../templates/adverbiosList';
 import clichesList from '../../../../templates/clichesList';
 import pleonasmosList from '../../../../templates/pleonasmosList';
+import utils from '../../../../service/utils';
 
 function Writer() {
   const { id } = useParams();
@@ -170,6 +171,8 @@ function Writer() {
         }, content);
       }
       setTextHl(result);
+    } else {
+      setTextHl('');
     }
   }, [markWords, categoryMark, stateMItem]);
 
@@ -232,6 +235,9 @@ function Writer() {
   useEffect(() => {
     if (currentMItem) {
       setStateManuItem(currentMItem);
+      const textarea = document.getElementById('innerWriterContainer');
+      utils.autoGrowAllTextareas();
+      textarea?.scrollTo(0, 0);
     }
   }, [currentMItem, id]);
 
@@ -328,6 +334,7 @@ function Writer() {
               placeholder="Não iniciado..."
             />
           </div>
+          <p className="endMark">***</p>
         </div>
       </div>
       <TimerModal
