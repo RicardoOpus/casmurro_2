@@ -104,6 +104,18 @@ class Utils {
   isImageFile = (fileName: string) => fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') || fileName.endsWith('.png') || fileName.endsWith('.webp');
 
   isValideURL = (str: string) => str.startsWith('https://') || str.startsWith('https://');
+
+  toggleFullscreen() {
+    if (
+      document.fullscreenElement
+    ) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    } else if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    }
+  }
 }
 
 const utils = new Utils();

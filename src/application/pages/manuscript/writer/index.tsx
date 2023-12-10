@@ -194,6 +194,10 @@ function Writer() {
     }
   };
 
+  const goFullScreen = () => {
+    utils.toggleFullscreen();
+  };
+
   useEffect(() => {
     const content = stateMItem?.content;
     if (content) {
@@ -358,6 +362,7 @@ function Writer() {
           </select>
           <button onClick={gotoTop} className="btnWriter" type="button">🡅</button>
           <button onClick={goToBottom} className="btnWriter" type="button">🡇</button>
+          <button onClick={goFullScreen} className="fullSceenIcon" type="button">{' '}</button>
           <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
           {wc > 0 && (
             <p>
