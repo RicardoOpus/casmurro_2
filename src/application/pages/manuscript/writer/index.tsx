@@ -352,7 +352,7 @@ function Writer() {
             <option value="cliches"> • Clichês</option>
             <option value="dialogos"> • Diálogos</option>
             <option value="aspas"> • Entre aspas</option>
-            <option value="pessoal"> • Liata pessoal</option>
+            <option value="pessoal"> • Lista pessoal</option>
             <option value="cards"> • Personagens/Mundo</option>
             <option value="pleonasmos"> • Pleonasmos</option>
           </select>
