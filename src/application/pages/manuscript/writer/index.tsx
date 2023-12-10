@@ -24,6 +24,7 @@ function Writer() {
   const [colapseState, setColapseState] = useState(false);
   const [textHeight, settextHeight] = useState(0);
   const [wc, setWC] = useState(0);
+  const [goalPercent, setGoalPercent] = useState('');
   const [countDown, setCountDown] = useState('99:99');
   const [categoryMark, setCategoryMark] = useState('');
   const [markWords, setmarkWords] = useState(['']);
@@ -239,12 +240,21 @@ function Writer() {
   useEffect(() => {
     if (stateMItem) {
       setWC(utils.countWords(stateMItem.content));
+      if (stateMItem.goalWC !== '') {
+        const goal = Number(stateMItem.goalWC);
+        const percentage = Math.floor((wc / goal) * 100);
+        setGoalPercent(` - ${percentage}%`);
+        if (wc === goal) {
+          console.log('Meta batida!');
+        }
+      }
     }
-  }, [stateMItem]);
+  }, [stateMItem, wc]);
 
   useEffect(() => {
     if (currentMItem) {
       setStateManuItem(currentMItem);
+      setGoalPercent('');
       const textarea = document.getElementById('innerWriterContainer');
       utils.autoGrowAllTextareas();
       textarea?.scrollTo(0, 0);
@@ -310,7 +320,12 @@ function Writer() {
             <option value="pleonasmos"> • Pleonasmos</option>
           </select>
           <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
-          {wc > 0 && (<p>{wc}</p>)}
+          {wc > 0 && (
+            <p>
+              {wc}
+              {goalPercent}
+            </p>
+          )}
         </div>
         <div id="innerWriterContainer" className={`writerContainter ${stateColorScheme}`} style={{ height: noDisctration ? '100%' : '' }}>
           <h1 className="writerTitle" style={{ fontFamily: stateFontUser }}>
