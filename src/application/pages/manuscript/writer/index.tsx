@@ -136,6 +136,9 @@ function Writer() {
 
   const distractionFreeMode = () => {
     setnoDisctration(!noDisctration);
+    const { body } = document;
+    const isInDistractionFreeMode = !body.style.overflow;
+    body.style.overflow = isInDistractionFreeMode ? 'hidden' : '';
   };
 
   const colapeDetails = (colapse: boolean) => {

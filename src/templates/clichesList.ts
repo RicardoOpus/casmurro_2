@@ -126,7 +126,6 @@ const clichesList = [
   'nem morto',
   'nem pensar',
   'no dia a dia',
-  'no fundo',
   'no meio do caminho',
   'no papo reto',
   'no rastro',
