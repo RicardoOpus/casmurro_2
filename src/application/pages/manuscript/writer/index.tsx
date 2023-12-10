@@ -52,12 +52,24 @@ function Writer() {
     setStateManuItem] = useState<IManuscript | Partial<IManuscript>>({});
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    const updatedState = { ...stateMItem, [key]: e.target.value, last_edit: Date.now() };
-    setStateManuItem(updatedState);
-    manuscriptService.upDate(Number(id), updatedState as IManuscript);
     const textarea = e.target;
-    textarea.style.height = 'auto';
-    textarea.style.height = `${textarea.scrollHeight}px`;
+    const originalValue = textarea.value;
+    const originalSelectionStart = textarea.selectionStart;
+    const originalSelectionEnd = textarea.selectionEnd;
+    const { value } = e.target;
+    if (value) {
+      const updatedValue = value.replace(/--/g, '—');
+      const updatedState = { ...stateMItem, [key]: updatedValue, last_edit: Date.now() };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(Number(id), updatedState as IManuscript);
+      textarea.value = updatedValue;
+      textarea.setSelectionRange(
+        originalSelectionStart + (updatedValue.length - originalValue.length),
+        originalSelectionEnd + (updatedValue.length - originalValue.length),
+      );
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
   };
 
   const adjustTextSize = (increaseStep: number, increase: boolean) => {
