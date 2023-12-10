@@ -6,7 +6,6 @@ import {
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import IManuscript from '../../../../domain/IManuscript';
 import manuscriptService from '../../../../service/manuscriptService';
-import utils from '../../../../service/utils';
 import './writer.css';
 import manuscriptColapseDetail from '../../../redux/actions/manuscriptActons';
 import TimerModal from './timer-modal';
@@ -22,6 +21,7 @@ function Writer() {
   const [showTimer, setShowTimer] = useState(false);
   const [noDisctration, setnoDisctration] = useState(false);
   const [colapseState, setColapseState] = useState(false);
+  const [textHeight, settextHeight] = useState(0);
   const [countDown, setCountDown] = useState('99:99');
   const [categoryMark, setCategoryMark] = useState('');
   const [markWords, setmarkWords] = useState(['']);
@@ -219,8 +219,15 @@ function Writer() {
   }, [categoryMark, prjSettings?.manuscriptPersonalWords, projectItens]);
 
   useEffect(() => {
-    utils.autoGrowAllTextareas();
-  }, []);
+    const writeAreaHeight = document.getElementById('writeArea')?.clientHeight || 0;
+    settextHeight(writeAreaHeight);
+    if (writeAreaHeight > textHeight) {
+      const textarea = document.getElementById('innerWriterContainer');
+      if (textarea) {
+        textarea.scrollBy(0, writeAreaHeight - textHeight);
+      }
+    }
+  }, [stateMItem, textHeight]);
 
   useEffect(() => {
     if (currentMItem) {
@@ -287,7 +294,7 @@ function Writer() {
         </select>
         <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
       </div>
-      <div className={`writerContainter ${stateColorScheme}`}>
+      <div id="innerWriterContainer" className={`writerContainter ${stateColorScheme}`} style={{ height: noDisctration ? '100%' : '' }}>
         <h1 className="writerTitle" style={{ fontFamily: stateFontUser }}>
           {handleDecoration(stateFontUser)}
           {stateMItem.title}
@@ -313,6 +320,7 @@ function Writer() {
               />
             </div>
             <textarea
+              id="writeArea"
               className="writeArea"
               style={{ fontFamily: stateFontUser, fontSize: stateSizeFontUser, position: 'relative' }}
               value={stateMItem?.content}
