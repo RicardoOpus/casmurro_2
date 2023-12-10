@@ -178,6 +178,22 @@ function Writer() {
     }, 9000);
   };
 
+  const goToBottom = () => {
+    const end = document.getElementById('refEnd');
+    if (end) {
+      // beginner.scrollTop = beginner?.scrollHeight;
+      end.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const gotoTop = () => {
+    const beginner = document.getElementById('refTop');
+    if (beginner) {
+      // beginner.scrollTop = beginner?.scrollHeight;
+      beginner.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     const content = stateMItem?.content;
     if (content) {
@@ -340,6 +356,8 @@ function Writer() {
             <option value="cards"> • Personagens/Mundo</option>
             <option value="pleonasmos"> • Pleonasmos</option>
           </select>
+          <button onClick={gotoTop} className="btnWriter" type="button">🡅</button>
+          <button onClick={goToBottom} className="btnWriter" type="button">🡇</button>
           <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
           {wc > 0 && (
             <p>
@@ -349,7 +367,7 @@ function Writer() {
           )}
         </div>
         <div id="innerWriterContainer" className={`writerContainter ${stateColorScheme}`} style={{ height: noDisctration ? '100%' : '' }}>
-          <h1 className="writerTitle" style={{ fontFamily: stateFontUser }}>
+          <h1 id="refTop" className="writerTitle" style={{ fontFamily: stateFontUser }}>
             {handleDecoration(stateFontUser)}
             {stateMItem.title}
             {handleDecoration2(stateFontUser)}
@@ -382,7 +400,7 @@ function Writer() {
                 placeholder="Não iniciado..."
               />
             </div>
-            <p className="endMark">***</p>
+            <p id="refEnd" className="endMark">***</p>
           </div>
         </div>
         <TimerModal
