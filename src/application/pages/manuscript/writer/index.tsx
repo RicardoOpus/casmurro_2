@@ -23,6 +23,7 @@ function Writer() {
   const [noDisctration, setnoDisctration] = useState(false);
   const [colapseState, setColapseState] = useState(false);
   const [textHeight, settextHeight] = useState(0);
+  const [wc, setWC] = useState(0);
   const [countDown, setCountDown] = useState('99:99');
   const [categoryMark, setCategoryMark] = useState('');
   const [markWords, setmarkWords] = useState(['']);
@@ -236,6 +237,12 @@ function Writer() {
   }, [stateMItem, textHeight]);
 
   useEffect(() => {
+    if (stateMItem) {
+      setWC(utils.countWords(stateMItem.content));
+    }
+  }, [stateMItem]);
+
+  useEffect(() => {
     if (currentMItem) {
       setStateManuItem(currentMItem);
       const textarea = document.getElementById('innerWriterContainer');
@@ -303,6 +310,7 @@ function Writer() {
             <option value="pleonasmos"> • Pleonasmos</option>
           </select>
           <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
+          {wc > 0 && (<p>{wc}</p>)}
         </div>
         <div id="innerWriterContainer" className={`writerContainter ${stateColorScheme}`} style={{ height: noDisctration ? '100%' : '' }}>
           <h1 className="writerTitle" style={{ fontFamily: stateFontUser }}>
