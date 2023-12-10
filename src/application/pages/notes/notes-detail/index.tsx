@@ -7,7 +7,6 @@ import NextAndPrevCard from '../../../components/next-and-prev';
 import IrootStateProject from '../../../../domain/IrootStateProject';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import GenericModal from '../../../components/generic-modal';
-import TypeWriterSound from '../../../components/type-write-sound';
 import utils from '../../../../service/utils';
 import Loading from '../../../components/loading';
 import INotes from '../../../../domain/InotesModel';
@@ -258,7 +257,6 @@ function NotesDetail() {
             currentList={stateNoteItem.link_list || []}
             updateLinks={updateLinks}
           />
-          {prjSettings.typeWriterSound && (<TypeWriterSound />)}
         </div>
       )}
     </div>

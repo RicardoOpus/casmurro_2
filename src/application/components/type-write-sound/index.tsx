@@ -86,9 +86,12 @@ function TypeWriterSound() {
           break;
       }
     };
-    window.addEventListener('keydown', handleKeyPress);
+    const textScene = document.getElementById('writeArea');
+    if (textScene) {
+      textScene.addEventListener('keydown', handleKeyPress);
+    }
     return () => {
-      window.removeEventListener('keydown', handleKeyPress);
+      textScene?.removeEventListener('keydown', handleKeyPress);
     };
   }, [typeWriterVolume]);
 

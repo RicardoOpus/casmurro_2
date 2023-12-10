@@ -8,7 +8,6 @@ import ICharacter from '../../../../domain/characterModel';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import utils from '../../../../service/utils';
 import GenericModal from '../../../components/generic-modal';
-import TypeWriterSound from '../../../components/type-write-sound';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
 import CharRelationsModal from './characters-relations';
@@ -479,7 +478,6 @@ function CharacterDetail() {
             currentList={stateCharacter.link_list || []}
             updateLinks={updateLinks}
           />
-          {prjSettings.typeWriterSound && (<TypeWriterSound />)}
         </div>
       )}
     </div>

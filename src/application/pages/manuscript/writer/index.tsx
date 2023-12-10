@@ -15,6 +15,7 @@ import clichesList from '../../../../templates/clichesList';
 import pleonasmosList from '../../../../templates/pleonasmosList';
 import utils from '../../../../service/utils';
 import Alert from '../../../components/alert';
+import TypeWriterSound from '../../../components/type-write-sound';
 
 function Writer() {
   const { id } = useParams();
@@ -181,7 +182,6 @@ function Writer() {
   const goToBottom = () => {
     const end = document.getElementById('refEnd');
     if (end) {
-      // beginner.scrollTop = beginner?.scrollHeight;
       end.scrollIntoView({ behavior: 'smooth' });
     }
   };
@@ -189,14 +189,11 @@ function Writer() {
   const gotoTop = () => {
     const beginner = document.getElementById('refTop');
     if (beginner) {
-      // beginner.scrollTop = beginner?.scrollHeight;
       beginner.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  const goFullScreen = () => {
-    utils.toggleFullscreen();
-  };
+  const goFullScreen = () => utils.toggleFullscreen();
 
   useEffect(() => {
     const content = stateMItem?.content;
@@ -210,7 +207,6 @@ function Writer() {
         result = content.replace(/"([^"\n]*\b[^"\n]*)"/g, (match) => `<mark class="markWordHL">${match}</mark>`);
       } else {
         result = markWords.reduce((acc, keyword) => {
-          // const regexp = new RegExp(keyword, 'gi');
           const regexp = new RegExp(`\\b${keyword}\\b`, 'gi');
           return acc.replace(regexp, '<mark class="markWord">$&</mark>');
         }, content);
@@ -308,18 +304,18 @@ function Writer() {
         <div className="writerButtons">
           {!noDisctration && (
             !colapseState ? (
-              <button onClick={() => colapeDetails(true)} className="btnWriter" type="button">🡹</button>
+              <button title="Expandir" onClick={() => colapeDetails(true)} className="btnWriter" type="button">🡹</button>
             ) : (
-              <button onClick={() => colapeDetails(false)} className="btnWriter" type="button">🡻</button>
+              <button title="Recolher" onClick={() => colapeDetails(false)} className="btnWriter" type="button">🡻</button>
             )
           )}
-          <button onClick={distractionFreeMode} className="distractionFreeIcon" type="button">{' '}</button>
-          <button onClick={() => adjustTextSize(1, true)} className="btnWriter" type="button">+ A</button>
-          <button onClick={() => adjustTextSize(1, false)} className="btnWriter" type="button">- A</button>
+          <button title="Modo sem distrações" onClick={distractionFreeMode} className="distractionFreeIcon" type="button">{' '}</button>
+          <button title="Aumentar fonte" onClick={() => adjustTextSize(1, true)} className="btnWriter" type="button">+ A</button>
+          <button title="Diminuir fonte" onClick={() => adjustTextSize(1, false)} className="btnWriter" type="button">- A</button>
           {noDisctration && (
             <>
-              <button onClick={() => adjustTextArea(true)} className="btnWriter" type="button">↔+</button>
-              <button onClick={() => adjustTextArea(false)} className="btnWriter" type="button">↔-</button>
+              <button title="Aumentar largura" onClick={() => adjustTextArea(true)} className="btnWriter" type="button">↔+</button>
+              <button title="Diminuir largura" onClick={() => adjustTextArea(false)} className="btnWriter" type="button">↔-</button>
             </>
           )}
           <select
@@ -360,12 +356,12 @@ function Writer() {
             <option value="cards"> • Personagens/Mundo</option>
             <option value="pleonasmos"> • Pleonasmos</option>
           </select>
-          <button onClick={gotoTop} className="btnWriter" type="button">🡅</button>
-          <button onClick={goToBottom} className="btnWriter" type="button">🡇</button>
-          <button onClick={goFullScreen} className="fullSceenIcon" type="button">{' '}</button>
-          <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
+          <button title="Ir para topo" onClick={gotoTop} className="btnWriter" type="button">🡅</button>
+          <button title="Ir para final" onClick={goToBottom} className="btnWriter" type="button">🡇</button>
+          <button title="Modo tela cheia (F11)" onClick={goFullScreen} className="fullSceenIcon" type="button">{' '}</button>
+          <button title="Temporizador" onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
           {wc > 0 && (
-            <p>
+            <p title="Total de palavras">
               {wc}
               {goalPercent}
             </p>
@@ -420,6 +416,7 @@ function Writer() {
         {showAlert && (
           <Alert mensage="Meta batida!" />
         )}
+        {prjSettings.typeWriterSound && (<TypeWriterSound />)}
       </div>
     )
   );

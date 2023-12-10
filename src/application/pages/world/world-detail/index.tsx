@@ -8,7 +8,6 @@ import IrootStateProject from '../../../../domain/IrootStateProject';
 import IWorld from '../../../../domain/worldModel';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import GenericModal from '../../../components/generic-modal';
-import TypeWriterSound from '../../../components/type-write-sound';
 import utils from '../../../../service/utils';
 import Loading from '../../../components/loading';
 import WorldAddonsModal from '../world-addons';
@@ -285,7 +284,6 @@ function WorldDetail() {
             currentList={stateWorldItem.link_list || []}
             updateLinks={updateLinks}
           />
-          {prjSettings.typeWriterSound && (<TypeWriterSound />)}
         </div>
       )}
     </div>
