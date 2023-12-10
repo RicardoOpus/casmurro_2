@@ -245,111 +245,113 @@ function Writer() {
   }, [currentMItem, id]);
 
   return (
-    <div className={noDisctration ? 'distractionFree' : ''}>
-      <div className="writerButtons">
-        {!noDisctration && (
-          !colapseState ? (
-            <button onClick={() => colapeDetails(true)} className="btnWriter" type="button">🡹</button>
-          ) : (
-            <button onClick={() => colapeDetails(false)} className="btnWriter" type="button">🡻</button>
-          )
-        )}
-        <button onClick={distractionFreeMode} className="distractionFreeIcon" type="button">{' '}</button>
-        <button onClick={() => adjustTextSize(1, true)} className="btnWriter" type="button">+ A</button>
-        <button onClick={() => adjustTextSize(1, false)} className="btnWriter" type="button">- A</button>
-        {noDisctration && (
-          <>
-            <button onClick={() => adjustTextArea(true)} className="btnWriter" type="button">↔+</button>
-            <button onClick={() => adjustTextArea(false)} className="btnWriter" type="button">↔-</button>
-          </>
-        )}
-        <select
-          className="ui-button ui-corner-all writeSelect"
-          onChange={(e) => handleSelectChange(e)}
-          value={stateFontUser}
-          style={{ color: 'var(--text-color-inactive)' }}
-        >
-          <option disabled>Tido da Fonte</option>
-          <option value="PT"> • Serifa</option>
-          <option value="Roboto"> • Sem Serifa</option>
-          <option value="TypeCurier"> • Mono</option>
-        </select>
-        <select
-          className="ui-button ui-corner-all writeSelect"
-          onChange={(e) => handleColoScheme(e)}
-          value={stateColorScheme}
-          style={{ color: 'var(--text-color-inactive)' }}
-        >
-          <option disabled>Esquema de cores</option>
-          <option value="lightScene"> • Claro</option>
-          <option value="sepiaScene"> • Sépia</option>
-          <option value="darkScene"> • Escuro</option>
-        </select>
-        <select
-          className="ui-button ui-corner-all writeSelect"
-          value={categoryMark}
-          onChange={(e) => handleSelectMark(e)}
-          style={{ color: 'var(--text-color-inactive)' }}
-        >
-          <option disabled>Marcar palavras</option>
-          <option value="nothing"> • Nenhuma</option>
-          <option value="adv"> • Advérbios</option>
-          <option value="cliches"> • Clichês</option>
-          <option value="dialogos"> • Diálogos</option>
-          <option value="aspas"> • Entre aspas</option>
-          <option value="pessoal"> • Liata pessoal</option>
-          <option value="cards"> • Personagens/Mundo</option>
-          <option value="pleonasmos"> • Pleonasmos</option>
-        </select>
-        <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
-      </div>
-      <div id="innerWriterContainer" className={`writerContainter ${stateColorScheme}`} style={{ height: noDisctration ? '100%' : '' }}>
-        <h1 className="writerTitle" style={{ fontFamily: stateFontUser }}>
-          {handleDecoration(stateFontUser)}
-          {stateMItem.title}
-          {handleDecoration2(stateFontUser)}
-        </h1>
-        <div className="innerWriterContainer" style={{ paddingLeft: noDisctration ? `${statePaddingUser}em` : '1em', paddingRight: noDisctration ? `${statePaddingUser}em` : '1em' }}>
-          <div style={{ position: 'relative' }}>
-            <div>
-              <div
-                // eslint-disable-next-line react/no-danger
-                dangerouslySetInnerHTML={{ __html: textHl }}
+    currentMItem && (
+      <div className={noDisctration ? 'distractionFree' : ''}>
+        <div className="writerButtons">
+          {!noDisctration && (
+            !colapseState ? (
+              <button onClick={() => colapeDetails(true)} className="btnWriter" type="button">🡹</button>
+            ) : (
+              <button onClick={() => colapeDetails(false)} className="btnWriter" type="button">🡻</button>
+            )
+          )}
+          <button onClick={distractionFreeMode} className="distractionFreeIcon" type="button">{' '}</button>
+          <button onClick={() => adjustTextSize(1, true)} className="btnWriter" type="button">+ A</button>
+          <button onClick={() => adjustTextSize(1, false)} className="btnWriter" type="button">- A</button>
+          {noDisctration && (
+            <>
+              <button onClick={() => adjustTextArea(true)} className="btnWriter" type="button">↔+</button>
+              <button onClick={() => adjustTextArea(false)} className="btnWriter" type="button">↔-</button>
+            </>
+          )}
+          <select
+            className="ui-button ui-corner-all writeSelect"
+            onChange={(e) => handleSelectChange(e)}
+            value={stateFontUser}
+            style={{ color: 'var(--text-color-inactive)' }}
+          >
+            <option disabled>Tido da Fonte</option>
+            <option value="PT"> • Serifa</option>
+            <option value="Roboto"> • Sem Serifa</option>
+            <option value="TypeCurier"> • Mono</option>
+          </select>
+          <select
+            className="ui-button ui-corner-all writeSelect"
+            onChange={(e) => handleColoScheme(e)}
+            value={stateColorScheme}
+            style={{ color: 'var(--text-color-inactive)' }}
+          >
+            <option disabled>Esquema de cores</option>
+            <option value="lightScene"> • Claro</option>
+            <option value="sepiaScene"> • Sépia</option>
+            <option value="darkScene"> • Escuro</option>
+          </select>
+          <select
+            className="ui-button ui-corner-all writeSelect"
+            value={categoryMark}
+            onChange={(e) => handleSelectMark(e)}
+            style={{ color: 'var(--text-color-inactive)' }}
+          >
+            <option disabled>Marcar palavras</option>
+            <option value="nothing"> • Nenhuma</option>
+            <option value="adv"> • Advérbios</option>
+            <option value="cliches"> • Clichês</option>
+            <option value="dialogos"> • Diálogos</option>
+            <option value="aspas"> • Entre aspas</option>
+            <option value="pessoal"> • Liata pessoal</option>
+            <option value="cards"> • Personagens/Mundo</option>
+            <option value="pleonasmos"> • Pleonasmos</option>
+          </select>
+          <button onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
+        </div>
+        <div id="innerWriterContainer" className={`writerContainter ${stateColorScheme}`} style={{ height: noDisctration ? '100%' : '' }}>
+          <h1 className="writerTitle" style={{ fontFamily: stateFontUser }}>
+            {handleDecoration(stateFontUser)}
+            {stateMItem.title}
+            {handleDecoration2(stateFontUser)}
+          </h1>
+          <div className="innerWriterContainer" style={{ paddingLeft: noDisctration ? `${statePaddingUser}em` : '1em', paddingRight: noDisctration ? `${statePaddingUser}em` : '1em' }}>
+            <div style={{ position: 'relative' }}>
+              <div>
+                <div
+                  // eslint-disable-next-line react/no-danger
+                  dangerouslySetInnerHTML={{ __html: textHl }}
+                  className="writeArea"
+                  style={{
+                    fontFamily: stateFontUser,
+                    fontSize: stateSizeFontUser,
+                    position: 'absolute',
+                    top: '0',
+                    left: '0',
+                    overflow: 'hidden',
+                    color: 'transparent',
+                    whiteSpace: 'pre-wrap',
+                  }}
+                />
+              </div>
+              <textarea
+                id="writeArea"
                 className="writeArea"
-                style={{
-                  fontFamily: stateFontUser,
-                  fontSize: stateSizeFontUser,
-                  position: 'absolute',
-                  top: '0',
-                  left: '0',
-                  overflow: 'hidden',
-                  color: 'transparent',
-                  whiteSpace: 'pre-wrap',
-                }}
+                style={{ fontFamily: stateFontUser, fontSize: stateSizeFontUser, position: 'relative' }}
+                value={stateMItem?.content}
+                onChange={(e) => handleTextAreaChange(e, 'content')}
+                placeholder="Não iniciado..."
               />
             </div>
-            <textarea
-              id="writeArea"
-              className="writeArea"
-              style={{ fontFamily: stateFontUser, fontSize: stateSizeFontUser, position: 'relative' }}
-              value={stateMItem?.content}
-              onChange={(e) => handleTextAreaChange(e, 'content')}
-              placeholder="Não iniciado..."
-            />
+            <p className="endMark">***</p>
           </div>
-          <p className="endMark">***</p>
         </div>
+        <TimerModal
+          openModal={modal}
+          showTimer={() => setShowTimer(true)}
+          onClose={closeModal}
+          updateTimer={(e) => setCountDown(e)}
+        />
+        {showTimer && (
+          <TimerDisplay onClose={closeModalTimer} countDown={countDown} />
+        )}
       </div>
-      <TimerModal
-        openModal={modal}
-        showTimer={() => setShowTimer(true)}
-        onClose={closeModal}
-        updateTimer={(e) => setCountDown(e)}
-      />
-      {showTimer && (
-        <TimerDisplay onClose={closeModalTimer} countDown={countDown} />
-      )}
-    </div>
+    )
   );
 }
 
