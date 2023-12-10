@@ -14,6 +14,7 @@ import adverbiosList from '../../../../templates/adverbiosList';
 import clichesList from '../../../../templates/clichesList';
 import pleonasmosList from '../../../../templates/pleonasmosList';
 import utils from '../../../../service/utils';
+import Alert from '../../../components/alert';
 
 function Writer() {
   const { id } = useParams();
@@ -22,6 +23,7 @@ function Writer() {
   const [showTimer, setShowTimer] = useState(false);
   const [noDisctration, setnoDisctration] = useState(false);
   const [colapseState, setColapseState] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const [textHeight, settextHeight] = useState(0);
   const [wc, setWC] = useState(0);
   const [goalPercent, setGoalPercent] = useState('');
@@ -158,6 +160,12 @@ function Writer() {
     setCountDown('99:99');
   };
 
+  const closeAlert = () => {
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 9000);
+  };
+
   useEffect(() => {
     const content = stateMItem?.content;
     if (content) {
@@ -245,7 +253,8 @@ function Writer() {
         const percentage = Math.floor((wc / goal) * 100);
         setGoalPercent(` - ${percentage}%`);
         if (wc === goal) {
-          console.log('Meta batida!');
+          setShowAlert(true);
+          closeAlert();
         }
       }
     }
@@ -372,6 +381,9 @@ function Writer() {
         />
         {showTimer && (
           <TimerDisplay onClose={closeModalTimer} countDown={countDown} />
+        )}
+        {showAlert && (
+          <Alert mensage="Meta batida!" />
         )}
       </div>
     )
