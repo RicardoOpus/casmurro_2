@@ -293,7 +293,7 @@ function Writer() {
           {stateMItem.title}
           {handleDecoration2(stateFontUser)}
         </h1>
-        <div style={{ padding: noDisctration ? `0 ${statePaddingUser}em` : '1em' }}>
+        <div className="innerWriterContainer" style={{ paddingLeft: noDisctration ? `${statePaddingUser}em` : '1em', paddingRight: noDisctration ? `${statePaddingUser}em` : '1em' }}>
           <div style={{ position: 'relative' }}>
             <div>
               <div
