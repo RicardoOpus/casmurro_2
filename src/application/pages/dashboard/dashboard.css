@@ -1,0 +1,45 @@
+.dashboardTitle,
+.dashboardSubTitle,
+.dashboardAuthor {
+  all: unset;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-family: Amaranth;
+  font-size: 3em;
+  height: 1em;
+  margin-bottom: 0;
+  margin-top: .5em;
+  padding: 0px 1em 0px 1em;
+  text-align: center;
+  width: 100%;
+}
+
+.dashboardSubTitle {
+  font-size: 2em;
+  margin-top: 5px;
+}
+
+.dashboardAuthor {
+  color: var(--text-color-inactive);
+  font-size: 1.5em;
+  margin-top: 5px;
+}
+
+.projectResumeInput {
+  all: unset;
+  background-color: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-family: var(--user-text-type);
+  font-size: large;
+  font-size: var(--user-text-size);
+  height: 200px;
+  margin: 2em 0;
+  overflow: hidden;
+  padding: 0px 1em 0px 1em;
+  padding: 1em;
+  width: 100%;
+}

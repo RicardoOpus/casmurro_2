@@ -8,7 +8,11 @@ class ProjectServide {
     const now = Date.now();
     const newProject: IProject = {
       title: projectName,
+      subtitle: '',
+      author: '',
       status: this.deafultStatus,
+      literary_genre: '',
+      projectResume: '',
       last_edit: now,
       created_at: now,
       lastBackup: 0,
@@ -84,7 +88,6 @@ class ProjectServide {
         typeWriterVolume: 0.5,
       },
       id_controler: 0,
-      cards_qty: 0,
       data: {
         characters: [],
         world: [],

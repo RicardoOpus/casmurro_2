@@ -77,6 +77,19 @@ class IndexedDBrepository {
     return null;
   }
 
+  async projectBasicUpdate(data: IProject) {
+    const projectID = await this.getCurrentProjectID();
+    const project = await db.projects.where({ id: projectID }).first();
+    if (project) {
+      console.log(data);
+      await db.projects.update(projectID, data);
+      this.updateLastEdit();
+      console.log('Nota atualizado com sucesso!');
+    } else {
+      console.error('Projeto não encontrado.');
+    }
+  }
+
   async cardPost(newData: ICharacter, table: string) {
     const projectID = await this.getCurrentProjectID();
     const projectData: IProject | undefined = await db.projects.where('id').equals(projectID).first();

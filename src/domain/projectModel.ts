@@ -25,7 +25,6 @@ interface IProject {
     manuscriptPersonalWords: string[],
   };
   id_controler: number;
-  cards_qty: number;
   lastBackup: number;
   id?: number;
   data?: {
@@ -37,9 +36,8 @@ interface IProject {
   };
   subtitle?: string;
   author?: string;
-  recent_edits?: object;
   literary_genre?: string;
-  description?: string;
+  projectResume?: string;
   image_cover?: string;
   image_project?: string;
   startDate?: string;

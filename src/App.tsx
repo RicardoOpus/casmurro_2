@@ -1,6 +1,6 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import Dashboard from './application/pages/home';
+import Dashboard from './application/pages/dashboard';
 import Layout from './application/components/layout';
 import NotFoundPage from './application/pages/not-found';
 import Projects from './application/pages/projects';
