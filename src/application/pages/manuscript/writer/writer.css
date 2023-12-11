@@ -172,6 +172,7 @@
   height: 25px;
   -webkit-mask: var(--distractionFree-icon) no-repeat center / contain;
   mask: var(--distractionFree-icon) no-repeat center / contain;
+  padding: 0;
   width: 25px;
 }
 

@@ -143,7 +143,7 @@ function DraftList() {
               className="wordCountSpan"
               style={{ color: cene.current ? '#000000de' : '', marginLeft: '.5em' }}
             >
-              {`(${utils.countWords(cene.resume)})`}
+              {`(${utils.countWords(cene.content)})`}
             </span>
           )}
           {prjSettings.manuscriptShowChecks && (

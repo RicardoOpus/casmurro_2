@@ -299,7 +299,7 @@ function Writer() {
   }, [currentMItem, id]);
 
   return (
-    currentMItem && (
+    currentMItem && currentMItem.type !== 'Capítulo' && (
       <div className={noDisctration ? 'distractionFree' : ''}>
         <div className="writerButtons">
           {!noDisctration && (

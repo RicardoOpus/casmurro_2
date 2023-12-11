@@ -181,6 +181,11 @@ function DraftDetail() {
     if (currentMItem) {
       setStateManuItem(currentMItem);
       setIsLoading(false);
+      if (currentMItem.type !== 'Cena') {
+        setHeight(600);
+      } else {
+        setHeight(300);
+      }
     }
   }, [currentMItem, id]);
 
@@ -213,37 +218,43 @@ function DraftDetail() {
                 />
                 <div className="detailBarButtons">
                   <div className="detailBarButtonsItens">
-                    <span className="tooltip-default" data-balloon aria-label="Personagens em cena" data-balloon-pos="right">
-                      <label className="addCharScene" htmlFor="addCharScene">
-                        <button id="addCharScene" onClick={() => setModalCharScene(true)} className="btnInvisible" type="button">{ }</button>
-                      </label>
-                    </span>
-                    <span className="tooltip-default" data-balloon aria-label="Adicionar imagem" data-balloon-pos="down">
-                      <label htmlFor="addImage">
-                        <div className="profile-pic addImage">
-                          <input
-                            id="addImage"
-                            onChange={(e) => handleFileInput(e.target)}
-                            type="file"
-                          />
-                        </div>
-                      </label>
-                    </span>
-                    <span className="tooltip-default" data-balloon aria-label="Remover imagem" data-balloon-pos="down">
-                      <label className="removeImage" htmlFor="removeImage">
-                        <button id="removeImage" onClick={clearImage} className="btnInvisible" type="button">{ }</button>
-                      </label>
-                    </span>
-                    <span className="tooltip-default" data-balloon aria-label="Adicionar link externo" data-balloon-pos="down">
-                      <label className="addLink" htmlFor="addLink">
-                        <button id="addLink" onClick={() => setModalLink(true)} className="btnInvisible" type="button">{ }</button>
-                      </label>
-                    </span>
+                    {stateMItem.type === 'Cena' && (
+                      <div className="detailBarButtonsItens">
+                        <span className="tooltip-default" data-balloon aria-label="Personagens em cena" data-balloon-pos="right">
+                          <label className="addCharScene" htmlFor="addCharScene">
+                            <button id="addCharScene" onClick={() => setModalCharScene(true)} className="btnInvisible" type="button">{ }</button>
+                          </label>
+                        </span>
+                        <span className="tooltip-default" data-balloon aria-label="Adicionar imagem" data-balloon-pos="down">
+                          <label htmlFor="addImage">
+                            <div className="profile-pic addImage">
+                              <input
+                                id="addImage"
+                                onChange={(e) => handleFileInput(e.target)}
+                                type="file"
+                              />
+                            </div>
+                          </label>
+                        </span>
+                        <span className="tooltip-default" data-balloon aria-label="Remover imagem" data-balloon-pos="down">
+                          <label className="removeImage" htmlFor="removeImage">
+                            <button id="removeImage" onClick={clearImage} className="btnInvisible" type="button">{ }</button>
+                          </label>
+                        </span>
+                        <span className="tooltip-default" data-balloon aria-label="Adicionar link externo" data-balloon-pos="down">
+                          <label className="addLink" htmlFor="addLink">
+                            <button id="addLink" onClick={() => setModalLink(true)} className="btnInvisible" type="button">{ }</button>
+                          </label>
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="detailBarButtonsItens">
-                    <span className="tooltip-default" data-balloon aria-label="Mostrar/ocultar campos extras" data-balloon-pos="down">
-                      <button className="detailAdd" type="button" onClick={() => setModalAddons(true)}>{ }</button>
-                    </span>
+                    {stateMItem.type === 'Cena' && (
+                      <span className="tooltip-default" data-balloon aria-label="Mostrar/ocultar campos extras" data-balloon-pos="down">
+                        <button className="detailAdd" type="button" onClick={() => setModalAddons(true)}>{ }</button>
+                      </span>
+                    )}
                     <button onClick={() => setModal(true)} className="btnSmall" type="button">
                       <span className="ui-icon ui-icon-trash icon-color" />
                       {' '}
@@ -382,7 +393,7 @@ function DraftDetail() {
                   <h3>Resumo</h3>
                   <textarea
                     className="cardInputFull"
-                    placeholder="Descreva de forma breve a cena..."
+                    placeholder={stateMItem.type === 'Cena' ? 'Descreva de forma breve a cena...' : 'Descreve o capítulo...'}
                     value={stateMItem?.resume}
                     onChange={(e) => handleTextAreaChange(e, 'resume')}
                   />
