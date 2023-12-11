@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import IManuscript from '../../../../../domain/IManuscript';
+import manuscriptService from '../../../../../service/manuscriptService';
+import { fetchProjectDataAction } from '../../../../redux/actions/projectActions';
 
 interface CardInspectProps {
   card: IManuscript;
@@ -7,11 +10,18 @@ interface CardInspectProps {
 
 function ChapterInspect({ card }: CardInspectProps) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleClick = async () => {
+    await manuscriptService.updateCurrent(card.id);
+    dispatch(fetchProjectDataAction(true));
+    navigate(`/manuscript/${card.id}`);
+  };
 
   return (
     <div className="inspectCard">
       <div className="inspectTitle">
-        <button onClick={() => navigate(`/manuscript/${card.id}`)} className="btnInvisible" type="button">{card.title}</button>
+        <button onClick={handleClick} className="btnInvisible" type="button">{card.title}</button>
       </div>
       <div className="inspecInfos">
         {card.status ? <span>Status:</span> : ''}

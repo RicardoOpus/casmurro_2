@@ -3,6 +3,7 @@ import ICardInspectProps from '../../../../domain/IcardInspectProps';
 import CharInspect from './cha-inspect';
 import ChapterInspect from './chapter-inspect';
 import NotesInspect from './notes-inspect';
+import SceneInspect from './scene-inspect';
 import WorldInspect from './world-inspect';
 
 function CardInspect({ card }: ICardInspectProps) {
@@ -16,6 +17,8 @@ function CardInspect({ card }: ICardInspectProps) {
         return <NotesInspect card={card} />;
       case 'Capítulo':
         return <ChapterInspect card={card as IManuscript} />;
+      case 'Cena':
+        return <SceneInspect card={card as IManuscript} />;
       default:
         return null;
     }
