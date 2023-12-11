@@ -361,7 +361,13 @@ function Writer() {
           <button title="Modo tela cheia (F11)" onClick={goFullScreen} className="fullSceenIcon" type="button">{' '}</button>
           <button title="Temporizador" onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
           {wc > 0 && (
-            <p title="Total de palavras">
+            <p style={{ color: 'var(--text-color-inactive)' }} title="Total de palavras">
+              {stateMItem.goalWC && (
+                <span>
+                  {stateMItem.goalWC}
+                  /
+                </span>
+              )}
               {wc}
               {goalPercent}
             </p>

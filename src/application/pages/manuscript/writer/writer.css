@@ -59,21 +59,15 @@
   color: #878787;
 }
 
-.writerTitle {
-  align-items: baseline;
-  display: flex;
-  font-family: Amaranth;
-  font-size: 2.5em;
-  opacity: .6;
-  text-align: center;
-}
 
 .writerTitle {
   align-items: center;
   display: flex;
   flex-wrap: nowrap;
-  font-family: TP;
+  font-family: PT;
+  font-size: 2.5em;
   justify-content: center;
+  opacity: .6;
   text-align: center;
 }
 
@@ -94,6 +88,7 @@
 .writeSelect {
   height: 2em;
   margin: 0;
+  width: 170px;
 }
 
 .ornament1 {
@@ -118,11 +113,13 @@
 
 .timerIcon {
   background-color: var(--text-color);
+  border-radius: 0;
   display: inline-block;
   height: 25px;
   -webkit-mask: var(--timer-icon) no-repeat center / contain;
   mask: var(--timer-icon) no-repeat center / contain;
-  width: 25px;
+  padding: 0;
+  width: 20px;
 }
 
 .timerIcon:hover {
@@ -224,11 +221,13 @@
 
 .fullSceenIcon {
   background-color: var(--text-color);
+  border-radius: 0;
   display: inline-block;
-  height: 15px;
+  height: 25px;
   -webkit-mask: var(--fullScreen-icon) no-repeat center / contain;
   mask: var(--distractionFree-icon) no-repeat center / contain;
-  width: 15px;
+  padding: 0;
+  width: 20px;
 }
 
 .fullSceenIcon:hover {
