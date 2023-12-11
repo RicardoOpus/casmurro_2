@@ -67,6 +67,7 @@
   font-family: PT;
   font-size: 2.5em;
   justify-content: center;
+  margin-bottom: 0;
   opacity: .6;
   text-align: center;
 }
@@ -78,7 +79,7 @@
   box-sizing: border-box;
   font-family: var(--user-scene-type);
   font-size: var(--user-scene-size);
-  margin: .5em 0;
+  margin: 0;
   overflow: hidden;
   padding: 1em;
   padding: 0px;

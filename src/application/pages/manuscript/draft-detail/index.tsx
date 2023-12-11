@@ -59,6 +59,10 @@ function DraftDetail() {
   const closeModalAddons = () => setModalAddons(false);
   const closeModalChar = () => setModalCharScene(false);
 
+  const cleanupFunction = () => {
+    dispatch(fetchProjectDataAction(true));
+  };
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     const updatedState = { ...stateMItem, [key]: e.target.value, last_edit: Date.now() };
     setStateManuItem(updatedState);
@@ -69,11 +73,13 @@ function DraftDetail() {
     if (key === 'pov_id') {
       const updatedState = { ...stateMItem, [key]: Number(e.target.value) };
       setStateManuItem(updatedState);
-      manuscriptService.upDate(Number(id), updatedState as IManuscript);
+      manuscriptService.upDate(Number(id), updatedState as IManuscript)
+        .then(() => cleanupFunction());
     } else {
       const updatedState = { ...stateMItem, [key]: e.target.value };
       setStateManuItem(updatedState);
-      manuscriptService.upDate(Number(id), updatedState as IManuscript);
+      manuscriptService.upDate(Number(id), updatedState as IManuscript)
+        .then(() => cleanupFunction());
     }
   };
 
@@ -84,10 +90,6 @@ function DraftDetail() {
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
-  };
-
-  const cleanupFunction = () => {
-    dispatch(fetchProjectDataAction(true));
   };
 
   const handleDelete = async () => {
@@ -354,6 +356,7 @@ function DraftDetail() {
                         type="number"
                         value={stateMItem.goalWC}
                         onChange={(e) => handleInputChange(e, 'goalWC')}
+                        onBlur={handleTitleBlur}
                       />
                     </div>
                   )}

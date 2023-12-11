@@ -16,6 +16,7 @@ import pleonasmosList from '../../../../templates/pleonasmosList';
 import utils from '../../../../service/utils';
 import Alert from '../../../components/alert';
 import TypeWriterSound from '../../../components/type-write-sound';
+import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 
 function Writer() {
   const { id } = useParams();
@@ -59,7 +60,8 @@ function Writer() {
     const originalSelectionEnd = textarea.selectionEnd;
     const { value } = e.target;
     if (value) {
-      const updatedValue = value.replace(/--/g, '—');
+      const updatedValue = value.startsWith('\n') ? value : `\n${value.replace(/--/g, '—')}`;
+      // const updatedValue = value.replace(/--/g, '—');
       const updatedState = { ...stateMItem, [key]: updatedValue, last_edit: Date.now() };
       setStateManuItem(updatedState);
       manuscriptService.upDate(Number(id), updatedState as IManuscript);
@@ -195,6 +197,10 @@ function Writer() {
 
   const goFullScreen = () => utils.toggleFullscreen();
 
+  const cleanupFunction = () => {
+    dispatch(fetchProjectDataAction(true));
+  };
+
   useEffect(() => {
     const content = stateMItem?.content;
     if (content) {
@@ -294,6 +300,7 @@ function Writer() {
       setGoalPercent('');
       const textarea = document.getElementById('innerWriterContainer');
       utils.autoGrowAllTextareas();
+      console.log('chamu');
       textarea?.scrollTo(0, 0);
     }
   }, [currentMItem, id]);
@@ -405,6 +412,7 @@ function Writer() {
                 value={stateMItem?.content}
                 onChange={(e) => handleTextAreaChange(e, 'content')}
                 placeholder="Não iniciado..."
+                onBlur={cleanupFunction}
               />
             </div>
             <p id="refEnd" className="endMark">***</p>
