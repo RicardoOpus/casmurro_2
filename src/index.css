@@ -240,6 +240,7 @@ button:disabled:hover {
   border: solid 1px var(--border-color);
   border-radius: 5px;
   color: var(--text-color-inactive);
+  margin-bottom: 5em;
   padding: 1rem 2rem 5rem 2rem;
 }
 

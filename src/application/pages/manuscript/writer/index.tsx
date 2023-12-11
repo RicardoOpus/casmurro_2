@@ -300,7 +300,6 @@ function Writer() {
       setGoalPercent('');
       const textarea = document.getElementById('innerWriterContainer');
       utils.autoGrowAllTextareas();
-      console.log('chamu');
       textarea?.scrollTo(0, 0);
     }
   }, [currentMItem, id]);

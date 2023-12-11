@@ -1,0 +1,9 @@
+footer {
+  background: var(--bg-color);
+  color: var(--text-color);
+  flex-shrink: 0;
+  margin: auto auto 0;
+  padding: 3rem;
+  text-align: center;
+  width: 100%;
+}
