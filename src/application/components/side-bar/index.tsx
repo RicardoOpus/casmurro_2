@@ -9,6 +9,7 @@ import IWorld from '../../../domain/worldModel';
 import ICharacter from '../../../domain/characterModel';
 import CardInspect from './card-inspect';
 import INotes from '../../../domain/InotesModel';
+import IManuscript from '../../../domain/IManuscript';
 
 function SideBar() {
   const [width, setWidth] = useState(500);
@@ -16,9 +17,10 @@ function SideBar() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [searchInput, setSearchInput] = useState('');
   const [showInspect, setShowInspect] = useState(false);
-  const [allCards, setAllCards] = useState<(IWorld | ICharacter | INotes)[]>([]);
-  const [filtredCards, setFiltredCards] = useState<(IWorld | ICharacter | INotes)[]>([]);
-  const [selectedCard, setSelectedCar] = useState<IWorld | ICharacter | INotes>();
+  const [allCards, setAllCards] = useState<(IWorld | ICharacter | INotes | IManuscript)[]>([]);
+  const [filtredCards, setFiltredCards] = useState<(IWorld | ICharacter |
+    INotes | IManuscript)[]>([]);
+  const [selectedCard, setSelectedCar] = useState<IWorld | ICharacter | INotes | IManuscript>();
 
   const onResize = (
     _e: SyntheticEvent<Element, Event>,
@@ -43,7 +45,7 @@ function SideBar() {
     setSearchInput(e.target.value);
   };
 
-  const sideBarHandleClick = (value: IWorld | ICharacter | INotes) => {
+  const sideBarHandleClick = (value: IWorld | ICharacter | INotes | IManuscript) => {
     setSelectedCar(value);
     setShowInspect(true);
   };
@@ -52,15 +54,17 @@ function SideBar() {
     const array1 = projectData.data?.characters;
     const array2 = projectData.data?.world;
     const array3 = projectData.data?.notes;
-    if (array1 && array2 && array3) {
-      const newArray = [...array1, ...array2, ...array3];
+    const array4 = projectData.data?.manuscript;
+    if (array1 && array2 && array3 && array4) {
+      const newArray = [...array1, ...array2, ...array3, ...array4];
       newArray.sort((a, b) => (b.last_edit || 0) - (a.last_edit || 0));
       setAllCards(newArray);
     }
-  }, [projectData.data?.characters, projectData.data?.notes, projectData.data?.world]);
+  }, [projectData.data?.characters,
+    projectData.data?.manuscript, projectData.data?.notes, projectData.data?.world]);
 
   useEffect(() => {
-    const handleFilter = (cardList: IWorld[] | ICharacter[] | INotes[]) => {
+    const handleFilter = (cardList: IWorld[] | ICharacter[] | INotes[] | IManuscript[]) => {
       const result = cardList.filter((card) => {
         const titleMatch = !searchInput || card.title.includes(searchInput);
         return titleMatch;
