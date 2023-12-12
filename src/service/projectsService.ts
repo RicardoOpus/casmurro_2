@@ -2,7 +2,7 @@ import IProject from '../domain/projectModel';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class ProjectServide {
-  deafultStatus = 'novo';
+  deafultStatus = 'Novo';
 
   async create(projectName: string) {
     const now = Date.now();

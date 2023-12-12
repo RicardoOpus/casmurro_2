@@ -7,14 +7,16 @@ import './dashboard.css';
 import dashboardService from '../../../service/dashboardService';
 import { fetchProjectDataAction } from '../../redux/actions/projectActions';
 import utils from '../../../service/utils';
-import DashboardAddonsModal from './dashboadr-addons';
+import DashboardAddonsModal from './dashboard-addons';
 import GenericModal from '../../components/generic-modal';
+import DeadlineModal from './dashboard-deadline';
 
 function Dashboard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [modalAddons, setModalAddons] = useState(false);
+  const [modalDeadline, setModalDeadline] = useState(false);
   const project = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData));
   const [stateProject,
@@ -78,6 +80,17 @@ function Dashboard() {
     }
   };
 
+  const updateDeadline = (date1: string, date2: string) => {
+    const updatedState = {
+      ...stateProject,
+      startDate: date1,
+      finishDate: date2,
+      last_edit: Date.now(),
+    };
+    setStateProject(updatedState);
+    dashboardService.upDate(updatedState as IProject);
+  };
+
   const handleDelete = async () => {
     await dashboardService.deleteProject();
     navigate('/projects');
@@ -129,6 +142,11 @@ function Dashboard() {
         )}
         <div className="detailBarButtons">
           <div className="detailBarButtonsItens">
+            <span className="tooltip-default" data-balloon aria-label="Definir prazo de conclusão" data-balloon-pos="down">
+              <label className="deadlineIcon" htmlFor="deadlineIcon">
+                <button id="deadlineIcon" onClick={() => setModalDeadline(true)} className="btnInvisible" type="button">{ }</button>
+              </label>
+            </span>
             <span className="tooltip-default" data-balloon aria-label="Adicionar imagem" data-balloon-pos="down">
               <label htmlFor="addImage">
                 <div className="profile-pic addImage">
@@ -160,7 +178,7 @@ function Dashboard() {
         <div className="divider div-transparent" />
         <div className="charBasicInfos">
           <div>
-            <h3>Categoria</h3>
+            <h3>Status</h3>
             <select
               className="selectFullWith"
               value={stateProject?.status}
@@ -201,13 +219,22 @@ function Dashboard() {
         />
       </div>
       {stateProject.title && (
-        <DashboardAddonsModal
-          openModal={modalAddons}
-          onClose={() => setModalAddons(false)}
-          showSubtitle={stateProject.showSubtitle || false}
-          showAuthor={stateProject.showAuthor || false}
-          handleInputCheck={handleInputCheck}
-        />
+        <>
+          <DeadlineModal
+            openModal={modalDeadline}
+            onClose={() => setModalDeadline(false)}
+            startDateProject={stateProject.startDate || ''}
+            finishDateProject={stateProject.finishDate || ''}
+            updateDeadline={updateDeadline}
+          />
+          <DashboardAddonsModal
+            openModal={modalAddons}
+            onClose={() => setModalAddons(false)}
+            showSubtitle={stateProject.showSubtitle || false}
+            showAuthor={stateProject.showAuthor || false}
+            handleInputCheck={handleInputCheck}
+          />
+        </>
       )}
       <GenericModal
         openModal={modal}

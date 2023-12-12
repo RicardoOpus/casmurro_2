@@ -34,6 +34,7 @@
   --timer-icon: url("../timer.svg");
   --fullScreen-icon: url("../full.svg");
   --distractionFree-icon: url("../distractionFree.svg");
+  --deadline-icon: url("../deadline.svg");
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --user-scene-size: 25px;
@@ -910,6 +911,7 @@ p {
 
 .detailAdd {
   background-color: var(--text-color);
+  border-radius: 0;
   cursor: pointer;
   display: inline-block;
   height: 25px;
@@ -922,6 +924,7 @@ p {
 
 .detailAdd:hover {
   background-color: var(--accent-color);
+  border-radius: 0;
 }
 
 .addImage {
