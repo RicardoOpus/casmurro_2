@@ -33,4 +33,6 @@ class TitleBarService {
   }
 }
 
-export default TitleBarService;
+const titleBarService = new TitleBarService();
+
+export default titleBarService;

@@ -116,6 +116,52 @@ class Utils {
       document.documentElement.requestFullscreen();
     }
   }
+
+  getCurrentDateString() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    const pad = (num: number) => (num < 10 ? `0${num}` : num);
+    return {
+      toFileName: `${year}-${pad(month)}-${pad(day)}-${pad(hours)}-${pad(minutes)}-${pad(seconds)}`,
+      toBackup: `\n\nEste backup foi criado em ${pad(day)}/${pad(month)}/${year} às ${pad(hours)}:${pad(minutes)}:${pad(seconds)}\n`,
+      toDraft: `Este rascunho foi exportado em ${pad(day)}/${pad(month)}/${year} às ${pad(hours)}:${pad(minutes)}:${pad(seconds)}\n`,
+    };
+  }
+
+  removeAccents(str: string) {
+    const accents: Array<[string, RegExp]> = [
+      ['a', /[àáâãä]/g],
+      ['e', /[éèêẽë]/g],
+      ['i', /[íìîï]/g],
+      ['o', /[óòôõö]/g],
+      ['u', /[úùûũü]/g],
+      ['c', /[ç]/g],
+      ['n', /[ñ]/g],
+      ['A', /[ÀÁÂÃÄÅ]/g],
+      ['E', /[ÈÉÊË]/g],
+      ['I', /[ÌÍÎÏ]/g],
+      ['O', /[ÒÓÔÕÖ]/g],
+      ['U', /[ÙÚÛÜ]/g],
+      ['C', /[Ç]/g],
+      ['N', /[Ñ]/g],
+    ];
+    let result = str;
+    for (let i = 0; i < accents.length; i += 1) {
+      result = result.replace(accents[i][1], accents[i][0]);
+    }
+    return result;
+  }
+
+  sanitizeFilename(filename: string) {
+    const noAcents = this.removeAccents(filename);
+    const forbiddenChars = /[\\/:"*?<>.|]/g;
+    return noAcents.replace(forbiddenChars, ' ');
+  }
 }
 
 const utils = new Utils();

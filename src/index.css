@@ -386,6 +386,7 @@ option:hover {
 }
 
 .cardFiedset {
+  color: var(--text-color-inactive);
   margin: 0;
 }
 
@@ -799,6 +800,10 @@ tr:nth-child(even) {
 
 .ui-icon-extlink {
   background-position: -32px -80px;
+}
+
+.ui-icon-note {
+  background-position: -64px -96px;
 }
 
 /*=========== Filter =========== */

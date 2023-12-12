@@ -1,0 +1,37 @@
+.backupField {
+  align-items: baseline;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1em;
+  justify-content: center;
+}
+
+.backupFieldP {
+  background-color: var(--bg-color-sec);
+  border-radius: 5px;
+  margin-bottom: .5em;
+  padding: 1em ;
+  text-align: left;
+}
+
+.spanField {
+  color: var(--text-color-inactive);
+  font-size: medium;
+  margin-left: .5em;
+}
+
+.btnJson {
+  background-color: var(--green-color);
+  color: white;
+}
+
+.btnTXT {
+  background-color: rgb(4, 37, 60);
+  color: white;
+}
+
+.btnPDF {
+  background-color: rgb(60, 4, 4);
+  color: white;
+}

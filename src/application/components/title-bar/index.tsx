@@ -1,16 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './title-bar.css';
-import TitleBarService from '../../../service/titleBarService';
+import titleBarService from '../../../service/titleBarService';
 import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction, projectDataAction } from '../../redux/actions/projectActions';
 import IrootStateProject from '../../../domain/IrootStateProject';
+import BackupModal from './backup';
 
 function TitleBar() {
-  const titleBarService = useMemo(() => new TitleBarService(), []);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [modalBackup, setModalBackup] = useState(false);
   const [isLightMode, setIsLightMode] = useState(false);
   const {
     projectData,
@@ -32,7 +33,7 @@ function TitleBar() {
   useEffect(() => {
     const mensage = titleBarService.backupMensage(projectData.lastBackup);
     setbackupWarning(mensage);
-  }, [projectData.lastBackup, titleBarService]);
+  }, [projectData.lastBackup]);
 
   useEffect(() => {
     const fontSize = localStorage.getItem('contenSize');
@@ -86,8 +87,9 @@ function TitleBar() {
         ) : (
           <button onClick={toggleLightMode} type="button" className="uiMode">{ }</button>
         )}
-        <button className="btnDiscret" type="button">Fazer backup</button>
+        <button onClick={() => setModalBackup(true)} className="btnDiscret" type="button">Fazer backup</button>
       </div>
+      <BackupModal openModal={modalBackup} onClose={() => setModalBackup(false)} />
     </div>
   );
 }
