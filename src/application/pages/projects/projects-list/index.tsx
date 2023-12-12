@@ -136,7 +136,7 @@ function ProjectList({ projects }: { projects: IProject[] }) {
               <div>{project.literary_genre || ''}</div>
               <div className="cards">
                 <p className="projectTitle">
-                  <strong>{project.cards_qty || '0'}</strong>
+                  <strong>0</strong>
                 </p>
                 <p className="cardsQTY">Cartões</p>
               </div>

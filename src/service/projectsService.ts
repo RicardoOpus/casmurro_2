@@ -9,7 +9,9 @@ class ProjectServide {
     const newProject: IProject = {
       title: projectName,
       subtitle: '',
+      showSubtitle: false,
       author: '',
+      showAuthor: false,
       status: this.deafultStatus,
       literary_genre: '',
       projectResume: '',

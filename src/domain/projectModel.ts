@@ -35,14 +35,14 @@ interface IProject {
     trash?: ICharacter[] | IWorld[] | INotes[] | IManuscript[];
   };
   subtitle?: string;
+  showSubtitle?: boolean;
   author?: string;
+  showAuthor?: boolean;
   literary_genre?: string;
   projectResume?: string;
-  image_cover?: string;
   image_project?: string;
   startDate?: string;
   finishDate?: string;
-  showSubtitle?: boolean;
 }
 
 export default IProject;

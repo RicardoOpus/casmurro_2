@@ -41,6 +41,7 @@ function FilterBar({
         <option value="Em Andamento">Em Andamento</option>
         <option value="Finalizado">Finalizado</option>
         <option value="Não iniciado">Não iniciado</option>
+        <option value="Novo">Novo</option>
         <option value="Pausado">Pausado</option>
       </select>
       <select
@@ -49,8 +50,13 @@ function FilterBar({
         style={{ color: 'var(--text-color-inactive)' }}
       >
         <option value="">Todos os Gêneros</option>
+        <option value="Romance Épico">Romance Épico</option>
         <option value="Romance">Romance</option>
+        <option value="Novela">Novela</option>
+        <option value="Noveleta">Noveleta</option>
         <option value="Conto">Conto</option>
+        <option value="Microconto">Microconto</option>
+        <option value="Outro">Outro</option>
       </select>
       <button className="btnSmall" type="button" onClick={clearAllFilters}>
         Limpar Filtros

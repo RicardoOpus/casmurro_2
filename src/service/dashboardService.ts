@@ -6,6 +6,10 @@ class DashboardService {
   async upDate(data: IProject) {
     await indexedDBrepository.projectBasicUpdate(data);
   }
+
+  async deleteProject() {
+    await indexedDBrepository.deleteProject();
+  }
 }
 
 const dashboardService = new DashboardService();

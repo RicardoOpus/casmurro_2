@@ -45,6 +45,12 @@ class IndexedDBrepository {
     });
   }
 
+  async deleteProject() {
+    const projectID = await this.getCurrentProjectID();
+    await db.settings.where({ id: 1 }).modify({ currentprojectID: 0 });
+    await db.projects.delete(projectID);
+  }
+
   // async populeDB() {
   //   await db.projects.add(simpleProject).then(() => {
   //     console.log('Projeto adicionado com sucesso!');
@@ -81,7 +87,6 @@ class IndexedDBrepository {
     const projectID = await this.getCurrentProjectID();
     const project = await db.projects.where({ id: projectID }).first();
     if (project) {
-      console.log(data);
       await db.projects.update(projectID, data);
       this.updateLastEdit();
       console.log('Nota atualizado com sucesso!');
