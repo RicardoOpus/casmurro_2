@@ -1,0 +1,29 @@
+.sectionDeadline {
+  margin-bottom: 1em;
+}
+
+.daysRemaining {
+  font-size: x-large;
+  text-align: center;
+}
+
+.datemarks {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.progress {
+  background-color: var(--text-color-inactive);
+  border-radius: .25rem;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: .75rem;
+  height: .5rem;
+  overflow: hidden;
+}
+
+.bg-success {
+  background-color: var(--accent-color);
+  width: 100%;
+}

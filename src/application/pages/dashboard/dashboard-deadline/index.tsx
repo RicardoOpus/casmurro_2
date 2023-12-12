@@ -26,6 +26,11 @@ function DeadlineModal({
     onClose();
   };
 
+  const clearDeadline = () => {
+    updateDeadline('', '');
+    onClose();
+  };
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     if (key === 'start') {
       setStartDate(e.target.value);
@@ -68,6 +73,7 @@ function DeadlineModal({
     <dialog ref={ref} className="modal">
       <div className="modal-content">
         <h2>Definir prazo de conclusão</h2>
+        <button className="btnSmall" onClick={clearDeadline} style={{ margin: '.5em 0' }} type="button" disabled={isChecked}>Desativar prazo</button>
         <div className="deadlineContainer">
           <div>
             <h3>Data inicial:</h3>

@@ -10,6 +10,7 @@ import utils from '../../../service/utils';
 import DashboardAddonsModal from './dashboard-addons';
 import GenericModal from '../../components/generic-modal';
 import DeadlineModal from './dashboard-deadline';
+import Deadline from './deadline';
 
 function Dashboard() {
   const dispatch = useDispatch();
@@ -176,6 +177,12 @@ function Dashboard() {
           </div>
         </div>
         <div className="divider div-transparent" />
+        {stateProject.startDate && stateProject.finishDate && (
+          <Deadline
+            startDateProject={stateProject.startDate || ''}
+            finishDateProject={stateProject.finishDate || ''}
+          />
+        )}
         <div className="charBasicInfos">
           <div>
             <h3>Status</h3>
