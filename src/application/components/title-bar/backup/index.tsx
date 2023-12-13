@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import './backup.css';
+import { NavLink } from 'react-router-dom';
 import exportService from '../../../../service/exportServise';
 
 interface GenericModalProps {
@@ -50,13 +51,13 @@ function BackupModal({ onClose, openModal }: GenericModalProps) {
             <span className="spanField">(Tudo)</span>
           </legend>
           <div className="backupField">
-            <button onClick={() => handleClick('expProject')} className="btnJson" type="button">
+            <button onClick={() => handleClick('expProject')} disabled className="btnJson" type="button">
               🠗 Exportar Projeto
             </button>
-            <button onClick={() => handleClick('expTXT')} className="btnTXT" type="button">
+            <button onClick={() => handleClick('expTXT')} disabled className="btnTXT" type="button">
               🠗 Salvar texto
             </button>
-            <button onClick={() => handleClick('expPDF')} className="btnPDF" type="button">
+            <button onClick={() => handleClick('expPDF')} disabled className="btnPDF" type="button">
               🠗 Impressão
             </button>
           </div>
@@ -71,7 +72,9 @@ function BackupModal({ onClose, openModal }: GenericModalProps) {
               🠗 Salvar texto
             </button>
             <button onClick={() => handleClick('expDraftPDF')} className="btnPDF" type="button">
-              🠗 Impressão
+              <NavLink to="/printDraft" target="_blank">
+                🠗 Impressão
+              </NavLink>
             </button>
           </div>
         </fieldset>

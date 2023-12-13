@@ -162,6 +162,27 @@ class Utils {
     const forbiddenChars = /[\\/:"*?<>.|]/g;
     return noAcents.replace(forbiddenChars, ' ');
   }
+
+  substituirAspasCurvas(texto: string) {
+    const regexAspasDuplas = /"(.*?)"/g;
+    const regexAspasSimples = /'(.*?)'/g;
+
+    const resultadoAspasDuplas = texto.replace(regexAspasDuplas, '“$1”');
+    const resultadoAspasCurvas = resultadoAspasDuplas.replace(regexAspasSimples, 'ʽ$1ʼ');
+    return resultadoAspasCurvas;
+  }
+
+  setItalicsFromText() {
+    const paragrafos = document.getElementsByTagName('p');
+
+    for (let i = 0; i < paragrafos.length; i += 1) {
+      const paragrafo = paragrafos[i];
+      const conteudo = paragrafo.innerHTML;
+      const regex = /\*(.*?)\*/g;
+      const resultado = conteudo.replace(regex, '<em>$1</em>');
+      paragrafo.innerHTML = resultado;
+    }
+  }
 }
 
 const utils = new Utils();

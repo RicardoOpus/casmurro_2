@@ -90,6 +90,11 @@
 }
 
 @font-face {
+  font-family: PT-italic;
+  src: url("../PT-italic.ttf") format("truetype");
+}
+
+@font-face {
   font-family: Timer;
   src: url("../Timer.otf") format("truetype");
 }
@@ -108,6 +113,13 @@
   margin: 0px;
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
+}
+
+.printMode {
+  background: none;
+  background-color: white;
+  color: black;
+  color-scheme: light;
 }
 
 *:focus {
