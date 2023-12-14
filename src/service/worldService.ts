@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import IWorld from '../domain/worldModel';
+import IWorld from '../iterfaces/worldModel';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class WorldService {

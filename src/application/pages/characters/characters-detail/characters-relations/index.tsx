@@ -1,8 +1,8 @@
 import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
-import ICharacter from '../../../../../domain/characterModel';
-import IRelation from '../../../../../domain/IRelation';
+import ICharacter from '../../../../../iterfaces/characterModel';
+import IRelation from '../../../../../iterfaces/IRelation';
 
 interface GenericModalProps {
   onClose: () => void;

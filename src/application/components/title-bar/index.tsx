@@ -5,7 +5,7 @@ import './title-bar.css';
 import titleBarService from '../../../service/titleBarService';
 import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction, projectDataAction } from '../../redux/actions/projectActions';
-import IrootStateProject from '../../../domain/IrootStateProject';
+import IrootStateProject from '../../../iterfaces/IrootStateProject';
 import BackupModal from './backup';
 
 function TitleBar() {

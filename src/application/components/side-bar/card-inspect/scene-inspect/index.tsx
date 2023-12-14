@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import IManuscript from '../../../../../domain/IManuscript';
-import ICharacter from '../../../../../domain/characterModel';
-import IrootStateProject from '../../../../../domain/IrootStateProject';
+import IManuscript from '../../../../../iterfaces/IManuscript';
+import ICharacter from '../../../../../iterfaces/characterModel';
+import IrootStateProject from '../../../../../iterfaces/IrootStateProject';
 import manuscriptService from '../../../../../service/manuscriptService';
 import { fetchProjectDataAction } from '../../../../redux/actions/projectActions';
 

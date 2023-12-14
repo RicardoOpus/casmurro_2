@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
-import IManuscript from '../domain/IManuscript';
-import IProject from '../domain/projectModel';
+import IManuscript from '../iterfaces/IManuscript';
+import IProject from '../iterfaces/projectModel';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 import utils from './utils';
 

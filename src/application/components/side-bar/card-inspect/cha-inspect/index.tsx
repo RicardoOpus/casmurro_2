@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import ICharacter from '../../../../../domain/characterModel';
-import IrootStateProject from '../../../../../domain/IrootStateProject';
+import ICharacter from '../../../../../iterfaces/characterModel';
+import IrootStateProject from '../../../../../iterfaces/IrootStateProject';
 import utils from '../../../../../service/utils';
 
 interface CardInspectProps {

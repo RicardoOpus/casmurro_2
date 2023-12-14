@@ -1,4 +1,4 @@
-import IProject from '../domain/projectModel';
+import IProject from '../iterfaces/projectModel';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class ProjectServide {

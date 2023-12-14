@@ -1,7 +1,7 @@
 import {
   useEffect, useRef, useState,
 } from 'react';
-import ILinks from '../../../domain/ILinks';
+import ILinks from '../../../iterfaces/ILinks';
 import utils from '../../../service/utils';
 
 interface GenericModalProps {

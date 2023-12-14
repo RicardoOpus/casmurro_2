@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import {
   ChangeEvent, useEffect, useState,
 } from 'react';
-import IrootStateProject from '../../../../domain/IrootStateProject';
-import IManuscript from '../../../../domain/IManuscript';
+import IrootStateProject from '../../../../iterfaces/IrootStateProject';
+import IManuscript from '../../../../iterfaces/IManuscript';
 import manuscriptService from '../../../../service/manuscriptService';
 import './writer.css';
 import manuscriptColapseDetail from '../../../redux/actions/manuscriptActons';

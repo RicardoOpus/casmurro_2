@@ -72,7 +72,7 @@ function BackupModal({ onClose, openModal }: GenericModalProps) {
               🠗 Salvar texto
             </button>
             <button onClick={() => handleClick('expDraftPDF')} className="btnPDF" type="button">
-              <NavLink to="/printDraft" target="_blank">
+              <NavLink to="/printDraft" target="_blank" style={{ all: 'unset' }}>
                 🠗 Impressão
               </NavLink>
             </button>

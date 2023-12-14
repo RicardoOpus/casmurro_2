@@ -4,17 +4,17 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
-import IrootStateProject from '../../../../domain/IrootStateProject';
-import IWorld from '../../../../domain/worldModel';
+import IrootStateProject from '../../../../iterfaces/IrootStateProject';
+import IWorld from '../../../../iterfaces/worldModel';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import GenericModal from '../../../components/generic-modal';
 import utils from '../../../../service/utils';
 import Loading from '../../../components/loading';
 import WorldAddonsModal from '../world-addons';
 import TaskList from '../../../components/task-list';
-import ITaskList from '../../../../domain/ITaskList';
+import ITaskList from '../../../../iterfaces/ITaskList';
 import LinksModal from '../../../components/add-link-modal';
-import ILinks from '../../../../domain/ILinks';
+import ILinks from '../../../../iterfaces/ILinks';
 import worldService from '../../../../service/worldService';
 
 function WorldDetail() {

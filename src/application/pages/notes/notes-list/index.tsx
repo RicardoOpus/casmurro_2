@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import IrootStateProject from '../../../../domain/IrootStateProject';
-import INotes from '../../../../domain/InotesModel';
+import IrootStateProject from '../../../../iterfaces/IrootStateProject';
+import INotes from '../../../../iterfaces/InotesModel';
 import NoData from '../../../components/no-dada';
 import NotFound from '../../../components/not-found';
 import utils from '../../../../service/utils';

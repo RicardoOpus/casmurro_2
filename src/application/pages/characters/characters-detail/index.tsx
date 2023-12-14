@@ -2,22 +2,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import IrootStateProject from '../../../../domain/IrootStateProject';
+import IrootStateProject from '../../../../iterfaces/IrootStateProject';
 import './characters-detail.css';
-import ICharacter from '../../../../domain/characterModel';
+import ICharacter from '../../../../iterfaces/characterModel';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import utils from '../../../../service/utils';
 import GenericModal from '../../../components/generic-modal';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
 import CharRelationsModal from './characters-relations';
-import IRelation from '../../../../domain/IRelation';
+import IRelation from '../../../../iterfaces/IRelation';
 import Loading from '../../../components/loading';
 import CharAddonsModal from './characters-addons';
 import TaskList from '../../../components/task-list';
-import ITaskList from '../../../../domain/ITaskList';
+import ITaskList from '../../../../iterfaces/ITaskList';
 import LinksModal from '../../../components/add-link-modal';
-import ILinks from '../../../../domain/ILinks';
+import ILinks from '../../../../iterfaces/ILinks';
 import characterService from '../../../../service/characterService';
 
 function CharacterDetail() {

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangeEvent, SetStateAction, useState } from 'react';
-import IrootStateProject from '../../../../domain/IrootStateProject';
+import IrootStateProject from '../../../../iterfaces/IrootStateProject';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import paragraphyMock from '../../../../templates/paragraph';

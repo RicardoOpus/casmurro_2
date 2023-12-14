@@ -68,8 +68,8 @@ function App() {
           </Route>
           <Route path="/splash" element={<Splash />} />
           <Route path="/projects" element={<Projects />} />
-          <Route path="/printDraft" element={<PrintDraft />} />
           <Route path="/*" element={<NotFoundPage />} />
+          <Route path="/printDraft" element={<PrintDraft />} />
         </Routes>
       )}
     </div>

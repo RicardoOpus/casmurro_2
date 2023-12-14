@@ -1,5 +1,5 @@
-import IManuscript from '../../../../domain/IManuscript';
-import ICardInspectProps from '../../../../domain/IcardInspectProps';
+import IManuscript from '../../../../iterfaces/IManuscript';
+import ICardInspectProps from '../../../../iterfaces/IcardInspectProps';
 import CharInspect from './cha-inspect';
 import ChapterInspect from './chapter-inspect';
 import NotesInspect from './notes-inspect';

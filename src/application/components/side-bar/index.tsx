@@ -4,12 +4,12 @@ import {
 import './side-bar.css';
 import { useSelector } from 'react-redux';
 import { Resizable, ResizeCallbackData } from 'react-resizable';
-import IrootStateProject from '../../../domain/IrootStateProject';
-import IWorld from '../../../domain/worldModel';
-import ICharacter from '../../../domain/characterModel';
+import IrootStateProject from '../../../iterfaces/IrootStateProject';
+import IWorld from '../../../iterfaces/worldModel';
+import ICharacter from '../../../iterfaces/characterModel';
 import CardInspect from './card-inspect';
-import INotes from '../../../domain/InotesModel';
-import IManuscript from '../../../domain/IManuscript';
+import INotes from '../../../iterfaces/InotesModel';
+import IManuscript from '../../../iterfaces/IManuscript';
 
 function SideBar() {
   const [width, setWidth] = useState(500);
@@ -61,7 +61,7 @@ function SideBar() {
       setAllCards(newArray);
     }
   }, [projectData.data?.characters,
-    projectData.data?.manuscript, projectData.data?.notes, projectData.data?.world]);
+  projectData.data?.manuscript, projectData.data?.notes, projectData.data?.world]);
 
   useEffect(() => {
     const handleFilter = (cardList: IWorld[] | ICharacter[] | INotes[] | IManuscript[]) => {

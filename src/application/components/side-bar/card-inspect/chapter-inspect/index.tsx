@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import IManuscript from '../../../../../domain/IManuscript';
+import IManuscript from '../../../../../iterfaces/IManuscript';
 import manuscriptService from '../../../../../service/manuscriptService';
 import { fetchProjectDataAction } from '../../../../redux/actions/projectActions';
 

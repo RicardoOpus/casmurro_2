@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import IrootStateProject from '../../../domain/IrootStateProject';
-import IProject from '../../../domain/projectModel';
+import IrootStateProject from '../../../iterfaces/IrootStateProject';
+import IProject from '../../../iterfaces/projectModel';
 import './dashboard.css';
 import dashboardService from '../../../service/dashboardService';
 import { fetchProjectDataAction } from '../../redux/actions/projectActions';
