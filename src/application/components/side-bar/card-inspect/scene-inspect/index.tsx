@@ -7,6 +7,7 @@ import ICharacter from '../../../../../interfaces/ICharacter';
 import IrootStateProject from '../../../../../interfaces/IRootStateProject';
 import manuscriptService from '../../../../../service/manuscriptService';
 import { fetchProjectDataAction } from '../../../../redux/actions/projectActions';
+import IWorld from '../../../../../interfaces/IWorld';
 
 interface CardInspectProps {
   card: IManuscript;
@@ -17,6 +18,7 @@ function SceneInspect({ card }: CardInspectProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [characters, setCharacters] = useState<ICharacter[]>([]);
+  const [places, setPlaces] = useState<IWorld[]>([]);
   const [POV, setPOV] = useState<ICharacter[]>();
   const [charactersInScene,
     setCharactersInScene] = useState<{
@@ -35,6 +37,13 @@ function SceneInspect({ card }: CardInspectProps) {
       setCharacters(projectData.data.characters);
     }
   }, [projectData.data?.characters]);
+
+  useEffect(() => {
+    if (projectData.data?.world) {
+      const placesItens = projectData.data.world.filter((e) => e.category === 'Local');
+      setPlaces(placesItens);
+    }
+  }, [projectData.data?.world]);
 
   useEffect(() => {
     const pov = characters.filter((e) => e.id === card.pov_id);
@@ -89,7 +98,13 @@ function SceneInspect({ card }: CardInspectProps) {
       </div>
       <div className="inspecInfos">
         {card.place ? <span>Local:</span> : ''}
-        <p>{card.place}</p>
+        {places && (
+          places.map((e) => (
+            <div key={uuidv4()}>
+              <button onClick={() => navigate(`/world/${e.id}`)} className="btnInvisible" type="button">{e.title}</button>
+            </div>
+          ))
+        )}
         {card.weather ? <span>Tempo:</span> : ''}
         <p>{card.weather}</p>
         {card.date ? <span>Data:</span> : ''}
