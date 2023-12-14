@@ -137,7 +137,7 @@ function DraftList() {
             ))
           )}
           <div className={cene.type === 'Cena' ? 'textIcon' : 'folderIcon'} />
-          {cene.title}
+          {cene.title || 'sem nome'}
           {prjSettings.manuscriptShowWC && (
             <span
               className="wordCountSpan"
