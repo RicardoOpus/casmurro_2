@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import IProject from '../../../iterfaces/IProject';
+import IProject from '../../../interfaces/IProject';
 import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import './printDraft.css';
-import IManuscript from '../../../iterfaces/IManuscript';
+import IManuscript from '../../../interfaces/IManuscript';
 import utils from '../../../service/utils';
 
 function PrintDraft() {

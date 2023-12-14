@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
-import IManuscript from '../iterfaces/IManuscript';
-import ICharacter from '../iterfaces/ICharacter';
+import IManuscript from '../interfaces/IManuscript';
+import ICharacter from '../interfaces/ICharacter';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class TrashService {

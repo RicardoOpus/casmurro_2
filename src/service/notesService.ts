@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import INotes from '../iterfaces/INotes';
+import INotes from '../interfaces/INotes';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class NotesService {

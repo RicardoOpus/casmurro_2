@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import IrootStateProject from '../../../iterfaces/IRootStateProject';
-import ICharacter from '../../../iterfaces/ICharacter';
-import IWorld from '../../../iterfaces/IWorld';
-import IManuscript from '../../../iterfaces/IManuscript';
-import INotes from '../../../iterfaces/INotes';
+import IrootStateProject from '../../../interfaces/IRootStateProject';
+import ICharacter from '../../../interfaces/ICharacter';
+import IWorld from '../../../interfaces/IWorld';
+import IManuscript from '../../../interfaces/IManuscript';
+import INotes from '../../../interfaces/INotes';
 import NoData from '../../components/no-dada';
 import trashService from '../../../service/trashService';
 import { fetchProjectDataAction } from '../../redux/actions/projectActions';

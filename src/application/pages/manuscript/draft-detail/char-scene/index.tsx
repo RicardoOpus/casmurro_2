@@ -1,7 +1,7 @@
 import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
-import ICharacter from '../../../../../iterfaces/ICharacter';
+import ICharacter from '../../../../../interfaces/ICharacter';
 
 interface GenericModalProps {
   onClose: () => void;
