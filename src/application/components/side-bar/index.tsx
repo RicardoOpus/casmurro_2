@@ -61,7 +61,7 @@ function SideBar() {
       setAllCards(newArray);
     }
   }, [projectData.data?.characters,
-  projectData.data?.manuscript, projectData.data?.notes, projectData.data?.world]);
+    projectData.data?.manuscript, projectData.data?.notes, projectData.data?.world]);
 
   useEffect(() => {
     const handleFilter = (cardList: IWorld[] | ICharacter[] | INotes[] | IManuscript[]) => {
@@ -120,7 +120,7 @@ function SideBar() {
                         type="button"
                         onClick={() => sideBarHandleClick(e)}
                       >
-                        {e.title}
+                        {e.title || 'sem nome'}
                         <br />
                         {' '}
                         <span className="spanSideBar">

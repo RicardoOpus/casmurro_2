@@ -21,7 +21,7 @@ function ChapterInspect({ card }: CardInspectProps) {
   return (
     <div className="inspectCard">
       <div className="inspectTitle">
-        <button onClick={handleClick} className="btnInvisible" type="button">{card.title}</button>
+        <button onClick={handleClick} className="btnInvisible" type="button">{card.title || 'sem nome'}</button>
       </div>
       <div className="inspecInfos">
         {card.status ? <span>Status:</span> : ''}
