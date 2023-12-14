@@ -47,6 +47,27 @@ class ExportService {
       this.generateDraftTXT(currentProject, nameReult, detatime.toDraft);
     }
   }
+
+  saveAsJSON(objeto: IProject, nomeArquivo: string) {
+    const texto = JSON.stringify(objeto);
+    const data = new Blob([texto], { type: 'application/json' });
+    const url = window.URL.createObjectURL(data);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', nomeArquivo);
+    link.click();
+  }
+
+  async exportProject() {
+    const project = await indexedDBrepository.getCurrentProject();
+    if (project) {
+      const detatime = utils.getCurrentDateString();
+      const nameReult = utils.sanitizeFilename(project.title);
+      const name = `${nameReult} ${detatime.toFileName}`;
+      this.saveAsJSON(project, name);
+      // updateTimeBackup();
+    }
+  }
 }
 
 const exportService = new ExportService();
