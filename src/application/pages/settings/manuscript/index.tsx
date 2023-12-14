@@ -14,6 +14,9 @@ function ManuscriptSettings() {
   const [povColor, setPovColor] = useState(prjSettings.manuscriptShowPovColor || false);
   const [sceneWC, setSceneWC] = useState(prjSettings.manuscriptShowWC || false);
   const [sceneChks, setsceneChks] = useState(prjSettings.manuscriptShowChecks || false);
+  const [hideChaptersT,
+    setHideChaptersT] = useState(prjSettings.manuscriptHideChaptersTitles || false);
+  const [hideScenesT, setHideScenesT] = useState(prjSettings.manuscriptHideScenesTitles || false);
 
   const saveSettings = async (newSettings: string[], table: string) => {
     await indexedDBrepository.updateProjectSettingsList(newSettings, table);
@@ -30,6 +33,12 @@ function ManuscriptSettings() {
     } if (type === 'checks') {
       setsceneChks(e.target.checked);
       await indexedDBrepository.updateProjectSettings(e.target.checked, 'manuscriptShowChecks');
+    } if (type === 'manuscriptHideChaptersTitles') {
+      setHideChaptersT(e.target.checked);
+      await indexedDBrepository.updateProjectSettings(e.target.checked, 'manuscriptHideChaptersTitles');
+    } if (type === 'manuscriptHideScenesTitles') {
+      setHideScenesT(e.target.checked);
+      await indexedDBrepository.updateProjectSettings(e.target.checked, 'manuscriptHideScenesTitles');
     }
     dispatch(fetchProjectDataAction(true));
   };
@@ -208,6 +217,36 @@ function ManuscriptSettings() {
             </div>
           </div>
         </div>
+      </fieldset>
+      <fieldset>
+        <legend>Títulos na exportação</legend>
+        <div className="checkbox-wrapper">
+          <label htmlFor="hideChaptersT">
+            <input
+              className="inputChkBox"
+              type="checkbox"
+              id="hideChaptersT"
+              checked={hideChaptersT}
+              onChange={(e) => handleInputType(e, 'manuscriptHideChaptersTitles')}
+            />
+            {' '}
+            Ocultar títulos dos Catpítulos na exportação?
+          </label>
+        </div>
+        <div className="checkbox-wrapper">
+          <label htmlFor="hideScenesT">
+            <input
+              className="inputChkBox"
+              type="checkbox"
+              id="hideScenesT"
+              checked={hideScenesT}
+              onChange={(e) => handleInputType(e, 'manuscriptHideScenesTitles')}
+            />
+            {' '}
+            Ocultar títulos das Cenas na exportação?
+          </label>
+        </div>
+        <p className="pSettings" style={{ marginTop: '1em' }}>Essa opção afeta apenas a exportação do manuscrito para Impressão</p>
       </fieldset>
       <fieldset>
         <legend>

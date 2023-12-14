@@ -23,6 +23,8 @@ interface IProject {
     manuscriptShowWC: boolean,
     manuscriptShowChecks: boolean,
     manuscriptPersonalWords: string[],
+    manuscriptHideScenesTitles: boolean,
+    manuscriptHideChaptersTitles: boolean,
   };
   id_controler: number;
   lastBackup: number;

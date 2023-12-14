@@ -88,6 +88,8 @@ class ProjectServide {
         projectColor: '#0099ff',
         typeWriterSound: false,
         typeWriterVolume: 0.5,
+        manuscriptHideChaptersTitles: false,
+        manuscriptHideScenesTitles: false,
       },
       id_controler: 0,
       data: {

@@ -10,6 +10,8 @@ function PrintDraft() {
   const [project, setProject] = useState<IProject>();
   const [manuscript, setManuscript] = useState<IManuscript[]>();
   const [currentDateTime, setCurrentDateTime] = useState<string>('');
+  const [hideChapTitles, setHideChapTitles] = useState(false);
+  const [hideScenesTitles, setHideScenesTitles] = useState(false);
 
   const updateDateTime = () => {
     const now = new Date();
@@ -24,6 +26,8 @@ function PrintDraft() {
         setProject(projectItem);
         setManuscript(projectItem.data.manuscript);
         document.documentElement.classList.add('printMode');
+        setHideChapTitles(projectItem.projectSettings.manuscriptHideChaptersTitles);
+        setHideScenesTitles(projectItem.projectSettings.manuscriptHideScenesTitles);
       }
     };
     fetchData();
@@ -53,11 +57,11 @@ function PrintDraft() {
   const renderDraft = (draft: IManuscript[]) => (
     draft.map((e, index) => (
       <div key={uuidv4()}>
-        {e.type === 'Capítulo' && <h2 className={index > 1 ? 'breakpagePrint' : ''}>{e.title}</h2>}
+        {e.type === 'Capítulo' && !hideChapTitles && <h2 className={index > 1 ? 'breakpagePrint' : ''}>{e.title}</h2>}
         {e.type === 'Cena'
           && (
             <div key={uuidv4()}>
-              <h3 key={uuidv4()}>{e.title}</h3>
+              <h3 key={uuidv4()}>{!hideScenesTitles && (e.title)}</h3>
               {e.content && (
                 creatParagraphs(e.content)
               )}
