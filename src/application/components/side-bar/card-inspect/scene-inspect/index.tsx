@@ -18,8 +18,9 @@ function SceneInspect({ card }: CardInspectProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [characters, setCharacters] = useState<ICharacter[]>([]);
-  const [places, setPlaces] = useState<IWorld[]>([]);
   const [POV, setPOV] = useState<ICharacter[]>();
+  const [world, setWorld] = useState<IWorld[]>([]);
+  const [places, setPlaces] = useState<IWorld[]>([]);
   const [charactersInScene,
     setCharactersInScene] = useState<{
       charID: number;
@@ -39,18 +40,25 @@ function SceneInspect({ card }: CardInspectProps) {
   }, [projectData.data?.characters]);
 
   useEffect(() => {
-    if (projectData.data?.world) {
-      const placesItens = projectData.data.world.filter((e) => e.category === 'Local');
-      setPlaces(placesItens);
-    }
-  }, [projectData.data?.world]);
-
-  useEffect(() => {
     const pov = characters.filter((e) => e.id === card.pov_id);
     if (pov) {
       setPOV(pov);
     }
   }, [card.pov_id, characters]);
+
+  useEffect(() => {
+    if (projectData.data?.world) {
+      const worldItens = projectData.data.world;
+      setWorld(worldItens);
+    }
+  }, [projectData.data?.world]);
+
+  useEffect(() => {
+    const placeItem = world.filter((e) => e.id === Number(card.place));
+    if (placeItem) {
+      setPlaces(placeItem);
+    }
+  }, [card.place, world]);
 
   useEffect(() => {
     const relationsArray = card.scene_characters
