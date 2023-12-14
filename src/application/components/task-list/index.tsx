@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import ITaskList from '../../../iterfaces/ITaskList';
+import ITaskList from '../../../interfaces/ITaskList';
 import './task-list.css';
 
 interface EditListsProps {

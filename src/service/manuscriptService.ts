@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import IManuscript from '../iterfaces/IManuscript';
+import IManuscript from '../interfaces/IManuscript';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class ManuscriptService {

@@ -4,12 +4,12 @@ import {
 import './side-bar.css';
 import { useSelector } from 'react-redux';
 import { Resizable, ResizeCallbackData } from 'react-resizable';
-import IrootStateProject from '../../../iterfaces/IRootStateProject';
-import IWorld from '../../../iterfaces/IWorld';
-import ICharacter from '../../../iterfaces/ICharacter';
+import IrootStateProject from '../../../interfaces/IRootStateProject';
+import IWorld from '../../../interfaces/IWorld';
+import ICharacter from '../../../interfaces/ICharacter';
 import CardInspect from './card-inspect';
-import INotes from '../../../iterfaces/INotes';
-import IManuscript from '../../../iterfaces/IManuscript';
+import INotes from '../../../interfaces/INotes';
+import IManuscript from '../../../interfaces/IManuscript';
 
 function SideBar() {
   const [width, setWidth] = useState(500);

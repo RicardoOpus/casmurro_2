@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import IProject from '../../../iterfaces/IProjectModel';
+import IProject from '../../../iterfaces/IProject';
 import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import './printDraft.css';
 import IManuscript from '../../../iterfaces/IManuscript';

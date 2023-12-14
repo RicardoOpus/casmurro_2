@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import IProject from '../iterfaces/IProjectModel';
+import IProject from '../interfaces/IProject';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class DashboardService {

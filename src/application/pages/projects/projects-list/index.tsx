@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import IProject from '../../../../iterfaces/IProjectModel';
+import IProject from '../../../../interfaces/IProject';
 import utils from '../../../../service/utils';
 import './projects-list.css';
 import {

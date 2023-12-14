@@ -1,4 +1,4 @@
-import IProject from './IProjectModel';
+import IProject from './IProject';
 
 interface IrootStateProject {
   projectDataReducer: {

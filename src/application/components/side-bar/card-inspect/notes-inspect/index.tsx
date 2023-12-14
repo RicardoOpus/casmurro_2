@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import INotes from '../../../../../iterfaces/INotes';
+import INotes from '../../../../../interfaces/INotes';
 
 interface CardInspectProps {
   card: INotes;
