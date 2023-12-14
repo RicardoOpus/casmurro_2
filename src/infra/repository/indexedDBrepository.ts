@@ -2,11 +2,11 @@
 /* eslint-disable no-console */
 import db from '../database/dexieDB';
 // import simpleProject from '../../mocks/simpleProject';
-import IProject from '../../iterfaces/projectModel';
-import ICharacter from '../../iterfaces/characterModel';
-import IWorld from '../../iterfaces/worldModel';
+import IProject from '../../iterfaces/IProjectModel';
+import ICharacter from '../../iterfaces/ICharacter';
+import IWorld from '../../iterfaces/IWorld';
 import IManuscript from '../../iterfaces/IManuscript';
-import INotes from '../../iterfaces/InotesModel';
+import INotes from '../../iterfaces/INotes';
 
 class IndexedDBrepository {
   startValueForID = 0;

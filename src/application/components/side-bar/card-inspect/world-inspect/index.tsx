@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import IWorld from '../../../../../iterfaces/worldModel';
+import IWorld from '../../../../../iterfaces/IWorld';
 import utils from '../../../../../service/utils';
 
 interface CardInspectProps {

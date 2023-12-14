@@ -1,7 +1,7 @@
 import IManuscript from './IManuscript';
-import INotes from './InotesModel';
-import ICharacter from './characterModel';
-import IWorld from './worldModel';
+import INotes from './INotes';
+import ICharacter from './ICharacter';
+import IWorld from './IWorld';
 
 interface IProject {
   title: string;

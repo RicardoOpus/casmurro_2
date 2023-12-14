@@ -8,7 +8,7 @@ import keyRight95 from '../../../../public/type_right_95.mp3';
 import keyBackspace from '../../../../public/type_backspace.mp3';
 import keySpace from '../../../../public/type_space.mp3';
 import keyReturn from '../../../../public/type_bell.mp3';
-import IrootStateProject from '../../../iterfaces/IrootStateProject';
+import IrootStateProject from '../../../iterfaces/IRootStateProject';
 
 function TypeWriterSound() {
   const { typeWriterVolume } = useSelector((state: IrootStateProject) => (

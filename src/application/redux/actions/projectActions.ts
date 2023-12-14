@@ -1,4 +1,4 @@
-import IProject from '../../../iterfaces/projectModel';
+import IProject from '../../../iterfaces/IProjectModel';
 
 export const nextPageAction = () => ({
   type: 'NEXT_PAGE',

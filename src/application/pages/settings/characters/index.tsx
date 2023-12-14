@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import EditLists from '../edit-lists';
-import IrootStateProject from '../../../../iterfaces/IrootStateProject';
+import IrootStateProject from '../../../../iterfaces/IRootStateProject';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 

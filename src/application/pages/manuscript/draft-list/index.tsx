@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import manuscriptService from '../../../../service/manuscriptService';
-import IrootStateProject from '../../../../iterfaces/IrootStateProject';
+import IrootStateProject from '../../../../iterfaces/IRootStateProject';
 import IManuscript from '../../../../iterfaces/IManuscript';
 import Loading from '../../../components/loading';
 import GenericModal from '../../../components/generic-modal';

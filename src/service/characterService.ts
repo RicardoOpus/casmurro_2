@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import ICharacter from '../iterfaces/characterModel';
+import ICharacter from '../iterfaces/ICharacter';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class CharacterService {

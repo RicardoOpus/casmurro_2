@@ -3,8 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import IManuscript from '../../../../../iterfaces/IManuscript';
-import ICharacter from '../../../../../iterfaces/characterModel';
-import IrootStateProject from '../../../../../iterfaces/IrootStateProject';
+import ICharacter from '../../../../../iterfaces/ICharacter';
+import IrootStateProject from '../../../../../iterfaces/IRootStateProject';
 import manuscriptService from '../../../../../service/manuscriptService';
 import { fetchProjectDataAction } from '../../../../redux/actions/projectActions';
 

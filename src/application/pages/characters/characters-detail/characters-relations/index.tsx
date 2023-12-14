@@ -1,7 +1,7 @@
 import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
-import ICharacter from '../../../../../iterfaces/characterModel';
+import ICharacter from '../../../../../iterfaces/ICharacter';
 import IRelation from '../../../../../iterfaces/IRelation';
 
 interface GenericModalProps {

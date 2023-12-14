@@ -1,6 +1,6 @@
 import IManuscript from './IManuscript';
-import ICharacter from './characterModel';
-import IWorld from './worldModel';
+import ICharacter from './ICharacter';
+import IWorld from './IWorld';
 
 interface ICardInspectProps {
   card: IWorld | ICharacter | IManuscript;

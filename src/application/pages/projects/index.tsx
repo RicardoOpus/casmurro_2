@@ -3,7 +3,7 @@ import casmurroLogo from '../../../../public/casmurro-logo.svg';
 import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import './projects.css';
 import NoData from '../../components/no-dada';
-import IProject from '../../../iterfaces/projectModel';
+import IProject from '../../../iterfaces/IProjectModel';
 import ProjectList from './projects-list';
 import NewProjectModal from './new-project-modal';
 

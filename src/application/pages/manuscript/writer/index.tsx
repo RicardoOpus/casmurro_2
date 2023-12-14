@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import {
   ChangeEvent, useEffect, useState,
 } from 'react';
-import IrootStateProject from '../../../../iterfaces/IrootStateProject';
+import IrootStateProject from '../../../../iterfaces/IRootStateProject';
 import IManuscript from '../../../../iterfaces/IManuscript';
 import manuscriptService from '../../../../service/manuscriptService';
 import './writer.css';

@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import IrootStateProject from '../../../../iterfaces/IrootStateProject';
-import ICharacter from '../../../../iterfaces/characterModel';
+import IrootStateProject from '../../../../iterfaces/IRootStateProject';
+import ICharacter from '../../../../iterfaces/ICharacter';
 import './characters-list.css';
 import utils from '../../../../service/utils';
 import {

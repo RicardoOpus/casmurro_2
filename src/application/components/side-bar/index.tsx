@@ -4,11 +4,11 @@ import {
 import './side-bar.css';
 import { useSelector } from 'react-redux';
 import { Resizable, ResizeCallbackData } from 'react-resizable';
-import IrootStateProject from '../../../iterfaces/IrootStateProject';
-import IWorld from '../../../iterfaces/worldModel';
-import ICharacter from '../../../iterfaces/characterModel';
+import IrootStateProject from '../../../iterfaces/IRootStateProject';
+import IWorld from '../../../iterfaces/IWorld';
+import ICharacter from '../../../iterfaces/ICharacter';
 import CardInspect from './card-inspect';
-import INotes from '../../../iterfaces/InotesModel';
+import INotes from '../../../iterfaces/INotes';
 import IManuscript from '../../../iterfaces/IManuscript';
 
 function SideBar() {

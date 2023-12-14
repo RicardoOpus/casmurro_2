@@ -6,7 +6,7 @@ import './draft-detail.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
-import IrootStateProject from '../../../../iterfaces/IrootStateProject';
+import IrootStateProject from '../../../../iterfaces/IRootStateProject';
 import IManuscript from '../../../../iterfaces/IManuscript';
 import Loading from '../../../components/loading';
 import manuscriptService from '../../../../service/manuscriptService';
