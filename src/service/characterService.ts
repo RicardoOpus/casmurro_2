@@ -25,6 +25,8 @@ class CharacterService {
         link_list: [],
         note: '',
         occupation: '',
+        physical: '',
+        psychological: '',
         relations: [],
         task_list: [],
         resume: '',

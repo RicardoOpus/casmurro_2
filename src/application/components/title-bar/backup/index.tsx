@@ -16,6 +16,9 @@ function BackupModal({ onClose, openModal }: GenericModalProps) {
       case 'expDraftTXT':
         exportService.exportDraftTXT();
         return onClose();
+      case 'expProjectTXT':
+        exportService.exportProjectTXT();
+        return onClose();
       case 'expProject':
         exportService.exportProject();
         return onClose();
@@ -57,7 +60,7 @@ function BackupModal({ onClose, openModal }: GenericModalProps) {
             <button onClick={() => handleClick('expProject')} className="btnJson" type="button">
               🠗 Exportar Projeto
             </button>
-            <button onClick={() => handleClick('expTXT')} disabled className="btnTXT" type="button">
+            <button onClick={() => handleClick('expProjectTXT')} className="btnTXT" type="button">
               🠗 Salvar texto
             </button>
             <button onClick={() => handleClick('expPDF')} className="btnPDF" type="button">
