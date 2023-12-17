@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import IProject from '../../../interfaces/IProject';
-import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
+import IProject from '../../../../interfaces/IProject';
+import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import './printDraft.css';
-import IManuscript from '../../../interfaces/IManuscript';
-import utils from '../../../service/utils';
+import IManuscript from '../../../../interfaces/IManuscript';
+import utils from '../../../../service/utils';
 
 function PrintDraft() {
   const [project, setProject] = useState<IProject>();
@@ -26,6 +26,7 @@ function PrintDraft() {
         setProject(projectItem);
         setManuscript(projectItem.data.manuscript);
         document.documentElement.classList.add('printMode');
+        document.title = projectItem.title;
         setHideChapTitles(projectItem.projectSettings.manuscriptHideChaptersTitles);
         setHideScenesTitles(projectItem.projectSettings.manuscriptHideScenesTitles);
       }

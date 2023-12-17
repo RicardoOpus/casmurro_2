@@ -60,8 +60,10 @@ function BackupModal({ onClose, openModal }: GenericModalProps) {
             <button onClick={() => handleClick('expTXT')} disabled className="btnTXT" type="button">
               🠗 Salvar texto
             </button>
-            <button onClick={() => handleClick('expPDF')} disabled className="btnPDF" type="button">
-              🠗 Impressão
+            <button onClick={() => handleClick('expPDF')} className="btnPDF" type="button">
+              <NavLink to="/printProject" target="_blank" style={{ all: 'unset' }}>
+                🠗 Impressão
+              </NavLink>
             </button>
           </div>
         </fieldset>

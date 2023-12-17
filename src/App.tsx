@@ -15,7 +15,8 @@ import Notes from './application/pages/notes';
 import NotesDetail from './application/pages/notes/notes-detail';
 import Manuscript from './application/pages/manuscript';
 import Trash from './application/pages/trash';
-import PrintDraft from './application/components/print/printDraft';
+import PrintDraft from './application/pages/print/printDraft';
+import PrintProject from './application/pages/print/printProject';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -70,6 +71,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/*" element={<NotFoundPage />} />
           <Route path="/printDraft" element={<PrintDraft />} />
+          <Route path="/printProject" element={<PrintProject />} />
         </Routes>
       )}
     </div>
