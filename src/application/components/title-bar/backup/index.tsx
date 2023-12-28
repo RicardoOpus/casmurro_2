@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import './backup.css';
 import { NavLink } from 'react-router-dom';
 import exportService from '../../../../service/exportServise';
+import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 
 interface GenericModalProps {
   onClose: () => void;
@@ -11,7 +12,8 @@ interface GenericModalProps {
 function BackupModal({ onClose, openModal }: GenericModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
 
-  const handleClick = (type: string) => {
+  const handleClick = async (type: string) => {
+    await indexedDBrepository.updateLastBackup();
     switch (type) {
       case 'expDraftTXT':
         exportService.exportDraftTXT();

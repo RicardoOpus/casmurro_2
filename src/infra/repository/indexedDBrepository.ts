@@ -63,6 +63,12 @@ class IndexedDBrepository {
     await db.projects.update(projectID, { last_edit: now });
   }
 
+  async updateLastBackup() {
+    const projectID = await this.getCurrentProjectID();
+    const now = Date.now();
+    await db.projects.update(projectID, { lastBackup: now });
+  }
+
   async createNewProject(project: IProject): Promise<number> {
     const id = await db.projects.add(project).then();
     return id;

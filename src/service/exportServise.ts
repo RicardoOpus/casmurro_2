@@ -11,11 +11,11 @@ import INotes from '../interfaces/INotes';
 class ExportService {
   generateDraftHeader(project: IProject): string {
     let text = '';
-    text += `Título:\n${project.title}\n\n`;
+    text += `Título:\n  ${project.title}\n\n`;
     if (project.subtitle) {
-      text += `Subtítulo:\n${project.subtitle}\n\n`;
+      text += `Subtítulo:\n  ${project.subtitle}\n\n`;
     } if (project.author) {
-      text += `Autor:\n${project.author}\n\n`;
+      text += `Autor:\n  ${project.author}\n\n`;
     }
     return text;
   }
@@ -23,15 +23,15 @@ class ExportService {
   generateProjectInfos(project: IProject): string {
     let text = '';
     if (project.status) {
-      text += `Status:\n${project.status}\n\n`;
+      text += `Status:\n  ${project.status}\n\n`;
     } if (project.literary_genre) {
-      text += `Tipo literário:\n${project.literary_genre}\n\n`;
+      text += `Tipo literário:\n  ${project.literary_genre}\n\n`;
     } if (project.startDate) {
-      text += `Data inícial:\n${utils.convertDatePTBR(project.startDate)}\n\n`;
+      text += `Data inícial:\n  ${utils.convertDatePTBR(project.startDate)}\n\n`;
     } if (project.finishDate) {
-      text += `Data final:\n${utils.convertDatePTBR(project.finishDate)}\n\n`;
+      text += `Data final:\n  ${utils.convertDatePTBR(project.finishDate)}\n\n`;
     } if (project.projectResume) {
-      text += `Resumo:\n${project.projectResume}\n\n`;
+      text += `Resumo:\n  ${project.projectResume}\n\n`;
     }
     return text;
   }
