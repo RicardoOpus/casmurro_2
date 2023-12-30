@@ -60,8 +60,8 @@ function Writer() {
     const originalSelectionEnd = textarea.selectionEnd;
     const { value } = e.target;
     if (value) {
-      const updatedValue = value.startsWith('\n') ? value : `\n${value.replace(/--/g, '—')}`;
-      // const updatedValue = value.replace(/--/g, '—');
+      const updatedLine = value.startsWith('\n') ? value : `\n${value}`;
+      const updatedValue = updatedLine.replace(/--/g, '—');
       const updatedState = { ...stateMItem, [key]: updatedValue, last_edit: Date.now() };
       setStateManuItem(updatedState);
       manuscriptService.upDate(Number(id), updatedState as IManuscript);
