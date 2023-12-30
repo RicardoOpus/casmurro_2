@@ -5,7 +5,7 @@ import './newProjectModal.css';
 import 'balloon-css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import ProjectServide from '../../../../service/projectsService';
+import projectServide from '../../../../service/projectsService';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 
 interface NewProjectModalProps {
@@ -27,7 +27,6 @@ function NewProjectModal({ onClose, openModal }: NewProjectModalProps) {
     if (!agreedToTerms) {
       return setWarningTerms(true);
     }
-    const projectServide = new ProjectServide();
     await projectServide.create(projectName);
     dispatch(fetchProjectDataAction(true));
     navigate('/');

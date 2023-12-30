@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import IProject from '../interfaces/IProject';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
@@ -104,6 +105,21 @@ class ProjectServide {
     const idProject = await indexedDBrepository.createNewProject(newProject);
     indexedDBrepository.updateSettings(idProject);
   }
+
+  verifyFileExtension(filePath: string) {
+    return filePath.endsWith('.json');
+  }
+
+  hasRequiredKeys(obj: IProject | undefined) {
+    return obj && ('title' in obj) && ('id' in obj) && ('data' in obj);
+  }
+
+  async importJson(obj: IProject) {
+    const idProject = await indexedDBrepository.createNewProject(obj);
+    indexedDBrepository.updateSettings(idProject);
+  }
 }
 
-export default ProjectServide;
+const projectServide = new ProjectServide();
+
+export default projectServide;
