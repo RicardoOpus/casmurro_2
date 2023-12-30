@@ -76,6 +76,14 @@ function ProjectList({ projects }: { projects: IProject[] }) {
     setClearFilters(true);
   };
 
+  const renderCardsQty = (project: IProject) => {
+    const amountC = project.data?.characters?.length || 0;
+    const amountW = project.data?.world?.length || 0;
+    const amountN = project.data?.notes?.length || 0;
+    const amountM = project.data?.manuscript?.length || 0;
+    return amountC + amountW + amountN + amountM;
+  };
+
   useEffect(() => {
     if (clearFilters) {
       setClearFilters(false);
@@ -132,11 +140,11 @@ function ProjectList({ projects }: { projects: IProject[] }) {
                   <strong>{utils.convertToTime(project.last_edit)}</strong>
                 </p>
               </div>
-              <span className="projectStatus novo">{project.status}</span>
+              <span className="projectStatus status">{project.status}</span>
               <div>{project.literary_genre || ''}</div>
               <div className="cards">
                 <p className="projectTitle">
-                  <strong>0</strong>
+                  <strong>{ renderCardsQty(project) }</strong>
                 </p>
                 <p className="cardsQTY">Cartões</p>
               </div>

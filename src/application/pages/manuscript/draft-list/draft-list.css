@@ -111,3 +111,10 @@
   margin-right: .3em;
   width: 1em;
 }
+
+.filterScene {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5em;
+  margin-top: .5em;
+}

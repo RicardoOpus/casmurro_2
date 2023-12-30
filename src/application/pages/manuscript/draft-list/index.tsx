@@ -13,7 +13,7 @@ import GenericModal from '../../../components/generic-modal';
 import utils from '../../../../service/utils';
 
 function DraftList() {
-  const [width, setWidth] = useState(400);
+  const [width, setWidth] = useState(600);
   const [isLoading, setIsLoading] = useState(false);
   const [modal, setModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState<number>(0);
@@ -23,6 +23,9 @@ function DraftList() {
   const charList = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
   const [cenesList, setCenesList] = useState<IManuscript[]>([]);
+  const [filtredScenesList, setFiltredScenesList] = useState<IManuscript[]>([]);
+  const [selectedPOV, setSelectedPOV] = useState(0);
+  const [selectedStatus, setSelectedStatus] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -138,7 +141,7 @@ function DraftList() {
           )}
           <div className={cene.type === 'Cena' ? 'textIcon' : 'folderIcon'} />
           {cene.title || 'sem nome'}
-          {prjSettings.manuscriptShowWC && (
+          {prjSettings.manuscriptShowWC && cene.type === 'Cena' && (
             <span
               className="wordCountSpan"
               style={{ color: cene.current ? '#000000de' : '', marginLeft: '.5em' }}
@@ -155,9 +158,55 @@ function DraftList() {
     ))
   );
 
+  const renderSelectPOV = () => (
+    <div>
+      <select
+        value={selectedPOV}
+        onChange={(e) => setSelectedPOV(Number(e.target.value))}
+        className="writeSelect"
+        style={{ color: 'var(--text-color-inactive)' }}
+      >
+        <option value="">Filtro POV</option>
+        {charList?.map((char) => (
+          <option key={char.id} value={char.id}>
+            •
+            {' '}
+            {char.title}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+
+  const renderSelectedStatus = () => (
+    <div>
+      <select
+        value={selectedStatus}
+        onChange={(e) => setSelectedStatus(e.target.value)}
+        className="writeSelect"
+        style={{ color: 'var(--text-color-inactive)' }}
+      >
+        <option value="">Filtro Status</option>
+        {prjSettings.manuscriptStatus?.map((status) => (
+          <option key={uuidv4()} value={status}>
+            •
+            {' '}
+            {status}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+
+  const clearAllFilters = () => {
+    setSelectedPOV(0);
+    setSelectedStatus('');
+  };
+
   useEffect(() => {
     if (projectData.data?.manuscript) {
       setCenesList(projectData.data.manuscript);
+      setFiltredScenesList(projectData.data.manuscript);
     }
   }, [projectData.data?.manuscript]);
 
@@ -170,6 +219,18 @@ function DraftList() {
       navigate('/manuscript');
     }
   }, [cenesList, navigate]);
+
+  useEffect(() => {
+    const handleFilter = (scenesList: IManuscript[]) => {
+      const result = scenesList.filter((scene) => {
+        const PovMatch = !selectedPOV || scene.pov_id === selectedPOV;
+        const statusMatch = !selectedStatus || scene.status?.includes(selectedStatus);
+        return PovMatch && statusMatch;
+      });
+      setFiltredScenesList(result);
+    };
+    handleFilter(cenesList);
+  }, [cenesList, selectedPOV, selectedStatus]);
 
   return (
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
@@ -187,13 +248,18 @@ function DraftList() {
           </div>
         </div>
         <div className="listDraft">
+          <div className="filterScene">
+            {renderSelectPOV()}
+            {renderSelectedStatus()}
+            <button className="btnInvisible" type="button" onClick={clearAllFilters}>✖</button>
+          </div>
           <h2>Rascunho</h2>
           <div style={{ overflow: 'auto' }}>
             {isLoading ? (
               <Loading />
             ) : (
               <div className="listDraftItens">
-                {cenesList && cenesList.length > 0 && renderCeneList(cenesList)}
+                {cenesList && cenesList.length > 0 && renderCeneList(filtredScenesList)}
               </div>
             )}
           </div>
