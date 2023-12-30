@@ -26,6 +26,7 @@ function DraftList() {
   const [filtredScenesList, setFiltredScenesList] = useState<IManuscript[]>([]);
   const [selectedPOV, setSelectedPOV] = useState(0);
   const [selectedStatus, setSelectedStatus] = useState('');
+  const [draftWC, setDraftWC] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -146,7 +147,7 @@ function DraftList() {
               className="wordCountSpan"
               style={{ color: cene.current ? '#000000de' : '', marginLeft: '.5em' }}
             >
-              {`(${utils.countWords(cene.content)})`}
+              {`(${utils.countWords(cene.content).toLocaleString()})`}
             </span>
           )}
           {prjSettings.manuscriptShowChecks && (
@@ -232,6 +233,15 @@ function DraftList() {
     handleFilter(cenesList);
   }, [cenesList, selectedPOV, selectedStatus]);
 
+  useEffect(() => {
+    let totalWordCount = 0;
+    filtredScenesList.forEach((cene) => {
+      const amount = utils.countWords(cene.content);
+      totalWordCount += amount;
+    });
+    setDraftWC(totalWordCount);
+  }, [filtredScenesList]);
+
   return (
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
       <div style={{ width: `${width}px`, height: 'auto' }}>
@@ -253,7 +263,12 @@ function DraftList() {
             {renderSelectedStatus()}
             <button className="btnInvisible" type="button" onClick={clearAllFilters}>✖</button>
           </div>
-          <h2>Rascunho</h2>
+          <h2>
+            Rascunho
+            {prjSettings.manuscriptShowWC && (
+              <span className="drafWC">{` (${draftWC.toLocaleString()})`}</span>
+            )}
+          </h2>
           <div style={{ overflow: 'auto' }}>
             {isLoading ? (
               <Loading />
