@@ -8,12 +8,14 @@ import ICharacter from '../../../interfaces/ICharacter';
 import IManuscript from '../../../interfaces/IManuscript';
 import './timeline.css';
 import utils from '../../../service/utils';
+import ElapsedTimeModal from './elapsedtime-modal';
 
 interface ValidDateItem extends Required<IManuscript>, Required<IWorld>, Required<ICharacter> {
   date: string;
 }
 
 function Timeline() {
+  const [modal, setModal] = useState(false);
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const charList = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
@@ -122,6 +124,7 @@ function Timeline() {
           {renderSelectPOV()}
           <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑</button>
           <button className="btnSmall" type="button" onClick={handleSort} disabled={!isAscOrder}>↓</button>
+          <button className="btnSmall" type="button" onClick={() => setModal(true)}>Calcular tempo entre datas</button>
           <button className="btnSmall" type="button" onClick={clearAllFilters}>✖ Filtros</button>
         </div>
         <div className="containerTimeline">
@@ -136,6 +139,11 @@ function Timeline() {
           </div>
         </div>
       </div>
+      <ElapsedTimeModal
+        openModal={modal}
+        onClose={() => setModal(false)}
+        timeline={allCards}
+      />
     </div>
   );
 }

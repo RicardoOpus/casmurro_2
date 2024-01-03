@@ -183,6 +183,23 @@ class Utils {
       paragrafo.innerHTML = resultado;
     }
   }
+
+  calculateTimeElapsed(date1: string, date2: string) {
+    const date1Obj = new Date(date1);
+    const date2Obj = new Date(date2);
+    const timeElapsed = Math.abs(date2Obj.getTime() - date1Obj.getTime());
+    const yearInMs = 1000 * 60 * 60 * 24 * 365;
+    const monthInMs = 1000 * 60 * 60 * 24 * 30;
+    const dayInMs = 1000 * 60 * 60 * 24;
+    const yearsElapsed = Math.floor(timeElapsed / yearInMs);
+    const monthsElapsed = Math.floor((timeElapsed % yearInMs) / monthInMs);
+    const daysElapsed = Math.floor(((timeElapsed % yearInMs) % monthInMs) / dayInMs);
+    return {
+      years: yearsElapsed,
+      months: monthsElapsed,
+      days: daysElapsed,
+    };
+  }
 }
 
 const utils = new Utils();
