@@ -17,6 +17,7 @@ import Manuscript from './application/pages/manuscript';
 import Trash from './application/pages/trash';
 import PrintDraft from './application/pages/print/printDraft';
 import PrintProject from './application/pages/print/printProject';
+import Timeline from './application/pages/timeline';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -60,6 +61,7 @@ function App() {
             <Route path="/characters/:id" element={<CharactersDetail />} />
             <Route path="/world" element={<World />} />
             <Route path="/world/:id" element={<WorldDetail />} />
+            <Route path="/timeline" element={<Timeline />} />
             <Route path="/manuscript" element={<Manuscript />} />
             <Route path="/manuscript/:id" element={<Manuscript />} />
             <Route path="/notes" element={<Notes />} />
