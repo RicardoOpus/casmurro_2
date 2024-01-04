@@ -1,4 +1,4 @@
-import notfound from '../../../../public/not-found.png';
+import notfound from '../../../../public/images/not-found.png';
 import './not-found.css';
 
 function NotFound() {

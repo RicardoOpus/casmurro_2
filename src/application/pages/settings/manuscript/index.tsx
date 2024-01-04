@@ -58,7 +58,7 @@ function ManuscriptSettings() {
   return (
     <div>
       <h2 className="cardSettingsH2">
-        <img className="settingsSectionIcon icon-color" src="./scene.png" alt="Character icon" />
+        <img className="settingsSectionIcon icon-color" src="./images/scene.png" alt="Character icon" />
         {' '}
         Manuscrito
       </h2>

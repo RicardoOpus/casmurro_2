@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import casmurroLogo from '../../../../public/casmurro-logo.svg';
+import casmurroLogo from '../../../../public/images/casmurro-logo.svg';
 import indexedDBrepository from '../../../infra/repository/indexedDBrepository';
 import './projects.css';
 import NoData from '../../components/no-dada';

@@ -17,7 +17,7 @@ function CharactersSettings() {
   return (
     <div>
       <h2 className="cardSettingsH2">
-        <img className="settingsSectionIcon icon-color" src="./characters.png" alt="Character icon" />
+        <img className="settingsSectionIcon icon-color" src="./images/characters.png" alt="Character icon" />
         {' '}
         Personagens
       </h2>

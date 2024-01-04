@@ -166,7 +166,7 @@ function CharactersList() {
                 {character.image ? (
                   <img className="charListImage" src={character.image} alt="person img" />
                 ) : (
-                  <img className="charListImage" src="./person.png" alt="person img" />
+                  <img className="charListImage" src="./images/person.png" alt="person img" />
                 )}
                 <div>
                   <h3 className="cardListTitle">

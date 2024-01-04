@@ -13,17 +13,17 @@ interface GenericModalProps {
 function getIconPath(category: string): string {
   switch (category) {
     case 'Nova personagem':
-      return './characters.png';
+      return './images/characters.png';
     case 'Novo item mundo':
-      return './world.png';
+      return './images/world.png';
     case 'Nova Cena':
-      return './scene.png';
+      return './images/scene.png';
     case 'Linha do tempo':
-      return './timeline.png';
+      return './images/timeline.png';
     case 'Nova nota':
-      return './notes.png';
+      return './images/notes.png';
     default:
-      return './delete.png';
+      return './images/delete.png';
   }
 }
 

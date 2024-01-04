@@ -17,7 +17,7 @@ function NotesSettings() {
   return (
     <div>
       <h2 className="cardSettingsH2">
-        <img className="settingsSectionIcon icon-color" src="./notes.png" alt="World icon" />
+        <img className="settingsSectionIcon icon-color" src="./images/notes.png" alt="World icon" />
         {' '}
         Personagens
       </h2>

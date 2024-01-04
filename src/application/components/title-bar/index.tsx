@@ -72,7 +72,7 @@ function TitleBar() {
   return (
     <div id="main-header" className="header">
       <div className="logoTitle">
-        <img className="icon-color" src="./casmurro-logo.svg" alt="logo Casmurro" width="170px" />
+        <img className="icon-color" src="./images/casmurro-logo.svg" alt="logo Casmurro" width="170px" />
       </div>
       <div className="separator" />
       <button className="btnPorjects" type="button" onClick={() => navigate('/projects')}>Projetos</button>

@@ -17,7 +17,7 @@ function WorldSettings() {
   return (
     <div>
       <h2 className="cardSettingsH2">
-        <img className="settingsSectionIcon icon-color" src="./world.png" alt="World icon" />
+        <img className="settingsSectionIcon icon-color" src="./images/world.png" alt="World icon" />
         {' '}
         Mundo
       </h2>

@@ -212,7 +212,7 @@ function CharacterDetail() {
             {stateCharacter.image ? (
               <img src={stateCharacter.image} id="output" alt="character" />
             ) : (
-              <img src="./person.png" id="output" alt="character" />
+              <img src="./images/person.png" id="output" alt="character" />
             )}
           </div>
           <input

@@ -7,35 +7,35 @@
   --btn-color: #2D333B;
   --border-color: #3c3c3d;
   --card-bg: #202024;
-  --arrow-icon: url("../caret_down.svg");
-  --search-icon: url("../search.svg");
-  --uiMode-icon: url("../moon.svg");
+  --arrow-icon: url("../images/caret_down.svg");
+  --search-icon: url("../images/search.svg");
+  --uiMode-icon: url("../images/moon.svg");
   --logo-color: none;
   --green-color: #1b430d;
   --red-color: #991b1b;
-  --bg-texture: url("../texture.png");
-  --corner-img: url("../corner-dark.png");
-  --config-icon: url("../config.svg");
-  --config-icon2: url("../config2.svg");
-  --text-icon: url("../text.svg");
-  --folder-icon: url("../folder.svg");
-  --tag-icon: url("../tag.svg");
-  --reload-icon: url("../reload.svg");
-  --add-image-icon: url("../add-image.svg");
-  --remove-image-icon: url("../remove-image.svg");
-  --relations-icon: url("../relations.svg");
-  --link-icon: url("../link.svg");
-  --group-icon: url("../group.svg");
-  --trash-icon: url("../trash.svg");
-  --check-icon: url("../check.svg");
-  --double-check-icon: url("../double-check.svg");
-  --ornament1-icon: url("../ornament1.svg");
-  --ornament2-icon: url("../ornament2.svg");
-  --timer-icon: url("../timer.svg");
-  --fullScreen-icon: url("../full.svg");
-  --distractionFree-icon: url("../distractionFree.svg");
-  --deadline-icon: url("../deadline.svg");
-  --import-icon: url("../import.svg");
+  --bg-texture: url("../images/texture.png");
+  --corner-img: url("../images/corner-dark.png");
+  --config-icon: url("../images/config.svg");
+  --config-icon2: url("../images/config2.svg");
+  --text-icon: url("../images/text.svg");
+  --folder-icon: url("../images/folder.svg");
+  --tag-icon: url("../images/tag.svg");
+  --reload-icon: url("../images/reload.svg");
+  --add-image-icon: url("../images/add-image.svg");
+  --remove-image-icon: url("../images/remove-image.svg");
+  --relations-icon: url("../images/relations.svg");
+  --link-icon: url("../images/link.svg");
+  --group-icon: url("../images/group.svg");
+  --trash-icon: url("../images/trash.svg");
+  --check-icon: url("../images/check.svg");
+  --double-check-icon: url("../images/double-check.svg");
+  --ornament1-icon: url("../images/ornament1.svg");
+  --ornament2-icon: url("../images/ornament2.svg");
+  --timer-icon: url("../images/timer.svg");
+  --fullScreen-icon: url("../images/full.svg");
+  --distractionFree-icon: url("../images/distractionFree.svg");
+  --deadline-icon: url("../images/deadline.svg");
+  --import-icon: url("../images/import.svg");
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --user-scene-size: 25px;
@@ -53,51 +53,51 @@
   --btn-color: #cecece;
   --border-color: #727272;
   --card-bg: #f7f7f7;
-  --arrow-icon: url("../caret_down_black.svg");
-  --search-icon: url("../search_black.svg");
-  --uiMode-icon: url("../sun.svg");
+  --arrow-icon: url("../images/caret_down_black.svg");
+  --search-icon: url("../images/search_black.svg");
+  --uiMode-icon: url("../images/sun.svg");
   --logo-color: brightness(0);
   --green-color: #4c8637db;
-  --bg-texture: url("../texture.png");
-  --corner-img: url("../corner.png");
+  --bg-texture: url("../images/texture.png");
+  --corner-img: url("../images/corner.png");
   --scroll-color: #cecece;
   --calendar-picker: 1;
 }
 
 @font-face {
   font-family: Amaranth;
-  src: url("../amaranth.otf") format("truetype");
+  src: url("../fonts/amaranth.otf") format("truetype");
 }
 
 @font-face {
   font-family: Roboto;
-  src: url("../roboto.ttf") format("truetype");
+  src: url("../fonts/roboto.ttf") format("truetype");
 }
 
 
 @font-face {
   font-family: RobotoI;
-  src: url("../roboto-italic.ttf") format("truetype");
+  src: url("../fonts/roboto-italic.ttf") format("truetype");
 }
 
 @font-face {
   font-family: TypeCurier;
-  src: url("../courier.ttf") format("truetype");
+  src: url("../fonts/courier.ttf") format("truetype");
 }
 
 @font-face {
   font-family: PT;
-  src: url("../PT.ttf") format("truetype");
+  src: url("../fonts/PT.ttf") format("truetype");
 }
 
 @font-face {
   font-family: PT-italic;
-  src: url("../PT-italic.ttf") format("truetype");
+  src: url("../fonts/PT-italic.ttf") format("truetype");
 }
 
 @font-face {
   font-family: Timer;
-  src: url("../Timer.otf") format("truetype");
+  src: url("../fonts/Timer.otf") format("truetype");
 }
 
 :root {
@@ -763,7 +763,7 @@ tr:nth-child(even) {
 /*=========== ICONS =========== */
 
 .ui-icon {
-  background-image: url("../ui-icons-light.png");
+  background-image: url("../images/ui-icons-light.png");
   background-repeat: no-repeat;
   display: inline-block;
   height: 16px;

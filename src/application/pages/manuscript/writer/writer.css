@@ -40,21 +40,21 @@
 }
 
 .lightScene {
-  background: url("/public/pageWhite.jpg");
+  background: url("/public/images/pageWhite.jpg");
   background-color: #FFFFFF;
   background-size: cover;
   color: #000000;
 }
 
 .sepiaScene {
-  background: url("/public/pageSepia.jpg");
+  background: url("/public/images/pageSepia.jpg");
   background-color: #e7dec7;
   background-size: cover;
   color: #5d4232;
 }
 
 .darkScene {
-  background: url("/public/texture.png");
+  background: url("/public/images/texture.png");
   background-color: #060707;
   color: #878787;
 }

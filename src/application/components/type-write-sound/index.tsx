@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import keyCenter from '../../../../public/type_center.mp3';
-import keyLeft75 from '../../../../public/type_left_75.mp3';
-import keyLeft95 from '../../../../public/type_left_95.mp3';
-import keyRight75 from '../../../../public/type_right_75.mp3';
-import keyRight95 from '../../../../public/type_right_95.mp3';
-import keyBackspace from '../../../../public/type_backspace.mp3';
-import keySpace from '../../../../public/type_space.mp3';
-import keyReturn from '../../../../public/type_bell.mp3';
+import keyCenter from '../../../../public/sounds/type_center.mp3';
+import keyLeft75 from '../../../../public/sounds/type_left_75.mp3';
+import keyLeft95 from '../../../../public/sounds/type_left_95.mp3';
+import keyRight75 from '../../../../public/sounds/type_right_75.mp3';
+import keyRight95 from '../../../../public/sounds/type_right_95.mp3';
+import keyBackspace from '../../../../public/sounds/type_backspace.mp3';
+import keySpace from '../../../../public/sounds/type_space.mp3';
+import keyReturn from '../../../../public/sounds/type_bell.mp3';
 import IrootStateProject from '../../../interfaces/IRootStateProject';
 
 function TypeWriterSound() {
