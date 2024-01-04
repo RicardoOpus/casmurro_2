@@ -18,6 +18,7 @@ import Trash from './application/pages/trash';
 import PrintDraft from './application/pages/print/printDraft';
 import PrintProject from './application/pages/print/printProject';
 import Timeline from './application/pages/timeline';
+import About from './application/pages/about';
 
 function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -68,6 +69,7 @@ function App() {
             <Route path="/notes/:id" element={<NotesDetail />} />
             <Route path="/trash" element={<Trash />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/about" element={<About />} />
           </Route>
           <Route path="/splash" element={<Splash />} />
           <Route path="/projects" element={<Projects />} />

@@ -21,5 +21,6 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'import/no-absolute-path': 'off',
+    'react/no-danger': 'off',
   },
 }

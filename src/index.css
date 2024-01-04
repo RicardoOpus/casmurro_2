@@ -428,6 +428,9 @@ tr:nth-child(even) {
   background-color: var(--bg-color-sec);
 }
 
+.longtext p {
+  margin: 1em 0;
+}
 
 /* ============= resizables  ================= */
 

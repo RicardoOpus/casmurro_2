@@ -78,7 +78,14 @@ function NavBar() {
         >
           { }
         </button>
-        <button id="Sobre" className="navBarItem " type="button">Sobre</button>
+        <button
+          onClick={() => handleButtonClick('/about', 'Sobre')}
+          id="Sobre"
+          className={`navBarItem ${activeButton === 'Sobre' ? 'NavBarActive' : ''}`}
+          type="button"
+        >
+          Sobre
+        </button>
       </div>
     </div>
   );
