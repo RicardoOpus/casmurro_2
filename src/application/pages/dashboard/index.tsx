@@ -153,6 +153,7 @@ function Dashboard() {
                 <div className="profile-pic addImage">
                   <input
                     id="addImage"
+                    accept=".jpg, .jpeg, .png, .webp"
                     onChange={(e) => handleFileInput(e.target)}
                     type="file"
                   />
