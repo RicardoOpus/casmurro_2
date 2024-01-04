@@ -14,7 +14,7 @@ import utils from '../../../../service/utils';
 
 function DraftList() {
   const [width, setWidth] = useState(600);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState<number>(0);
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
@@ -212,6 +212,15 @@ function DraftList() {
   }, [projectData.data?.manuscript]);
 
   useEffect(() => {
+    const fetchData = () => {
+      if (prjSettings) {
+        setIsLoading(false);
+      }
+    };
+    fetchData();
+  }, [navigate, prjSettings]);
+
+  useEffect(() => {
     const current = cenesList.find((e) => e.current);
     if (current && current.id) {
       navigate(`/manuscript/${current.id}`);
@@ -245,41 +254,47 @@ function DraftList() {
   return (
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
       <div style={{ width: `${width}px`, height: 'auto' }}>
-        <div className="divBtnM">
-          <div className="AddButtonsM">
-            <button onClick={() => creatNewCene('Cena')} type="button" className="btnInvisibleM">+ Cena</button>
-            <button onClick={() => creatNewCene('Capítulo')} type="button" className="btnInvisibleM">+ Capítulo</button>
-          </div>
-          <div className="moveButtonsM">
-            <button onClick={moveUp} type="button" className="btnMoveInvisibleM">▲</button>
-            <button onClick={moveDown} type="button" className="btnMoveInvisibleM">▼</button>
-            <button onClick={() => moveLevel(false)} type="button" className="btnMoveInvisibleM">🡰</button>
-            <button onClick={() => moveLevel(true)} type="button" className="btnMoveInvisibleM">🡲</button>
-          </div>
-        </div>
-        <div className="listDraft">
-          <div className="filterScene">
-            {renderSelectPOV()}
-            {renderSelectedStatus()}
-            <button className="btnInvisible" type="button" onClick={clearAllFilters}>✖</button>
-          </div>
-          <h2>
-            Rascunho
-            {prjSettings.manuscriptShowWC && (
-              <span className="drafWC">{` (${draftWC.toLocaleString()})`}</span>
-            )}
-          </h2>
-          <div style={{ overflow: 'auto' }}>
-            {isLoading ? (
-              <Loading />
-            ) : (
-              <div className="listDraftItens">
-                {cenesList && cenesList.length > 0 && renderCeneList(filtredScenesList)}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <div>
+            <div className="divBtnM">
+              <div className="AddButtonsM">
+                <button onClick={() => creatNewCene('Cena')} type="button" className="btnInvisibleM">+ Cena</button>
+                <button onClick={() => creatNewCene('Capítulo')} type="button" className="btnInvisibleM">+ Capítulo</button>
               </div>
-            )}
+              <div className="moveButtonsM">
+                <button onClick={moveUp} type="button" className="btnMoveInvisibleM">▲</button>
+                <button onClick={moveDown} type="button" className="btnMoveInvisibleM">▼</button>
+                <button onClick={() => moveLevel(false)} type="button" className="btnMoveInvisibleM">🡰</button>
+                <button onClick={() => moveLevel(true)} type="button" className="btnMoveInvisibleM">🡲</button>
+              </div>
+            </div>
+            <div className="listDraft">
+              <div className="filterScene">
+                {renderSelectPOV()}
+                {renderSelectedStatus()}
+                <button className="btnInvisible" type="button" onClick={clearAllFilters}>✖</button>
+              </div>
+              <h2>
+                Rascunho
+                {prjSettings.manuscriptShowWC && (
+                  <span className="drafWC">{` (${draftWC.toLocaleString()})`}</span>
+                )}
+              </h2>
+              <div style={{ overflow: 'auto' }}>
+                {isLoading ? (
+                  <Loading />
+                ) : (
+                  <div className="listDraftItens">
+                    {cenesList && cenesList.length > 0 && renderCeneList(filtredScenesList)}
+                  </div>
+                )}
+              </div>
+            </div>
+            <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir Cena? Ela foi modificada." onDataSend={handleDelete} deleteType />
           </div>
-        </div>
-        <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir Cena? Ela foi modificada." onDataSend={handleDelete} deleteType />
+        )}
       </div>
     </Resizable>
   );
