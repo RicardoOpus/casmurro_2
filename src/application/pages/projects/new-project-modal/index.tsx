@@ -67,8 +67,6 @@ function NewProjectModal({ onClose, openModal }: NewProjectModalProps) {
   return (
     <dialog ref={ref} className="modal" data-testid="modal-new-project">
       <div className="modal-content">
-        <div className="corner ponto1" />
-        <div className="corner ponto2" />
         <div className="modal-border">
           <h2>Novo Projeto</h2>
           <input
@@ -136,8 +134,6 @@ function NewProjectModal({ onClose, openModal }: NewProjectModalProps) {
             <button onClick={handleCancel} type="button">Cancelar</button>
           </div>
         </div>
-        <div className="corner ponto3" />
-        <div className="corner ponto4" />
       </div>
     </dialog>
   );

@@ -70,8 +70,6 @@ function GenericModal({
   return (
     <dialog ref={ref} className="modal">
       <div className="modal-content">
-        <div className="corner ponto1" />
-        <div className="corner ponto2" />
         <div className="modal-border">
           <img className="icon-color" src={getIconPath(typeName)} alt="type icon" />
           <h2>
@@ -99,8 +97,6 @@ function GenericModal({
             <button onClick={handleCancel} type="button">Cancelar</button>
           </div>
         </div>
-        <div className="corner ponto3" />
-        <div className="corner ponto4" />
       </div>
     </dialog>
   );
