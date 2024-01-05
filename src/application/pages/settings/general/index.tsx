@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { ChangeEvent, SetStateAction, useEffect, useState } from 'react';
+import {
+  ChangeEvent, SetStateAction, useEffect, useState,
+} from 'react';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
