@@ -218,7 +218,7 @@ function DraftList() {
       }
     };
     fetchData();
-  }, [navigate, prjSettings]);
+  }, [prjSettings]);
 
   useEffect(() => {
     const current = cenesList.find((e) => e.current);

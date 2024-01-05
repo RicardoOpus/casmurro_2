@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { ChangeEvent, SetStateAction, useState } from 'react';
+import { ChangeEvent, SetStateAction, useEffect, useState } from 'react';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
@@ -10,7 +10,7 @@ function GeneralSettings() {
   const dispatch = useDispatch();
   const prjSettings = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.projectSettings));
-  const [color, setColor] = useState(prjSettings.projectColor);
+  const [color, setColor] = useState('');
   const typeSet = localStorage.getItem('contenTypeFont') || 'Roboto';
   const [typeFontUser, setTypeFontUSer] = useState(typeSet);
   const [textValue, setTextValue] = useState(paragraphyMock);
@@ -59,6 +59,15 @@ function GeneralSettings() {
       root.style.setProperty('--user-text-size', '16px');
     }
   };
+
+  useEffect(() => {
+    const fetchData = () => {
+      if (prjSettings) {
+        setColor(prjSettings.projectColor);
+      }
+    };
+    fetchData();
+  }, [prjSettings]);
 
   return (
     <div>
