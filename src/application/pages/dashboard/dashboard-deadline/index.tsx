@@ -16,7 +16,7 @@ function DeadlineModal({
   startDateProject, finishDateProject, updateDeadline,
 }: GenericModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
-  const [isChecked, setIsChecked] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(true);
   const [startDate, setStartDate] = useState(startDateProject);
   const [finishDate, setFinishDate] = useState(finishDateProject);
   const handleCancel = () => onClose();
@@ -41,9 +41,9 @@ function DeadlineModal({
 
   useEffect(() => {
     if (startDate && finishDate) {
-      setIsChecked(false);
+      setIsDisabled(false);
     } else {
-      setIsChecked(true);
+      setIsDisabled(true);
     }
   }, [finishDate, startDate]);
 
@@ -73,7 +73,7 @@ function DeadlineModal({
     <dialog ref={ref} className="modal">
       <div className="modal-content">
         <h2>Definir prazo de conclusão</h2>
-        <button className="btnSmall" onClick={clearDeadline} style={{ margin: '.5em 0' }} type="button" disabled={isChecked}>Desativar prazo</button>
+        <button className="btnSmall" onClick={clearDeadline} style={{ margin: '.5em 0' }} type="button" disabled={isDisabled}>Desativar prazo</button>
         <div className="deadlineContainer">
           <div>
             <h3>Data inicial:</h3>
@@ -99,7 +99,7 @@ function DeadlineModal({
           </div>
         </div>
         <div className="button-container">
-          <button id="btnSavePr" onClick={saveDeadline} type="button" disabled={isChecked}>Salvar</button>
+          <button id="btnSavePr" onClick={saveDeadline} type="button" disabled={isDisabled}>Salvar</button>
           <button onClick={handleCancel} type="button">Fechar</button>
         </div>
       </div>

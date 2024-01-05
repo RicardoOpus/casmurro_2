@@ -1,6 +1,8 @@
-import { useEffect, useRef } from 'react';
+import {
+  SetStateAction, useEffect, useRef, useState,
+} from 'react';
+import text from '../../../../../public/locales/pt/translation.json';
 import './backup.css';
-import { NavLink } from 'react-router-dom';
 import exportService from '../../../../service/exportServise';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 
@@ -11,15 +13,22 @@ interface GenericModalProps {
 
 function BackupModal({ onClose, openModal }: GenericModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
+  const [selectedOption, setSelectedOption] = useState('');
 
-  const handleClick = async (type: string) => {
+  const handleExport = async () => {
     await indexedDBrepository.updateLastBackup();
-    switch (type) {
+    switch (selectedOption) {
       case 'expDraftTXT':
         exportService.exportDraftTXT();
         return onClose();
       case 'expProjectTXT':
         exportService.exportProjectTXT();
+        return onClose();
+      case 'expPDF':
+        window.open('/#/printProject', '_blank');
+        return onClose();
+      case 'expDraftPDF':
+        window.open('/#/printDraft', '_blank');
         return onClose();
       case 'expProject':
         exportService.exportProject();
@@ -29,11 +38,67 @@ function BackupModal({ onClose, openModal }: GenericModalProps) {
     }
   };
 
+  const handleOptionChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const renderTips = (optionSelected: string) => {
+    switch (optionSelected) {
+      case 'expProject':
+        return (
+          <div>
+            <img src="../public/images/fileJson.svg" alt="json icon" />
+            <div dangerouslySetInnerHTML={{ __html: text.backupModal.expProjectTip }} />
+          </div>
+        );
+      case 'expProjectTXT':
+        return (
+          <div>
+            <img src="../public/images/fileTxt.svg" alt="text icon" />
+            <div dangerouslySetInnerHTML={{ __html: text.backupModal.expProjectTXTTip }} />
+          </div>
+        );
+      case 'expPDF':
+        return (
+          <div>
+            <img src="../public/images/print.svg" alt="print icon" />
+            <div dangerouslySetInnerHTML={{ __html: text.backupModal.expPDFTip }} />
+          </div>
+        );
+      case 'expDraftTXT':
+        return (
+          <div>
+            <img src="../public/images/fileTxt.svg" alt="text icon" />
+            <div dangerouslySetInnerHTML={{ __html: text.backupModal.expDraftTXTTip }} />
+          </div>
+        );
+      case 'expDraftPDF':
+        return (
+          <div>
+            <img src="../public/images/print.svg" alt="print icon" />
+            <div dangerouslySetInnerHTML={{ __html: text.backupModal.expDraftPDFTip }} />
+          </div>
+        );
+      default:
+        return (
+          <div>
+            <div
+              className="warningTitle"
+              style={{ textAlign: 'center' }}
+              dangerouslySetInnerHTML={{ __html: text.backupModal.warning }}
+            />
+            <div dangerouslySetInnerHTML={{ __html: text.backupModal.warningCaption }} />
+          </div>
+        );
+    }
+  };
+
   useEffect(() => {
     if (openModal) {
       ref.current?.showModal();
     } else {
       ref.current?.close();
+      setSelectedOption('');
     }
   }, [openModal]);
 
@@ -51,54 +116,75 @@ function BackupModal({ onClose, openModal }: GenericModalProps) {
 
   return (
     <dialog ref={ref} className="modal">
-      <div style={{ margin: '5% auto' }} className="modal-content">
-        <h2>Backup</h2>
-        <fieldset style={{ padding: '0 1em .5em 1em' }} className="cardFiedset">
-          <legend className="legendMedium">
-            Dados do Projeto
-            <span className="spanField">(Tudo)</span>
-          </legend>
-          <div className="backupField">
-            <button onClick={() => handleClick('expProject')} className="btnJson" type="button">
-              🠗 Exportar Projeto
-            </button>
-            <button onClick={() => handleClick('expProjectTXT')} className="btnTXT" type="button">
-              🠗 Salvar texto
-            </button>
-            <button onClick={() => handleClick('expPDF')} className="btnPDF" type="button">
-              <NavLink to="/printProject" target="_blank" style={{ all: 'unset' }}>
-                🠗 Impressão
-              </NavLink>
-            </button>
+      <div style={{ margin: '5% auto', width: '900px' }} className="modal-content">
+        <h2>{text.backupModal.title}</h2>
+        <hr className="dividerBackup" />
+        <div className="backupSection">
+          <div className="backupOptions">
+            <label htmlFor="expProject">
+              <input
+                id="expProject"
+                type="radio"
+                value="expProject"
+                checked={selectedOption === 'expProject'}
+                onChange={handleOptionChange}
+              />
+              {' '}
+              {text.backupModal.expProject}
+            </label>
+            <label htmlFor="expProjectTXT">
+              <input
+                id="expProjectTXT"
+                type="radio"
+                value="expProjectTXT"
+                checked={selectedOption === 'expProjectTXT'}
+                onChange={handleOptionChange}
+              />
+              {' '}
+              {text.backupModal.expProjectTXT}
+            </label>
+            <label htmlFor="expPDF">
+              <input
+                id="expPDF"
+                type="radio"
+                value="expPDF"
+                checked={selectedOption === 'expPDF'}
+                onChange={handleOptionChange}
+              />
+              {' '}
+              {text.backupModal.expPDF}
+            </label>
+            <label htmlFor="expDraftTXT">
+              <input
+                id="expDraftTXT"
+                type="radio"
+                value="expDraftTXT"
+                checked={selectedOption === 'expDraftTXT'}
+                onChange={handleOptionChange}
+              />
+              {' '}
+              {text.backupModal.expDraftTXT}
+            </label>
+            <label htmlFor="expDraftPDF">
+              <input
+                id="expDraftPDF"
+                type="radio"
+                value="expDraftPDF"
+                checked={selectedOption === 'expDraftPDF'}
+                onChange={handleOptionChange}
+              />
+              {' '}
+              {text.backupModal.expDraftPDF}
+            </label>
           </div>
-        </fieldset>
-        <h2>Exportar</h2>
-        <fieldset style={{ padding: '0 1em .5em 1em', marginTop: '0' }} className="cardFiedset">
-          <legend className="legendMedium">
-            Manuscrito
-            <span className="spanField">(Somente Cenas)</span>
-          </legend>
-          <div className="backupField">
-            <button onClick={() => handleClick('expDraftTXT')} className="btnTXT" type="button">
-              🠗 Salvar texto
-            </button>
-            <button onClick={() => handleClick('expDraftPDF')} className="btnPDF" type="button">
-              <NavLink to="/printDraft" target="_blank" style={{ all: 'unset' }}>
-                🠗 Impressão
-              </NavLink>
-            </button>
+          <div className="backupTips">
+            {renderTips(selectedOption)}
           </div>
-        </fieldset>
-        <h3 style={{ marginBottom: '0', color: 'var(--text-color-inactive)' }}>Atenção! Mantenha seus dados seguros</h3>
-        <p className="backupFieldP">
-          Casmurro respeita sua privacidade e não coleta informações.
-          Isso significa que todos os dados são armazenados
-          localmente em seu próprio navegador. Portando, é
-          recomendável fazer backups com frequência e salvá-los
-          em pastas sincronizadas na nuvem,
-          como o Google Drive ou Dropbox.
-        </p>
-        <button onClick={() => onClose()} type="button">Fechar</button>
+        </div>
+        <div className="backupButtons">
+          <button disabled={!selectedOption} style={{ backgroundColor: 'var(--green-color)' }} onClick={handleExport} type="button">{text.backupModal.btnExport}</button>
+          <button onClick={() => onClose()} type="button">{text.basics.btnClose}</button>
+        </div>
       </div>
     </dialog>
   );
