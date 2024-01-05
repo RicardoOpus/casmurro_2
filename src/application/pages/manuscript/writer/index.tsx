@@ -310,9 +310,9 @@ function Writer() {
         <div className="writerButtons">
           {!noDisctration && (
             !colapseState ? (
-              <button title="Expandir" onClick={() => colapeDetails(true)} className="btnWriter" type="button">🡹</button>
+              <button title="Expandir" onClick={() => colapeDetails(true)} className="btnWriter" type="button">↑ ↑</button>
             ) : (
-              <button title="Recolher" onClick={() => colapeDetails(false)} className="btnWriter" type="button">🡻</button>
+              <button title="Recolher" onClick={() => colapeDetails(false)} className="btnWriter" type="button">↓ ↓</button>
             )
           )}
           <button title="Modo sem distrações" onClick={distractionFreeMode} className="distractionFreeIcon" type="button">{' '}</button>
@@ -362,8 +362,8 @@ function Writer() {
             <option value="cards"> • Personagens/Mundo</option>
             <option value="pleonasmos"> • Pleonasmos</option>
           </select>
-          <button title="Ir para topo" onClick={gotoTop} className="btnWriter" type="button">🡅</button>
-          <button title="Ir para final" onClick={goToBottom} className="btnWriter" type="button">🡇</button>
+          <button title="Ir para topo" onClick={gotoTop} className="btnWriter" type="button">▲</button>
+          <button title="Ir para final" onClick={goToBottom} className="btnWriter" type="button">▼</button>
           <button title="Modo tela cheia (F11)" onClick={goFullScreen} className="fullSceenIcon" type="button">{' '}</button>
           <button title="Temporizador" onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
           {wc > 0 && (

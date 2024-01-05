@@ -266,8 +266,8 @@ function DraftList() {
               <div className="moveButtonsM">
                 <button onClick={moveUp} type="button" className="btnMoveInvisibleM">▲</button>
                 <button onClick={moveDown} type="button" className="btnMoveInvisibleM">▼</button>
-                <button onClick={() => moveLevel(false)} type="button" className="btnMoveInvisibleM">🡰</button>
-                <button onClick={() => moveLevel(true)} type="button" className="btnMoveInvisibleM">🡲</button>
+                <button onClick={() => moveLevel(false)} type="button" className="btnMoveInvisibleM">◀</button>
+                <button onClick={() => moveLevel(true)} type="button" className="btnMoveInvisibleM">▶</button>
               </div>
             </div>
             <div className="listDraft">

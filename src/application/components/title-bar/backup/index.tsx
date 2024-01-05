@@ -25,10 +25,10 @@ function BackupModal({ onClose, openModal }: GenericModalProps) {
         exportService.exportProjectTXT();
         return onClose();
       case 'expPDF':
-        window.open('/#/printProject', '_blank');
+        window.open('/casmurro2/#/printProject', '_blank');
         return onClose();
       case 'expDraftPDF':
-        window.open('/#/printDraft', '_blank');
+        window.open('/casmurro2/#/printDraft', '_blank');
         return onClose();
       case 'expProject':
         exportService.exportProject();
@@ -47,35 +47,35 @@ function BackupModal({ onClose, openModal }: GenericModalProps) {
       case 'expProject':
         return (
           <div>
-            <img src="../public/images/fileJson.svg" alt="json icon" />
+            <img src="images/fileJson.svg" alt="json icon" />
             <div dangerouslySetInnerHTML={{ __html: text.backupModal.expProjectTip }} />
           </div>
         );
       case 'expProjectTXT':
         return (
           <div>
-            <img src="../public/images/fileTxt.svg" alt="text icon" />
+            <img src="images/fileTxt.svg" alt="text icon" />
             <div dangerouslySetInnerHTML={{ __html: text.backupModal.expProjectTXTTip }} />
           </div>
         );
       case 'expPDF':
         return (
           <div>
-            <img src="../public/images/print.svg" alt="print icon" />
+            <img src="images/print.svg" alt="print icon" />
             <div dangerouslySetInnerHTML={{ __html: text.backupModal.expPDFTip }} />
           </div>
         );
       case 'expDraftTXT':
         return (
           <div>
-            <img src="../public/images/fileTxt.svg" alt="text icon" />
+            <img src="images/fileTxt.svg" alt="text icon" />
             <div dangerouslySetInnerHTML={{ __html: text.backupModal.expDraftTXTTip }} />
           </div>
         );
       case 'expDraftPDF':
         return (
           <div>
-            <img src="../public/images/print.svg" alt="print icon" />
+            <img src="images/print.svg" alt="print icon" />
             <div dangerouslySetInnerHTML={{ __html: text.backupModal.expDraftPDFTip }} />
           </div>
         );

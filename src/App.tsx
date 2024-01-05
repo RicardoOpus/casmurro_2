@@ -35,7 +35,7 @@ function App() {
     }
     const timer = setTimeout(() => {
       setShowSplash(false);
-    }, 1000);
+    }, 4000);
     return () => clearTimeout(timer);
   }, []);
 
