@@ -1,62 +1,62 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './nav-bar.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function NavBar() {
   const navigate = useNavigate();
   const [activeButton, setActiveButton] = useState('Dashboard');
+  const location = useLocation();
 
-  const handleButtonClick = (route: string, buttonId: string) => {
-    navigate(route);
-    setActiveButton(buttonId);
-  };
+  useEffect(() => {
+    setActiveButton(location.pathname.split('/')[1]);
+  }, [location.pathname]);
 
   return (
     <div className="navBar">
       <button
-        onClick={() => handleButtonClick('/', 'Dashboard')}
+        onClick={() => navigate('/')}
         id="Dashboard"
-        className={`navBarItem ${activeButton === 'Dashboard' ? 'NavBarActive' : ''}`}
+        className={`navBarItem ${activeButton === '' ? 'NavBarActive' : ''}`}
         type="button"
       >
         Dashboard
       </button>
       <button
-        onClick={() => handleButtonClick('/characters', 'Personagens')}
+        onClick={() => navigate('/characters')}
         id="Personagens"
-        className={`navBarItem ${activeButton === 'Personagens' ? 'NavBarActive' : ''}`}
+        className={`navBarItem ${activeButton === 'characters' ? 'NavBarActive' : ''}`}
         type="button"
       >
         Personagens
       </button>
       <button
-        onClick={() => handleButtonClick('/world', 'Mundo')}
+        onClick={() => navigate('/world')}
         id="Mundo"
-        className={`navBarItem ${activeButton === 'Mundo' ? 'NavBarActive' : ''}`}
+        className={`navBarItem ${activeButton === 'world' ? 'NavBarActive' : ''}`}
         type="button"
       >
         Mundo
       </button>
       <button
-        onClick={() => handleButtonClick('/notes', 'Notas')}
+        onClick={() => navigate('/notes')}
         id="Notas"
-        className={`navBarItem ${activeButton === 'Notas' ? 'NavBarActive' : ''}`}
+        className={`navBarItem ${activeButton === 'notes' ? 'NavBarActive' : ''}`}
         type="button"
       >
         Notas
       </button>
       <button
-        onClick={() => handleButtonClick('/timeline', 'Timeline')}
+        onClick={() => navigate('/timeline')}
         id="Timeline"
-        className={`navBarItem ${activeButton === 'Timeline' ? 'NavBarActive' : ''}`}
+        className={`navBarItem ${activeButton === 'timeline' ? 'NavBarActive' : ''}`}
         type="button"
       >
         Timeline
       </button>
       <button
-        onClick={() => handleButtonClick('/manuscript', 'Manuscrito')}
+        onClick={() => navigate('/manuscript')}
         id="Manuscrito"
-        className={`navBarItem ${activeButton === 'Manuscrito' ? 'NavBarActive' : ''}`}
+        className={`navBarItem ${activeButton === 'manuscript' ? 'NavBarActive' : ''}`}
         type="button"
       >
         Manuscrito
@@ -64,24 +64,24 @@ function NavBar() {
       <div className="nav-right">
         <button
           id="Settings"
-          onClick={() => handleButtonClick('/trash', 'Trash')}
+          onClick={() => navigate('/trash')}
           type="button"
-          className={`${activeButton === 'Trash' ? 'trashIconActive' : 'trashIcon'}`}
+          className={`${activeButton === 'trash' ? 'trashIconActive' : 'trashIcon'}`}
         >
           { }
         </button>
         <button
           id="Settings"
-          onClick={() => handleButtonClick('/settings', 'Settings')}
+          onClick={() => navigate('/settings')}
           type="button"
-          className={`${activeButton === 'Settings' ? 'settingsIconActive' : 'settingsIcon'}`}
+          className={`${activeButton === 'settings' ? 'settingsIconActive' : 'settingsIcon'}`}
         >
           { }
         </button>
         <button
-          onClick={() => handleButtonClick('/about', 'Sobre')}
+          onClick={() => navigate('/about')}
           id="Sobre"
-          className={`navBarItem ${activeButton === 'Sobre' ? 'NavBarActive' : ''}`}
+          className={`navBarItem ${activeButton === 'about' ? 'NavBarActive' : ''}`}
           type="button"
         >
           Sobre
