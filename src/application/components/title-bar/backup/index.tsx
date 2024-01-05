@@ -72,7 +72,8 @@ function BackupModal({ onClose, openModal }: GenericModalProps) {
             </button>
           </div>
         </fieldset>
-        <fieldset style={{ padding: '0 1em .5em 1em', marginTop: '1em' }} className="cardFiedset">
+        <h2>Exportar</h2>
+        <fieldset style={{ padding: '0 1em .5em 1em', marginTop: '0' }} className="cardFiedset">
           <legend className="legendMedium">
             Manuscrito
             <span className="spanField">(Somente Cenas)</span>

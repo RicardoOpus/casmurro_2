@@ -274,7 +274,7 @@ function DraftList() {
               <div className="filterScene">
                 {renderSelectPOV()}
                 {renderSelectedStatus()}
-                <button className="btnInvisible" type="button" onClick={clearAllFilters}>✖</button>
+                <button className="btnSmall" type="button" onClick={clearAllFilters}>✖ Limpar</button>
               </div>
               <h2>
                 Rascunho
