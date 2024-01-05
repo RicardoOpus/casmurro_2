@@ -19,7 +19,7 @@ function NavBar() {
         className={`navBarItem ${activeButton === '' ? 'NavBarActive' : ''}`}
         type="button"
       >
-        Dashboard
+        Visão Geral
       </button>
       <button
         onClick={() => navigate('/characters')}
@@ -51,7 +51,7 @@ function NavBar() {
         className={`navBarItem ${activeButton === 'timeline' ? 'NavBarActive' : ''}`}
         type="button"
       >
-        Timeline
+        Linha do tempo
       </button>
       <button
         onClick={() => navigate('/manuscript')}

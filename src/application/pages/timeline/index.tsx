@@ -119,7 +119,7 @@ function Timeline() {
   return (
     <div className="innerContent">
       <div className="card">
-        <h1>Timeline</h1>
+        <h1>Linha do tempo</h1>
         <div className="filterBar">
           {renderSelectPOV()}
           <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑</button>
