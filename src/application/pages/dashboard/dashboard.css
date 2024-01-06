@@ -1,0 +1,88 @@
+.dashboardTitle,
+.dashboardSubTitle,
+.dashboardAuthor {
+  all: unset;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-family: Amaranth;
+  font-size: 3em;
+  height: 1em;
+  margin-bottom: 0;
+  margin-top: .5em;
+  padding: 0px 1em 0px 1em;
+  text-align: center;
+  width: 100%;
+}
+
+.dashboardSubTitle {
+  font-size: 2em;
+  margin-top: 5px;
+}
+
+.dashboardAuthor {
+  color: var(--text-color-inactive);
+  font-size: 1.5em;
+  margin-top: 5px;
+}
+
+.projectResumeInput {
+  all: unset;
+  background-color: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: var(--text-color);
+  font-family: var(--user-text-type);
+  font-size: large;
+  font-size: var(--user-text-size);
+  margin: 2em 0;
+  overflow: hidden;
+  padding: 0px 1em 0px 1em;
+  padding: 1em;
+  width: 100%;
+}
+
+.deadlineIcon {
+  background-color: var(--text-color-inactive);
+  border-radius: 0;
+  cursor: pointer;
+  display: inline-block;
+  height: 25px;
+  -webkit-mask: var(--deadline-icon) no-repeat center / contain;
+  mask: var(--deadline-icon) no-repeat center / contain;
+  padding: 0;
+  width: 25px;
+}
+
+.deadlineIcon:hover {
+  background-color: var(--accent-color);
+}
+
+.deadlineContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  justify-content: center;
+}
+
+.deadlineContainer h3 {
+  color: var(--text-color-inactive);
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.dashboardInputDate {
+  background: 1.4em,
+    linear-gradient(to left, var(--btn-color) 3em, var(--bg-color-sec) 3em);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  color: var(--text-color);
+  cursor: text;
+  font-size: medium;
+  height: 40px;
+  margin: 0;
+  outline: 0;
+  padding: 0px 1em 0px 1em;
+  width: 200px;
+}

@@ -1,0 +1,33 @@
+.resizableDraftDetail {
+  background: var(--bg-texture);
+  background-color: var(--bg-color-sec);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 4px -2px rgba(0, 0, 0, .5);
+  position: relative;
+}
+
+.detailMContainer {
+  box-shadow: inset 0 4px 4px -2px rgba(0, 0, 0, .5);
+  color: var(--text-color-inactive);
+  padding: 1rem 2rem 5rem 2rem;
+}
+
+.characters_scene_list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px;
+}
+
+.elementCharScene {
+  margin: 5px;
+  max-width: 100px;
+  text-align: center;
+}
+
+.imgCharScene {
+  border: solid 1px var(--border-color);
+  border-radius: 100%;
+  height: 100px;
+  object-fit: cover;
+  width: 100px;
+}

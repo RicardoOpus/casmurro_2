@@ -21,11 +21,30 @@ class Utils {
     return result;
   }
 
+  convertDatePTBR(dateUS: string | undefined) {
+    let dateBR = '';
+    if (dateUS) {
+      const date = dateUS;
+      const [year, month, day] = date.split('-');
+      dateBR = [day, month, year].join('/');
+    }
+    return dateBR;
+  }
+
   abreviarString(str: string | undefined, maxLenght: number): string | undefined {
     if (str && str.length > maxLenght) {
       return `${str.substring(0, maxLenght)}…`;
     }
     return str;
+  }
+
+  countWords(text: string | undefined) {
+    if (text) {
+      const textoLimpo = text.trim().replace(/\s+/g, ' ');
+      const palavras = textoLimpo.split(' ');
+      return palavras.length;
+    }
+    return 0;
   }
 
   autoGrowAllTextareas() {
@@ -80,6 +99,106 @@ class Utils {
       };
       reader.readAsDataURL(file);
     });
+  }
+
+  isImageFile = (fileName: string) => fileName.endsWith('.jpg') || fileName.endsWith('.jpeg') || fileName.endsWith('.png') || fileName.endsWith('.webp');
+
+  isValideURL = (str: string) => str.startsWith('http://') || str.startsWith('https://');
+
+  toggleFullscreen() {
+    if (
+      document.fullscreenElement
+    ) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    } else if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    }
+  }
+
+  getCurrentDateString() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1;
+    const day = now.getDate();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    const pad = (num: number) => (num < 10 ? `0${num}` : num);
+    return {
+      toFileName: `${year}-${pad(month)}-${pad(day)}-${pad(hours)}-${pad(minutes)}-${pad(seconds)}`,
+      toBackup: `\n\nEste backup foi criado em ${pad(day)}/${pad(month)}/${year} às ${pad(hours)}:${pad(minutes)}:${pad(seconds)}\n`,
+      toDraft: `Este rascunho foi exportado em ${pad(day)}/${pad(month)}/${year} às ${pad(hours)}:${pad(minutes)}:${pad(seconds)}\n`,
+    };
+  }
+
+  removeAccents(str: string) {
+    const accents: Array<[string, RegExp]> = [
+      ['a', /[àáâãä]/g],
+      ['e', /[éèêẽë]/g],
+      ['i', /[íìîï]/g],
+      ['o', /[óòôõö]/g],
+      ['u', /[úùûũü]/g],
+      ['c', /[ç]/g],
+      ['n', /[ñ]/g],
+      ['A', /[ÀÁÂÃÄÅ]/g],
+      ['E', /[ÈÉÊË]/g],
+      ['I', /[ÌÍÎÏ]/g],
+      ['O', /[ÒÓÔÕÖ]/g],
+      ['U', /[ÙÚÛÜ]/g],
+      ['C', /[Ç]/g],
+      ['N', /[Ñ]/g],
+    ];
+    let result = str;
+    for (let i = 0; i < accents.length; i += 1) {
+      result = result.replace(accents[i][1], accents[i][0]);
+    }
+    return result;
+  }
+
+  sanitizeFilename(filename: string) {
+    const noAcents = this.removeAccents(filename);
+    const forbiddenChars = /[\\/:"*?<>.|]/g;
+    return noAcents.replace(forbiddenChars, ' ');
+  }
+
+  substituirAspasCurvas(texto: string) {
+    const regexAspasDuplas = /"(.*?)"/g;
+    const regexAspasSimples = /'(.*?)'/g;
+
+    const resultadoAspasDuplas = texto.replace(regexAspasDuplas, '“$1”');
+    const resultadoAspasCurvas = resultadoAspasDuplas.replace(regexAspasSimples, 'ʽ$1ʼ');
+    return resultadoAspasCurvas;
+  }
+
+  setItalicsFromText() {
+    const paragrafos = document.getElementsByTagName('p');
+
+    for (let i = 0; i < paragrafos.length; i += 1) {
+      const paragrafo = paragrafos[i];
+      const conteudo = paragrafo.innerHTML;
+      const regex = /\*(.*?)\*/g;
+      const resultado = conteudo.replace(regex, '<em>$1</em>');
+      paragrafo.innerHTML = resultado;
+    }
+  }
+
+  calculateTimeElapsed(date1: string, date2: string) {
+    const date1Obj = new Date(date1);
+    const date2Obj = new Date(date2);
+    const timeElapsed = Math.abs(date2Obj.getTime() - date1Obj.getTime());
+    const yearInMs = 1000 * 60 * 60 * 24 * 365;
+    const monthInMs = 1000 * 60 * 60 * 24 * 30;
+    const dayInMs = 1000 * 60 * 60 * 24;
+    const yearsElapsed = Math.floor(timeElapsed / yearInMs);
+    const monthsElapsed = Math.floor((timeElapsed % yearInMs) / monthInMs);
+    const daysElapsed = Math.floor(((timeElapsed % yearInMs) % monthInMs) / dayInMs);
+    return {
+      years: yearsElapsed,
+      months: monthsElapsed,
+      days: daysElapsed,
+    };
   }
 }
 

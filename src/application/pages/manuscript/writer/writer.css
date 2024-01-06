@@ -1,0 +1,237 @@
+.writerButtons {
+  align-items: center;
+  background-color: var(--btn-color);
+  border-bottom: solid 1px  var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  padding: 0 1em;
+}
+
+.btnWriter {
+  background-color: transparent;
+  border-bottom: solid 1px  var(--border-color);
+  border-color: transparent;
+  border-radius: 0;
+  padding: 8px 0;
+  text-align: center;
+}
+
+.btnWriter:hover {
+  border-color: transparent;
+  color: var(--accent-color);
+}
+
+.writerContainter {
+  height: 900px;
+  overflow: scroll;
+  padding: 1em 2em;
+}
+
+.innerWriterContainer {
+  padding-bottom: 1em;
+
+  /* padding-bottom: 100%; */
+}
+
+.endMark {
+  color: var(--text-color-inactive);
+  text-align: center;
+}
+
+.lightScene {
+  background: url("/public/images/pageWhite.jpg");
+  background-color: #FFFFFF;
+  background-size: cover;
+  color: #000000;
+}
+
+.sepiaScene {
+  background: url("/public/images/pageSepia.jpg");
+  background-color: #e7dec7;
+  background-size: cover;
+  color: #5d4232;
+}
+
+.darkScene {
+  background: url("/public/images/texture.png");
+  background-color: #060707;
+  color: #878787;
+}
+
+
+.writerTitle {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  font-family: PT;
+  font-size: 2.5em;
+  justify-content: center;
+  margin-bottom: 0;
+  opacity: .6;
+  text-align: center;
+}
+
+.writeArea {
+  all: unset;
+  background: transparent;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-family: var(--user-scene-type);
+  font-size: var(--user-scene-size);
+  margin: 0;
+  overflow: hidden;
+  padding: 1em;
+  padding: 0px;
+  width: 100%;
+}
+
+.writeSelect {
+  height: 2em;
+  margin: 0;
+  width: 170px;
+}
+
+.ornament1 {
+  background-color: var(--text-color-inactive);
+  display: inline-block;
+  height: 60px;
+  margin-right: 5px;
+  -webkit-mask: var(--ornament1-icon) no-repeat center / contain;
+  mask: var(--ornament1-icon) no-repeat center / contain;
+  width: 60px;
+}
+
+.ornament2 {
+  background-color: var(--text-color-inactive);
+  display: inline-block;
+  height: 60px;
+  margin-left: 5px;
+  -webkit-mask: var(--ornament2-icon) no-repeat center / contain;
+  mask: var(--ornament2-icon) no-repeat center / contain;
+  width: 60px;
+}
+
+.timerIcon {
+  background-color: var(--text-color);
+  border-radius: 0;
+  display: inline-block;
+  height: 25px;
+  -webkit-mask: var(--timer-icon) no-repeat center / contain;
+  mask: var(--timer-icon) no-repeat center / contain;
+  padding: 0;
+  width: 20px;
+}
+
+.timerIcon:hover {
+  background-color: var(--accent-color);
+}
+
+.Timer {
+  align-content: center;
+  align-items: center;
+  background-color: var(--bg-color);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  bottom: 0;
+  display: flex;
+  gap: .5em;
+  justify-content: center;
+  margin: 1em;
+  padding: .1em .5em 0em 1em;
+  position: fixed;
+  right: 0;
+}
+
+.displayTimer {
+  font-family: Timer;
+  font-size: x-large;
+}
+
+.displayTimer h3 {
+  margin: 0em;
+}
+
+.btnCloseTimer {
+  background-color: transparent;
+  border-bottom: solid 1px  var(--border-color);
+  border-color: transparent;
+  border-radius: 0;
+  padding: 8px 0;
+  text-align: center;
+}
+
+.btnCloseTimer:hover {
+  background-color: transparent;
+  border-color: transparent;
+  color: red;
+}
+
+.distractionFreeIcon {
+  background-color: var(--text-color);
+  display: inline-block;
+  height: 25px;
+  -webkit-mask: var(--distractionFree-icon) no-repeat center / contain;
+  mask: var(--distractionFree-icon) no-repeat center / contain;
+  padding: 0;
+  width: 25px;
+}
+
+.distractionFreeIcon:hover {
+  background-color: var(--accent-color);
+}
+
+.btnFocus {
+  background-color: var(--text-color);
+  display: inline-block;
+  height: 25px;
+  -webkit-mask: var(--fullScreen-icon) no-repeat center / contain;
+  mask: var(--fullScreen-icon) no-repeat center / contain;
+  width: 25px;
+}
+
+.btnFocus:hover {
+  background-color: var(--accent-color);
+}
+
+.distractionFree {
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.writerContainer {
+  display: flex;
+}
+
+.markWordHL {
+  background: transparent;
+  background-color: var(--accent-color);
+  border-radius: 5px;
+  color: transparent;
+  opacity: .2;
+}
+
+.markWord {
+  background: transparent;
+  color: transparent;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-color);
+}
+
+.fullSceenIcon {
+  background-color: var(--text-color);
+  border-radius: 0;
+  display: inline-block;
+  height: 25px;
+  -webkit-mask: var(--fullScreen-icon) no-repeat center / contain;
+  mask: var(--distractionFree-icon) no-repeat center / contain;
+  padding: 0;
+  width: 20px;
+}
+
+.fullSceenIcon:hover {
+  background-color: var(--accent-color);
+}

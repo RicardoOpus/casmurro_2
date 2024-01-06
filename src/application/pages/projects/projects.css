@@ -28,3 +28,33 @@
   border: 0;
   margin-bottom: 15px;
 }
+
+.importBtn {
+  display: flex;
+  justify-content: center;
+  margin: 1.5em;
+}
+
+.importLabel {
+  align-items: baseline;
+  cursor: pointer;
+  display: flex;
+  gap: .5em;
+}
+
+.importLabel:hover {
+  color: var(--accent-color);
+}
+
+.importIcon {
+  background-color: var(--text-color-inactive);
+  cursor: pointer;
+  height: 25px;
+  -webkit-mask: var(--import-icon) no-repeat center / contain;
+  mask: var(--import-icon) no-repeat center / contain;
+  width: 25px;
+}
+
+.importIcon:hover {
+  background-color: var(--accent-color);
+}

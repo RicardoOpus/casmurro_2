@@ -5,7 +5,7 @@ function Splash() {
     <div>
       <div className="logo-writing play icon-color" />
       <div className="bg-container">
-        <img className="icon-color" src="./page.png" alt="Imagem de fundo" />
+        <img className="icon-color" src="./images/page.png" alt="Imagem de fundo" />
       </div>
       <div className="back" />
     </div>

@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import GenericModal from '../../components/generic-modal';
-import CharacterService from '../../../service/characterService';
+import characterService from '../../../service/characterService';
 import { fetchProjectDataAction } from '../../redux/actions/projectActions';
 import CharactersList from './characters-list';
 
 function Characters() {
-  const characterService = new CharacterService();
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
 

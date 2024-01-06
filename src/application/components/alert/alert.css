@@ -1,0 +1,16 @@
+.genericWarning {
+  background-color: var(--accent-color);
+  border: solid 1px var(--border-color);
+  border-radius: 5px;
+  font-size: x-large;
+  margin: .5em 1em;
+  padding: 1rem;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.genericWarning p {
+  color: black;
+  margin: 0;
+}

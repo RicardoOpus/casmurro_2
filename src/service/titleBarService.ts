@@ -1,7 +1,7 @@
 import utils from './utils';
 
 class TitleBarService {
-  maxHoursToWarning = 2;
+  maxHoursToWarning = 1;
 
   maxDaysToWarning = 1;
 
@@ -19,12 +19,12 @@ class TitleBarService {
     if (lastBackup === 0) {
       return '';
     }
-    if (horas < this.maxHoursToWarning && this.maxDaysToWarning < 1) {
+    if (horas < this.maxHoursToWarning && dias < this.maxDaysToWarning) {
       return '';
     } if (dias === 1) {
-      return `${dias} dia e ${horas} horas desde o último backup!`;
+      return `${dias} dia e ${horas}h desde o último backup!`;
     }
-    return `${dias === 0 ? '' : `${dias} dias e `} ${horas} horas desde o último backup!`;
+    return `${dias === 0 ? '' : `${dias} dias e `} ${horas}h desde o último backup!`;
   }
 
   titleReduction(str: string) {
@@ -33,4 +33,6 @@ class TitleBarService {
   }
 }
 
-export default TitleBarService;
+const titleBarService = new TitleBarService();
+
+export default titleBarService;

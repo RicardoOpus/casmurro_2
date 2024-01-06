@@ -36,10 +36,9 @@
   padding: 0px 5px;
 }
 
-.novo {
-  background-color: #444C56;
-  border: solid #565f6a;
-  border-width: 1px;
+.status {
+  background-color: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
 }
 
 .cards {
@@ -55,6 +54,11 @@
 .button-container {
   align-items: center;
   display: flex;
-  gap: 10px;
+  gap: 1em;
   justify-content: center;
+  margin: 1em 0 0 1em;
+}
+
+.button-container h3 {
+  color: var(--text-color-inactive);
 }

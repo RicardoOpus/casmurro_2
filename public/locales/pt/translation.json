@@ -1,0 +1,27 @@
+{
+  "basics": {
+    "btnClose": "Fechar"
+  },
+  "about": {
+    "title": "Sobre o Projeto",
+    "text": "<p>Casmurro é um projeto que visa ajudar escritores em todas as etapas da criação de ficção. Ele foi desenvolvido para auxiliar durante o período de preparação e pesquisa, assim como no momento da escrita.</p><p>Com o objetivo de tornar o processo de criação mais organizado e prazeroso, o projeto foi iniciativa de um escritor para outros escritores. Casmurro oferece uma série de ferramentas para auxiliar na construção e planejamento de todos os aspectos relacionados à criação de ficção, incluindo personagens, cenários, diálogos e enredos.</p><p>Sinta-se livre para explorar as ferramentas e recursos oferecidos pelo projeto. Esperamos que possa ser uma ferramenta valiosa para todos os escritores, independentemente do nível de experiência.</p>",
+    "title2": "Sobre o Autor",
+    "text2": "<p><strong>Ricardo Serafim</strong> é um escritor, ilustrador e programador que atualmente reside em Teresina, PI. Desde cedo, foi atraído por filmes e histórias de suspense e terror, tais como 'Contos da Cripta', 'Cine Trash' e 'Além da Imaginação'. Essas obras foram essenciais para estimular sua fascinação pelo lado sombrio da arte.</p><p>Saiba mais:</p>"
+  },
+  "backupModal": {
+    "title": "Backup",
+    "warning": "<h3>Atenção!</h3><h4>Mantenha seus dados seguros</h4>",
+    "warningCaption": "<p>Casmurro respeita sua privacidade e não coleta informações. Isso significa que todos os dados são armazenados localmente em seu próprio navegador. Portando, é altamente recomendável fazer backups com frequência e salvá-los em pastas sincronizadas na nuvem, como o Google Drive ou Dropbox.</p><p>Seus dados, sua responsabilidade.</p>",
+    "expProject": "Exportar projeto",
+    "expProjectTip": "<p>Utilize esta opção para armazenar integralmente todo o conteúdo do seu projeto. Ela gerará um arquivo com a extensão .json, que poderá ser utilizado para importar o projeto em ocasiões futuras. Essa funcionalidade é útil para carregar o projeto atual em outro computador ou recuperá-lo e importá-lo posteriormente.</p><p>É possível salvar várias versões do projeto atual, utilizando-as como 'snapshots' do projeto para criar um histórico de diferentes momentos do seu progresso. Essa abordagem permite retornar a um ponto específico conforme necessário. O nome do arquivo gerado, por padrão, termina com a data e a hora do momento em que foi criado, facilitando a visualização rápida para determinar qual arquivo é mais antigo ou mais recente. Essa prática possibilita o armazenamento de vários arquivos na mesma pasta sem conflitos.",
+    "expProjectTXT": "Salvar texto",
+    "expProjectTXTTip": "<p>Esta opção cria um arquivo de texto puro no formato .txt. É especialmente útil ao transferir o conteúdo do projeto para outro processador de texto, como o Word, por exemplo. Além disso, é uma ferramenta prática para ter todo o conteúdo do projeto em um formato de texto mais acessível e facilmente manipulável.</p>",
+    "expPDF": "Formatado para impressão",
+    "expPDFTip": "<p>Esta opção abrirá uma nova aba em seu navegador, exibindo todo o conteúdo do seu projeto formatado para leitura.</p><p>Você tem a opção de imprimir essa página para obter uma versão física, ou utilizar a função de impressão em PDF do seu navegador para salvar o conteúdo do projeto com um layout ideal para a leitura.</p>",
+    "expDraftTXT": "Salvar texto (cenas)",
+    "expDraftTXTTip": "<h4>Apenas manuscrito</h4><p>Essa opção gera um arquivo de texto puro no formato .txt, contendo exclusivamente o texto das cenas. É particularmente útil ao transferir o conteúdo das cenas para outro processador de texto, como o Word, por exemplo.</p>",
+    "expDraftPDF": "Formatado para impressão (cenas)",
+    "expDraftPDFTip": "<h4>Apenas manuscrito</h4><p>Essa opção abrirá uma nova aba em seu navegador, apresentando o rascunho do seu projeto (cenas e capítulos) formatado para leitura.</p><p>Você pode imprimir essa página para obter uma versão física do seu rascunho. Além disso, pode utilizar a função de impressão em PDF do seu navegador para salvar o rascunho com um layout ideal para leitura, facilitando o compartilhamento com amigos, revisores ou editores.</p>",
+    "btnExport": "Exportar"
+  }
+}

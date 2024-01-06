@@ -1,0 +1,17 @@
+/* eslint-disable class-methods-use-this */
+import IProject from '../interfaces/IProject';
+import indexedDBrepository from '../infra/repository/indexedDBrepository';
+
+class DashboardService {
+  async upDate(data: IProject) {
+    await indexedDBrepository.projectBasicUpdate(data);
+  }
+
+  async deleteProject() {
+    await indexedDBrepository.deleteProject();
+  }
+}
+
+const dashboardService = new DashboardService();
+
+export default dashboardService;

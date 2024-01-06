@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 interface GenericModalProps {
   onClose: () => void;
   typeName: string;
+  subTitle?: string;
   // eslint-disable-next-line no-unused-vars
   onDataSend: (data: string) => void;
   deleteType: boolean;
@@ -12,22 +13,22 @@ interface GenericModalProps {
 function getIconPath(category: string): string {
   switch (category) {
     case 'Nova personagem':
-      return './characters.png';
-    case 'Mundo':
-      return './world.png';
-    case 'Cena':
-      return './scene.png';
+      return './images/characters.png';
+    case 'Novo item mundo':
+      return './images/world.png';
+    case 'Nova Cena':
+      return './images/scene.png';
     case 'Linha do tempo':
-      return './timeline.png';
-    case 'Nota':
-      return './notes.png';
+      return './images/timeline.png';
+    case 'Nova nota':
+      return './images/notes.png';
     default:
-      return './delete.png';
+      return './images/delete.png';
   }
 }
 
 function GenericModal({
-  onClose, typeName, onDataSend, deleteType, openModal,
+  onClose, typeName, subTitle, onDataSend, deleteType, openModal,
 }: GenericModalProps) {
   const [newItemTitle, SetNewItemTitle] = useState('');
   const isSaveButtonDisabled = newItemTitle.trim() === '';
@@ -69,13 +70,14 @@ function GenericModal({
   return (
     <dialog ref={ref} className="modal">
       <div className="modal-content">
-        <div className="corner ponto1" />
-        <div className="corner ponto2" />
         <div className="modal-border">
           <img className="icon-color" src={getIconPath(typeName)} alt="type icon" />
           <h2>
             {typeName}
           </h2>
+          {subTitle && (
+            <p>{subTitle}</p>
+          )}
           {!deleteType && (
             <input
               className="cardInputTitle"
@@ -95,11 +97,13 @@ function GenericModal({
             <button onClick={handleCancel} type="button">Cancelar</button>
           </div>
         </div>
-        <div className="corner ponto3" />
-        <div className="corner ponto4" />
       </div>
     </dialog>
   );
 }
+
+GenericModal.defaultProps = {
+  subTitle: undefined,
+};
 
 export default GenericModal;

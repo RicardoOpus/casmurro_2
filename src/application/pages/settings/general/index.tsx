@@ -1,21 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { ChangeEvent, SetStateAction, useState } from 'react';
-import IrootStateProject from '../../../../domain/IrootStateProject';
+import {
+  ChangeEvent, SetStateAction, useEffect, useState,
+} from 'react';
+import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
-import paragraphyMock from '../../../../mocks/paragraph';
+import paragraphyMock from '../../../../templates/paragraph';
 import './general.css';
 
 function GeneralSettings() {
   const dispatch = useDispatch();
   const prjSettings = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.projectSettings));
-  const [color, setColor] = useState(prjSettings.projectColor);
+  const [color, setColor] = useState('');
   const typeSet = localStorage.getItem('contenTypeFont') || 'Roboto';
   const [typeFontUser, setTypeFontUSer] = useState(typeSet);
   const [textValue, setTextValue] = useState(paragraphyMock);
-  const [typeSound, setTypeSound] = useState(prjSettings.typeWriterSound);
-  const [typeVolume, setTypeVolume] = useState(prjSettings.typeWriterVolume);
 
   const handleInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setColor(e.target.value);
@@ -62,21 +62,21 @@ function GeneralSettings() {
     }
   };
 
-  const handleInputType = async (e: ChangeEvent<HTMLInputElement>) => {
-    setTypeSound(e.target.checked);
-    await indexedDBrepository.updateProjectSettings(e.target.checked, 'typeWriterSound');
-    dispatch(fetchProjectDataAction(true));
-  };
-
-  const handleSlideType = async (e: ChangeEvent<HTMLInputElement>) => {
-    setTypeVolume(Number(e.target.value));
-    await indexedDBrepository.updateProjectSettings(Number(e.target.value), 'typeWriterVolume');
-    dispatch(fetchProjectDataAction(true));
-  };
+  useEffect(() => {
+    const fetchData = () => {
+      if (prjSettings) {
+        setColor(prjSettings.projectColor);
+      }
+    };
+    fetchData();
+  }, [prjSettings]);
 
   return (
     <div>
-      <fieldset>
+      <h2 className="cardSettingsH2">
+        Geral
+      </h2>
+      <fieldset className="cardFiedset">
         <legend>
           Cor de destaque
         </legend>
@@ -106,9 +106,10 @@ function GeneralSettings() {
             className="ui-button ui-corner-all"
             onChange={(e) => handleSelectChange(e)}
             value={typeFontUser}
+            style={{ color: 'var(--text-color-inactive)' }}
           >
             <option disabled>Tido da Fonte</option>
-            <option value="Texgyretermes"> • Serifa</option>
+            <option value="PT"> • Serifa</option>
             <option value="Roboto"> • Sem Serifa</option>
             <option value="TypeCurier"> • Mono</option>
           </select>
@@ -123,50 +124,7 @@ function GeneralSettings() {
           />
         </div>
       </fieldset>
-      <fieldset>
-        <legend>
-          Som de máquina de escrever
-        </legend>
-        <div className="checkbox-wrapper">
-          <label htmlFor="typeWriter">
-            <input
-              className="inputChkBox"
-              type="checkbox"
-              id="typeWriter"
-              checked={typeSound}
-              onChange={handleInputType}
-            />
-            {' '}
-            Habilitar som de máquina de escrever nos campos de escrita.
-          </label>
-          <div className="slidecontainerP">
-            <p>
-              Volume Control:
-              {' '}
-              {typeVolume}
-            </p>
-            <div className="slidecontainer">
-              <input
-                id="volumeControl"
-                type="range"
-                min="0.1"
-                max="1.0"
-                step="0.1"
-                value={typeVolume}
-                className="slider"
-                onChange={handleSlideType}
-                list="tickmarks"
-              />
-            </div>
-          </div>
-          <p>
-            Além de proporcionar uma sensação nostálgica, o som das teclas serve
-            como um feedback auditivo valioso, auxiliando o escritor a manter o ritmo
-            da digitação durante uma sessão intensiva de escrita.
-            A audição do som das teclas contribui para evitar que o ritmo da escrita desacelere.
-          </p>
-        </div>
-      </fieldset>
+
     </div>
   );
 }

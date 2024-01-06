@@ -1,4 +1,5 @@
-import ICharacter from '../domain/characterModel';
+/* eslint-disable class-methods-use-this */
+import ICharacter from '../interfaces/ICharacter';
 import indexedDBrepository from '../infra/repository/indexedDBrepository';
 
 class CharacterService {
@@ -6,8 +7,11 @@ class CharacterService {
 
   async create(characterName: string) {
     const ID = await indexedDBrepository.idManager();
+    const now = Date.now();
     if (ID) {
       const data: ICharacter = {
+        title: characterName,
+        id: ID,
         age: '',
         category: '',
         color: this.defaultColor,
@@ -16,17 +20,40 @@ class CharacterService {
         date_birth: '',
         date_death: '',
         gender: '',
-        id: ID,
         image: '',
+        last_edit: now,
+        link_list: [],
         note: '',
         occupation: '',
+        physical: '',
+        psychological: '',
         relations: [],
+        task_list: [],
         resume: '',
-        title: characterName,
+        type: 'Personagem',
+        show_age: false,
+        show_core_group: false,
+        show_gender: false,
+        show_occupation: false,
+        showCharacteristics: false,
+        showDate_birth: false,
+        showDate_death: false,
+        show_taskList: false,
+        show_full_name: false,
+        show_notes: false,
       };
-      await indexedDBrepository.characterPost(data);
+      await indexedDBrepository.cardPost(data, 'characters');
     }
   }
-}
 
-export default CharacterService;
+  async deleteChar(id: number) {
+    await indexedDBrepository.deleteCard(Number(id), 'characters');
+  }
+
+  async upDate(idItem: number, data: ICharacter) {
+    await indexedDBrepository.characterUpdate(idItem, data);
+  }
+}
+const characterService = new CharacterService();
+
+export default characterService;

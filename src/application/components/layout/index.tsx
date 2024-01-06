@@ -3,6 +3,7 @@ import TitleBar from '../title-bar';
 import NavBar from '../nav-bar';
 import SideBar from '../side-bar';
 import './layout.css';
+import Footer from '../footer';
 
 function Layout() {
   return (
@@ -13,6 +14,7 @@ function Layout() {
         <SideBar />
         <Outlet />
       </div>
+      <Footer />
     </div>
   );
 }

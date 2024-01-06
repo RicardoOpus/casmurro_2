@@ -21,7 +21,7 @@
 }
 
 .logo-writing {
-  background: url("../casmurro-logo.png") no-repeat;
+  background: url("../images/casmurro-logo.png") no-repeat;
   display: inline-block;
   height: var(--writing-y);
   left: 50%;

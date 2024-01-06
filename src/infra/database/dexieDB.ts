@@ -1,6 +1,6 @@
 import Dexie from 'dexie';
-import IProject from '../../domain/projectModel';
-import ISettings from '../../domain/settingsModel';
+import IProject from '../../interfaces/IProject';
+import ISettings from '../../interfaces/ISettings';
 
 interface MyDatabase extends Dexie {
   projects: Dexie.Table<IProject, number>;

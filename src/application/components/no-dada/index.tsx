@@ -1,5 +1,5 @@
 import './no-data.css';
-import nodata from '../../../../public/no-data.png';
+import nodata from '../../../../public/images/no-data.png';
 
 function NoData({ dataType }: { dataType: string }) {
   return (

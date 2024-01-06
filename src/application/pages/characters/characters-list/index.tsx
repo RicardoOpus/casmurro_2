@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import IrootStateProject from '../../../../domain/IrootStateProject';
-import ICharacter from '../../../../domain/characterModel';
+import IrootStateProject from '../../../../interfaces/IRootStateProject';
+import ICharacter from '../../../../interfaces/ICharacter';
 import './characters-list.css';
 import utils from '../../../../service/utils';
 import {
@@ -15,7 +15,7 @@ import {
 import NotFound from '../../../components/not-found';
 import NoData from '../../../components/no-dada';
 
-type RootState = {
+type RootStateChar = {
   charFilterReducer: {
     selectedTitle: string,
     selectedCategory: string,
@@ -36,7 +36,7 @@ function CharactersList() {
     selectedGender,
     selectedCoreGroup,
     isAscOrder,
-  } = useSelector((state: RootState) => state.charFilterReducer);
+  } = useSelector((state: RootStateChar) => state.charFilterReducer);
   const dispatch = useDispatch();
 
   const [filtredCharacters, setFiltredCharacters] = useState<ICharacter[]>([]);
@@ -104,6 +104,7 @@ function CharactersList() {
           <select
             value={selectedCategory}
             onChange={(e) => dispatch(charFilterCategoryAction(e.target.value))}
+            style={{ color: 'var(--text-color-inactive)' }}
           >
             <option value="">Categoria</option>
             {prjSettings.charactersCategory.map((e) => (
@@ -118,6 +119,7 @@ function CharactersList() {
           <select
             value={selectedGender}
             onChange={(e) => dispatch(charFilterGenderAction(e.target.value))}
+            style={{ color: 'var(--text-color-inactive)' }}
           >
             <option value="">Gênero</option>
             {prjSettings.charactersGenders.map((e) => (
@@ -132,6 +134,7 @@ function CharactersList() {
           <select
             value={selectedCoreGroup}
             onChange={(e) => dispatch(charFilterCoreGroupAction(e.target.value))}
+            style={{ color: 'var(--text-color-inactive)' }}
           >
             <option value="">Núcleo</option>
             {prjSettings.charactersCoreGroupes.map((e) => (
@@ -143,7 +146,7 @@ function CharactersList() {
               </option>
             ))}
           </select>
-          <button className="btnSmall" type="button" onClick={clearAllFilters}>Limpar Filtros</button>
+          <button className="btnSmall" type="button" onClick={clearAllFilters}>✖ Filtros</button>
           <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑ Az</button>
           <button className="btnSmall" type="button" onClick={handleSort} disabled={!isAscOrder}>↓ Za</button>
         </div>
@@ -159,18 +162,18 @@ function CharactersList() {
         ) : (
           filtredCharacters.map((character) => (
             <button onClick={() => navigate(`/characters/${character.id}`)} type="button" key={character.id} className="listItens">
-              <div className="characterCard">
+              <div className="listCard">
                 {character.image ? (
                   <img className="charListImage" src={character.image} alt="person img" />
                 ) : (
-                  <img className="charListImage" src="./person.png" alt="person img" />
+                  <img className="charListImage" src="./images/person.png" alt="person img" />
                 )}
                 <div>
-                  <h3 className="charactertTitle">
-                    <span style={{ color: character.color || 'var(--text-color-sec)' }}>🯊 </span>
+                  <h3 className="cardListTitle">
+                    <span className="charTagIcon" style={{ backgroundColor: `${character.color || 'var(--text-color-sec)'}` }} />
                     {character.title}
                   </h3>
-                  <p className="categoryItem">
+                  <p className="categoryListItem">
                     {character.category}
                     {' '}
                     {character.age ? `• ${character.age} anos` : ''}
