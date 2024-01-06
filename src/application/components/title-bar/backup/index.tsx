@@ -9,9 +9,10 @@ import indexedDBrepository from '../../../../infra/repository/indexedDBrepositor
 interface GenericModalProps {
   onClose: () => void;
   openModal: boolean;
+  backupWarning: string;
 }
 
-function BackupModal({ onClose, openModal }: GenericModalProps) {
+function BackupModal({ onClose, openModal, backupWarning }: GenericModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
   const [selectedOption, setSelectedOption] = useState('');
 
@@ -176,6 +177,9 @@ function BackupModal({ onClose, openModal }: GenericModalProps) {
               {' '}
               {text.backupModal.expDraftPDF}
             </label>
+            <div className="backupWarning">
+              {backupWarning}
+            </div>
           </div>
           <div className="backupTips">
             {renderTips(selectedOption)}
