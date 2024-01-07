@@ -1,5 +1,6 @@
 footer {
   background: var(--bg-color);
+  border-top: 1px solid var(--border-color);
   box-sizing: border-box;
   color: var(--text-color);
   margin: auto auto 0;

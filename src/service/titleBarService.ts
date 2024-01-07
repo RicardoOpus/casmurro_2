@@ -1,7 +1,7 @@
 import utils from './utils';
 
 class TitleBarService {
-  maxHoursToWarning = 1;
+  maxHoursToWarning = 2;
 
   maxDaysToWarning = 1;
 
