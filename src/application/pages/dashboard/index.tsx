@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { ChangeEvent, useEffect, useState } from 'react';
+import {
+  ChangeEvent, useEffect, useRef, useState,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import IrootStateProject from '../../../interfaces/IRootStateProject';
 import IProject from '../../../interfaces/IProject';
@@ -11,8 +13,10 @@ import DashboardAddonsModal from './dashboard-addons';
 import GenericModal from '../../components/generic-modal';
 import DeadlineModal from './dashboard-deadline';
 import Deadline from './deadline';
+import useTabReplacement from '../../hooks/useTabReplacement';
 
 function Dashboard() {
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
@@ -22,6 +26,8 @@ function Dashboard() {
     state.projectDataReducer.projectData));
   const [stateProject,
     setStateProject] = useState<IProject | Partial<IProject>>(project || {});
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const cleanupFunction = () => {
     dispatch(fetchProjectDataAction(true));
@@ -97,8 +103,11 @@ function Dashboard() {
     navigate('/projects');
   };
 
+  useTabReplacement(textareaRef, isLoading);
+
   useEffect(() => {
     setStateProject(project || {});
+    setIsLoading(false);
   }, [project]);
 
   useEffect(() => {
@@ -220,6 +229,7 @@ function Dashboard() {
           </div>
         </div>
         <textarea
+          ref={textareaRef}
           className="projectResumeInput"
           placeholder="Resumo do projeto"
           value={stateProject?.projectResume}

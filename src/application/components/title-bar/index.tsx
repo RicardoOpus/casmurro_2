@@ -79,17 +79,18 @@ function TitleBar() {
       <div className="separator" />
       <p className="projectTitle">{titleBarService.titleReduction(projectData.title || '')}</p>
       <div className="header-right">
-        {(showBackupWarning) && (
-          <p className="backupWarning">{showBackupWarning}</p>
-        )}
         {isLightMode ? (
           <button onClick={toggleDarktMode} type="button" className="uiMode">{ }</button>
         ) : (
           <button onClick={toggleLightMode} type="button" className="uiMode">{ }</button>
         )}
-        <button onClick={() => setModalBackup(true)} className="btnDiscret" type="button">Fazer backup</button>
+        <button onClick={() => setModalBackup(true)} className={showBackupWarning ? 'backupWarningBtn' : 'btnDiscret'} type="button">Fazer backup</button>
       </div>
-      <BackupModal openModal={modalBackup} onClose={() => setModalBackup(false)} />
+      <BackupModal
+        openModal={modalBackup}
+        onClose={() => setModalBackup(false)}
+        backupWarning={showBackupWarning}
+      />
     </div>
   );
 }

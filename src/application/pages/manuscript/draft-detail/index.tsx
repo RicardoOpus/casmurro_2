@@ -1,5 +1,5 @@
 import {
-  ChangeEvent, SyntheticEvent, useEffect, useState,
+  ChangeEvent, SyntheticEvent, useEffect, useRef, useState,
 } from 'react';
 import { Resizable, ResizeCallbackData } from 'react-resizable';
 import './draft-detail.css';
@@ -21,6 +21,7 @@ import TaskList from '../../../components/task-list';
 import ITaskList from '../../../../interfaces/ITaskList';
 import CharSceneModal from './char-scene';
 import NextAndPrevCard from '../../../components/next-and-prev';
+import useTabReplacement from '../../../hooks/useTabReplacement';
 
 function DraftDetail() {
   const [height, setHeight] = useState(300);
@@ -58,6 +59,8 @@ function DraftDetail() {
   const closeModalLink = () => setModalLink(false);
   const closeModalAddons = () => setModalAddons(false);
   const closeModalChar = () => setModalCharScene(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaNoteRef = useRef<HTMLTextAreaElement>(null);
 
   const cleanupFunction = () => {
     dispatch(fetchProjectDataAction(true));
@@ -169,6 +172,9 @@ function DraftDetail() {
     await manuscriptService.updateCurrent(e).then(() => setIsLoading(false));
     dispatch(fetchProjectDataAction(true));
   };
+
+  useTabReplacement(textareaRef, isLoading);
+  useTabReplacement(textareaNoteRef, isLoading);
 
   useEffect(() => {
     if (!isLoading) {
@@ -396,6 +402,7 @@ function DraftDetail() {
                 <div className="fullContent">
                   <h3>Resumo</h3>
                   <textarea
+                    ref={textareaRef}
                     className="cardInputFull"
                     placeholder={stateMItem.type === 'Cena' ? 'Descreva de forma breve a cena...' : 'Descreve o capítulo...'}
                     value={stateMItem?.resume}
@@ -405,6 +412,7 @@ function DraftDetail() {
                     <div>
                       <h3>Anotações</h3>
                       <textarea
+                        ref={textareaNoteRef}
                         className="cardInputFull"
                         placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
                         value={stateMItem?.note}

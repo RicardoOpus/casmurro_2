@@ -486,7 +486,6 @@ tr:nth-child(even) {
   color: var(--text-color);
   font-family: Amaranth;
   font-size: 2em;
-  height: 50px;
   margin: .5em 0;
   padding: 0px 1em 0px 1em;
   text-align: center;
@@ -882,6 +881,11 @@ p {
 
 .modal-open {
   overflow: hidden;
+}
+
+.projectImage {
+  border-radius: 15px;
+  margin-right: 1em;
 }
 
 /*=========== DETAIL =========== */

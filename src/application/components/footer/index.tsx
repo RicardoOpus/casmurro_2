@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer>
       <p>
-        <span>Casmurro &copy;</span>
+        <span>Casmurro&copy;</span>
         {' '}
         by Ricardo Serafim
       </p>
