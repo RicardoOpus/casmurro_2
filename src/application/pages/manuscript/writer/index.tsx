@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
-  ChangeEvent, useEffect, useState,
+  ChangeEvent, useEffect, useRef, useState,
 } from 'react';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import IManuscript from '../../../../interfaces/IManuscript';
@@ -17,10 +17,12 @@ import utils from '../../../../service/utils';
 import Alert from '../../../components/alert';
 import TypeWriterSound from '../../../components/type-write-sound';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
+import useTabReplacement from '../../../hooks/useTabReplacement';
 
 function Writer() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
   const [noDisctration, setnoDisctration] = useState(false);
@@ -74,6 +76,8 @@ function Writer() {
       textarea.style.height = `${textarea.scrollHeight}px`;
     }
   };
+
+  const textareaFullRef = useRef<HTMLTextAreaElement>(null);
 
   const adjustTextSize = (increaseStep: number, increase: boolean) => {
     const root = document.documentElement;
@@ -243,6 +247,8 @@ function Writer() {
     }
   };
 
+  useTabReplacement(textareaFullRef, isLoading);
+
   useEffect(() => {
     if (categoryMark === 'cards') {
       if (projectItens) {
@@ -301,6 +307,7 @@ function Writer() {
       const textarea = document.getElementById('innerWriterContainer');
       utils.autoGrowAllTextareas();
       textarea?.scrollTo(0, 0);
+      setIsLoading(false);
     }
   }, [currentMItem, id]);
 
@@ -405,6 +412,7 @@ function Writer() {
                 />
               </div>
               <textarea
+                ref={textareaFullRef}
                 id="writeArea"
                 className="writeArea"
                 style={{ fontFamily: stateFontUser, fontSize: stateSizeFontUser, position: 'relative' }}

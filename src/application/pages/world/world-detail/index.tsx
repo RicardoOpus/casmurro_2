@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { ChangeEvent, useEffect, useState } from 'react';
+import {
+  ChangeEvent, useEffect, useRef, useState,
+} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
@@ -16,6 +18,7 @@ import ITaskList from '../../../../interfaces/ITaskList';
 import LinksModal from '../../../components/add-link-modal';
 import ILinks from '../../../../interfaces/ILinks';
 import worldService from '../../../../service/worldService';
+import useTabReplacement from '../../../hooks/useTabReplacement';
 
 function WorldDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,6 +40,9 @@ function WorldDetail() {
   const closeModal = () => setModal(false);
   const closeModal2 = () => setModalAddons(false);
   const closeModal4 = () => setModalLink(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaNoteRef = useRef<HTMLTextAreaElement>(null);
+  const textareaFullRef = useRef<HTMLTextAreaElement>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     const updatedState = { ...stateWorldItem, [key]: e.target.value, last_edit: Date.now() };
@@ -121,6 +127,10 @@ function WorldDetail() {
     setStateWorldItem(updatedState);
     worldService.upDate(Number(id), updatedState as IWorld);
   };
+
+  useTabReplacement(textareaRef, isLoading);
+  useTabReplacement(textareaNoteRef, isLoading);
+  useTabReplacement(textareaFullRef, isLoading);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -246,6 +256,7 @@ function WorldDetail() {
           <div className="fullContent">
             <h3>Resumo</h3>
             <textarea
+              ref={textareaRef}
               className="cardInputFull"
               placeholder="Descreva de forma breve o item..."
               value={stateWorldItem?.resume}
@@ -255,6 +266,7 @@ function WorldDetail() {
               <div>
                 <h3>Anotações</h3>
                 <textarea
+                  ref={textareaNoteRef}
                   className="cardInputFull"
                   placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
                   value={stateWorldItem?.note}
@@ -264,6 +276,7 @@ function WorldDetail() {
             )}
             <h3>Conteúdo</h3>
             <textarea
+              ref={textareaFullRef}
               className="cardInputFull"
               placeholder="Campo de texto livre..."
               value={stateWorldItem?.content}

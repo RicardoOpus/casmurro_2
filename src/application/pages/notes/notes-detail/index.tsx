@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { ChangeEvent, useEffect, useState } from 'react';
+import {
+  ChangeEvent, useEffect, useRef, useState,
+} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
@@ -16,6 +18,7 @@ import NotesAddonsModal from '../notes-addons';
 import ILinks from '../../../../interfaces/ILinks';
 import LinksModal from '../../../components/add-link-modal';
 import notesService from '../../../../service/notesService';
+import useTabReplacement from '../../../hooks/useTabReplacement';
 
 function NotesDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,6 +40,7 @@ function NotesDetail() {
   const closeModal = () => setModal(false);
   const closeModal2 = () => setModalAddons(false);
   const closeModal4 = () => setModalLink(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     const updatedState = { ...stateNoteItem, [key]: e.target.value, last_edit: Date.now() };
@@ -120,6 +124,8 @@ function NotesDetail() {
     setStateNoteItem(updatedState);
     notesService.upDate(Number(id), updatedState as INotes);
   };
+
+  useTabReplacement(textareaRef, isLoading);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -239,6 +245,7 @@ function NotesDetail() {
           <div className="fullContent">
             <h3>Conteúdo</h3>
             <textarea
+              ref={textareaRef}
               className="cardInputFull"
               placeholder="Campo de texto livre..."
               value={stateNoteItem?.content}

@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ChangeEvent, useEffect, useState } from 'react';
+import {
+  ChangeEvent, useEffect, useRef, useState,
+} from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import './characters-detail.css';
@@ -19,6 +21,7 @@ import ITaskList from '../../../../interfaces/ITaskList';
 import LinksModal from '../../../components/add-link-modal';
 import ILinks from '../../../../interfaces/ILinks';
 import characterService from '../../../../service/characterService';
+import useTabReplacement from '../../../hooks/useTabReplacement';
 
 function CharacterDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -45,6 +48,9 @@ function CharacterDetail() {
   const closeModal2 = () => setModalRalations(false);
   const closeModal3 = () => setModalAddons(false);
   const closeModal4 = () => setModalLink(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaNoteRef = useRef<HTMLTextAreaElement>(null);
+  const textareaFullRef = useRef<HTMLTextAreaElement>(null);
 
   const [stateCharacter,
     setEditedName] = useState<ICharacter | Partial<ICharacter>>(currentCharacter || {});
@@ -152,6 +158,10 @@ function CharacterDetail() {
     setEditedName(updatedState);
     characterService.upDate(Number(id), updatedState as ICharacter);
   };
+
+  useTabReplacement(textareaRef, isLoading);
+  useTabReplacement(textareaNoteRef, isLoading);
+  useTabReplacement(textareaFullRef, isLoading);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -425,6 +435,7 @@ function CharacterDetail() {
           <div className="fullContent">
             <h3>Resumo</h3>
             <textarea
+              ref={textareaRef}
               className="cardInputFull"
               placeholder="Descreva em poucas palavras quem é essa personagem"
               value={stateCharacter?.resume}
@@ -434,6 +445,7 @@ function CharacterDetail() {
               <div>
                 <h3>Anotações</h3>
                 <textarea
+                  ref={textareaNoteRef}
                   className="cardInputFull"
                   placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
                   value={stateCharacter?.note}
@@ -443,6 +455,7 @@ function CharacterDetail() {
             )}
             <h3>Conteúdo</h3>
             <textarea
+              ref={textareaFullRef}
               className="cardInputFull"
               placeholder="Campo de texto livre..."
               value={stateCharacter?.content}
