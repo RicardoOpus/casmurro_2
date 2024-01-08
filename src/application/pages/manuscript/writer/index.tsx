@@ -396,7 +396,6 @@ function Writer() {
             <div style={{ position: 'relative' }}>
               <div>
                 <div
-                  // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={{ __html: textHl }}
                   className="writeArea"
                   style={{

@@ -114,6 +114,10 @@
   margin: 0px;
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
+
+  textarea {
+    white-space: pre-wrap;
+  }
 }
 
 .printMode {
@@ -202,6 +206,10 @@ button:disabled {
 
 button:disabled:hover {
   border: solid 1px gray;
+}
+
+textarea {
+  white-space: pre-wrap;
 }
 
 .btnDiscret {
