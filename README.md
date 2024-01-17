@@ -6,6 +6,7 @@ Program for planning, organizing, and writing fiction.
 
 - Vite
 - React
+- Redux
 - Typescript
 - Dexie
 
