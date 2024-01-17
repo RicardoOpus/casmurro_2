@@ -9,6 +9,7 @@ Program for planning, organizing, and writing fiction.
 - Typescript
 - Dexie
 
+
 To setup the project, just clone it and install the dependencies:
 
 ```sh
