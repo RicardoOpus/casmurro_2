@@ -10,10 +10,12 @@
 }
 
 .edit-lists-bar {
+  align-items: baseline;
   display: flex;
   gap: .5em;
   margin-bottom: .5em;
   padding: .5em 0;
+  flex-direction: row;
 }
 
 .edit-lists-items {

@@ -829,6 +829,10 @@ tr:nth-child(even) {
   background-position: -64px -96px;
 }
 
+.ui-icon-check {
+  background-position: -64px -144px;
+}
+
 /*=========== Filter =========== */
 
 .filterBar {

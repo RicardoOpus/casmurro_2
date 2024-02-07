@@ -113,7 +113,9 @@ function TaskList({
           <button onClick={() => moveItem(true)} type="button" className="btnSmall">▲</button>
           <button onClick={() => moveItem(false)} type="button" className="btnSmall">▼</button>
           <span className="tooltip-default" data-balloon aria-label="Marcar/Desmarcar concluída" data-balloon-pos="down">
-            <button onClick={markasDone} type="button" className="btnSmall">🗸</button>
+            <button onClick={markasDone} type="button" className="btnSmall">
+              <span className="ui-icon ui-icon-check" />
+            </button>
           </span>
           <span className="tooltip-default" data-balloon aria-label="Remover selecionada" data-balloon-pos="down">
             <button onClick={deleteItem} type="button" className="btnSmall">
