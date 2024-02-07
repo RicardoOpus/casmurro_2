@@ -3,6 +3,7 @@
 .dashboardAuthor {
   all: unset;
   border-radius: 5px;
+  border: solid 1px transparent;
   box-sizing: border-box;
   color: var(--text-color);
   font-family: Amaranth;
@@ -12,6 +13,13 @@
   padding: 0px 1em 0px 1em;
   text-align: center;
   width: 100%;
+}
+
+.dashboardTitle:focus,
+.dashboardSubTitle:focus,
+.dashboardAuthor:focus {
+  background-color: var(--bg-color-sec);
+  border: solid 1px var(--border-color);
 }
 
 .dashboardSubTitle {
