@@ -489,6 +489,7 @@ tr:nth-child(even) {
 
 .detailInputTitle {
   all: unset;
+  border: solid 1px transparent;
   border-radius: 5px;
   box-sizing: border-box;
   color: var(--text-color);
@@ -502,10 +503,6 @@ tr:nth-child(even) {
 
 .detailInputTitle:focus {
   background-color: var(--bg-color-sec);
-  border: solid 1px var(--border-color);
-}
-
-.detailInputTitle:hover {
   border: solid 1px var(--border-color);
 }
 
