@@ -375,7 +375,7 @@ function DraftDetail() {
                       {charList?.map((char) => (
                         (stateMItem?.scene_characters ?? []).includes(char.id) && (
                           <div key={char.id} className="elementCharScene">
-                            <img className="imgCharScene" src={char.image ? char.image : './person.png'} alt="Character" />
+                            <img className="imgCharScene" src={char.image ? char.image : './images/person.png'} alt="Character" />
                             <button onClick={() => navigate(`/characters/${char.id}`)} className="relationBtn" type="button" style={{ backgroundColor: char.color }}>{char.title}</button>
                           </div>
                         )
