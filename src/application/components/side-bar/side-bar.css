@@ -20,6 +20,13 @@
   padding: 2rem 3rem 2rem 30px;
 }
 
+.sidebarTitle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .spanSideBar {
   color: var(--text-color-inactive);
   font-size: smaller;

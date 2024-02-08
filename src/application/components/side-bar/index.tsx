@@ -10,6 +10,7 @@ import ICharacter from '../../../interfaces/ICharacter';
 import CardInspect from './card-inspect';
 import INotes from '../../../interfaces/INotes';
 import IManuscript from '../../../interfaces/IManuscript';
+import HelpModal from '../help-modal';
 
 function SideBar() {
   const [width, setWidth] = useState(500);
@@ -17,6 +18,7 @@ function SideBar() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [searchInput, setSearchInput] = useState('');
   const [showInspect, setShowInspect] = useState(false);
+  const [modal, setModal] = useState(false);
   const [allCards, setAllCards] = useState<(IWorld | ICharacter | INotes | IManuscript)[]>([]);
   const [filtredCards, setFiltredCards] = useState<(IWorld | ICharacter |
     INotes | IManuscript)[]>([]);
@@ -61,7 +63,7 @@ function SideBar() {
       setAllCards(newArray);
     }
   }, [projectData.data?.characters,
-    projectData.data?.manuscript, projectData.data?.notes, projectData.data?.world]);
+  projectData.data?.manuscript, projectData.data?.notes, projectData.data?.world]);
 
   useEffect(() => {
     const handleFilter = () => {
@@ -113,7 +115,10 @@ function SideBar() {
         <div className="sideBarContent">
           {isSidebarOpen && (
             <div>
-              <h3 style={{ color: 'var(--text-color-inactive)' }}>Consulta rápida</h3>
+              <div className="sidebarTitle">
+                <h3 style={{ color: 'var(--text-color-inactive)' }}>Consulta rápida</h3>
+                <button onClick={() => setModal(true)} className="help" type="button">?</button>
+              </div>
               <input
                 type="text"
                 value={searchInput}
@@ -159,6 +164,12 @@ function SideBar() {
             </div>
           )}
         </div>
+        <HelpModal
+          openModal={modal}
+          onClose={() => setModal(false)}
+          title="Ajuda - Consulta rápida"
+          mensage="<p>Pesquise por cartões sem sair da tela atual. Digite o título do cartão, ou utilize o indicador '@ + tipo' para mostrar todos os cartões de uma seção.</p><p>Exemplos:</p><p>@char - mostra todos os personagens</p><p>@world - mostra todos itens mundo</p><p>@notes - mostra todos as notas</p><p>@manu - mostra todas as cenas</p>"
+        />
       </div>
     </Resizable>
   );

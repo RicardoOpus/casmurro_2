@@ -441,6 +441,18 @@ tr:nth-child(even) {
   margin: 1em 0;
 }
 
+.help {
+  background-color: transparent;
+  border: solid 1px var(--border-color);
+  border-radius: 9999px;
+  font-size: .75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 /* ============= resizables  ================= */
 
 .resizable {
