@@ -63,7 +63,8 @@ function SideBar() {
       setAllCards(newArray);
     }
   }, [projectData.data?.characters,
-  projectData.data?.manuscript, projectData.data?.notes, projectData.data?.world]);
+    projectData.data?.manuscript,
+    projectData.data?.notes, projectData.data?.world]);
 
   useEffect(() => {
     const handleFilter = () => {
