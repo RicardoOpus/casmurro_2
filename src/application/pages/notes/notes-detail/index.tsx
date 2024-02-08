@@ -158,14 +158,12 @@ function NotesDetail() {
         <div className="card">
           <BackButton page="/notes" />
           <NextAndPrevCard id={Number(id)} dataTable="notes" callback={callBackLoading} />
-          {stateNoteItem.image ? (
+          {stateNoteItem.image && (
             <div className="imageCardBackgournd">
               <div className="cardImageDiv" style={{ backgroundImage: `url(${stateNoteItem.image})` }}>
                 <img className="cardImage" src={stateNoteItem.image} id="output" alt="character" />
               </div>
             </div>
-          ) : (
-            <div />
           )}
           <input
             onChange={(e) => handleInputChange(e, 'title')}
@@ -176,23 +174,27 @@ function NotesDetail() {
           />
           <div className="detailBarButtons">
             <div className="detailBarButtonsItens">
-              <span className="tooltip-default" data-balloon aria-label="Adicionar imagem" data-balloon-pos="down">
-                <label htmlFor="addImage">
-                  <div className="profile-pic addImage">
-                    <input
-                      id="addImage"
-                      accept=".jpg, .jpeg, .png, .webp"
-                      onChange={(e) => handleFileInput(e.target)}
-                      type="file"
-                    />
-                  </div>
-                </label>
-              </span>
-              <span className="tooltip-default" data-balloon aria-label="Remover imagem" data-balloon-pos="down">
-                <label className="removeImage" htmlFor="removeImage">
-                  <button id="removeImage" onClick={clearImage} className="btnInvisible" type="button">{ }</button>
-                </label>
-              </span>
+              {!stateNoteItem.image && (
+                <span className="tooltip-default" data-balloon aria-label="Adicionar imagem" data-balloon-pos="down">
+                  <label htmlFor="addImage">
+                    <div className="profile-pic addImage">
+                      <input
+                        id="addImage"
+                        accept=".jpg, .jpeg, .png, .webp"
+                        onChange={(e) => handleFileInput(e.target)}
+                        type="file"
+                      />
+                    </div>
+                  </label>
+                </span>
+              )}
+              {stateNoteItem.image && (
+                <span className="tooltip-default" data-balloon aria-label="Remover imagem" data-balloon-pos="down">
+                  <label className="removeImage" htmlFor="removeImage">
+                    <button id="removeImage" onClick={clearImage} className="btnInvisible" type="button">{ }</button>
+                  </label>
+                </span>
+              )}
               <span className="tooltip-default" data-balloon aria-label="Adicionar link externo" data-balloon-pos="down">
                 <label className="addLink" htmlFor="addLink">
                   <button id="addLink" onClick={() => setModalLink(true)} className="btnInvisible" type="button">{ }</button>

@@ -157,23 +157,27 @@ function Dashboard() {
                 <button id="deadlineIcon" onClick={() => setModalDeadline(true)} className="btnInvisible" type="button">{ }</button>
               </label>
             </span>
-            <span className="tooltip-default" data-balloon aria-label="Adicionar imagem" data-balloon-pos="down">
-              <label htmlFor="addImage">
-                <div className="profile-pic addImage">
-                  <input
-                    id="addImage"
-                    accept=".jpg, .jpeg, .png, .webp"
-                    onChange={(e) => handleFileInput(e.target)}
-                    type="file"
-                  />
-                </div>
-              </label>
-            </span>
-            <span className="tooltip-default" data-balloon aria-label="Remover imagem" data-balloon-pos="down">
-              <label className="removeImage" htmlFor="removeImage">
-                <button id="removeImage" onClick={clearImage} className="btnInvisible" type="button">{ }</button>
-              </label>
-            </span>
+            {!stateProject.image_project && (
+              <span className="tooltip-default" data-balloon aria-label="Adicionar imagem" data-balloon-pos="down">
+                <label htmlFor="addImage">
+                  <div className="profile-pic addImage">
+                    <input
+                      id="addImage"
+                      accept=".jpg, .jpeg, .png, .webp"
+                      onChange={(e) => handleFileInput(e.target)}
+                      type="file"
+                    />
+                  </div>
+                </label>
+              </span>
+            )}
+            {stateProject.image_project && (
+              <span className="tooltip-default" data-balloon aria-label="Remover imagem" data-balloon-pos="down">
+                <label className="removeImage" htmlFor="removeImage">
+                  <button id="removeImage" onClick={clearImage} className="btnInvisible" type="button">{ }</button>
+                </label>
+              </span>
+            )}
           </div>
           <div className="detailBarButtonsItens">
             <span className="tooltip-default" data-balloon aria-label="Mostrar/ocultar campos extras" data-balloon-pos="down">

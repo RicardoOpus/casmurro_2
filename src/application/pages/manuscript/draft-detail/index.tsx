@@ -209,12 +209,10 @@ function DraftDetail() {
             <div style={{ overflow: 'scroll', height: `${height}px` }}>
               <div className="detailMContainer">
                 <NextAndPrevCard id={Number(id)} dataTable="manuscript" callback={callBackLoading} callbackScene={callbackScene} />
-                {stateMItem.image ? (
+                {stateMItem.image && (
                   <div className="imageCardBackgournd">
                     <div className="cardImageDiv" style={{ backgroundImage: `url(${stateMItem.image})` }} />
                   </div>
-                ) : (
-                  <div />
                 )}
                 <input
                   onChange={(e) => handleInputChange(e, 'title')}
@@ -233,23 +231,27 @@ function DraftDetail() {
                             <button id="addCharScene" onClick={() => setModalCharScene(true)} className="btnInvisible" type="button">{ }</button>
                           </label>
                         </span>
-                        <span className="tooltip-default" data-balloon aria-label="Adicionar imagem" data-balloon-pos="down">
-                          <label htmlFor="addImage">
-                            <div className="profile-pic addImage">
-                              <input
-                                id="addImage"
-                                accept=".jpg, .jpeg, .png, .webp"
-                                onChange={(e) => handleFileInput(e.target)}
-                                type="file"
-                              />
-                            </div>
-                          </label>
-                        </span>
-                        <span className="tooltip-default" data-balloon aria-label="Remover imagem" data-balloon-pos="down">
-                          <label className="removeImage" htmlFor="removeImage">
-                            <button id="removeImage" onClick={clearImage} className="btnInvisible" type="button">{ }</button>
-                          </label>
-                        </span>
+                        {!stateMItem.image && (
+                          <span className="tooltip-default" data-balloon aria-label="Adicionar imagem" data-balloon-pos="down">
+                            <label htmlFor="addImage">
+                              <div className="profile-pic addImage">
+                                <input
+                                  id="addImage"
+                                  accept=".jpg, .jpeg, .png, .webp"
+                                  onChange={(e) => handleFileInput(e.target)}
+                                  type="file"
+                                />
+                              </div>
+                            </label>
+                          </span>
+                        )}
+                        {stateMItem.image && (
+                          <span className="tooltip-default" data-balloon aria-label="Remover imagem" data-balloon-pos="down">
+                            <label className="removeImage" htmlFor="removeImage">
+                              <button id="removeImage" onClick={clearImage} className="btnInvisible" type="button">{ }</button>
+                            </label>
+                          </span>
+                        )}
                         <span className="tooltip-default" data-balloon aria-label="Adicionar link externo" data-balloon-pos="down">
                           <label className="addLink" htmlFor="addLink">
                             <button id="addLink" onClick={() => setModalLink(true)} className="btnInvisible" type="button">{ }</button>
