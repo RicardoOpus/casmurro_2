@@ -64,16 +64,39 @@ function SideBar() {
     projectData.data?.manuscript, projectData.data?.notes, projectData.data?.world]);
 
   useEffect(() => {
-    const handleFilter = (cardList: IWorld[] | ICharacter[] | INotes[] | IManuscript[]) => {
-      const result = cardList.filter((card) => {
-        const titleMatch = !searchInput || card.title.includes(searchInput);
-        return titleMatch;
-      });
-      const limitedResult = result.slice(0, 10);
-      setFiltredCards(limitedResult);
+    const handleFilter = () => {
+      if (searchInput.startsWith('@')) {
+        const filterType = searchInput.substring(1).toLowerCase();
+        switch (filterType) {
+          case 'char':
+            setFiltredCards(projectData.data?.characters || []);
+            break;
+          case 'world':
+            setFiltredCards(projectData.data?.world || []);
+            break;
+          case 'notes':
+            setFiltredCards(projectData.data?.notes || []);
+            break;
+          case 'manu':
+            setFiltredCards(projectData.data?.manuscript || []);
+            break;
+          default:
+            setFiltredCards([]);
+            break;
+        }
+      } else {
+        const result = allCards.filter((card) => {
+          const titleMatch = !searchInput || card.title.includes(searchInput);
+          return titleMatch;
+        });
+        const limitedResult = result.slice(0, 10);
+        setFiltredCards(limitedResult);
+      }
     };
-    handleFilter(allCards);
-  }, [allCards, searchInput]);
+
+    handleFilter();
+  }, [searchInput, projectData.data?.characters,
+    projectData.data?.notes, allCards, projectData.data?.world, projectData.data?.manuscript]);
 
   return (
     <Resizable className="resizable" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
