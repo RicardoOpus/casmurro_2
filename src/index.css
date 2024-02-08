@@ -36,6 +36,7 @@
   --distractionFree-icon: url("../images/distractionFree.svg");
   --deadline-icon: url("../images/deadline.svg");
   --import-icon: url("../images/import.svg");
+  --newWindow-icon: url("../images/multi-window.svg");
   --user-text-size: 16px;
   --user-text-type: Roboto;
   --user-scene-size: 25px;
@@ -201,7 +202,7 @@ button:hover {
 button:disabled {
   border: solid 1px gray;
   cursor: default;
-  opacity: .5; 
+  opacity: .5;
 }
 
 button:disabled:hover {
@@ -393,7 +394,7 @@ option:hover {
 ::-webkit-scrollbar-thumb {
   background: var(--scroll-color);
   border-radius: 16px;
-  box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25),inset -2px -2px 2px rgba(0,0,0,.25);
+  box-shadow: inset 2px 2px 2px hsla(0, 0%, 100%, .25), inset -2px -2px 2px rgba(0, 0, 0, .25);
 }
 
 .tooltip-default {
@@ -512,7 +513,7 @@ tr:nth-child(even) {
   text-align: center;
 }
 
-.cardImageDiv { 
+.cardImageDiv {
   background-position-x: center;
   background-position-y: center;
   background-size: cover;
@@ -523,8 +524,8 @@ tr:nth-child(even) {
   border-radius: 9px;
   -webkit-box-shadow: 0px 0px 12px #000000;
   -moz-box-shadow: 0px 0px 12px #000000;
-  -webkit-box-shadow: 0px 0px 0px 300px rgba(0,0,0,.902);
-  -moz-box-shadow: 0px 0px 0px 300px rgba(0,0,0,.902);
+  -webkit-box-shadow: 0px 0px 0px 300px rgba(0, 0, 0, .902);
+  -moz-box-shadow: 0px 0px 0px 300px rgba(0, 0, 0, .902);
   box-shadow: 0px 0px 300px 400px rgba(0, 0, 0, .902);
   height: 300px;
 }
@@ -644,20 +645,20 @@ tr:nth-child(even) {
   width: 20px;
 }
 
-.checkboxCustom .labelChk:hover input ~ .chk_indicator {
+.checkboxCustom .labelChk:hover input~.chk_indicator {
   background: var(--text-color-inactive);
 }
 
-.checkboxCustom .labelChk input:checked ~ .chk_indicator {
+.checkboxCustom .labelChk input:checked~.chk_indicator {
   background: var(--accent-color);
 }
 
-.checkboxCustom .labelChk:hover input:not([disabled]):checked ~ .chk_indicator,
-.checkboxCustom .labelChk input:checked:focus ~ .chk_indicator {
+.checkboxCustom .labelChk:hover input:not([disabled]):checked~.chk_indicator,
+.checkboxCustom .labelChk input:checked:focus~.chk_indicator {
   background: var(--accent-color);
 }
 
-.checkboxCustom .labelChk input:disabled ~ .chk_indicator {
+.checkboxCustom .labelChk input:disabled~.chk_indicator {
   background: var(--text-color-inactive);
   opacity: .2;
   pointer-events: none;
@@ -669,7 +670,7 @@ tr:nth-child(even) {
   position: absolute;
 }
 
-.checkboxCustom .labelChk input:checked ~ .chk_indicator:after {
+.checkboxCustom .labelChk input:checked~.chk_indicator:after {
   display: block;
 }
 
@@ -683,7 +684,7 @@ tr:nth-child(even) {
   width: 3px;
 }
 
-.checkboxCustom .label-checkbox input:disabled ~ .chk_indicator:after {
+.checkboxCustom .label-checkbox input:disabled~.chk_indicator:after {
   border-color: var(--text-color);
 }
 
@@ -879,7 +880,7 @@ p {
 }
 
 .modal-border {
-  border: solid 1px  var(--border-color);
+  border: solid 1px var(--border-color);
   padding: 1rem 2rem;
 }
 
@@ -1004,3 +1005,19 @@ p {
   background-color: var(--accent-color);
 }
 
+.multiWindowIcon {
+  background-color: var(--text-color-inactive);
+  border-radius: 0;
+  cursor: pointer;
+  display: inline-block;
+  height: 25px;
+  -webkit-mask: var(--newWindow-icon) no-repeat center / contain;
+  mask: var(--newWindow-icon) no-repeat center / contain;
+  padding: 0;
+  width: 25px;
+  margin-left: .5em;
+}
+
+.multiWindowIcon:hover {
+  background-color: var(--accent-color);
+}

@@ -10,15 +10,15 @@ function CardInspect({ card }: ICardInspectProps) {
   const renderContent = (domain: string) => {
     switch (domain) {
       case 'Personagem':
-        return <CharInspect card={card} />;
+        return <CharInspect card={card} isNewWindow />;
       case 'Mundo':
-        return <WorldInspect card={card} />;
+        return <WorldInspect card={card} isNewWindow />;
       case 'Notas':
-        return <NotesInspect card={card} />;
+        return <NotesInspect card={card} isNewWindow />;
       case 'Capítulo':
-        return <ChapterInspect card={card as IManuscript} />;
+        return <ChapterInspect card={card as IManuscript} isNewWindow />;
       case 'Cena':
-        return <SceneInspect card={card as IManuscript} />;
+        return <SceneInspect card={card as IManuscript} isNewWindow />;
       default:
         return null;
     }

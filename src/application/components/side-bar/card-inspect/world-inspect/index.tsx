@@ -1,17 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
 import IWorld from '../../../../../interfaces/IWorld';
 import utils from '../../../../../service/utils';
+import NewWindowInspect from '../new-window-inspect';
 
 interface CardInspectProps {
   card: IWorld;
+  isNewWindow: boolean;
 }
 
-function WorldInspect({ card }: CardInspectProps) {
+function WorldInspect({ card, isNewWindow }: CardInspectProps) {
   const navigate = useNavigate();
+  const [showNewWindow, setshowNewWindow] = useState(false);
 
   return (
     <div className="inspectCard">
+      {showNewWindow && <NewWindowInspect card={card} />}
       <div className="imageInspect">
         {card.image && (
           <img className="imageInscpet" src={card.image} id="output" alt="character" />
@@ -19,6 +24,13 @@ function WorldInspect({ card }: CardInspectProps) {
       </div>
       <div className="inspectTitle">
         <button onClick={() => navigate(`/world/${card.id}`)} className="btnInvisible" type="button">{card.title}</button>
+        {isNewWindow && (
+          <span className="tooltip-default" data-balloon aria-label="Abrir em uma nova janela" data-balloon-pos="down">
+            <label className="multiWindowIcon" htmlFor="newWindowIcon">
+              <button onClick={() => setshowNewWindow(true)} id="newWindowIcon" className="btnInvisible" type="button">{ }</button>
+            </label>
+          </span>
+        )}
       </div>
       <div className="inspecInfos">
         {card.category ? <span>Categoria:</span> : ''}

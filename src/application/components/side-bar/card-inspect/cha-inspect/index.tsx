@@ -5,15 +5,18 @@ import { v4 as uuidv4 } from 'uuid';
 import ICharacter from '../../../../../interfaces/ICharacter';
 import IrootStateProject from '../../../../../interfaces/IRootStateProject';
 import utils from '../../../../../service/utils';
+import NewWindowInspect from '../new-window-inspect';
 
 interface CardInspectProps {
   card: ICharacter;
+  isNewWindow: boolean;
 }
 
-function CharInspect({ card }: CardInspectProps) {
+function CharInspect({ card, isNewWindow }: CardInspectProps) {
   const navigate = useNavigate();
   const { projectData } = useSelector((state: IrootStateProject) => state.projectDataReducer);
   const [characters, setCharacters] = useState<ICharacter[]>([]);
+  const [showNewWindow, setshowNewWindow] = useState(false);
   const [stateRelations,
     setStateRelations] = useState<{
       charID: number;
@@ -48,6 +51,7 @@ function CharInspect({ card }: CardInspectProps) {
 
   return (
     <div className="inspectCard">
+      {showNewWindow && <NewWindowInspect card={card} />}
       <div className="imageInspect">
         {card.image && (
           <img className="picInscpet" src={card.image} id="output" alt="character" />
@@ -56,6 +60,13 @@ function CharInspect({ card }: CardInspectProps) {
       <div className="inspectTitle">
         <span className="charTagIcon" style={{ backgroundColor: `${card.color || 'var(--text-color-sec)'}`, marginRight: '.5em' }} />
         <button onClick={() => navigate(`/characters/${card.id}`)} className="btnInvisible" type="button">{card.title}</button>
+        {isNewWindow && (
+          <span className="tooltip-default" data-balloon aria-label="Abrir em uma nova janela" data-balloon-pos="down">
+            <label className="multiWindowIcon" htmlFor="newWindowIcon">
+              <button onClick={() => setshowNewWindow(true)} id="newWindowIcon" className="btnInvisible" type="button">{ }</button>
+            </label>
+          </span>
+        )}
       </div>
       <div className="inspecInfos">
         {card.full_name ? <span>Nome:</span> : ''}
