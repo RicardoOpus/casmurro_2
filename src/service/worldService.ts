@@ -36,6 +36,10 @@ class WorldService {
   async upDate(idItem: number, data: IWorld) {
     await indexedDBrepository.worldUpdate(idItem, data);
   }
+
+  async upDatePosition(data: IWorld[]) {
+    await indexedDBrepository.cardUpdatePosition(data, 'world');
+  }
 }
 
 const worldService = new WorldService();

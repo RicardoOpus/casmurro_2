@@ -53,6 +53,10 @@ class CharacterService {
   async upDate(idItem: number, data: ICharacter) {
     await indexedDBrepository.characterUpdate(idItem, data);
   }
+
+  async upDatePosition(data: ICharacter[]) {
+    await indexedDBrepository.cardUpdatePosition(data, 'characters');
+  }
 }
 const characterService = new CharacterService();
 

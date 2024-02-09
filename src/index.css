@@ -498,6 +498,21 @@ tr:nth-child(even) {
   font-size: small;
 }
 
+.titleCardSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btnSmall.deleteButton {
+  display: none;
+}
+
+.listItens:hover .deleteButton {
+  display: block;
+}
+
 /* ============= Detail Cards  ================= */
 
 .detailInputTitle {

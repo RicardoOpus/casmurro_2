@@ -13,6 +13,11 @@ export const notesFilterSortAction = (filter: boolean) => ({
   payload: filter,
 });
 
+export const notesFilterSortActionDirection = (filter: boolean) => ({
+  type: 'NOTES_FILTER_SORT_DIRECTION',
+  payload: filter,
+});
+
 export const notesClearState = () => ({
   type: 'CLEAR_STATE',
 });

@@ -6,7 +6,8 @@ type ActionType = {
 const INITIAL_STATE = {
   selectedTitle: '',
   selectedCategory: '',
-  isAscOrder: true,
+  isOrder: false,
+  isAscOrder: false,
 };
 
 const charFilterReducer = (state = INITIAL_STATE, action: ActionType = { type: '', payload: 0 }) => {
@@ -22,6 +23,11 @@ const charFilterReducer = (state = INITIAL_STATE, action: ActionType = { type: '
         selectedCategory: action.payload,
       };
     case 'WORLD_FILTER_SORT':
+      return {
+        ...state,
+        isOrder: action.payload,
+      };
+    case 'WORLD_FILTER_SORT_DIRECTION':
       return {
         ...state,
         isAscOrder: action.payload,

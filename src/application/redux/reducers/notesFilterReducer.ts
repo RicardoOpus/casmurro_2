@@ -6,7 +6,8 @@ type ActionType = {
 const INITIAL_STATE = {
   selectedTitle: '',
   selectedCategory: '',
-  isAscOrder: true,
+  isOrder: false,
+  isAscOrder: false,
 };
 
 const notesFilterReducer = (state = INITIAL_STATE, action: ActionType = { type: '', payload: 0 }) => {
@@ -22,6 +23,11 @@ const notesFilterReducer = (state = INITIAL_STATE, action: ActionType = { type: 
         selectedCategory: action.payload,
       };
     case 'NOTES_FILTER_SORT':
+      return {
+        ...state,
+        isOrder: action.payload,
+      };
+    case 'NOTES_FILTER_SORT_DIRECTION':
       return {
         ...state,
         isAscOrder: action.payload,

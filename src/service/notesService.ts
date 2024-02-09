@@ -31,6 +31,10 @@ class NotesService {
   async upDate(idItem: number, data: INotes) {
     await indexedDBrepository.noteUpdate(idItem, data);
   }
+
+  async upDatePosition(data: INotes[]) {
+    await indexedDBrepository.cardUpdatePosition(data, 'notes');
+  }
 }
 
 const notesService = new NotesService();

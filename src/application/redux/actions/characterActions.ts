@@ -23,6 +23,11 @@ export const charFilterSortAction = (charFilter: boolean) => ({
   payload: charFilter,
 });
 
+export const charFilterSortActionDirection = (charFilter: boolean) => ({
+  type: 'CHAR_FILTER_SORT_DIRECTION',
+  payload: charFilter,
+});
+
 export const charClearState = () => ({
   type: 'CLEAR_STATE',
 });

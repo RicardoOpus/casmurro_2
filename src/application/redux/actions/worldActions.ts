@@ -13,6 +13,11 @@ export const worldFilterSortAction = (filter: boolean) => ({
   payload: filter,
 });
 
+export const worldFilterSortActionDirection = (filter: boolean) => ({
+  type: 'WORLD_FILTER_SORT_DIRECTION',
+  payload: filter,
+});
+
 export const worldClearState = () => ({
   type: 'CLEAR_STATE',
 });
