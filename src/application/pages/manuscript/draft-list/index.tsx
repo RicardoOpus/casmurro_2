@@ -155,6 +155,11 @@ function DraftList() {
           )}
           {cene.current && renderBtns()}
         </label>
+        <p
+          style={{ color: cene.current ? '#000000de' : 'var(--text-color-inactive)', marginLeft: '2em' }}
+        >
+          {cene.resume}
+        </p>
       </div>
     ))
   );
