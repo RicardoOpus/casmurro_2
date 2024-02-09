@@ -108,15 +108,43 @@ class IndexedDBrepository {
       switch (table) {
         case 'characters':
           projectData.data?.characters?.unshift(newData);
-          projectData.data?.characters?.sort((a, b) => a.title.localeCompare(b.title));
           break;
         case 'world':
           projectData.data?.world?.unshift(newData);
-          projectData.data?.world?.sort((a, b) => a.title.localeCompare(b.title));
           break;
         case 'notes':
           projectData.data?.notes?.unshift(newData);
-          projectData.data?.notes?.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+        default:
+          break;
+      }
+      await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+        // eslint-disable-next-line no-param-reassign
+        ele.data = projectData.data;
+      });
+      this.updateLastEdit();
+    }
+  }
+
+  async cardUpdatePosition(newData: ICharacter[], table: string) {
+    const projectID = await this.getCurrentProjectID();
+    const projectData: IProject | undefined = await db.projects.where('id').equals(projectID).first();
+    if (projectData) {
+      switch (table) {
+        case 'characters':
+          if (projectData.data?.characters) {
+            projectData.data.characters = newData;
+          }
+          break;
+        case 'world':
+          if (projectData.data?.world) {
+            projectData.data.world = newData;
+          }
+          break;
+        case 'notes':
+          if (projectData.data?.notes) {
+            projectData.data.notes = newData;
+          }
           break;
         default:
           break;
