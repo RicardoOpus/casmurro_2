@@ -12,6 +12,7 @@ import ElapsedTimeModal from './elapsedtime-modal';
 
 interface ValidDateItem extends Required<IManuscript>, Required<IWorld>, Required<ICharacter> {
   date: string;
+  date_type: string;
 }
 
 function Timeline() {
@@ -30,7 +31,7 @@ function Timeline() {
         return (
           <div className="timeline-section">
             <p style={{ background: `linear-gradient(to right, ${item.color} 0%, var(--bg-color) 25%)`, color: 'black' }}>{utils.convertDatePTBR(item.date)}</p>
-            <p>{item.date_birth ? `Nasce ${item.title}` : `Morre ${item.title}`}</p>
+            <p>{item.date_type === 'birth' ? `Nasce ${item.title}` : `Morre ${item.title}`}</p>
           </div>
         );
       default:
@@ -96,12 +97,12 @@ function Timeline() {
     const charBirth = projectData.data?.characters?.filter((e) => e.date_birth);
     const array3 = charBirth?.map((scene) => {
       const { date_birth, ...restoDoObjeto } = scene;
-      return { date: date_birth, ...restoDoObjeto };
+      return { date: date_birth, date_type: 'birth', ...restoDoObjeto };
     });
     const charDeath = projectData.data?.characters?.filter((e) => e.date_death);
     const array4 = charDeath?.map((scene) => {
       const { date_death, ...restoDoObjeto } = scene;
-      return { date: date_death, ...restoDoObjeto };
+      return { date: date_death, date_type: 'death', ...restoDoObjeto };
     });
     if (array1 && array2 && array3 && array4) {
       const newArray = [...array1, ...array2, ...array3, ...array4];
@@ -124,7 +125,9 @@ function Timeline() {
           {renderSelectPOV()}
           <button className="btnSmall" type="button" onClick={handleSort} disabled={isAscOrder}>↑</button>
           <button className="btnSmall" type="button" onClick={handleSort} disabled={!isAscOrder}>↓</button>
-          <button className="btnSmall" type="button" onClick={() => setModal(true)}>Calcular tempo entre datas</button>
+          <label className="deadlineIcon" htmlFor="timeElipsed">
+            <button id="timeElipsed" className="btnInvisible" type="button" onClick={() => setModal(true)}>{ }</button>
+          </label>
           <button className="btnSmall" type="button" onClick={clearAllFilters}>✖ Filtros</button>
         </div>
         <div className="containerTimeline">
