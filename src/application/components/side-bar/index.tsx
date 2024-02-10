@@ -169,7 +169,7 @@ function SideBar() {
           openModal={modal}
           onClose={() => setModal(false)}
           title="Ajuda - Consulta rápida"
-          mensage="<p>Pesquise por cartões sem sair da tela atual. Digite o título do cartão, ou utilize o indicador '@ + tipo' para mostrar todos os cartões de uma seção.</p><p>Exemplos:</p><p>@char - mostra todos os personagens</p><p>@world - mostra todos itens mundo</p><p>@notes - mostra todos as notas</p><p>@manu - mostra todas as cenas</p>"
+          mensage="<p>Pesquise por cartões sem sair da tela atual. Digite o título do cartão, ou utilize o indicador '@ + tipo' para mostrar todos os cartões de um tipo.</p><p>Exemplos:</p><p>@char - mostra todos os personagens</p><p>@world - mostra todos itens mundo</p><p>@notes - mostra todas as notas</p><p>@manu - mostra todas as cenas</p>"
         />
       </div>
     </Resizable>

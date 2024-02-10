@@ -195,7 +195,7 @@ function CharactersList() {
           </select>
           <button className="btnSmall" type="button" onClick={() => handleSort(true)}>↑ Az</button>
           <button className="btnSmall" type="button" onClick={() => handleSort(false)}>↓ Za</button>
-          <button className="btnSmall" type="button" onClick={clearAllFilters}>✖ Filtros</button>
+          <button className="btnSmall" type="button" onClick={clearAllFilters} disabled={isFilterClear}>✖ Filtros</button>
         </div>
         <div className="amountInfoBar">
           <h3>
