@@ -192,7 +192,7 @@ function DraftDetail() {
       if (currentMItem.type !== 'Cena') {
         setHeight(600);
       } else {
-        setHeight(300);
+        setHeight(700);
       }
     }
   }, [currentMItem, id]);
