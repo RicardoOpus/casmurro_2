@@ -691,6 +691,11 @@ tr:nth-child(even) {
   pointer-events: none;
 }
 
+input:disabled {
+  color: var(--text-color-inactive);
+  border: solid 1px transparent;
+  cursor: not-allowed;
+}
 .checkboxCustom .chk_indicator:after {
   content: "";
   display: none;

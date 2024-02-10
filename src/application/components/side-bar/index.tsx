@@ -18,6 +18,7 @@ function SideBar() {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [searchInput, setSearchInput] = useState('');
   const [showInspect, setShowInspect] = useState(false);
+  const [lockInput, setlockInput] = useState(false);
   const [modal, setModal] = useState(false);
   const [allCards, setAllCards] = useState<(IWorld | ICharacter | INotes | IManuscript)[]>([]);
   const [filtredCards, setFiltredCards] = useState<(IWorld | ICharacter |
@@ -50,6 +51,12 @@ function SideBar() {
   const sideBarHandleClick = (value: IWorld | ICharacter | INotes | IManuscript) => {
     setSelectedCar(value);
     setShowInspect(true);
+    setlockInput(true);
+  };
+
+  const handleBackButton = () => {
+    setShowInspect(false);
+    setlockInput(false);
   };
 
   useEffect(() => {
@@ -123,16 +130,17 @@ function SideBar() {
               <input
                 type="text"
                 value={searchInput}
+                disabled={lockInput}
                 placeholder="Pesquisar em tudo..."
                 onChange={(e) => handleInputChange(e)}
                 className="cardInputSearch"
               />
               <div className="inspectBottons">
-                <button onClick={() => setShowInspect(false)} disabled={!showInspect} className="btnSmall" type="button">
+                <button onClick={handleBackButton} disabled={!showInspect} className="btnSmall" type="button">
                   <span className="ui-icon ui-icon-arrowreturnthick-1-w icon-color" />
                   Voltar
                 </button>
-                <button onClick={() => setSearchInput('')} className="btnSmall" type="button">✖ Limpar</button>
+                <button disabled={lockInput} onClick={() => setSearchInput('')} className="btnSmall" type="button">✖ Limpar</button>
               </div>
               <div className="sideBarList">
                 {showInspect ? (
