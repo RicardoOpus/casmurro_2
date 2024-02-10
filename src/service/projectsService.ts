@@ -86,6 +86,7 @@ class ProjectServide {
         manuscriptShowPovColor: false,
         manuscriptShowWC: false,
         manuscriptShowChecks: false,
+        manuscriptShowSynopsis: false,
         projectColor: '#0099ff',
         typeWriterSound: false,
         typeWriterVolume: 0.5,

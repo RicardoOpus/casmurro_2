@@ -22,6 +22,7 @@ interface IProject {
     manuscriptShowPovColor: boolean,
     manuscriptShowWC: boolean,
     manuscriptShowChecks: boolean,
+    manuscriptShowSynopsis: boolean,
     manuscriptPersonalWords: string[],
     manuscriptHideScenesTitles: boolean,
     manuscriptHideChaptersTitles: boolean,

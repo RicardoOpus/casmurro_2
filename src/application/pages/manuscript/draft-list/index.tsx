@@ -155,11 +155,13 @@ function DraftList() {
           )}
           {cene.current && renderBtns()}
         </label>
+        {prjSettings.manuscriptShowSynopsis && (
         <p
           style={{ color: cene.current ? '#000000de' : 'var(--text-color-inactive)', marginLeft: '2em' }}
         >
           {cene.resume}
         </p>
+        )}
       </div>
     ))
   );

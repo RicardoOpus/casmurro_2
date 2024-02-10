@@ -14,6 +14,7 @@ function ManuscriptSettings() {
   const [povColor, setPovColor] = useState(prjSettings.manuscriptShowPovColor || false);
   const [sceneWC, setSceneWC] = useState(prjSettings.manuscriptShowWC || false);
   const [sceneChks, setsceneChks] = useState(prjSettings.manuscriptShowChecks || false);
+  const [sceneSynopsis, setsceneSynopsis] = useState(prjSettings.manuscriptShowSynopsis || false);
   const [hideChaptersT,
     setHideChaptersT] = useState(prjSettings.manuscriptHideChaptersTitles || false);
   const [hideScenesT, setHideScenesT] = useState(prjSettings.manuscriptHideScenesTitles || false);
@@ -33,6 +34,9 @@ function ManuscriptSettings() {
     } if (type === 'checks') {
       setsceneChks(e.target.checked);
       await indexedDBrepository.updateProjectSettings(e.target.checked, 'manuscriptShowChecks');
+    } if (type === 'synopsis') {
+      setsceneSynopsis(e.target.checked);
+      await indexedDBrepository.updateProjectSettings(e.target.checked, 'manuscriptShowSynopsis');
     } if (type === 'manuscriptHideChaptersTitles') {
       setHideChaptersT(e.target.checked);
       await indexedDBrepository.updateProjectSettings(e.target.checked, 'manuscriptHideChaptersTitles');
@@ -148,6 +152,19 @@ function ManuscriptSettings() {
             da cena for &apos;Pronto&apos; e ✔✔ quando for &apos;Revisado&apos;
           </label>
         </div>
+        <div className="checkbox-wrapper">
+          <label htmlFor="sceneSynopsis">
+            <input
+              className="inputChkBox"
+              type="checkbox"
+              id="sceneSynopsis"
+              checked={sceneSynopsis}
+              onChange={(e) => handleInputType(e, 'synopsis')}
+            />
+            {' '}
+            Mostrar resumo das cenas;
+          </label>
+        </div>
         <div className="listDraftExeplie">
           <h2>Exemplo de Rascunho</h2>
           <div>
@@ -166,6 +183,13 @@ function ManuscriptSettings() {
                     </span>
                   )}
                 </label>
+                {sceneSynopsis && (
+                  <p
+                    style={{ color: 'var(--text-color-inactive)', marginLeft: '2em' }}
+                  >
+                    Onde o protagonista descobre um segredo que muda a sua vida
+                  </p>
+                )}
               </div>
               <div className="" style={{ marginLeft: '0em' }}>
                 <label htmlFor="68" className="itemDraft">
@@ -177,6 +201,13 @@ function ManuscriptSettings() {
                     <span className="wordCountSpan" style={{ marginLeft: '.5em' }}>(350)</span>
                   )}
                 </label>
+                {sceneSynopsis && (
+                  <p
+                    style={{ color: 'var(--text-color-inactive)', marginLeft: '2em' }}
+                  >
+                    O protagonista é obriado a enfrentar um desafio
+                  </p>
+                )}
               </div>
               <div className="" style={{ marginLeft: '0em' }}>
                 <label htmlFor="69" className="itemDraft">
@@ -193,6 +224,13 @@ function ManuscriptSettings() {
                     </span>
                   )}
                 </label>
+                {sceneSynopsis && (
+                  <p
+                    style={{ color: 'var(--text-color-inactive)', marginLeft: '2em' }}
+                  >
+                    Depois de fugir, finalmente o protagonista decide lutar
+                  </p>
+                )}
               </div>
               <div className="" style={{ marginLeft: '0em' }}>
                 <label htmlFor="70" className="itemDraft">
