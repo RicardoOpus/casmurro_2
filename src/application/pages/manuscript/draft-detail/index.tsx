@@ -6,6 +6,7 @@ import './draft-detail.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
+import ReactQuill from 'react-quill';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import IManuscript from '../../../../interfaces/IManuscript';
 import Loading from '../../../components/loading';
@@ -22,6 +23,7 @@ import ITaskList from '../../../../interfaces/ITaskList';
 import CharSceneModal from './char-scene';
 import NextAndPrevCard from '../../../components/next-and-prev';
 import useTabReplacement from '../../../hooks/useTabReplacement';
+import { modulesFull } from '../../../../templates/quillMudules';
 
 function DraftDetail() {
   const [height, setHeight] = useState(300);
@@ -93,6 +95,12 @@ function DraftDetail() {
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  const handleTextAreaChangeFull = (e: string, key: string) => {
+    const updatedState = { ...stateMItem, [key]: e, last_edit: Date.now() };
+    setStateManuItem(updatedState);
+    manuscriptService.upDate(Number(id), updatedState as IManuscript);
   };
 
   const handleDelete = async () => {
@@ -413,12 +421,12 @@ function DraftDetail() {
                   {stateMItem.show_notes && (
                     <div>
                       <h3>Anotações</h3>
-                      <textarea
-                        ref={textareaNoteRef}
-                        className="cardInputFull"
-                        placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
+                      <ReactQuill
+                        theme="snow"
                         value={stateMItem?.note}
-                        onChange={(e) => handleTextAreaChange(e, 'note')}
+                        onChange={(e) => handleTextAreaChangeFull(e, 'note')}
+                        modules={modulesFull}
+                        placeholder="Campo de texto livre"
                       />
                     </div>
                   )}
