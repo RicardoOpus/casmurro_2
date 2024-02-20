@@ -19,7 +19,6 @@ import NotesAddonsModal from '../notes-addons';
 import ILinks from '../../../../interfaces/ILinks';
 import LinksModal from '../../../components/add-link-modal';
 import notesService from '../../../../service/notesService';
-import useTabReplacement from '../../../hooks/useTabReplacement';
 import { modulesFull } from '../../../../templates/quillMudules';
 
 function NotesDetail() {
@@ -42,7 +41,6 @@ function NotesDetail() {
   const closeModal = () => setModal(false);
   const closeModal2 = () => setModalAddons(false);
   const closeModal4 = () => setModalLink(false);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     const updatedState = { ...stateNoteItem, [key]: e.target.value, last_edit: Date.now() };
@@ -123,8 +121,6 @@ function NotesDetail() {
     setStateNoteItem(updatedState);
     notesService.upDate(Number(id), updatedState as INotes);
   };
-
-  useTabReplacement(textareaRef, isLoading);
 
   useEffect(() => {
     const fetchData = async () => {
