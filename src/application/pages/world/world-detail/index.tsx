@@ -4,6 +4,7 @@ import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import ReactQuill from 'react-quill';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
@@ -19,6 +20,7 @@ import LinksModal from '../../../components/add-link-modal';
 import ILinks from '../../../../interfaces/ILinks';
 import worldService from '../../../../service/worldService';
 import useTabReplacement from '../../../hooks/useTabReplacement';
+import { modulesFull } from '../../../../templates/quillMudules';
 
 function WorldDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,6 +65,12 @@ function WorldDetail() {
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  const handleTextAreaChangeFull = (e: string, key: string) => {
+    const updatedState = { ...stateWorldItem, [key]: e, last_edit: Date.now() };
+    setStateWorldItem(updatedState);
+    worldService.upDate(Number(id), updatedState as IWorld);
   };
 
   const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
@@ -277,12 +285,12 @@ function WorldDetail() {
               </div>
             )}
             <h3>Conteúdo</h3>
-            <textarea
-              ref={textareaFullRef}
-              className="cardInputFull"
-              placeholder="Campo de texto livre..."
+            <ReactQuill
+              theme="snow"
               value={stateWorldItem?.content}
-              onChange={(e) => handleTextAreaChange(e, 'content')}
+              onChange={(e) => handleTextAreaChangeFull(e, 'content')}
+              modules={modulesFull}
+              placeholder="Campo de texto livre"
             />
           </div>
           <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir item mundo?" onDataSend={handleDelete} deleteType />

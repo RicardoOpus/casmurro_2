@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  ChangeEvent, useEffect, useRef, useState,
+  ChangeEvent, useEffect, useState,
 } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import ReactQuill from 'react-quill';
