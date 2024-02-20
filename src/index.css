@@ -2,7 +2,7 @@
   --bg-color: #060707;
   --bg-color-sec: #0F1010;
   --accent-color: #0099ff;
-  --text-color: #cbcbcb;
+  --text-color: #878787;
   --text-color-inactive: #898989;
   --btn-color: #2D333B;
   --border-color: #3c3c3d;
@@ -453,6 +453,35 @@ tr:nth-child(even) {
   height: 1.5rem;
 }
 
+/* ============= quill editor  ================= */
+
+.quill {
+  background-color: var(--bg-color-sec);
+  margin: 0.5em 0;
+  color: var(--text-color);
+}
+
+.ql-editor p,
+ul,
+ol {
+  font-size: var(--user-text-size);
+}
+
+
+.ql-toolbar.ql-snow {
+  border: solid 1px var(--border-color);
+  padding: 8px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.ql-container.ql-snow {
+  border: solid 1px var(--border-color);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+
 /* ============= resizables  ================= */
 
 .resizable {
@@ -696,6 +725,7 @@ input:disabled {
   border: solid 1px transparent;
   cursor: not-allowed;
 }
+
 .checkboxCustom .chk_indicator:after {
   content: "";
   display: none;

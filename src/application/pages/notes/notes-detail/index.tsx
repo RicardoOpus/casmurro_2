@@ -4,6 +4,7 @@ import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import ReactQuill from 'react-quill';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
@@ -19,6 +20,7 @@ import ILinks from '../../../../interfaces/ILinks';
 import LinksModal from '../../../components/add-link-modal';
 import notesService from '../../../../service/notesService';
 import useTabReplacement from '../../../hooks/useTabReplacement';
+import { modulesFull } from '../../../../templates/quillMudules';
 
 function NotesDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -54,13 +56,10 @@ function NotesDetail() {
     notesService.upDate(Number(id), updatedState as INotes);
   };
 
-  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    const updatedState = { ...stateNoteItem, [key]: e.target.value, last_edit: Date.now() };
+  const handleTextAreaChange = (e: string, key: string) => {
+    const updatedState = { ...stateNoteItem, [key]: e, last_edit: Date.now() };
     setStateNoteItem(updatedState);
     notesService.upDate(Number(id), updatedState as INotes);
-    const textarea = e.target;
-    textarea.style.height = 'auto';
-    textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
   const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
@@ -246,12 +245,12 @@ function NotesDetail() {
           )}
           <div className="fullContent">
             <h3>Conteúdo</h3>
-            <textarea
-              ref={textareaRef}
-              className="cardInputFull"
-              placeholder="Campo de texto livre..."
+            <ReactQuill
+              theme="snow"
               value={stateNoteItem?.content}
               onChange={(e) => handleTextAreaChange(e, 'content')}
+              modules={modulesFull}
+              placeholder="Campo de texto livre"
             />
           </div>
           <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir nota?" onDataSend={handleDelete} deleteType />
