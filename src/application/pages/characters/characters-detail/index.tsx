@@ -4,6 +4,7 @@ import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import ReactQuill from 'react-quill';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import './characters-detail.css';
 import ICharacter from '../../../../interfaces/ICharacter';
@@ -22,6 +23,7 @@ import LinksModal from '../../../components/add-link-modal';
 import ILinks from '../../../../interfaces/ILinks';
 import characterService from '../../../../service/characterService';
 import useTabReplacement from '../../../hooks/useTabReplacement';
+import { modulesFull } from '../../../../templates/quillMudules';
 
 function CharacterDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -74,6 +76,12 @@ function CharacterDetail() {
     const textarea = e.target;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  const handleTextAreaChangeFull = (e: string, key: string) => {
+    const updatedState = { ...stateCharacter, [key]: e, last_edit: Date.now() };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
   const updateCharacterRelations = (newRelations: IRelation[]) => {
@@ -454,12 +462,12 @@ function CharacterDetail() {
               </div>
             )}
             <h3>Conteúdo</h3>
-            <textarea
-              ref={textareaFullRef}
-              className="cardInputFull"
-              placeholder="Campo de texto livre..."
+            <ReactQuill
+              theme="snow"
               value={stateCharacter?.content}
-              onChange={(e) => handleTextAreaChange(e, 'content')}
+              onChange={(e) => handleTextAreaChangeFull(e, 'content')}
+              modules={modulesFull}
+              placeholder="Campo de texto livre"
             />
           </div>
           <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir personagem?" onDataSend={handleDelete} deleteType />
