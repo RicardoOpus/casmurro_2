@@ -38,6 +38,15 @@ class Utils {
     return str;
   }
 
+  removeHTMLtags(stringHTML: string | undefined) {
+    if (stringHTML) {
+      const text = stringHTML.replace(/<[^>]*>/g, '');
+      const textShort = this.abreviarString(text, 300);
+      return textShort;
+    }
+    return null;
+  }
+
   countWords(text: string | undefined) {
     if (text) {
       const textoLimpo = text.trim().replace(/\s+/g, ' ');

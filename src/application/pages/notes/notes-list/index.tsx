@@ -177,7 +177,8 @@ function NotesList() {
                     <p className="categoryListItem">
                       {noteItem.category}
                     </p>
-                    <p>{utils.abreviarString(noteItem.content, 300)}</p>
+                    {/* <p>{utils.abreviarString(noteItem.content, 300)}</p> */}
+                    <p>{utils.removeHTMLtags(noteItem.content)}</p>
                   </div>
                   {noteItem.image ? (
                     <img className="worldListImage" src={noteItem.image} alt="card img" />
