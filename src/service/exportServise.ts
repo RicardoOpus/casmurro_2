@@ -58,8 +58,6 @@ class ExportService {
             text += `  ${char[0].title}: ${elementChar.type}\n`;
           }
         }
-        text += element.physical && `\nCaracterísticas Físicas:\n${element?.physical}\n`;
-        text += element.psychological && `\nCaracterísticas Psicológicas:\n${element?.psychological}\n`;
         if (element.task_list && element.task_list.length > 0) {
           text += '\nLista de Tarefas:\n';
           for (let indexTask = 0; indexTask < element.task_list.length; indexTask += 1) {

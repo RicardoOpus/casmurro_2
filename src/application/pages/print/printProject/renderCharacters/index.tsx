@@ -87,18 +87,6 @@ function RenderCharacters(charactersList: ICharacter[]) {
                 ))}
               </>
             )}
-            {ch.physical && (
-              <>
-                <h3 className="fontBold">Características Físicas:</h3>
-                <h3>{ch.physical}</h3>
-              </>
-            )}
-            {ch.psychological && (
-              <>
-                <h3 className="fontBold">Características Psicológicas:</h3>
-                <h3>{ch.psychological}</h3>
-              </>
-            )}
             {ch.task_list && ch.task_list.length > 0 && (
               <>
                 <h3 className="fontBold">Lista de Tarefas:</h3>

@@ -376,30 +376,6 @@ function CharacterDetail() {
               </fieldset>
             </div>
           )}
-          {stateCharacter.showCharacteristics && (
-            <div className="fullContent">
-              <div className="characteristics">
-                <div className="fullContent charctDiv">
-                  <h3>Características Físicas</h3>
-                  <textarea
-                    className="cardInputFull"
-                    placeholder="cor dos olhos, cabelo, etc..."
-                    value={stateCharacter?.physical}
-                    onChange={(e) => handleTextAreaChange(e, 'physical')}
-                  />
-                </div>
-                <div className="fullContent charctDiv">
-                  <h3>Características Psicológicas</h3>
-                  <textarea
-                    className="cardInputFull"
-                    placeholder="atração, aversão, ideologia, traumas, etc..."
-                    value={stateCharacter?.psychological}
-                    onChange={(e) => handleTextAreaChange(e, 'psychological')}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
           {stateCharacter.show_taskList && (
             <TaskList list={stateCharacter.task_list} onDataSend={updateCharacterTasks} />
           )}
@@ -438,7 +414,6 @@ function CharacterDetail() {
             showOccupation={stateCharacter.show_occupation || false}
             showBirth={stateCharacter.showDate_birth || false}
             showDeath={stateCharacter.showDate_death || false}
-            showCharact={stateCharacter.showCharacteristics || false}
             showFullName={stateCharacter.show_full_name || false}
             showtaskList={stateCharacter.show_taskList || false}
             handleInputCheck={handleInputCheck}

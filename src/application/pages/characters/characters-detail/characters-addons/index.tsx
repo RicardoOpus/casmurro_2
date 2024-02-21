@@ -8,7 +8,6 @@ interface GenericModalProps {
   openModal: boolean;
   showBirth: boolean;
   showDeath: boolean;
-  showCharact: boolean;
   showFullName: boolean;
   showtaskList: boolean;
   showAge: boolean;
@@ -21,15 +20,13 @@ interface GenericModalProps {
 
 function CharAddonsModal({
   onClose,
-  openModal, showBirth, showDeath, showCharact,
-  showFullName, showtaskList,
+  openModal, showBirth, showDeath, showFullName, showtaskList,
   showAge, showCoreGroup, showGender, showOccupation,
   handleInputCheck,
 }: GenericModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
   const [showFieldBirth, setShowFieldBirth] = useState(showBirth);
   const [showFieldDeath, setShowFieldDeath] = useState(showDeath);
-  const [showFieldChara, setshowFieldChara] = useState(showCharact);
   const [showFieldFull, setshowFieldFull] = useState(showFullName);
   const [showFieldTask, setShowFieldTask] = useState(showtaskList);
   const [showFieldAge, setshowFieldAge] = useState(showAge);
@@ -48,10 +45,6 @@ function CharAddonsModal({
       case 'death':
         inputType = 'showDate_death';
         showField = setShowFieldDeath;
-        break;
-      case 'char':
-        inputType = 'showCharacteristics';
-        showField = setshowFieldChara;
         break;
       case 'full':
         inputType = 'show_full_name';
@@ -188,19 +181,6 @@ function CharAddonsModal({
                   />
                   {' '}
                   Data de falecimento
-                </label>
-              </div>
-              <div>
-                <label htmlFor="showFieldChara">
-                  <input
-                    className="inputChkBox"
-                    type="checkbox"
-                    id="showFieldChara"
-                    checked={showFieldChara}
-                    onChange={(e) => handleInputType(e, 'char')}
-                  />
-                  {' '}
-                  Características física e psicológicas
                 </label>
               </div>
               <div>

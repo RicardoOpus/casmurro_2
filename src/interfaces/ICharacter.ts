@@ -19,12 +19,9 @@ interface ICharacter {
   image?: string;
   last_edit: number;
   occupation?: string;
-  physical?: string;
-  psychological?: string;
   relations?: Irelations[];
   resume?: string;
   show_age?: boolean;
-  showCharacteristics?: boolean;
   show_core_group?: boolean;
   showDate_birth?: boolean;
   showDate_death?: boolean;
