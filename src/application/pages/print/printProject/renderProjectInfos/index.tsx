@@ -38,7 +38,7 @@ function renderProjectInfos(projectItem: IProject) {
           {projectItem.projectResume && (
             <>
               <h3 className="fontBold" style={{ marginTop: '1em' }}>Resumo:</h3>
-              <p>{projectItem.projectResume}</p>
+              <p dangerouslySetInnerHTML={{ __html: projectItem.projectResume }} />
             </>
           )}
         </div>

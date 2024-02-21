@@ -104,7 +104,7 @@ function RenderCharacters(charactersList: ICharacter[]) {
             {ch.content && (
               <>
                 <h3 className="fontBold">Conteúdo:</h3>
-                <h3>{ch.content}</h3>
+                <h3 dangerouslySetInnerHTML={{ __html: ch.content }} />
               </>
             )}
           </div>

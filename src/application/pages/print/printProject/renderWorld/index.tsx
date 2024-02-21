@@ -43,7 +43,7 @@ function RednerWorld(world: IWorld[]) {
           {e.content && (
             <>
               <h3 className="fontBold">Conteúdo:</h3>
-              <h3>{e.content}</h3>
+              <h3 dangerouslySetInnerHTML={{ __html: e.content }} />
             </>
           )}
         </div>

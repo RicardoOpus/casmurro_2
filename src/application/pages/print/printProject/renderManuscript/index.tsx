@@ -109,7 +109,7 @@ function renderManuscript(
                 {e.note && (
                   <>
                     <h3 className="fontBold">Anotações:</h3>
-                    <h3>{e.note}</h3>
+                    <h3 dangerouslySetInnerHTML={{ __html: e.note }} />
                   </>
                 )}
                 {e.content && (
