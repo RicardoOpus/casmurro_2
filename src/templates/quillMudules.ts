@@ -7,6 +7,9 @@ export const modulesFull = {
     ['link', 'image', 'video'],
     ['clean'],
   ],
+  clipboard: {
+    matchVisual: false,
+  },
 };
 
 export const modulesOnlyText = {
@@ -17,4 +20,7 @@ export const modulesOnlyText = {
     [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
     ['clean'],
   ],
+  clipboard: {
+    matchVisual: false,
+  },
 };
