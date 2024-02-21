@@ -75,7 +75,6 @@ class ExportService {
           }
         }
         text += element.resume && `\nResumo:\n${element.resume}\n`;
-        text += element.note && `\nAnotações:\n${element.note}\n`;
         text += element.content && `\nConteúdo:\n${element.content}\n`;
         text += exportLabels.labelDivider();
       }
@@ -107,7 +106,6 @@ class ExportService {
           }
         }
         text += element.resume && `\nResumo:\n${element.resume}\n`;
-        text += element.note && `\nAnotações:\n${element.note}\n`;
         text += element.content && `\nConteúdo:\n${element.content}\n`;
         text += exportLabels.labelDivider();
       }

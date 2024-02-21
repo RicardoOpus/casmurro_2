@@ -124,12 +124,6 @@ function RenderCharacters(charactersList: ICharacter[]) {
                 <h3>{ch.resume}</h3>
               </>
             )}
-            {ch.note && (
-              <>
-                <h3 className="fontBold">Anotações:</h3>
-                <h3>{ch.note}</h3>
-              </>
-            )}
             {ch.content && (
               <>
                 <h3 className="fontBold">Conteúdo:</h3>

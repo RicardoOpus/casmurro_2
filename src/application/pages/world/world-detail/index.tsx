@@ -43,8 +43,6 @@ function WorldDetail() {
   const closeModal2 = () => setModalAddons(false);
   const closeModal4 = () => setModalLink(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const textareaNoteRef = useRef<HTMLTextAreaElement>(null);
-  const textareaFullRef = useRef<HTMLTextAreaElement>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     const updatedState = { ...stateWorldItem, [key]: e.target.value, last_edit: Date.now() };
@@ -137,8 +135,6 @@ function WorldDetail() {
   };
 
   useTabReplacement(textareaRef, isLoading);
-  useTabReplacement(textareaNoteRef, isLoading);
-  useTabReplacement(textareaFullRef, isLoading);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -272,18 +268,6 @@ function WorldDetail() {
               value={stateWorldItem?.resume}
               onChange={(e) => handleTextAreaChange(e, 'resume')}
             />
-            {stateWorldItem.show_note && (
-              <div>
-                <h3>Anotações</h3>
-                <textarea
-                  ref={textareaNoteRef}
-                  className="cardInputFull"
-                  placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
-                  value={stateWorldItem?.note}
-                  onChange={(e) => handleTextAreaChange(e, 'note')}
-                />
-              </div>
-            )}
             <h3>Conteúdo</h3>
             <ReactQuill
               theme="snow"
@@ -298,7 +282,6 @@ function WorldDetail() {
             openModal={modalAddons}
             onClose={closeModal2}
             showDate={stateWorldItem.show_date || false}
-            showNote={stateWorldItem.show_note || false}
             showtaskList={stateWorldItem.show_taskList || false}
             handleInputCheck={handleInputCheck}
           />

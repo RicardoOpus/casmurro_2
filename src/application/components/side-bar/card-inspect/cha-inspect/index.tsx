@@ -121,8 +121,6 @@ function CharInspect({ card, isNewWindow }: CardInspectProps) {
       <p className="PtextInfos">{card.psychological}</p>
       {card.resume ? <span>Resumo:</span> : ''}
       <p className="PtextInfos">{card.resume}</p>
-      {card.note ? <span>Notas:</span> : ''}
-      <p className="PtextInfos">{card.note}</p>
       {card.content ? <span>Conteúdo:</span> : ''}
       <p className="PtextInfos">{card.content}</p>
     </div>

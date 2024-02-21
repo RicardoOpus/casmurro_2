@@ -51,7 +51,6 @@ function CharacterDetail() {
   const closeModal3 = () => setModalAddons(false);
   const closeModal4 = () => setModalLink(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const textareaNoteRef = useRef<HTMLTextAreaElement>(null);
   const textareaFullRef = useRef<HTMLTextAreaElement>(null);
 
   const [stateCharacter,
@@ -168,7 +167,6 @@ function CharacterDetail() {
   };
 
   useTabReplacement(textareaRef, isLoading);
-  useTabReplacement(textareaNoteRef, isLoading);
   useTabReplacement(textareaFullRef, isLoading);
 
   useEffect(() => {
@@ -449,18 +447,6 @@ function CharacterDetail() {
               value={stateCharacter?.resume}
               onChange={(e) => handleTextAreaChange(e, 'resume')}
             />
-            {stateCharacter.show_notes && (
-              <div>
-                <h3>Anotações</h3>
-                <textarea
-                  ref={textareaNoteRef}
-                  className="cardInputFull"
-                  placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
-                  value={stateCharacter?.note}
-                  onChange={(e) => handleTextAreaChange(e, 'note')}
-                />
-              </div>
-            )}
             <h3>Conteúdo</h3>
             <ReactQuill
               theme="snow"
@@ -489,7 +475,6 @@ function CharacterDetail() {
             showDeath={stateCharacter.showDate_death || false}
             showCharact={stateCharacter.showCharacteristics || false}
             showFullName={stateCharacter.show_full_name || false}
-            showNotes={stateCharacter.show_notes || false}
             showtaskList={stateCharacter.show_taskList || false}
             handleInputCheck={handleInputCheck}
           />

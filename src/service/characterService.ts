@@ -23,7 +23,6 @@ class CharacterService {
         image: '',
         last_edit: now,
         link_list: [],
-        note: '',
         occupation: '',
         physical: '',
         psychological: '',
@@ -40,7 +39,6 @@ class CharacterService {
         showDate_death: false,
         show_taskList: false,
         show_full_name: false,
-        show_notes: false,
       };
       await indexedDBrepository.cardPost(data, 'characters');
     }

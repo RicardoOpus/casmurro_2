@@ -6,7 +6,6 @@ interface GenericModalProps {
   onClose: () => void;
   openModal: boolean;
   showDate: boolean;
-  showNote: boolean;
   showtaskList: boolean;
   // eslint-disable-next-line no-unused-vars
   handleInputCheck: (e: boolean, key: string) => void;
@@ -14,20 +13,16 @@ interface GenericModalProps {
 
 function WorldAddonsModal({
   onClose,
-  openModal, showDate, showNote, showtaskList, handleInputCheck,
+  openModal, showDate, showtaskList, handleInputCheck,
 }: GenericModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
   const [showFieldDate, setshowFieldDate] = useState(showDate);
-  const [showFieldNote, setshowFieldNote] = useState(showNote);
   const [showFieldTask, setShowFieldTask] = useState(showtaskList);
 
   const handleInputType = (e: ChangeEvent<HTMLInputElement>, type: string) => {
     if (type === 'date') {
       setshowFieldDate(e.target.checked);
       handleInputCheck(e.target.checked, 'show_date');
-    } if (type === 'note') {
-      setshowFieldNote(e.target.checked);
-      handleInputCheck(e.target.checked, 'show_note');
     } if (type === 'task') {
       setShowFieldTask(e.target.checked);
       handleInputCheck(e.target.checked, 'show_taskList');
@@ -60,19 +55,6 @@ function WorldAddonsModal({
                   />
                   {' '}
                   Data
-                </label>
-              </div>
-              <div>
-                <label htmlFor="showFieldNote">
-                  <input
-                    className="inputChkBox"
-                    type="checkbox"
-                    id="showFieldNote"
-                    checked={showFieldNote}
-                    onChange={(e) => handleInputType(e, 'note')}
-                  />
-                  {' '}
-                  Anotações
                 </label>
               </div>
               <div>

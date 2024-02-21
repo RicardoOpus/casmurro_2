@@ -51,12 +51,6 @@ function RednerWorld(world: IWorld[]) {
               <h3>{e.resume}</h3>
             </>
           )}
-          {e.note && (
-            <>
-              <h3 className="fontBold">Anotações:</h3>
-              <h3>{e.note}</h3>
-            </>
-          )}
           {e.content && (
             <>
               <h3 className="fontBold">Conteúdo:</h3>

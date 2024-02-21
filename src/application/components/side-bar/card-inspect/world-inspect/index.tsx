@@ -56,8 +56,6 @@ function WorldInspect({ card, isNewWindow }: CardInspectProps) {
       </div>
       {card.resume ? <span>Resumo:</span> : ''}
       <p className="PtextInfos">{card.resume}</p>
-      {card.note ? <span>Notas:</span> : ''}
-      <p className="PtextInfos">{card.note}</p>
       {card.content ? <span>Conteúdo:</span> : ''}
       <p className="PtextInfos">{card.content}</p>
     </div>

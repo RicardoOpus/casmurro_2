@@ -18,11 +18,9 @@ class WorldService {
         image: '',
         last_edit: now,
         link_list: [],
-        note: '',
         resume: '',
         type: this.typeItem,
         show_date: false,
-        show_note: false,
         show_taskList: false,
       };
       await indexedDBrepository.cardPost(data, 'world');
