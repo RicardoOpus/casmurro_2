@@ -21,7 +21,7 @@ function Manuscript() {
         {!toColapse && (
           <DraftDetail />
         )}
-        <Writer />
+        {/* <Writer /> */}
       </div>
     </div>
   );

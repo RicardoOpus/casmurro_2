@@ -23,9 +23,8 @@
 }
 
 .writerContainter {
-  height: 900px;
+  height: 100%;
   overflow: scroll;
-  padding: 1em 2em;
 }
 
 .innerWriterContainer {
