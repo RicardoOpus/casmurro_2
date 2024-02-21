@@ -22,7 +22,6 @@ class CharacterService {
         gender: '',
         image: '',
         last_edit: now,
-        link_list: [],
         occupation: '',
         physical: '',
         psychological: '',

@@ -87,17 +87,6 @@ function RenderCharacters(charactersList: ICharacter[]) {
                 ))}
               </>
             )}
-            {ch.link_list && ch.link_list.length > 0 && (
-              <>
-                <h3 className="fontBold">Links:</h3>
-                {ch.link_list.map((link) => (
-                  <div key={uuidv4()}>
-                    <p>{link.linkName}</p>
-                    <a href={link.URL} target="_blank" rel="noreferrer">{link.URL}</a>
-                  </div>
-                ))}
-              </>
-            )}
             {ch.physical && (
               <>
                 <h3 className="fontBold">Características Físicas:</h3>

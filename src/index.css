@@ -24,7 +24,6 @@
   --add-image-icon: url("../images/add-image.svg");
   --remove-image-icon: url("../images/remove-image.svg");
   --relations-icon: url("../images/relations.svg");
-  --link-icon: url("../images/link.svg");
   --group-icon: url("../images/group.svg");
   --trash-icon: url("../images/trash.svg");
   --check-icon: url("../images/check.svg");
@@ -1037,20 +1036,6 @@ p {
 }
 
 .addRelations:hover {
-  background-color: var(--accent-color);
-}
-
-.addLink {
-  background-color: var(--text-color-inactive);
-  cursor: pointer;
-  display: inline-block;
-  height: 27px;
-  -webkit-mask: var(--link-icon) no-repeat center / contain;
-  mask: var(--link-icon) no-repeat center / contain;
-  width: 27px;
-}
-
-.addLink:hover {
   background-color: var(--accent-color);
 }
 

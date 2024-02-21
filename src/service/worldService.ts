@@ -17,7 +17,6 @@ class WorldService {
         content: '',
         image: '',
         last_edit: now,
-        link_list: [],
         resume: '',
         type: this.typeItem,
         show_date: false,

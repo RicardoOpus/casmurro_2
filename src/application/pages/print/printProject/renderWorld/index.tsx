@@ -26,17 +26,6 @@ function RednerWorld(world: IWorld[]) {
               <span>{utils.convertDatePTBR(e.date)}</span>
             </h3>
           )}
-          {e.link_list && e.link_list.length > 0 && (
-            <>
-              <h3 className="fontBold">Links:</h3>
-              {e.link_list.map((link) => (
-                <div key={uuidv4()}>
-                  <p>{link.linkName}</p>
-                  <a href={link.URL} target="_blank" rel="noreferrer">{link.URL}</a>
-                </div>
-              ))}
-            </>
-          )}
           {e.task_list && e.task_list.length > 0 && (
             <>
               <h3 className="fontBold">Lista de Tarefas:</h3>

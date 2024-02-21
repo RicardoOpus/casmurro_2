@@ -4,7 +4,6 @@ import {
 import { Resizable, ResizeCallbackData } from 'react-resizable';
 import './draft-detail.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
@@ -14,8 +13,6 @@ import manuscriptService from '../../../../service/manuscriptService';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import utils from '../../../../service/utils';
 import NoData from '../../../components/no-dada';
-import LinksModal from '../../../components/add-link-modal';
-import ILinks from '../../../../interfaces/ILinks';
 import GenericModal from '../../../components/generic-modal';
 import DraftAddonsModal from './draft-detail-addons';
 import TaskList from '../../../components/task-list';
@@ -31,7 +28,6 @@ function DraftDetail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
-  const [modalLink, setModalLink] = useState(false);
   const [modalAddons, setModalAddons] = useState(false);
   const [modalCharScene, setModalCharScene] = useState(false);
   const charList = useSelector((state: IrootStateProject) => (
@@ -58,7 +54,6 @@ function DraftDetail() {
   };
 
   const closeModal = () => setModal(false);
-  const closeModalLink = () => setModalLink(false);
   const closeModalAddons = () => setModalAddons(false);
   const closeModalChar = () => setModalCharScene(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -125,12 +120,6 @@ function DraftDetail() {
     manuscriptService.upDate(Number(id), updatedState as IManuscript);
   };
 
-  const updateLinks = (newLinks: ILinks[]) => {
-    const updatedState = { ...stateMItem, link_list: newLinks };
-    setStateManuItem(updatedState);
-    manuscriptService.upDate(Number(id), updatedState as IManuscript);
-  };
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleInputCheck = (e: boolean, key: string) => {
     const updatedState = { ...stateMItem, [key]: e, last_edit: Date.now() };
@@ -163,13 +152,6 @@ function DraftDetail() {
       // eslint-disable-next-line no-alert
       alert('O arquivo selecionado não é uma imagem!');
     }
-  };
-
-  const deleteLink = (indexLis: number) => {
-    const updatedLinks = stateMItem.link_list?.filter((_, index) => index !== indexLis);
-    const updatedState = { ...stateMItem, link_list: updatedLinks };
-    setStateManuItem(updatedState);
-    manuscriptService.upDate(Number(id), updatedState as IManuscript);
   };
 
   const callBackLoading = () => {
@@ -260,11 +242,6 @@ function DraftDetail() {
                             </label>
                           </span>
                         )}
-                        <span className="tooltip-default" data-balloon aria-label="Adicionar link externo" data-balloon-pos="down">
-                          <label className="addLink" htmlFor="addLink">
-                            <button id="addLink" onClick={() => setModalLink(true)} className="btnInvisible" type="button">{ }</button>
-                          </label>
-                        </span>
                       </div>
                     )}
                   </div>
@@ -393,19 +370,6 @@ function DraftDetail() {
                     </div>
                   </div>
                 )}
-                {stateMItem.link_list && stateMItem.link_list.length > 0 && (
-                  <div className="fullContent">
-                    <h3>Links</h3>
-                    <div className="linkList">
-                      {stateMItem.link_list.map((e, index) => (
-                        <div key={uuidv4()}>
-                          <button className="removeRelationBtn" type="button" onClick={() => deleteLink(index)}>✖</button>
-                          <a href={e.URL} target="_blank" rel="noreferrer">{e.linkName}</a>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
                 {stateMItem.show_taskList && (
                   <TaskList list={stateMItem.task_list} onDataSend={updateSceneTasks} />
                 )}
@@ -452,12 +416,6 @@ function DraftDetail() {
                 showNote={stateMItem.show_notes || false}
                 showtaskList={stateMItem.show_taskList || false}
                 handleInputCheck={handleInputCheck}
-              />
-              <LinksModal
-                openModal={modalLink}
-                onClose={closeModalLink}
-                currentList={stateMItem.link_list || []}
-                updateLinks={updateLinks}
               />
             </div>
           )}

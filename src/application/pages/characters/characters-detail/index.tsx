@@ -19,8 +19,6 @@ import Loading from '../../../components/loading';
 import CharAddonsModal from './characters-addons';
 import TaskList from '../../../components/task-list';
 import ITaskList from '../../../../interfaces/ITaskList';
-import LinksModal from '../../../components/add-link-modal';
-import ILinks from '../../../../interfaces/ILinks';
 import characterService from '../../../../service/characterService';
 import useTabReplacement from '../../../hooks/useTabReplacement';
 import { modulesFull } from '../../../../templates/quillMudules';
@@ -32,7 +30,6 @@ function CharacterDetail() {
   const [modal, setModal] = useState(false);
   const [modalRelations, setModalRalations] = useState(false);
   const [modalAddons, setModalAddons] = useState(false);
-  const [modalLink, setModalLink] = useState(false);
   const characters = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
   const prjSettings = useSelector((state: IrootStateProject) => (
@@ -49,7 +46,6 @@ function CharacterDetail() {
   const closeModal = () => setModal(false);
   const closeModal2 = () => setModalRalations(false);
   const closeModal3 = () => setModalAddons(false);
-  const closeModal4 = () => setModalLink(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const textareaFullRef = useRef<HTMLTextAreaElement>(null);
 
@@ -91,12 +87,6 @@ function CharacterDetail() {
 
   const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
     const updatedState = { ...stateCharacter, task_list: newtask };
-    setEditedName(updatedState);
-    characterService.upDate(Number(id), updatedState as ICharacter);
-  };
-
-  const updateLinks = (newLinks: ILinks[]) => {
-    const updatedState = { ...stateCharacter, link_list: newLinks };
     setEditedName(updatedState);
     characterService.upDate(Number(id), updatedState as ICharacter);
   };
@@ -155,13 +145,6 @@ function CharacterDetail() {
   const deleteRelation = (relationId: number) => {
     const updatedRelations = stateCharacter.relations?.filter((_, index) => index !== relationId);
     const updatedState = { ...stateCharacter, relations: updatedRelations };
-    setEditedName(updatedState);
-    characterService.upDate(Number(id), updatedState as ICharacter);
-  };
-
-  const deleteLink = (indexLis: number) => {
-    const updatedLinks = stateCharacter.link_list?.filter((_, index) => index !== indexLis);
-    const updatedState = { ...stateCharacter, link_list: updatedLinks };
     setEditedName(updatedState);
     characterService.upDate(Number(id), updatedState as ICharacter);
   };
@@ -262,11 +245,6 @@ function CharacterDetail() {
                 <span className="tooltip-default" data-balloon aria-label="Adicionar relação" data-balloon-pos="down">
                   <label className="addRelations" htmlFor="addRelations">
                     <button id="addRelations" onClick={() => setModalRalations(true)} className="btnInvisible" type="button">{ }</button>
-                  </label>
-                </span>
-                <span className="tooltip-default" data-balloon aria-label="Adicionar link externo" data-balloon-pos="down">
-                  <label className="addLink" htmlFor="addLink">
-                    <button id="addLink" onClick={() => setModalLink(true)} className="btnInvisible" type="button">{ }</button>
                   </label>
                 </span>
               </div>
@@ -422,19 +400,6 @@ function CharacterDetail() {
               </div>
             </div>
           )}
-          {stateCharacter.link_list && stateCharacter.link_list.length > 0 && (
-            <div className="fullContent">
-              <h3>Links</h3>
-              <div className="linkList">
-                {stateCharacter.link_list.map((e, index) => (
-                  <div key={uuidv4()}>
-                    <button className="removeRelationBtn" type="button" onClick={() => deleteLink(index)}>✖</button>
-                    <a href={e.URL} target="_blank" rel="noreferrer">{e.linkName}</a>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
           {stateCharacter.show_taskList && (
             <TaskList list={stateCharacter.task_list} onDataSend={updateCharacterTasks} />
           )}
@@ -477,12 +442,6 @@ function CharacterDetail() {
             showFullName={stateCharacter.show_full_name || false}
             showtaskList={stateCharacter.show_taskList || false}
             handleInputCheck={handleInputCheck}
-          />
-          <LinksModal
-            openModal={modalLink}
-            onClose={closeModal4}
-            currentList={stateCharacter.link_list || []}
-            updateLinks={updateLinks}
           />
         </div>
       )}

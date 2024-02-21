@@ -39,14 +39,6 @@ function WorldInspect({ card, isNewWindow }: CardInspectProps) {
         <p>{utils.convertDatePTBR(card.date)}</p>
       </div>
       <div className="inspectCharRelations">
-        {card.link_list && card.link_list.length > 0 ? <span>Links:</span> : ''}
-        {card.link_list?.map((e) => (
-          <div key={uuidv4()}>
-            <a href={e.URL} target="_blank" rel="noreferrer">{e.linkName}</a>
-          </div>
-        ))}
-      </div>
-      <div className="inspectCharRelations">
         {card.task_list && card.task_list.length > 0 ? <span>Tarefas:</span> : ''}
         {card.task_list?.map((e) => (
           <div key={uuidv4()}>

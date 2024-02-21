@@ -58,13 +58,6 @@ class ExportService {
             text += `  ${char[0].title}: ${elementChar.type}\n`;
           }
         }
-        if (element.link_list && element.link_list.length > 0) {
-          text += 'Links:\n';
-          for (let indexChar = 0; indexChar < element.link_list.length; indexChar += 1) {
-            const elementLink = element.link_list[indexChar];
-            text += `  ${elementLink.linkName}: ${elementLink.URL}\n`;
-          }
-        }
         text += element.physical && `\nCaracterísticas Físicas:\n${element?.physical}\n`;
         text += element.psychological && `\nCaracterísticas Psicológicas:\n${element?.psychological}\n`;
         if (element.task_list && element.task_list.length > 0) {
@@ -91,13 +84,6 @@ class ExportService {
         text += element.title && `Nome: ${element.title}\n\n`;
         text += element.category && `Categoria: ${element.category}\n`;
         text += element.date && `Data: ${utils.convertDatePTBR(element.date)}\n`;
-        if (element.link_list && element.link_list.length > 0) {
-          text += 'Links:\n';
-          for (let indexChar = 0; indexChar < element.link_list.length; indexChar += 1) {
-            const elementLink = element.link_list[indexChar];
-            text += `  ${elementLink.linkName}: ${elementLink.URL}\n`;
-          }
-        }
         if (element.task_list && element.task_list.length > 0) {
           text += '\nLista de Tarefas:\n';
           for (let indexTask = 0; indexTask < element.task_list.length; indexTask += 1) {
@@ -121,13 +107,6 @@ class ExportService {
         const element = notes[index];
         text += element.title && `Nome: ${element.title}\n\n`;
         text += element.category && `Categoria: ${element.category}\n`;
-        if (element.link_list && element.link_list.length > 0) {
-          text += 'Links:\n';
-          for (let indexChar = 0; indexChar < element.link_list.length; indexChar += 1) {
-            const elementLink = element.link_list[indexChar];
-            text += `  ${elementLink.linkName}: ${elementLink.URL}\n`;
-          }
-        }
         if (element.task_list && element.task_list.length > 0) {
           text += '\nLista de Tarefas:\n';
           for (let indexTask = 0; indexTask < element.task_list.length; indexTask += 1) {
@@ -166,13 +145,6 @@ class ExportService {
           text += element.goalWC && `Meta de palavras: ${element.goalWC}\n`;
           text += element.date && `Data: ${utils.convertDatePTBR(element.date)}\n`;
           text += element.time && `Hora: ${element.time}\n`;
-          if (element.link_list && element.link_list.length > 0) {
-            text += 'Links:\n';
-            for (let indexChar = 0; indexChar < element.link_list.length; indexChar += 1) {
-              const elementLink = element.link_list[indexChar];
-              text += `  ${elementLink.linkName}: ${elementLink.URL}\n`;
-            }
-          }
           if (element.task_list && element.task_list.length > 0) {
             text += '\nLista de Tarefas:\n';
             for (let indexTask = 0; indexTask < element.task_list.length; indexTask += 1) {

@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import ReactQuill from 'react-quill';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
@@ -16,8 +15,6 @@ import Loading from '../../../components/loading';
 import WorldAddonsModal from '../world-addons';
 import TaskList from '../../../components/task-list';
 import ITaskList from '../../../../interfaces/ITaskList';
-import LinksModal from '../../../components/add-link-modal';
-import ILinks from '../../../../interfaces/ILinks';
 import worldService from '../../../../service/worldService';
 import useTabReplacement from '../../../hooks/useTabReplacement';
 import { modulesFull } from '../../../../templates/quillMudules';
@@ -28,7 +25,6 @@ function WorldDetail() {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [modalAddons, setModalAddons] = useState(false);
-  const [modalLink, setModalLink] = useState(false);
   const worldItens = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.world));
   const prjSettings = useSelector((state: IrootStateProject) => (
@@ -41,7 +37,6 @@ function WorldDetail() {
   const callBackLoading = () => setIsLoading(true);
   const closeModal = () => setModal(false);
   const closeModal2 = () => setModalAddons(false);
-  const closeModal4 = () => setModalLink(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
@@ -73,12 +68,6 @@ function WorldDetail() {
 
   const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
     const updatedState = { ...stateWorldItem, task_list: newtask };
-    setStateWorldItem(updatedState);
-    worldService.upDate(Number(id), updatedState as IWorld);
-  };
-
-  const updateLinks = (newLinks: ILinks[]) => {
-    const updatedState = { ...stateWorldItem, link_list: newLinks };
     setStateWorldItem(updatedState);
     worldService.upDate(Number(id), updatedState as IWorld);
   };
@@ -125,13 +114,6 @@ function WorldDetail() {
       // eslint-disable-next-line no-alert
       alert('O arquivo selecionado não é uma imagem!');
     }
-  };
-
-  const deleteLink = (indexLis: number) => {
-    const updatedLinks = stateWorldItem.link_list?.filter((_, index) => index !== indexLis);
-    const updatedState = { ...stateWorldItem, link_list: updatedLinks };
-    setStateWorldItem(updatedState);
-    worldService.upDate(Number(id), updatedState as IWorld);
   };
 
   useTabReplacement(textareaRef, isLoading);
@@ -204,11 +186,6 @@ function WorldDetail() {
                   </label>
                 </span>
               )}
-              <span className="tooltip-default" data-balloon aria-label="Adicionar link externo" data-balloon-pos="down">
-                <label className="addLink" htmlFor="addLink">
-                  <button id="addLink" onClick={() => setModalLink(true)} className="btnInvisible" type="button">{ }</button>
-                </label>
-              </span>
             </div>
             <div className="detailBarButtonsItens">
               <span className="tooltip-default" data-balloon aria-label="Mostrar/ocultar campos extras" data-balloon-pos="down">
@@ -243,19 +220,6 @@ function WorldDetail() {
               </div>
             )}
           </div>
-          {stateWorldItem.link_list && stateWorldItem.link_list.length > 0 && (
-            <div className="fullContent">
-              <h3>Links</h3>
-              <div className="linkList">
-                {stateWorldItem.link_list.map((e, index) => (
-                  <div key={uuidv4()}>
-                    <button className="removeRelationBtn" type="button" onClick={() => deleteLink(index)}>✖</button>
-                    <a href={e.URL} target="_blank" rel="noreferrer">{e.linkName}</a>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
           {stateWorldItem.show_taskList && (
             <TaskList list={stateWorldItem.task_list} onDataSend={updateCharacterTasks} />
           )}
@@ -284,12 +248,6 @@ function WorldDetail() {
             showDate={stateWorldItem.show_date || false}
             showtaskList={stateWorldItem.show_taskList || false}
             handleInputCheck={handleInputCheck}
-          />
-          <LinksModal
-            openModal={modalLink}
-            onClose={closeModal4}
-            currentList={stateWorldItem.link_list || []}
-            updateLinks={updateLinks}
           />
         </div>
       )}

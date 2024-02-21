@@ -1,4 +1,3 @@
-import ILinks from './ILinks';
 import ITaskList from './ITaskList';
 
 interface Irelations {
@@ -19,7 +18,6 @@ interface ICharacter {
   id: number;
   image?: string;
   last_edit: number;
-  link_list?: ILinks[];
   occupation?: string;
   physical?: string;
   psychological?: string;
