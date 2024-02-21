@@ -2,6 +2,7 @@ export const modulesFull = {
   toolbar: [
     [{ header: [1, 2, 3, false] }],
     [{ size: [] }],
+    [{ font: [] }],
     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
     [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
     ['link', 'image', 'video'],
@@ -15,6 +16,7 @@ export const modulesFull = {
 export const modulesOnlyText = {
   toolbar: [
     [{ header: [1, 2, 3, false] }],
+    [{ font: [] }],
     [{ size: [] }],
     ['bold', 'italic', 'underline', 'strike', 'blockquote'],
     [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],

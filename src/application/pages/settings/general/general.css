@@ -30,7 +30,7 @@
   font-family: var(--user-text-type);
   font-size: var(--user-text-size);
   height: 200px;
-  margin: 0 0 1em 0;
+  margin: 1em 0;
   padding: 1em;
   width: 100%;
 }
