@@ -152,7 +152,9 @@ function SceneInspect({ card, isNewWindow }: CardInspectProps) {
       {card.resume ? <span>Resumo:</span> : ''}
       <p className="PtextInfos">{card.resume}</p>
       {card.note ? <span>Notas:</span> : ''}
-      <p className="PtextInfos">{card.note}</p>
+      {card.note && (
+        <div dangerouslySetInnerHTML={{ __html: card.note }} />
+      )}
       {card.content ? <span>Conteúdo:</span> : ''}
       <p className="PtextInfos">{card.content}</p>
     </div>

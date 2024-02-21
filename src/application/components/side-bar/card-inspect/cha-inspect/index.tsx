@@ -110,7 +110,9 @@ function CharInspect({ card, isNewWindow }: CardInspectProps) {
       {card.resume ? <span>Resumo:</span> : ''}
       <p className="PtextInfos">{card.resume}</p>
       {card.content ? <span>Conteúdo:</span> : ''}
-      <p className="PtextInfos">{card.content}</p>
+      {card.content && (
+        <div dangerouslySetInnerHTML={{ __html: card.content }} />
+      )}
     </div>
   );
 }

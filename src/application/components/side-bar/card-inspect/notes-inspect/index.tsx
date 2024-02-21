@@ -44,7 +44,9 @@ function NotesInspect({ card, isNewWindow }: CardInspectProps) {
         ))}
       </div>
       {card.content ? <span>Conteúdo:</span> : ''}
-      <p className="PtextInfos">{card.content}</p>
+      {card.content && (
+        <div dangerouslySetInnerHTML={{ __html: card.content }} />
+      )}
     </div>
   );
 }
