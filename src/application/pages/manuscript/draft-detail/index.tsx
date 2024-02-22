@@ -64,38 +64,46 @@ function DraftDetail() {
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
-    const updatedState = { ...stateMItem, [key]: e.target.value, last_edit: Date.now() };
-    setStateManuItem(updatedState);
-    manuscriptService.upDate(Number(id), updatedState as IManuscript);
+    if (stateMItem.id) {
+      const updatedState = { ...stateMItem, [key]: e.target.value, last_edit: Date.now() };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
+    }
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, key: string) => {
-    if (key === 'pov_id') {
-      const updatedState = { ...stateMItem, [key]: Number(e.target.value) };
-      setStateManuItem(updatedState);
-      manuscriptService.upDate(Number(id), updatedState as IManuscript)
-        .then(() => cleanupFunction());
-    } else {
-      const updatedState = { ...stateMItem, [key]: e.target.value };
-      setStateManuItem(updatedState);
-      manuscriptService.upDate(Number(id), updatedState as IManuscript)
-        .then(() => cleanupFunction());
+    if (stateMItem.id) {
+      if (key === 'pov_id') {
+        const updatedState = { ...stateMItem, [key]: Number(e.target.value) };
+        setStateManuItem(updatedState);
+        manuscriptService.upDate(stateMItem.id, updatedState as IManuscript)
+          .then(() => cleanupFunction());
+      } else {
+        const updatedState = { ...stateMItem, [key]: e.target.value };
+        setStateManuItem(updatedState);
+        manuscriptService.upDate(stateMItem.id, updatedState as IManuscript)
+          .then(() => cleanupFunction());
+      }
     }
   };
 
   const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    const updatedState = { ...stateMItem, [key]: e.target.value, last_edit: Date.now() };
-    setStateManuItem(updatedState);
-    manuscriptService.upDate(Number(id), updatedState as IManuscript);
-    const textarea = e.target;
-    textarea.style.height = 'auto';
-    textarea.style.height = `${textarea.scrollHeight}px`;
+    if (stateMItem.id) {
+      const updatedState = { ...stateMItem, [key]: e.target.value, last_edit: Date.now() };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
+      const textarea = e.target;
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
   };
 
   const handleTextAreaChangeFull = (e: string, key: string) => {
-    const updatedState = { ...stateMItem, [key]: e, last_edit: Date.now() };
-    setStateManuItem(updatedState);
-    manuscriptService.upDate(Number(id), updatedState as IManuscript);
+    if (stateMItem.id === Number(id)) {
+      const updatedState = { ...stateMItem, [key]: e, last_edit: Date.now() };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
+    }
   };
 
   const handleDelete = async () => {
@@ -109,38 +117,46 @@ function DraftDetail() {
   };
 
   const updateCharScene = (e: number[]) => {
-    const updatedState = { ...stateMItem, scene_characters: e };
-    setStateManuItem(updatedState);
-    manuscriptService.upDate(Number(id), updatedState as IManuscript);
+    if (stateMItem.id) {
+      const updatedState = { ...stateMItem, scene_characters: e };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
+    }
   };
 
   const updateSceneTasks = (newtask: ITaskList[] | undefined) => {
-    const updatedState = { ...stateMItem, task_list: newtask };
-    setStateManuItem(updatedState);
-    manuscriptService.upDate(Number(id), updatedState as IManuscript);
+    if (stateMItem.id) {
+      const updatedState = { ...stateMItem, task_list: newtask };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
+    }
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleInputCheck = (e: boolean, key: string) => {
-    const updatedState = { ...stateMItem, [key]: e, last_edit: Date.now() };
-    setStateManuItem(updatedState);
-    manuscriptService.upDate(Number(id), updatedState as IManuscript);
+    if (stateMItem.id) {
+      const updatedState = { ...stateMItem, [key]: e, last_edit: Date.now() };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
+    }
   };
 
   const clearImage = () => {
-    const updatedState = { ...stateMItem, image: '' };
-    setStateManuItem(updatedState);
-    manuscriptService.upDate(Number(id), updatedState as IManuscript);
+    if (stateMItem.id) {
+      const updatedState = { ...stateMItem, image: '' };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
+    }
   };
 
   const saveImage = async (event: EventTarget & HTMLInputElement) => {
     if (event && event.files && event.files.length > 0) {
       const base64Data = await utils.convertBase64(event.files[0]);
       const base64String = base64Data?.toString();
-      if (base64String) {
+      if (base64String && stateMItem.id) {
         const updatedState = { ...stateMItem, image: base64String.toString() };
         setStateManuItem(updatedState);
-        manuscriptService.upDate(Number(id), updatedState as IManuscript);
+        manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
       }
     }
   };

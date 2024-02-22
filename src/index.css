@@ -455,9 +455,9 @@ tr:nth-child(even) {
 /* ============= quill editor  ================= */
 
 .quill {
-  background-color: var(--bg-color-sec);
   margin: 0.5em 0;
   color: var(--text-color);
+  background-color: var(--bg-color-sec);
 }
 
 .ql-editor p,
