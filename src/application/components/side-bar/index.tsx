@@ -96,7 +96,7 @@ function SideBar() {
         }
       } else {
         const result = allCards.filter((card) => {
-          const titleMatch = !searchInput || card.title.includes(searchInput);
+          const titleMatch = !searchInput || card.title.toLowerCase().includes(searchInput);
           return titleMatch;
         });
         const limitedResult = result.slice(0, 10);

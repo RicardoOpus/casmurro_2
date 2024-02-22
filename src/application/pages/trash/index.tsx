@@ -82,8 +82,10 @@ function Trash() {
 
   useEffect(() => {
     const handleFilter = (trashList: ICharacter[]) => {
+      const selectedTitleLower = selectedTitle ? selectedTitle.toLowerCase() : '';
       const result = trashList.filter((trash) => {
-        const titleMatch = !selectedTitle || trash.title.includes(selectedTitle);
+        const titleMatch = !selectedTitleLower
+          || trash.title.toLowerCase().includes(selectedTitleLower);
         const categoryMatch = !selectedType || trash.type === selectedType;
         return titleMatch && categoryMatch;
       });
@@ -95,8 +97,7 @@ function Trash() {
       }
     };
     handleFilter(trashItens);
-  }, [trashItens,
-    selectedTitle, selectedType, isAscOrder]);
+  }, [trashItens, selectedTitle, selectedType, isAscOrder]);
 
   return (
     <div className="innerContent">

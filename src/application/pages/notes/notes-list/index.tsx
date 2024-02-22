@@ -73,11 +73,15 @@ function NotesList() {
 
   useEffect(() => {
     const handleFilter = (notesList: INotes[]) => {
+      const selectedTitleLower = selectedTitle ? selectedTitle.toLowerCase() : '';
+
       const result = notesList.filter((note) => {
-        const titleMatch = !selectedTitle || note.title.includes(selectedTitle);
+        const titleMatch = !selectedTitleLower
+          || note.title.toLowerCase().includes(selectedTitleLower);
         const categoryMatch = !selectedCategory || note.category === selectedCategory;
         return titleMatch && categoryMatch;
       });
+
       if (isOrder) {
         if (isAscOrder) {
           const sortedList = result.sort((a, b) => a.title.localeCompare(b.title));
