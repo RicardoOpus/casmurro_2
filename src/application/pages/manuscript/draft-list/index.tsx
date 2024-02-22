@@ -128,40 +128,42 @@ function DraftList() {
     cenes.map((cene) => (
       <div key={cene.id} style={{ marginLeft: `${cene.level_hierarchy}em` }} className={cene.current ? 'selected' : ''}>
         <label key={uuidv4()} htmlFor={cene.id.toString()} className="itemDraft">
-          <input
-            checked={cene.current}
-            onChange={() => handleCheckboxChange(cene.id)}
-            type="checkbox"
-            id={cene.id.toString()}
-            className="invisibleChk"
-          />
-          {prjSettings.manuscriptShowPovColor && (
-            charList?.map((e) => e.id === cene.pov_id && (
-              <span key={uuidv4()} className="charTagIcon" style={{ backgroundColor: e.color }} />
-            ))
-          )}
-          <div className={cene.type === 'Cena' ? 'textIcon' : 'folderIcon'} />
-          {cene.title || 'sem nome'}
-          {prjSettings.manuscriptShowWC && cene.type === 'Cena' && (
-            <span
-              className="wordCountSpan"
-              style={{ color: cene.current ? '#000000de' : '', marginLeft: '.5em' }}
+          <div style={{ display: 'flex' }}>
+            <input
+              checked={cene.current}
+              onChange={() => handleCheckboxChange(cene.id)}
+              type="checkbox"
+              id={cene.id.toString()}
+              className="invisibleChk"
+            />
+            {prjSettings.manuscriptShowPovColor && (
+              charList?.map((e) => e.id === cene.pov_id && (
+                <span key={uuidv4()} className="charTagIcon" style={{ backgroundColor: e.color }} />
+              ))
+            )}
+            <div className={cene.type === 'Cena' ? 'textIcon' : 'folderIcon'} />
+            {cene.title || 'sem nome'}
+            {prjSettings.manuscriptShowWC && cene.type === 'Cena' && (
+              <span
+                className="wordCountSpan"
+                style={{ color: cene.current ? '#000000de' : '', marginLeft: '.5em' }}
+              >
+                {`(${utils.countWords(cene.content).toLocaleString()})`}
+              </span>
+            )}
+            {prjSettings.manuscriptShowChecks && (
+              renderChecks(cene.status)
+            )}
+            {cene.current && renderBtns()}
+          </div>
+          {prjSettings.manuscriptShowSynopsis && (
+            <p
+              style={{ color: cene.current ? '#000000de' : 'var(--text-color-inactive)', marginLeft: '2em' }}
             >
-              {`(${utils.countWords(cene.content).toLocaleString()})`}
-            </span>
+              {cene.resume}
+            </p>
           )}
-          {prjSettings.manuscriptShowChecks && (
-            renderChecks(cene.status)
-          )}
-          {cene.current && renderBtns()}
         </label>
-        {prjSettings.manuscriptShowSynopsis && (
-        <p
-          style={{ color: cene.current ? '#000000de' : 'var(--text-color-inactive)', marginLeft: '2em' }}
-        >
-          {cene.resume}
-        </p>
-        )}
       </div>
     ))
   );

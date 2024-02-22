@@ -69,7 +69,6 @@
 .itemDraft {
   align-items: center;
   cursor: pointer;
-  display: flex;
 }
 
 .selected {
