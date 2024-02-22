@@ -86,7 +86,7 @@ function TypeWriterSound() {
           break;
       }
     };
-    const textScene = document.getElementById('writeArea');
+    const textScene = document.getElementById('innerWriterContainer');
     if (textScene) {
       textScene.addEventListener('keydown', handleKeyPress);
     }

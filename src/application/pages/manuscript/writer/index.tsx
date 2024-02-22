@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import IManuscript from '../../../../interfaces/IManuscript';
@@ -12,13 +12,11 @@ import TimerDisplay from './timer-display';
 import utils from '../../../../service/utils';
 import Alert from '../../../components/alert';
 import TypeWriterSound from '../../../components/type-write-sound';
-import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import { modulesOnlyText } from '../../../../templates/quillMudules';
 
 function Writer() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  // const [isLoading, setIsLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
   const [noDisctration, setnoDisctration] = useState(false);
@@ -40,9 +38,12 @@ function Writer() {
     setStateManuItem] = useState<IManuscript | Partial<IManuscript>>({});
 
   const handleTextAreaChangeFull = (e: string, key: string) => {
-    const updatedState = { ...stateMItem, [key]: e, last_edit: Date.now() };
-    setStateManuItem(updatedState);
-    manuscriptService.upDate(Number(id), updatedState as IManuscript);
+    if (stateMItem.id === Number(id)) {
+      const updatedValue = e.replace(/--/g, '—');
+      const updatedState = { ...stateMItem, [key]: updatedValue, last_edit: Date.now() };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
+    }
   };
 
   const adjustTextArea = (increase: boolean) => {
@@ -100,18 +101,18 @@ function Writer() {
   };
 
   const goFullScreen = () => utils.toggleFullscreen();
-
-  const cleanupFunction = () => {
-    dispatch(fetchProjectDataAction(true));
-  };
+  const quillRef = useRef<ReactQuill>(null);
 
   useEffect(() => {
-    const writeAreaHeight = document.getElementById('writeArea')?.clientHeight || 0;
-    settextHeight(writeAreaHeight);
-    if (writeAreaHeight > textHeight) {
-      const textarea = document.getElementById('innerWriterContainer');
-      if (textarea) {
-        textarea.scrollBy(0, writeAreaHeight - textHeight);
+    if (quillRef.current) {
+      const editingArea = quillRef.current.getEditor().root;
+      const writeAreaHeight = editingArea?.clientHeight || 0;
+      settextHeight(writeAreaHeight);
+      if (writeAreaHeight > textHeight) {
+        const textarea = document.getElementById('innerWriterContainer');
+        if (textarea) {
+          textarea.scrollBy(0, writeAreaHeight - textHeight);
+        }
       }
     }
   }, [stateMItem, textHeight]);
@@ -135,7 +136,6 @@ function Writer() {
     if (currentMItem) {
       setStateManuItem(currentMItem);
       setGoalPercent('');
-      // setIsLoading(false);
     }
   }, [currentMItem, id]);
 
@@ -178,11 +178,12 @@ function Writer() {
           <div className="innerWriterContainer" style={{ paddingLeft: noDisctration ? `${statePaddingUser}em` : '1em', paddingRight: noDisctration ? `${statePaddingUser}em` : '1em' }}>
             <div id="refTop" />
             <ReactQuill
+              ref={quillRef}
               theme="snow"
               value={stateMItem?.content}
               onChange={(e) => handleTextAreaChangeFull(e, 'content')}
               modules={modulesOnlyText}
-              placeholder="Campo de texto livre"
+              placeholder="Cena não iniciada..."
             />
             <div id="refEnd" />
           </div>
