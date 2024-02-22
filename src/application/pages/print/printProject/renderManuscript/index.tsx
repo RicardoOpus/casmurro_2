@@ -4,26 +4,6 @@ import utils from '../../../../../service/utils';
 import ICharacter from '../../../../../interfaces/ICharacter';
 import IWorld from '../../../../../interfaces/IWorld';
 
-const parseItalicText = (text: string) => (
-  text.split(/\*([^*]+)\*/g).map((part, index) => (
-    index % 2 === 0 ? (
-      <span key={uuidv4()}>{part}</span>
-    ) : (
-      <em key={uuidv4()}>{part}</em>
-    )
-  ))
-);
-
-const creatParagraphs = (text: string) => {
-  const myString = utils.substituirAspasCurvas(text);
-  const paragraphs = myString.split('\n');
-  return paragraphs.map((e, index) => (
-    <p key={uuidv4()} className={index === 1 ? 'firstParagraph' : 'sceneP'}>
-      {parseItalicText(e)}
-    </p>
-  ));
-};
-
 function renderManuscript(
   draft: IManuscript[],
   characters: ICharacter[] | undefined,
@@ -115,7 +95,7 @@ function renderManuscript(
                 {e.content && (
                   <>
                     <h3 className="fontBold">Cena:</h3>
-                    {creatParagraphs(e.content)}
+                    <p className="sceneP" dangerouslySetInnerHTML={{ __html: e.content }} />
                   </>
                 )}
               </div>

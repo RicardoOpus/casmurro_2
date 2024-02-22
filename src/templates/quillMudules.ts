@@ -15,7 +15,6 @@ export const modulesFull = {
 
 export const modulesOnlyText = {
   toolbar: [
-    [{ header: '1' }, { header: '2' }, { font: [] }],
     [{ font: [] }],
     [{ size: [] }],
     ['bold', 'italic', 'underline', 'strike', 'blockquote'],

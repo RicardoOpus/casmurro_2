@@ -464,8 +464,8 @@ tr:nth-child(even) {
 ul,
 ol {
   font-size: var(--user-text-size);
+  text-indent: 20px;
 }
-
 
 .ql-toolbar.ql-snow {
   border: solid 1px var(--border-color);
