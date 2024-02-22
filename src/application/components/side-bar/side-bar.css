@@ -39,7 +39,6 @@
 }
 
 .inspectCard {
-  max-height: 900px;
   overflow: scroll;
   padding-right: 1em;
 }
