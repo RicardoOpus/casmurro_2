@@ -47,6 +47,14 @@ class Utils {
     return null;
   }
 
+  removeHTMLtagsNoShort(stringHTML: string | undefined) {
+    if (stringHTML) {
+      const text = stringHTML.replace(/<[^>]*>/g, '');
+      return text;
+    }
+    return null;
+  }
+
   countWords(text: string | undefined) {
     if (text) {
       const textoLimpo = text.trim().replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');

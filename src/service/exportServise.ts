@@ -31,7 +31,7 @@ class ExportService {
     } if (project.finishDate) {
       text += `Data final:\n  ${utils.convertDatePTBR(project.finishDate)}\n\n`;
     } if (project.projectResume) {
-      const textPure = utils.removeHTMLtags(project.projectResume);
+      const textPure = utils.removeHTMLtagsNoShort(project.projectResume);
       text += `Resumo:\n  ${textPure}\n\n`;
     }
     return text;
@@ -67,7 +67,7 @@ class ExportService {
           }
         }
         text += element.resume && `\nResumo:\n${element.resume}\n`;
-        const textPure = utils.removeHTMLtags(element.content);
+        const textPure = utils.removeHTMLtagsNoShort(element.content);
         text += element.content && `\nConteúdo:\n${textPure}\n`;
         text += exportLabels.labelDivider();
       }
@@ -92,7 +92,7 @@ class ExportService {
           }
         }
         text += element.resume && `\nResumo:\n${element.resume}\n`;
-        const textPure = utils.removeHTMLtags(element.content);
+        const textPure = utils.removeHTMLtagsNoShort(element.content);
         text += element.content && `\nConteúdo:\n${textPure}\n`;
         text += exportLabels.labelDivider();
       }
@@ -115,7 +115,7 @@ class ExportService {
             text += `  ${elementTask.task} ${elementTask.isDone ? '- ok' : ''}\n`;
           }
         }
-        const textPure = utils.removeHTMLtags(element.content);
+        const textPure = utils.removeHTMLtagsNoShort(element.content);
         text += element.content && `\nConteúdo:\n${textPure}\n`;
         text += exportLabels.labelDivider();
       }
@@ -155,9 +155,10 @@ class ExportService {
             }
           }
           text += element.resume && `\nResumo:\n${element.resume}\n`;
-          const textPure = utils.removeHTMLtags(element.note);
+          const textPure = utils.removeHTMLtagsNoShort(element.note);
           text += element.note && `\nAnotações:\n${textPure}\n`;
-          text += element.content && `\nConteúdo:${element.content}\n`;
+          const scenePure = utils.removeHTMLtagsNoShort(element.content);
+          text += element.content && `\nConteúdo:${scenePure}\n`;
           text += exportLabels.labelDivider();
         }
       }

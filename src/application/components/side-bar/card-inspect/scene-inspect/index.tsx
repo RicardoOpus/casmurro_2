@@ -156,7 +156,9 @@ function SceneInspect({ card, isNewWindow }: CardInspectProps) {
         <div dangerouslySetInnerHTML={{ __html: card.note }} />
       )}
       {card.content ? <span>Conteúdo:</span> : ''}
-      <p className="PtextInfos">{card.content}</p>
+      {card.content && (
+        <div dangerouslySetInnerHTML={{ __html: card.content }} />
+      )}
     </div>
   );
 }
