@@ -175,7 +175,8 @@ class ExportService {
           text += `\n${element.title}\n\n`;
         } else {
           text += `\n${element.title}\n`;
-          text += element.content && `${element.content}\n\n\n`;
+          const scenePure = utils.removeHTMLtagsNoShort(element.content);
+          text += element.content && `${scenePure}\n\n\n`;
         }
       }
     }
