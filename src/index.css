@@ -464,7 +464,7 @@ tr:nth-child(even) {
 ul,
 ol {
   font-size: var(--user-text-size);
-  text-indent: 20px;
+  text-indent: 1.5em;
 }
 
 .ql-toolbar.ql-snow {
