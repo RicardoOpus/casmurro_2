@@ -13,6 +13,7 @@ import utils from '../../../../service/utils';
 import Alert from '../../../components/alert';
 import TypeWriterSound from '../../../components/type-write-sound';
 import { modulesOnlyText } from '../../../../templates/quillMudules';
+import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 
 function Writer() {
   const { id } = useParams();
@@ -103,6 +104,11 @@ function Writer() {
   const goFullScreen = () => utils.toggleFullscreen();
   const quillRef = useRef<ReactQuill>(null);
 
+  const cleanupFunction = () => {
+    dispatch(fetchProjectDataAction(true));
+    console.log('chama');
+  };
+
   useEffect(() => {
     if (quillRef.current) {
       const editingArea = quillRef.current.getEditor().root;
@@ -174,7 +180,7 @@ function Writer() {
             </p>
           )}
         </div>
-        <div id="innerWriterContainer" className={`writerContainter ${uiMode === 'dark' ? 'darkScene' : 'lightScene'}`} style={{ height: noDisctration ? '100%' : '' }}>
+        <div onBlur={cleanupFunction} id="innerWriterContainer" className={`writerContainter ${uiMode === 'dark' ? 'darkScene' : 'lightScene'}`} style={{ height: noDisctration ? '100%' : '' }}>
           <div className="innerWriterContainer" style={{ paddingLeft: noDisctration ? `${statePaddingUser}em` : '1em', paddingRight: noDisctration ? `${statePaddingUser}em` : '1em' }}>
             <div id="refTop" />
             <ReactQuill
