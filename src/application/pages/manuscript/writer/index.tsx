@@ -106,22 +106,32 @@ function Writer() {
 
   const cleanupFunction = () => {
     dispatch(fetchProjectDataAction(true));
-    console.log('chama');
   };
 
   useEffect(() => {
     if (quillRef.current) {
       const editingArea = quillRef.current.getEditor().root;
-      const writeAreaHeight = editingArea?.clientHeight || 0;
+      const writeAreaHeight = editingArea?.scrollHeight || 0;
       settextHeight(writeAreaHeight);
       if (writeAreaHeight > textHeight) {
-        const textarea = document.getElementById('innerWriterContainer');
-        if (textarea) {
-          textarea.scrollBy(0, writeAreaHeight - textHeight);
+        const editingAreaContent = quillRef.current.getEditingArea() as HTMLTextAreaElement;
+        if (editingAreaContent) {
+          editingArea.scrollBy(0, writeAreaHeight - textHeight);
         }
       }
     }
   }, [stateMItem, textHeight]);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editingArea = quillRef.current.getEditingArea() as HTMLTextAreaElement;
+      const distanceTop = editingArea.getBoundingClientRect().top;
+      if (editingArea.firstChild) {
+        (editingArea.firstChild as HTMLElement).style.maxHeight = `${window.innerHeight - distanceTop}px`;
+        (editingArea.firstChild as HTMLElement).style.minHeight = `${window.innerHeight - distanceTop}px`;
+      }
+    }
+  }, [stateMItem, id, noDisctration]);
 
   useEffect(() => {
     if (stateMItem) {
@@ -143,7 +153,7 @@ function Writer() {
       setStateManuItem(currentMItem);
       setGoalPercent('');
     }
-  }, [currentMItem, id]);
+  }, [currentMItem, id, noDisctration]);
 
   return (
     currentMItem && currentMItem.type !== 'Capítulo' && (
