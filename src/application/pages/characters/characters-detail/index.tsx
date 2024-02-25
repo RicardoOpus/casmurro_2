@@ -149,6 +149,19 @@ function CharacterDetail() {
     characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
+  const quillRef = useRef<ReactQuill>(null);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editingArea = quillRef.current.getEditingArea() as HTMLTextAreaElement;
+      const distanceTop = editingArea.getBoundingClientRect().top;
+      if (editingArea.firstChild) {
+        (editingArea.firstChild as HTMLElement).style.maxHeight = `${window.innerHeight - distanceTop - 20}px`;
+        (editingArea.firstChild as HTMLElement).style.minHeight = `${window.innerHeight - distanceTop - 20}px`;
+      }
+    }
+  }, [stateCharacter, id]);
+
   useTabReplacement(textareaRef, isLoading);
   useTabReplacement(textareaFullRef, isLoading);
 
@@ -390,6 +403,7 @@ function CharacterDetail() {
             />
             <h3>Conteúdo</h3>
             <ReactQuill
+              ref={quillRef}
               theme="snow"
               value={stateCharacter?.content}
               onChange={(e) => handleTextAreaChangeFull(e, 'content')}

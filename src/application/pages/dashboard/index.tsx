@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  ChangeEvent, useEffect, useState,
+  ChangeEvent, useEffect, useRef, useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill';
@@ -97,6 +97,19 @@ function Dashboard() {
     await dashboardService.deleteProject();
     navigate('/projects');
   };
+
+  const quillRef = useRef<ReactQuill>(null);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editingArea = quillRef.current.getEditingArea() as HTMLTextAreaElement;
+      const distanceTop = editingArea.getBoundingClientRect().top;
+      if (editingArea.firstChild) {
+        (editingArea.firstChild as HTMLElement).style.maxHeight = `${window.innerHeight - distanceTop - 20}px`;
+        (editingArea.firstChild as HTMLElement).style.minHeight = `${window.innerHeight - distanceTop - 20}px`;
+      }
+    }
+  }, [stateProject]);
 
   useEffect(() => {
     setStateProject(project || {});
@@ -226,6 +239,7 @@ function Dashboard() {
         </div>
         <h3>Resumo</h3>
         <ReactQuill
+          ref={quillRef}
           theme="snow"
           value={stateProject?.projectResume}
           onChange={(e) => handleTextAreaChange(e, 'projectResume')}

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  ChangeEvent, useEffect, useState,
+  ChangeEvent, useEffect, useRef, useState,
 } from 'react';
 import ReactQuill from 'react-quill';
 import BackButton from '../../../components/back-button';
@@ -103,6 +103,19 @@ function NotesDetail() {
       alert('O arquivo selecionado não é uma imagem!');
     }
   };
+
+  const quillRef = useRef<ReactQuill>(null);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editingArea = quillRef.current.getEditingArea() as HTMLTextAreaElement;
+      const distanceTop = editingArea.getBoundingClientRect().top;
+      if (editingArea.firstChild) {
+        (editingArea.firstChild as HTMLElement).style.maxHeight = `${window.innerHeight - distanceTop - 20}px`;
+        (editingArea.firstChild as HTMLElement).style.minHeight = `${window.innerHeight - distanceTop - 20}px`;
+      }
+    }
+  }, [stateNoteItem, id]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -206,6 +219,7 @@ function NotesDetail() {
           <div className="fullContent">
             <h3>Conteúdo</h3>
             <ReactQuill
+              ref={quillRef}
               theme="snow"
               value={stateNoteItem?.content}
               onChange={(e) => handleTextAreaChange(e, 'content')}

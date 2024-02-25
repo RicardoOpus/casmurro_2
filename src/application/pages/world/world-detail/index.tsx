@@ -116,6 +116,19 @@ function WorldDetail() {
     }
   };
 
+  const quillRef = useRef<ReactQuill>(null);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editingArea = quillRef.current.getEditingArea() as HTMLTextAreaElement;
+      const distanceTop = editingArea.getBoundingClientRect().top;
+      if (editingArea.firstChild) {
+        (editingArea.firstChild as HTMLElement).style.maxHeight = `${window.innerHeight - distanceTop - 20}px`;
+        (editingArea.firstChild as HTMLElement).style.minHeight = `${window.innerHeight - distanceTop - 20}px`;
+      }
+    }
+  }, [stateWorldItem, id]);
+
   useTabReplacement(textareaRef, isLoading);
 
   useEffect(() => {
@@ -234,6 +247,7 @@ function WorldDetail() {
             />
             <h3>Conteúdo</h3>
             <ReactQuill
+              ref={quillRef}
               theme="snow"
               value={stateWorldItem?.content}
               onChange={(e) => handleTextAreaChangeFull(e, 'content')}
