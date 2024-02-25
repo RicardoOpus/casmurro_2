@@ -159,7 +159,7 @@ function Trash() {
                         <td>{utils.abreviarString(e.title, 25)}</td>
                         <td>{e.type}</td>
                         <td>{utils.abreviarString(e.resume, 50)}</td>
-                        <td>{utils.abreviarString(e.content, 100)}</td>
+                        <td>{utils.removeHTMLtags(e.content)}</td>
                         <td>
                           <button type="button" className="btnSmall" onClick={() => handleRestore(e, e.type)}>
                             Restaurar
