@@ -146,7 +146,7 @@ function NotesDetail() {
         <Loading />
       ) : (
         <div className="card">
-          <BackButton page="/notes" />
+          <BackButton />
           <NextAndPrevCard id={Number(id)} dataTable="notes" callback={callBackLoading} />
           {stateNoteItem.image && (
             <div className="imageCardBackgournd">

@@ -160,7 +160,7 @@ function WorldDetail() {
         <Loading />
       ) : (
         <div className="card">
-          <BackButton page="/world" />
+          <BackButton />
           <NextAndPrevCard id={Number(id)} dataTable="world" callback={callBackLoading} />
           {stateWorldItem.image && (
             <div className="imageCardBackgournd">
