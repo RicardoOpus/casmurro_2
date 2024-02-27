@@ -97,7 +97,7 @@ function DraftList() {
 
   const renderBtns = () => (
     <span>
-      <button onClick={deleteCene} className="btnInvisibleDel" type="button">✖</button>
+      <button onClick={deleteCene} className="btnInvisibleDel" type="button">X</button>
     </span>
   );
 
