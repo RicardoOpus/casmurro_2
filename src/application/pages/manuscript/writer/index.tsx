@@ -21,7 +21,6 @@ function Writer() {
   const [modal, setModal] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
   const [noDisctration, setnoDisctration] = useState(false);
-  const [colapseState, setColapseState] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [textHeight, settextHeight] = useState(0);
   const [wc, setWC] = useState(0);
@@ -79,9 +78,8 @@ function Writer() {
     body.style.overflow = isInDistractionFreeMode ? 'hidden' : '';
   };
 
-  const colapeDetails = (colapse: boolean) => {
-    dispatch(manuscriptColapseDetail(colapse));
-    setColapseState(colapse);
+  const colapeDetails = () => {
+    dispatch(manuscriptColapseDetail(true));
   };
 
   const closeModal = () => {
@@ -117,9 +115,12 @@ function Writer() {
   const goFullScreen = () => utils.toggleFullscreen();
   const quillRef = useRef<ReactQuill>(null);
 
-  const cleanupFunction = async () => {
+  const cleanupFunction = () => {
     dispatch(fetchProjectDataAction(true));
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => cleanupFunction, []);
 
   useEffect(() => {
     const fontSize = localStorage.getItem('contenSize');
@@ -182,11 +183,7 @@ function Writer() {
       <div className={noDisctration ? 'distractionFree' : ''}>
         <div className="writerButtons">
           {!noDisctration && (
-            !colapseState ? (
-              <button title="Expandir" onClick={() => colapeDetails(true)} className="btnWriter" type="button">↑ ↑</button>
-            ) : (
-              <button title="Recolher" onClick={() => colapeDetails(false)} className="btnWriter" type="button">↓ ↓</button>
-            )
+            <button title="Expandir" onClick={() => colapeDetails()} className="btnWriter" type="button">Mostrar detalhes</button>
           )}
           <button title="Modo sem distrações" onClick={distractionFreeMode} className="distractionFreeIcon" type="button">{' '}</button>
           {noDisctration && (
