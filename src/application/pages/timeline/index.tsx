@@ -2,6 +2,7 @@
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 import IrootStateProject from '../../../interfaces/IRootStateProject';
 import IWorld from '../../../interfaces/IWorld';
 import ICharacter from '../../../interfaces/ICharacter';
@@ -24,23 +25,40 @@ function Timeline() {
   const [filtredTimeline, setFiltredTimeline] = useState<(IWorld | ICharacter | IManuscript)[]>([]);
   const [selectedChar, setSelectedChar] = useState(0);
   const [isAscOrder, setIsAscOrdere] = useState(true);
+  const navigate = useNavigate();
+
+  const handleClick = (id: number, type: string) => {
+    switch (type) {
+      case 'Personagem':
+        navigate(`/characters/${id}`);
+        break;
+      case 'Mundo':
+        navigate(`/world/${id}`);
+        break;
+      case 'Cena':
+        navigate(`/manuscript/${id}`);
+        break;
+      default:
+        break;
+    }
+  };
 
   const renderItem = (item: ValidDateItem) => {
     switch (item.type) {
       case 'Personagem':
         return (
-          <div className="timeline-section">
+          <button onClick={() => handleClick(item.id, item.type)} className="btnInvisible timeline-section" style={{ padding: '0px 23px', width: '100%' }} type="button">
             <p style={{ background: `linear-gradient(to right, ${item.color} 0%, var(--bg-color) 25%)`, color: 'black' }}>{utils.convertDatePTBR(item.date)}</p>
             <p>{item.date_type === 'birth' ? `Nasce ${item.title}` : `Morre ${item.title}`}</p>
-          </div>
+          </button>
         );
       default:
         return (
-          <div className="timeline-section">
+          <button onClick={() => handleClick(item.id, item.type)} className="btnInvisible timeline-section" style={{ padding: '0px 23px', width: '100%' }} type="button">
             <p style={{ backgroundColor: 'var(--bg-color)' }}>{utils.convertDatePTBR(item.date)}</p>
             <p>{item.title}</p>
             <p style={{ color: 'var(--text-color-inactive)' }}>{item.resume}</p>
-          </div>
+          </button>
         );
     }
   };
