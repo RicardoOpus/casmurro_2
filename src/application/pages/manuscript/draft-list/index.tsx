@@ -142,7 +142,9 @@ function DraftList() {
               ))
             )}
             <div className={cene.type === 'Cena' ? 'textIcon' : 'folderIcon'} />
-            {cene.title || 'sem nome'}
+            <p style={{ color: cene.current ? '#000000de' : '', fontFamily: 'sans-serif', fontWeight: 'bolder' }}>
+              {cene.title || 'sem nome'}
+            </p>
             {prjSettings.manuscriptShowWC && cene.type === 'Cena' && (
               <span
                 className="wordCountSpan"
@@ -158,7 +160,7 @@ function DraftList() {
           </div>
           {prjSettings.manuscriptShowSynopsis && (
             <p
-              style={{ color: cene.current ? '#000000de' : 'var(--text-color-inactive)', marginLeft: '2em' }}
+              style={{ color: cene.current ? '#000000de' : 'var(--text-color-inactive)', marginLeft: '2.5em' }}
             >
               {cene.resume}
             </p>
