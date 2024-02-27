@@ -98,22 +98,34 @@ function Writer() {
     }, 9000);
   };
 
+  const goFullScreen = () => utils.toggleFullscreen();
+  const quillRef = useRef<ReactQuill>(null);
+
   const goToBottom = () => {
-    const end = document.getElementById('refEnd');
-    if (end) {
-      end.scrollIntoView({ behavior: 'smooth' });
+    if (quillRef.current) {
+      const editingArea = quillRef.current.getEditor().root;
+      const writeAreaHeight = editingArea?.scrollHeight || 0;
+      if (writeAreaHeight) {
+        const editingAreaContent = quillRef.current.getEditingArea() as HTMLTextAreaElement;
+        if (editingAreaContent) {
+          editingArea.scrollTo({
+            top: writeAreaHeight,
+            behavior: 'smooth',
+          });
+        }
+      }
     }
   };
 
   const gotoTop = () => {
-    const beginner = document.getElementById('refTop');
-    if (beginner) {
-      beginner.scrollIntoView({ behavior: 'smooth' });
+    if (quillRef.current) {
+      const editingArea = quillRef.current.getEditor().root;
+      editingArea.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     }
   };
-
-  const goFullScreen = () => utils.toggleFullscreen();
-  const quillRef = useRef<ReactQuill>(null);
 
   const cleanupFunction = () => {
     dispatch(fetchProjectDataAction(true));
@@ -217,7 +229,6 @@ function Writer() {
           style={{ height: noDisctration ? '100%' : '' }}
         >
           <div className="innerWriterContainer" style={{ paddingLeft: noDisctration ? `${statePaddingUser}em` : '1em', paddingRight: noDisctration ? `${statePaddingUser}em` : '1em' }}>
-            <div id="refTop" />
             <ReactQuill
               ref={quillRef}
               theme="snow"
@@ -226,7 +237,6 @@ function Writer() {
               modules={modulesOnlyText}
               placeholder="Cena não iniciada..."
             />
-            <div id="refEnd" />
           </div>
         </div>
         <TimerModal
