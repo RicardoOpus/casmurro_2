@@ -464,6 +464,9 @@ tr:nth-child(even) {
 ul,
 ol {
   font-size: var(--user-text-size);
+}
+
+.ql-editor p {
   text-indent: 1.5em;
 }
 

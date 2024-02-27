@@ -27,9 +27,11 @@ function Writer() {
   const [wc, setWC] = useState(0);
   const [goalPercent, setGoalPercent] = useState('');
   const [countDown, setCountDown] = useState('99:99');
-  const storagePaddingUser = localStorage.getItem('sceneArea') || '1';
   const uiMode = localStorage.getItem('uiMode') || 'dark';
+  const storagePaddingUser = localStorage.getItem('sceneArea') || '1';
   const [statePaddingUser, setstateWithUser] = useState(storagePaddingUser);
+  const storageZoomUser = localStorage.getItem('zoomArea') || '16';
+  const [stateZoomUser, setstateZoomUser] = useState(storageZoomUser);
   const manuscriptItens = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.manuscript));
   const prjSettings = useSelector((state: IrootStateProject) => (
@@ -46,7 +48,6 @@ function Writer() {
       manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
     }
   };
-
   const adjustTextArea = (increase: boolean) => {
     let newSizeInPixels: number;
     if (increase) {
@@ -57,6 +58,18 @@ function Writer() {
     }
     localStorage.setItem('sceneArea', newSizeInPixels.toString());
     setstateWithUser(newSizeInPixels.toString());
+  };
+
+  const adjustZoomTextArea = (increase: boolean) => {
+    let newZoom: number;
+    if (increase) {
+      newZoom = Number(stateZoomUser) + 1;
+    } else {
+      newZoom = Number(stateZoomUser) - 1;
+      newZoom = Math.max(0, newZoom);
+    }
+    localStorage.setItem('zoomArea', newZoom.toString());
+    setstateZoomUser(newZoom.toString());
   };
 
   const distractionFreeMode = () => {
@@ -104,9 +117,18 @@ function Writer() {
   const goFullScreen = () => utils.toggleFullscreen();
   const quillRef = useRef<ReactQuill>(null);
 
-  const cleanupFunction = () => {
+  const cleanupFunction = async () => {
     dispatch(fetchProjectDataAction(true));
   };
+
+  useEffect(() => {
+    const fontSize = localStorage.getItem('contenSize');
+    if (noDisctration) {
+      document.documentElement.style.setProperty('--user-text-size', `${stateZoomUser}px`);
+    } else {
+      document.documentElement.style.setProperty('--user-text-size', fontSize);
+    }
+  }, [noDisctration, stateZoomUser]);
 
   useEffect(() => {
     if (quillRef.current) {
@@ -171,6 +193,8 @@ function Writer() {
             <>
               <button title="Aumentar largura" onClick={() => adjustTextArea(true)} className="btnWriter" type="button">↔+</button>
               <button title="Diminuir largura" onClick={() => adjustTextArea(false)} className="btnWriter" type="button">↔-</button>
+              <button title="Aumentar zoom" onClick={() => adjustZoomTextArea(true)} className="btnWriter" type="button">A+</button>
+              <button title="Diminuir zoom" onClick={() => adjustZoomTextArea(false)} className="btnWriter" type="button">A-</button>
             </>
           )}
           <button title="Ir para topo" onClick={gotoTop} className="btnWriter" type="button">▲</button>
@@ -190,7 +214,11 @@ function Writer() {
             </p>
           )}
         </div>
-        <div onBlur={cleanupFunction} id="innerWriterContainer" className={`writerContainter ${uiMode === 'dark' ? 'darkScene' : 'lightScene'}`} style={{ height: noDisctration ? '100%' : '' }}>
+        <div
+          id="innerWriterContainer"
+          className={`writerContainter ${uiMode === 'dark' ? 'darkScene' : 'lightScene'}`}
+          style={{ height: noDisctration ? '100%' : '' }}
+        >
           <div className="innerWriterContainer" style={{ paddingLeft: noDisctration ? `${statePaddingUser}em` : '1em', paddingRight: noDisctration ? `${statePaddingUser}em` : '1em' }}>
             <div id="refTop" />
             <ReactQuill
