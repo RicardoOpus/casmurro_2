@@ -19,6 +19,7 @@ function SideBar() {
   const [searchInput, setSearchInput] = useState('');
   const [showInspect, setShowInspect] = useState(false);
   const [lockInput, setlockInput] = useState(false);
+  const [disableClear, setDisableClear] = useState(true);
   const [modal, setModal] = useState(false);
   const [allCards, setAllCards] = useState<(IWorld | ICharacter | INotes | IManuscript)[]>([]);
   const [filtredCards, setFiltredCards] = useState<(IWorld | ICharacter |
@@ -58,6 +59,19 @@ function SideBar() {
     setShowInspect(false);
     setlockInput(false);
   };
+
+  const handleClear = () => {
+    handleBackButton();
+    setSearchInput('');
+  };
+
+  useEffect(() => {
+    if (searchInput === '') {
+      setDisableClear(true);
+    } else {
+      setDisableClear(false);
+    }
+  }, [searchInput]);
 
   useEffect(() => {
     const array1 = projectData.data?.characters;
@@ -140,7 +154,7 @@ function SideBar() {
                   <span className="ui-icon ui-icon-arrowreturnthick-1-w icon-color" />
                   Voltar
                 </button>
-                <button disabled={lockInput} onClick={() => setSearchInput('')} className="btnSmall" type="button">✖ Limpar</button>
+                <button disabled={disableClear} onClick={handleClear} className="btnSmall" type="button">✖ Limpar</button>
               </div>
               <div className="sideBarList">
                 {showInspect ? (
