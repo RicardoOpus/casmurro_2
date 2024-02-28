@@ -124,7 +124,7 @@ function SideBar() {
 
   return (
     <Resizable className="resizable" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
-      <div className="sideBar" style={{ width: `${width}px` }}>
+      <div className="sideBar" style={{ width: `${width}px`, minWidth: isSidebarOpen ? '290px' : '' }}>
         {isSidebarOpen ? (
           <button className="btnDiscret sideBarButton" type="button" onClick={closeSidebar}>
             ❮❮

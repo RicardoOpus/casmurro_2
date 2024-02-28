@@ -264,7 +264,7 @@ function DraftList() {
 
   return (
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
-      <div style={{ width: `${width}px`, height: 'auto' }}>
+      <div style={{ width: `${width}px`, height: 'auto', minWidth: '300px' }}>
         {isLoading ? (
           <Loading />
         ) : (
