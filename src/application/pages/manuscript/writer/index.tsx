@@ -188,7 +188,7 @@ function Writer() {
       setStateManuItem(currentMItem);
       setGoalPercent('');
     }
-  }, [currentMItem, id, noDisctration]);
+  }, [currentMItem, id]);
 
   return (
     currentMItem && currentMItem.type !== 'Capítulo' && (
