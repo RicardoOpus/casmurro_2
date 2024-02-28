@@ -212,13 +212,13 @@ function Writer() {
           <button title="Temporizador" onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
           {wc > 0 && (
             <p style={{ color: 'var(--text-color-inactive)' }} title="Total de palavras">
+              {wc}
               {stateMItem.goalWC && (
                 <span>
-                  {stateMItem.goalWC}
                   /
+                  {stateMItem.goalWC}
                 </span>
               )}
-              {wc}
               {goalPercent}
             </p>
           )}
