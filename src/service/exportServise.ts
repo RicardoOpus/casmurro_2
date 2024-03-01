@@ -31,7 +31,8 @@ class ExportService {
     } if (project.finishDate) {
       text += `Data final:\n  ${utils.convertDatePTBR(project.finishDate)}\n\n`;
     } if (project.projectResume) {
-      text += `Resumo:\n  ${project.projectResume}\n\n`;
+      const textPure = utils.removeHTMLtagsNoShort(project.projectResume);
+      text += `Resumo:\n  ${textPure}\n\n`;
     }
     return text;
   }
@@ -58,15 +59,6 @@ class ExportService {
             text += `  ${char[0].title}: ${elementChar.type}\n`;
           }
         }
-        if (element.link_list && element.link_list.length > 0) {
-          text += 'Links:\n';
-          for (let indexChar = 0; indexChar < element.link_list.length; indexChar += 1) {
-            const elementLink = element.link_list[indexChar];
-            text += `  ${elementLink.linkName}: ${elementLink.URL}\n`;
-          }
-        }
-        text += element.physical && `\nCaracterísticas Físicas:\n${element?.physical}\n`;
-        text += element.psychological && `\nCaracterísticas Psicológicas:\n${element?.psychological}\n`;
         if (element.task_list && element.task_list.length > 0) {
           text += '\nLista de Tarefas:\n';
           for (let indexTask = 0; indexTask < element.task_list.length; indexTask += 1) {
@@ -75,8 +67,8 @@ class ExportService {
           }
         }
         text += element.resume && `\nResumo:\n${element.resume}\n`;
-        text += element.note && `\nAnotações:\n${element.note}\n`;
-        text += element.content && `\nConteúdo:\n${element.content}\n`;
+        const textPure = utils.removeHTMLtagsNoShort(element.content);
+        text += element.content && `\nConteúdo:\n${textPure}\n`;
         text += exportLabels.labelDivider();
       }
     }
@@ -92,13 +84,6 @@ class ExportService {
         text += element.title && `Nome: ${element.title}\n\n`;
         text += element.category && `Categoria: ${element.category}\n`;
         text += element.date && `Data: ${utils.convertDatePTBR(element.date)}\n`;
-        if (element.link_list && element.link_list.length > 0) {
-          text += 'Links:\n';
-          for (let indexChar = 0; indexChar < element.link_list.length; indexChar += 1) {
-            const elementLink = element.link_list[indexChar];
-            text += `  ${elementLink.linkName}: ${elementLink.URL}\n`;
-          }
-        }
         if (element.task_list && element.task_list.length > 0) {
           text += '\nLista de Tarefas:\n';
           for (let indexTask = 0; indexTask < element.task_list.length; indexTask += 1) {
@@ -107,8 +92,8 @@ class ExportService {
           }
         }
         text += element.resume && `\nResumo:\n${element.resume}\n`;
-        text += element.note && `\nAnotações:\n${element.note}\n`;
-        text += element.content && `\nConteúdo:\n${element.content}\n`;
+        const textPure = utils.removeHTMLtagsNoShort(element.content);
+        text += element.content && `\nConteúdo:\n${textPure}\n`;
         text += exportLabels.labelDivider();
       }
     }
@@ -123,13 +108,6 @@ class ExportService {
         const element = notes[index];
         text += element.title && `Nome: ${element.title}\n\n`;
         text += element.category && `Categoria: ${element.category}\n`;
-        if (element.link_list && element.link_list.length > 0) {
-          text += 'Links:\n';
-          for (let indexChar = 0; indexChar < element.link_list.length; indexChar += 1) {
-            const elementLink = element.link_list[indexChar];
-            text += `  ${elementLink.linkName}: ${elementLink.URL}\n`;
-          }
-        }
         if (element.task_list && element.task_list.length > 0) {
           text += '\nLista de Tarefas:\n';
           for (let indexTask = 0; indexTask < element.task_list.length; indexTask += 1) {
@@ -137,7 +115,8 @@ class ExportService {
             text += `  ${elementTask.task} ${elementTask.isDone ? '- ok' : ''}\n`;
           }
         }
-        text += element.content && `\nConteúdo:\n${element.content}\n`;
+        const textPure = utils.removeHTMLtagsNoShort(element.content);
+        text += element.content && `\nConteúdo:\n${textPure}\n`;
         text += exportLabels.labelDivider();
       }
     }
@@ -168,13 +147,6 @@ class ExportService {
           text += element.goalWC && `Meta de palavras: ${element.goalWC}\n`;
           text += element.date && `Data: ${utils.convertDatePTBR(element.date)}\n`;
           text += element.time && `Hora: ${element.time}\n`;
-          if (element.link_list && element.link_list.length > 0) {
-            text += 'Links:\n';
-            for (let indexChar = 0; indexChar < element.link_list.length; indexChar += 1) {
-              const elementLink = element.link_list[indexChar];
-              text += `  ${elementLink.linkName}: ${elementLink.URL}\n`;
-            }
-          }
           if (element.task_list && element.task_list.length > 0) {
             text += '\nLista de Tarefas:\n';
             for (let indexTask = 0; indexTask < element.task_list.length; indexTask += 1) {
@@ -183,8 +155,10 @@ class ExportService {
             }
           }
           text += element.resume && `\nResumo:\n${element.resume}\n`;
-          text += element.note && `\nAnotações:\n${element.note}\n`;
-          text += element.content && `\nConteúdo:${element.content}\n`;
+          const textPure = utils.removeHTMLtagsNoShort(element.note);
+          text += element.note && `\nAnotações:\n${textPure}\n`;
+          const scenePure = utils.removeHTMLtagsNoShort(element.content);
+          text += element.content && `\nConteúdo:${scenePure}\n`;
           text += exportLabels.labelDivider();
         }
       }
@@ -201,7 +175,8 @@ class ExportService {
           text += `\n${element.title}\n\n`;
         } else {
           text += `\n${element.title}\n`;
-          text += element.content && `${element.content}\n\n\n`;
+          const scenePure = utils.removeHTMLtagsNoShort(element.content);
+          text += element.content && `${scenePure}\n\n\n`;
         }
       }
     }

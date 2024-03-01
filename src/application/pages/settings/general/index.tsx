@@ -13,8 +13,6 @@ function GeneralSettings() {
   const prjSettings = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.projectSettings));
   const [color, setColor] = useState('');
-  const typeSet = localStorage.getItem('contenTypeFont') || 'Roboto';
-  const [typeFontUser, setTypeFontUSer] = useState(typeSet);
   const [textValue, setTextValue] = useState(paragraphyMock);
 
   const handleInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,13 +33,6 @@ function GeneralSettings() {
     }
     root.style.setProperty('--user-text-size', `${newSizeInPixels}px`);
     localStorage.setItem('contenSize', `${newSizeInPixels}px`);
-  };
-
-  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const root = document.documentElement;
-    root.style.setProperty('--user-text-type', e.target.value);
-    localStorage.setItem('contenTypeFont', e.target.value);
-    setTypeFontUSer(e.target.value);
   };
 
   const handleTextChange = (event: { target: { value: SetStateAction<string>; }; }) => {
@@ -97,22 +88,11 @@ function GeneralSettings() {
       </fieldset>
       <fieldset>
         <legend>
-          Customizar campos de texto livre
+          Tamanho padrão da fonte
         </legend>
         <div className="settingsSectionFont">
           <button onClick={() => adjustTextSize(1, true)} className="btnSmall" type="button">+ A</button>
           <button onClick={() => adjustTextSize(1, false)} className="btnSmall" type="button">- A</button>
-          <select
-            className="ui-button ui-corner-all"
-            onChange={(e) => handleSelectChange(e)}
-            value={typeFontUser}
-            style={{ color: 'var(--text-color-inactive)' }}
-          >
-            <option disabled>Tido da Fonte</option>
-            <option value="PT"> • Serifa</option>
-            <option value="Roboto"> • Sem Serifa</option>
-            <option value="TypeCurier"> • Mono</option>
-          </select>
           <button onClick={() => revert('font')} className="btnSmall" type="button">Reverter</button>
         </div>
         <div className="settingsSectionFontDiv">

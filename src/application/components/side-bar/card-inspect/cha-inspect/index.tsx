@@ -100,14 +100,6 @@ function CharInspect({ card, isNewWindow }: CardInspectProps) {
         ))}
       </div>
       <div className="inspectCharRelations">
-        {card.link_list && card.link_list.length > 0 ? <span>Links:</span> : ''}
-        {card.link_list?.map((e) => (
-          <div key={uuidv4()}>
-            <a href={e.URL} target="_blank" rel="noreferrer">{e.linkName}</a>
-          </div>
-        ))}
-      </div>
-      <div className="inspectCharRelations">
         {card.task_list && card.task_list.length > 0 ? <span>Tarefas:</span> : ''}
         {card.task_list?.map((e) => (
           <div key={uuidv4()}>
@@ -115,16 +107,12 @@ function CharInspect({ card, isNewWindow }: CardInspectProps) {
           </div>
         ))}
       </div>
-      {card.physical ? <span>Características Físicas:</span> : ''}
-      <p className="PtextInfos">{card.physical}</p>
-      {card.psychological ? <span>Características Psicológicas:</span> : ''}
-      <p className="PtextInfos">{card.psychological}</p>
       {card.resume ? <span>Resumo:</span> : ''}
       <p className="PtextInfos">{card.resume}</p>
-      {card.note ? <span>Notas:</span> : ''}
-      <p className="PtextInfos">{card.note}</p>
       {card.content ? <span>Conteúdo:</span> : ''}
-      <p className="PtextInfos">{card.content}</p>
+      {card.content && (
+        <div dangerouslySetInnerHTML={{ __html: card.content }} />
+      )}
     </div>
   );
 }

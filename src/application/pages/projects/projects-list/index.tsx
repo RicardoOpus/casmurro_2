@@ -56,9 +56,11 @@ function ProjectList({ projects }: { projects: IProject[] }) {
   };
 
   const filteredProjects = projects.filter((project) => {
+    const selectedTitleLower = selectedTitle ? selectedTitle.toLowerCase() : '';
+    const titleLower = project.title.toLowerCase();
     const statusMatch = !selectedStatus || project.status === selectedStatus;
     const genreMatch = !selectedGenre || project.literary_genre === selectedGenre;
-    const titleMatch = !selectedTitle || project.title.includes(selectedTitle);
+    const titleMatch = !selectedTitleLower || titleLower.includes(selectedTitleLower);
     return statusMatch && genreMatch && titleMatch;
   });
 
@@ -144,7 +146,7 @@ function ProjectList({ projects }: { projects: IProject[] }) {
               <div>{project.literary_genre || ''}</div>
               <div className="cards">
                 <p className="projectTitle">
-                  <strong>{ renderCardsQty(project) }</strong>
+                  <strong>{renderCardsQty(project)}</strong>
                 </p>
                 <p className="cardsQTY">Cartões</p>
               </div>

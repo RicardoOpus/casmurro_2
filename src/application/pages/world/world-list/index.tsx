@@ -74,8 +74,10 @@ function WorldList() {
 
   useEffect(() => {
     const handleFilter = (worldList: IWorld[]) => {
+      const selectedTitleLower = selectedTitle ? selectedTitle.toLowerCase() : '';
       const result = worldList.filter((world) => {
-        const titleMatch = !selectedTitle || world.title.includes(selectedTitle);
+        const titleMatch = !selectedTitleLower
+          || world.title.toLowerCase().includes(selectedTitleLower);
         const categoryMatch = !selectedCategory || world.category === selectedCategory;
         return titleMatch && categoryMatch;
       });

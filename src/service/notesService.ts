@@ -16,7 +16,6 @@ class NotesService {
         content: '',
         image: '',
         last_edit: now,
-        link_list: [],
         type: this.typeItem,
         show_taskList: false,
       };

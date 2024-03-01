@@ -2,8 +2,8 @@
   --bg-color: #060707;
   --bg-color-sec: #0F1010;
   --accent-color: #0099ff;
-  --text-color: #cbcbcb;
-  --text-color-inactive: #898989;
+  --text-color: #878787;
+  --text-color-inactive: #878787;
   --btn-color: #2D333B;
   --border-color: #3c3c3d;
   --card-bg: #202024;
@@ -24,7 +24,6 @@
   --add-image-icon: url("../images/add-image.svg");
   --remove-image-icon: url("../images/remove-image.svg");
   --relations-icon: url("../images/relations.svg");
-  --link-icon: url("../images/link.svg");
   --group-icon: url("../images/group.svg");
   --trash-icon: url("../images/trash.svg");
   --check-icon: url("../images/check.svg");
@@ -453,6 +452,38 @@ tr:nth-child(even) {
   height: 1.5rem;
 }
 
+/* ============= quill editor  ================= */
+
+.quill {
+  margin: 0.5em 0;
+  color: var(--text-color);
+  background-color: var(--bg-color-sec);
+}
+
+.ql-editor p,
+ul,
+ol {
+  font-size: var(--user-text-size);
+}
+
+.ql-editor p {
+  text-indent: 1.5em;
+}
+
+.ql-toolbar.ql-snow {
+  border: solid 1px var(--border-color);
+  padding: 8px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.ql-container.ql-snow {
+  border: solid 1px var(--border-color);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+
 /* ============= resizables  ================= */
 
 .resizable {
@@ -501,8 +532,8 @@ tr:nth-child(even) {
 .titleCardSection {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   align-items: center;
+  gap: 1em;
 }
 
 .btnSmall.deleteButton {
@@ -696,6 +727,7 @@ input:disabled {
   border: solid 1px transparent;
   cursor: not-allowed;
 }
+
 .checkboxCustom .chk_indicator:after {
   content: "";
   display: none;
@@ -1007,20 +1039,6 @@ p {
 }
 
 .addRelations:hover {
-  background-color: var(--accent-color);
-}
-
-.addLink {
-  background-color: var(--text-color-inactive);
-  cursor: pointer;
-  display: inline-block;
-  height: 27px;
-  -webkit-mask: var(--link-icon) no-repeat center / contain;
-  mask: var(--link-icon) no-repeat center / contain;
-  width: 27px;
-}
-
-.addLink:hover {
   background-color: var(--accent-color);
 }
 

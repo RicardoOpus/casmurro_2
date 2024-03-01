@@ -38,11 +38,28 @@ class Utils {
     return str;
   }
 
+  removeHTMLtags(stringHTML: string | undefined) {
+    if (stringHTML) {
+      const text = stringHTML.replace(/<[^>]*>/g, '');
+      const textShort = this.abreviarString(text, 300);
+      return textShort;
+    }
+    return null;
+  }
+
+  removeHTMLtagsNoShort(stringHTML: string | undefined) {
+    if (stringHTML) {
+      const text = stringHTML.replace(/<[^>]*>/g, '');
+      return text;
+    }
+    return null;
+  }
+
   countWords(text: string | undefined) {
     if (text) {
-      const textoLimpo = text.trim().replace(/\s+/g, ' ');
-      const palavras = textoLimpo.split(' ');
-      return palavras.length;
+      const textoLimpo = text.trim().replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
+      const palavras = textoLimpo.split(/\s+/);
+      return palavras.length - 2;
     }
     return 0;
   }

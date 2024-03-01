@@ -3,6 +3,7 @@ import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ReactQuill from 'react-quill';
 import IrootStateProject from '../../../interfaces/IRootStateProject';
 import IProject from '../../../interfaces/IProject';
 import './dashboard.css';
@@ -13,10 +14,9 @@ import DashboardAddonsModal from './dashboard-addons';
 import GenericModal from '../../components/generic-modal';
 import DeadlineModal from './dashboard-deadline';
 import Deadline from './deadline';
-import useTabReplacement from '../../hooks/useTabReplacement';
+import { modulesFull } from '../../../templates/quillMudules';
 
 function Dashboard() {
-  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [modal, setModal] = useState(false);
@@ -26,8 +26,6 @@ function Dashboard() {
     state.projectDataReducer.projectData));
   const [stateProject,
     setStateProject] = useState<IProject | Partial<IProject>>(project || {});
-
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const cleanupFunction = () => {
     dispatch(fetchProjectDataAction(true));
@@ -39,13 +37,10 @@ function Dashboard() {
     dashboardService.upDate(updatedState as IProject);
   };
 
-  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    const updatedState = { ...stateProject, [key]: e.target.value, last_edit: Date.now() };
+  const handleTextAreaChange = (e: string, key: string) => {
+    const updatedState = { ...stateProject, [key]: e, last_edit: Date.now() };
     setStateProject(updatedState);
     dashboardService.upDate(updatedState as IProject);
-    const textarea = e.target;
-    textarea.style.height = 'auto';
-    textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>, key: string) => {
@@ -103,11 +98,21 @@ function Dashboard() {
     navigate('/projects');
   };
 
-  useTabReplacement(textareaRef, isLoading);
+  const quillRef = useRef<ReactQuill>(null);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editingArea = quillRef.current.getEditingArea() as HTMLTextAreaElement;
+      const distanceTop = editingArea.getBoundingClientRect().top;
+      if (editingArea.firstChild) {
+        (editingArea.firstChild as HTMLElement).style.maxHeight = `${window.innerHeight - distanceTop - 20}px`;
+        (editingArea.firstChild as HTMLElement).style.minHeight = `${window.innerHeight - distanceTop - 20}px`;
+      }
+    }
+  }, [stateProject]);
 
   useEffect(() => {
     setStateProject(project || {});
-    setIsLoading(false);
   }, [project]);
 
   useEffect(() => {
@@ -232,12 +237,14 @@ function Dashboard() {
             </select>
           </div>
         </div>
-        <textarea
-          ref={textareaRef}
-          className="projectResumeInput"
-          placeholder="Resumo do projeto"
+        <h3>Resumo</h3>
+        <ReactQuill
+          ref={quillRef}
+          theme="snow"
           value={stateProject?.projectResume}
           onChange={(e) => handleTextAreaChange(e, 'projectResume')}
+          modules={modulesFull}
+          placeholder="Campo de texto livre"
         />
       </div>
       {stateProject.title && (

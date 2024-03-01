@@ -20,7 +20,6 @@ class ManuscriptService {
         image: '',
         last_edit: now,
         level_hierarchy: 0,
-        link_list: [],
         note: '',
         place: 0,
         pov_id: 0,

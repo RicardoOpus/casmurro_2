@@ -22,11 +22,7 @@ class CharacterService {
         gender: '',
         image: '',
         last_edit: now,
-        link_list: [],
-        note: '',
         occupation: '',
-        physical: '',
-        psychological: '',
         relations: [],
         task_list: [],
         resume: '',
@@ -35,12 +31,10 @@ class CharacterService {
         show_core_group: false,
         show_gender: false,
         show_occupation: false,
-        showCharacteristics: false,
         showDate_birth: false,
         showDate_death: false,
         show_taskList: false,
         show_full_name: false,
-        show_notes: false,
       };
       await indexedDBrepository.cardPost(data, 'characters');
     }

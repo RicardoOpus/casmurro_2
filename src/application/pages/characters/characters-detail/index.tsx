@@ -4,6 +4,7 @@ import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import ReactQuill from 'react-quill';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import './characters-detail.css';
 import ICharacter from '../../../../interfaces/ICharacter';
@@ -18,10 +19,9 @@ import Loading from '../../../components/loading';
 import CharAddonsModal from './characters-addons';
 import TaskList from '../../../components/task-list';
 import ITaskList from '../../../../interfaces/ITaskList';
-import LinksModal from '../../../components/add-link-modal';
-import ILinks from '../../../../interfaces/ILinks';
 import characterService from '../../../../service/characterService';
 import useTabReplacement from '../../../hooks/useTabReplacement';
+import { modulesFull } from '../../../../templates/quillMudules';
 
 function CharacterDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +30,6 @@ function CharacterDetail() {
   const [modal, setModal] = useState(false);
   const [modalRelations, setModalRalations] = useState(false);
   const [modalAddons, setModalAddons] = useState(false);
-  const [modalLink, setModalLink] = useState(false);
   const characters = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
   const prjSettings = useSelector((state: IrootStateProject) => (
@@ -47,9 +46,7 @@ function CharacterDetail() {
   const closeModal = () => setModal(false);
   const closeModal2 = () => setModalRalations(false);
   const closeModal3 = () => setModalAddons(false);
-  const closeModal4 = () => setModalLink(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const textareaNoteRef = useRef<HTMLTextAreaElement>(null);
   const textareaFullRef = useRef<HTMLTextAreaElement>(null);
 
   const [stateCharacter,
@@ -76,6 +73,12 @@ function CharacterDetail() {
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
+  const handleTextAreaChangeFull = (e: string, key: string) => {
+    const updatedState = { ...stateCharacter, [key]: e, last_edit: Date.now() };
+    setEditedName(updatedState);
+    characterService.upDate(Number(id), updatedState as ICharacter);
+  };
+
   const updateCharacterRelations = (newRelations: IRelation[]) => {
     const updatedState = { ...stateCharacter, relations: newRelations };
     setEditedName(updatedState);
@@ -84,12 +87,6 @@ function CharacterDetail() {
 
   const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
     const updatedState = { ...stateCharacter, task_list: newtask };
-    setEditedName(updatedState);
-    characterService.upDate(Number(id), updatedState as ICharacter);
-  };
-
-  const updateLinks = (newLinks: ILinks[]) => {
-    const updatedState = { ...stateCharacter, link_list: newLinks };
     setEditedName(updatedState);
     characterService.upDate(Number(id), updatedState as ICharacter);
   };
@@ -152,15 +149,20 @@ function CharacterDetail() {
     characterService.upDate(Number(id), updatedState as ICharacter);
   };
 
-  const deleteLink = (indexLis: number) => {
-    const updatedLinks = stateCharacter.link_list?.filter((_, index) => index !== indexLis);
-    const updatedState = { ...stateCharacter, link_list: updatedLinks };
-    setEditedName(updatedState);
-    characterService.upDate(Number(id), updatedState as ICharacter);
-  };
+  const quillRef = useRef<ReactQuill>(null);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editingArea = quillRef.current.getEditingArea() as HTMLTextAreaElement;
+      const distanceTop = editingArea.getBoundingClientRect().top;
+      if (editingArea.firstChild) {
+        (editingArea.firstChild as HTMLElement).style.maxHeight = `${window.innerHeight - distanceTop - 20}px`;
+        (editingArea.firstChild as HTMLElement).style.minHeight = `${window.innerHeight - distanceTop - 20}px`;
+      }
+    }
+  }, [stateCharacter, id]);
 
   useTabReplacement(textareaRef, isLoading);
-  useTabReplacement(textareaNoteRef, isLoading);
   useTabReplacement(textareaFullRef, isLoading);
 
   useEffect(() => {
@@ -212,7 +214,7 @@ function CharacterDetail() {
         <Loading />
       ) : (
         <div className="card">
-          <BackButton page="/characters" />
+          <BackButton />
           <NextAndPrevCard id={Number(id)} dataTable="characters" callback={callBackLoading} />
           <div className="profile-pic">
             <label className="-label" htmlFor="file">
@@ -256,11 +258,6 @@ function CharacterDetail() {
                 <span className="tooltip-default" data-balloon aria-label="Adicionar relação" data-balloon-pos="down">
                   <label className="addRelations" htmlFor="addRelations">
                     <button id="addRelations" onClick={() => setModalRalations(true)} className="btnInvisible" type="button">{ }</button>
-                  </label>
-                </span>
-                <span className="tooltip-default" data-balloon aria-label="Adicionar link externo" data-balloon-pos="down">
-                  <label className="addLink" htmlFor="addLink">
-                    <button id="addLink" onClick={() => setModalLink(true)} className="btnInvisible" type="button">{ }</button>
                   </label>
                 </span>
               </div>
@@ -392,43 +389,6 @@ function CharacterDetail() {
               </fieldset>
             </div>
           )}
-          {stateCharacter.showCharacteristics && (
-            <div className="fullContent">
-              <div className="characteristics">
-                <div className="fullContent charctDiv">
-                  <h3>Características Físicas</h3>
-                  <textarea
-                    className="cardInputFull"
-                    placeholder="cor dos olhos, cabelo, etc..."
-                    value={stateCharacter?.physical}
-                    onChange={(e) => handleTextAreaChange(e, 'physical')}
-                  />
-                </div>
-                <div className="fullContent charctDiv">
-                  <h3>Características Psicológicas</h3>
-                  <textarea
-                    className="cardInputFull"
-                    placeholder="atração, aversão, ideologia, traumas, etc..."
-                    value={stateCharacter?.psychological}
-                    onChange={(e) => handleTextAreaChange(e, 'psychological')}
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-          {stateCharacter.link_list && stateCharacter.link_list.length > 0 && (
-            <div className="fullContent">
-              <h3>Links</h3>
-              <div className="linkList">
-                {stateCharacter.link_list.map((e, index) => (
-                  <div key={uuidv4()}>
-                    <button className="removeRelationBtn" type="button" onClick={() => deleteLink(index)}>✖</button>
-                    <a href={e.URL} target="_blank" rel="noreferrer">{e.linkName}</a>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
           {stateCharacter.show_taskList && (
             <TaskList list={stateCharacter.task_list} onDataSend={updateCharacterTasks} />
           )}
@@ -441,25 +401,14 @@ function CharacterDetail() {
               value={stateCharacter?.resume}
               onChange={(e) => handleTextAreaChange(e, 'resume')}
             />
-            {stateCharacter.show_notes && (
-              <div>
-                <h3>Anotações</h3>
-                <textarea
-                  ref={textareaNoteRef}
-                  className="cardInputFull"
-                  placeholder="Lembretes, ideias, problemas, apontamentos, reflexões..."
-                  value={stateCharacter?.note}
-                  onChange={(e) => handleTextAreaChange(e, 'note')}
-                />
-              </div>
-            )}
             <h3>Conteúdo</h3>
-            <textarea
-              ref={textareaFullRef}
-              className="cardInputFull"
-              placeholder="Campo de texto livre..."
+            <ReactQuill
+              ref={quillRef}
+              theme="snow"
               value={stateCharacter?.content}
-              onChange={(e) => handleTextAreaChange(e, 'content')}
+              onChange={(e) => handleTextAreaChangeFull(e, 'content')}
+              modules={modulesFull}
+              placeholder="Campo de texto livre"
             />
           </div>
           <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir personagem?" onDataSend={handleDelete} deleteType />
@@ -479,17 +428,9 @@ function CharacterDetail() {
             showOccupation={stateCharacter.show_occupation || false}
             showBirth={stateCharacter.showDate_birth || false}
             showDeath={stateCharacter.showDate_death || false}
-            showCharact={stateCharacter.showCharacteristics || false}
             showFullName={stateCharacter.show_full_name || false}
-            showNotes={stateCharacter.show_notes || false}
             showtaskList={stateCharacter.show_taskList || false}
             handleInputCheck={handleInputCheck}
-          />
-          <LinksModal
-            openModal={modalLink}
-            onClose={closeModal4}
-            currentList={stateCharacter.link_list || []}
-            updateLinks={updateLinks}
           />
         </div>
       )}

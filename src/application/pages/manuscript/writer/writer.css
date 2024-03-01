@@ -1,7 +1,8 @@
 .writerButtons {
   align-items: center;
   background-color: var(--btn-color);
-  border-bottom: solid 1px  var(--border-color);
+  border-bottom: solid 1px var(--border-color);
+  box-shadow: inset 0 4px 4px -2px rgba(0, 0, 0, .5);
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
@@ -10,10 +11,10 @@
 
 .btnWriter {
   background-color: transparent;
-  border-bottom: solid 1px  var(--border-color);
+  border-bottom: solid 1px var(--border-color);
   border-color: transparent;
   border-radius: 0;
-  padding: 8px 0;
+  padding: 9px 0;
   text-align: center;
 }
 
@@ -23,15 +24,12 @@
 }
 
 .writerContainter {
-  height: 900px;
+  height: 100%;
   overflow: scroll;
-  padding: 1em 2em;
 }
 
 .innerWriterContainer {
   padding-bottom: 1em;
-
-  /* padding-bottom: 100%; */
 }
 
 .endMark {
@@ -40,7 +38,7 @@
 }
 
 .lightScene {
-  background: url("/public/images/pageWhite.jpg");
+  background: url("/public/images/texture.png");
   background-color: #FFFFFF;
   background-size: cover;
   color: #000000;
@@ -154,7 +152,7 @@
 
 .btnCloseTimer {
   background-color: transparent;
-  border-bottom: solid 1px  var(--border-color);
+  border-bottom: solid 1px var(--border-color);
   border-color: transparent;
   border-radius: 0;
   padding: 8px 0;

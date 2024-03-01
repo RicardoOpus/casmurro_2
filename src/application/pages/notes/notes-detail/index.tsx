@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import ReactQuill from 'react-quill';
 import BackButton from '../../../components/back-button';
 import NextAndPrevCard from '../../../components/next-and-prev';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
@@ -15,10 +15,8 @@ import INotes from '../../../../interfaces/INotes';
 import TaskList from '../../../components/task-list';
 import ITaskList from '../../../../interfaces/ITaskList';
 import NotesAddonsModal from '../notes-addons';
-import ILinks from '../../../../interfaces/ILinks';
-import LinksModal from '../../../components/add-link-modal';
 import notesService from '../../../../service/notesService';
-import useTabReplacement from '../../../hooks/useTabReplacement';
+import { modulesFull } from '../../../../templates/quillMudules';
 
 function NotesDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +24,6 @@ function NotesDetail() {
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [modalAddons, setModalAddons] = useState(false);
-  const [modalLink, setModalLink] = useState(false);
   const notesItens = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.notes));
   const prjSettings = useSelector((state: IrootStateProject) => (
@@ -39,8 +36,6 @@ function NotesDetail() {
   const callBackLoading = () => setIsLoading(true);
   const closeModal = () => setModal(false);
   const closeModal2 = () => setModalAddons(false);
-  const closeModal4 = () => setModalLink(false);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>, key: string) => {
     const updatedState = { ...stateNoteItem, [key]: e.target.value, last_edit: Date.now() };
@@ -54,23 +49,14 @@ function NotesDetail() {
     notesService.upDate(Number(id), updatedState as INotes);
   };
 
-  const handleTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>, key: string) => {
-    const updatedState = { ...stateNoteItem, [key]: e.target.value, last_edit: Date.now() };
+  const handleTextAreaChange = (e: string, key: string) => {
+    const updatedState = { ...stateNoteItem, [key]: e, last_edit: Date.now() };
     setStateNoteItem(updatedState);
     notesService.upDate(Number(id), updatedState as INotes);
-    const textarea = e.target;
-    textarea.style.height = 'auto';
-    textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
   const updateCharacterTasks = (newtask: ITaskList[] | undefined) => {
     const updatedState = { ...stateNoteItem, task_list: newtask };
-    setStateNoteItem(updatedState);
-    notesService.upDate(Number(id), updatedState as INotes);
-  };
-
-  const updateLinks = (newLinks: ILinks[]) => {
-    const updatedState = { ...stateNoteItem, link_list: newLinks };
     setStateNoteItem(updatedState);
     notesService.upDate(Number(id), updatedState as INotes);
   };
@@ -118,14 +104,18 @@ function NotesDetail() {
     }
   };
 
-  const deleteLink = (indexLis: number) => {
-    const updatedLinks = stateNoteItem.link_list?.filter((_, index) => index !== indexLis);
-    const updatedState = { ...stateNoteItem, link_list: updatedLinks };
-    setStateNoteItem(updatedState);
-    notesService.upDate(Number(id), updatedState as INotes);
-  };
+  const quillRef = useRef<ReactQuill>(null);
 
-  useTabReplacement(textareaRef, isLoading);
+  useEffect(() => {
+    if (quillRef.current) {
+      const editingArea = quillRef.current.getEditingArea() as HTMLTextAreaElement;
+      const distanceTop = editingArea.getBoundingClientRect().top;
+      if (editingArea.firstChild) {
+        (editingArea.firstChild as HTMLElement).style.maxHeight = `${window.innerHeight - distanceTop - 20}px`;
+        (editingArea.firstChild as HTMLElement).style.minHeight = `${window.innerHeight - distanceTop - 20}px`;
+      }
+    }
+  }, [stateNoteItem, id]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -156,7 +146,7 @@ function NotesDetail() {
         <Loading />
       ) : (
         <div className="card">
-          <BackButton page="/notes" />
+          <BackButton />
           <NextAndPrevCard id={Number(id)} dataTable="notes" callback={callBackLoading} />
           {stateNoteItem.image && (
             <div className="imageCardBackgournd">
@@ -195,11 +185,6 @@ function NotesDetail() {
                   </label>
                 </span>
               )}
-              <span className="tooltip-default" data-balloon aria-label="Adicionar link externo" data-balloon-pos="down">
-                <label className="addLink" htmlFor="addLink">
-                  <button id="addLink" onClick={() => setModalLink(true)} className="btnInvisible" type="button">{ }</button>
-                </label>
-              </span>
             </div>
             <div className="detailBarButtonsItens">
               <span className="tooltip-default" data-balloon aria-label="Mostrar/ocultar campos extras" data-balloon-pos="down">
@@ -228,30 +213,18 @@ function NotesDetail() {
               </select>
             </div>
           </div>
-          {stateNoteItem.link_list && stateNoteItem.link_list.length > 0 && (
-            <div className="fullContent">
-              <h3>Links</h3>
-              <div className="linkList">
-                {stateNoteItem.link_list.map((e, index) => (
-                  <div key={uuidv4()}>
-                    <button className="removeRelationBtn" type="button" onClick={() => deleteLink(index)}>✖</button>
-                    <a href={e.URL} target="_blank" rel="noreferrer">{e.linkName}</a>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
           {stateNoteItem.show_taskList && (
             <TaskList list={stateNoteItem.task_list} onDataSend={updateCharacterTasks} />
           )}
           <div className="fullContent">
             <h3>Conteúdo</h3>
-            <textarea
-              ref={textareaRef}
-              className="cardInputFull"
-              placeholder="Campo de texto livre..."
+            <ReactQuill
+              ref={quillRef}
+              theme="snow"
               value={stateNoteItem?.content}
               onChange={(e) => handleTextAreaChange(e, 'content')}
+              modules={modulesFull}
+              placeholder="Campo de texto livre"
             />
           </div>
           <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir nota?" onDataSend={handleDelete} deleteType />
@@ -260,12 +233,6 @@ function NotesDetail() {
             onClose={closeModal2}
             showtaskList={stateNoteItem.show_taskList || false}
             handleInputCheck={handleInputCheck}
-          />
-          <LinksModal
-            openModal={modalLink}
-            onClose={closeModal4}
-            currentList={stateNoteItem.link_list || []}
-            updateLinks={updateLinks}
           />
         </div>
       )}

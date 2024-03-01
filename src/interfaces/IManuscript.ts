@@ -1,4 +1,3 @@
-import ILinks from './ILinks';
 import ITaskList from './ITaskList';
 
 interface IManuscript {
@@ -11,7 +10,6 @@ interface IManuscript {
   image?: string
   last_edit: number;
   level_hierarchy: number;
-  link_list?: ILinks[];
   note?: string;
   place?: number;
   pov_id?: number;

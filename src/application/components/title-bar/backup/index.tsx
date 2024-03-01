@@ -1,10 +1,12 @@
 import {
   SetStateAction, useEffect, useRef, useState,
 } from 'react';
+import { useDispatch } from 'react-redux';
 import text from '../../../../../public/locales/pt/translation.json';
 import './backup.css';
 import exportService from '../../../../service/exportServise';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
+import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 
 interface GenericModalProps {
   onClose: () => void;
@@ -14,10 +16,12 @@ interface GenericModalProps {
 
 function BackupModal({ onClose, openModal, backupWarning }: GenericModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
+  const dispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState('');
 
   const handleExport = async () => {
     await indexedDBrepository.updateLastBackup();
+    dispatch(fetchProjectDataAction(true));
     switch (selectedOption) {
       case 'expDraftTXT':
         exportService.exportDraftTXT();

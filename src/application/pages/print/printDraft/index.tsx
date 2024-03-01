@@ -4,7 +4,6 @@ import IProject from '../../../../interfaces/IProject';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import './printDraft.css';
 import IManuscript from '../../../../interfaces/IManuscript';
-import utils from '../../../../service/utils';
 
 function PrintDraft() {
   const [project, setProject] = useState<IProject>();
@@ -35,26 +34,6 @@ function PrintDraft() {
     updateDateTime();
   }, []);
 
-  const parseItalicText = (text: string) => (
-    text.split(/\*([^*]+)\*/g).map((part, index) => (
-      index % 2 === 0 ? (
-        <span key={uuidv4()}>{part}</span>
-      ) : (
-        <em key={uuidv4()}>{part}</em>
-      )
-    ))
-  );
-
-  const creatParagraphs = (text: string) => {
-    const myString = utils.substituirAspasCurvas(text);
-    const paragraphs = myString.split('\n');
-    return paragraphs.map((e, index) => (
-      <p key={uuidv4()} className={index === 1 ? 'firstParagraph' : 'sceneP'}>
-        {parseItalicText(e)}
-      </p>
-    ));
-  };
-
   const renderDraft = (draft: IManuscript[]) => (
     draft.map((e, index) => (
       <div key={uuidv4()}>
@@ -64,7 +43,7 @@ function PrintDraft() {
             <div key={uuidv4()}>
               <h3 key={uuidv4()}>{!hideScenesTitles && (e.title)}</h3>
               {e.content && (
-                creatParagraphs(e.content)
+                <p className="sceneP" dangerouslySetInnerHTML={{ __html: e.content }} />
               )}
             </div>
           )}

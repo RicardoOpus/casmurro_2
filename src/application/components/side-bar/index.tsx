@@ -19,6 +19,7 @@ function SideBar() {
   const [searchInput, setSearchInput] = useState('');
   const [showInspect, setShowInspect] = useState(false);
   const [lockInput, setlockInput] = useState(false);
+  const [disableClear, setDisableClear] = useState(true);
   const [modal, setModal] = useState(false);
   const [allCards, setAllCards] = useState<(IWorld | ICharacter | INotes | IManuscript)[]>([]);
   const [filtredCards, setFiltredCards] = useState<(IWorld | ICharacter |
@@ -59,6 +60,19 @@ function SideBar() {
     setlockInput(false);
   };
 
+  const handleClear = () => {
+    handleBackButton();
+    setSearchInput('');
+  };
+
+  useEffect(() => {
+    if (searchInput === '') {
+      setDisableClear(true);
+    } else {
+      setDisableClear(false);
+    }
+  }, [searchInput]);
+
   useEffect(() => {
     const array1 = projectData.data?.characters;
     const array2 = projectData.data?.world;
@@ -96,7 +110,7 @@ function SideBar() {
         }
       } else {
         const result = allCards.filter((card) => {
-          const titleMatch = !searchInput || card.title.includes(searchInput);
+          const titleMatch = !searchInput || card.title.toLowerCase().includes(searchInput);
           return titleMatch;
         });
         const limitedResult = result.slice(0, 10);
@@ -110,7 +124,7 @@ function SideBar() {
 
   return (
     <Resizable className="resizable" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
-      <div className="sideBar" style={{ width: `${width}px` }}>
+      <div className="sideBar" style={{ width: `${width}px`, minWidth: isSidebarOpen ? '290px' : '' }}>
         {isSidebarOpen ? (
           <button className="btnDiscret sideBarButton" type="button" onClick={closeSidebar}>
             ❮❮
@@ -140,7 +154,7 @@ function SideBar() {
                   <span className="ui-icon ui-icon-arrowreturnthick-1-w icon-color" />
                   Voltar
                 </button>
-                <button disabled={lockInput} onClick={() => setSearchInput('')} className="btnSmall" type="button">✖ Limpar</button>
+                <button disabled={disableClear} onClick={handleClear} className="btnSmall" type="button">✖ Limpar</button>
               </div>
               <div className="sideBarList">
                 {showInspect ? (

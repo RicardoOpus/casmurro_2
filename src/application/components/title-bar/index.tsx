@@ -37,9 +37,7 @@ function TitleBar() {
 
   useEffect(() => {
     const fontSize = localStorage.getItem('contenSize');
-    const fontType = localStorage.getItem('contenTypeFont');
     document.documentElement.style.setProperty('--user-text-size', fontSize);
-    document.documentElement.style.setProperty('--user-text-type', fontType);
   }, []);
 
   function toggleLightMode() {

@@ -293,7 +293,6 @@ function ManuscriptSettings() {
         <div className="listsSection">
           <EditLists list={prjSettings.manuscriptStatus} projSettingsI="manuscriptStatus" listTitle="Status" onDataSend={saveSettings} />
           <EditLists list={prjSettings.manuscriptWeather} projSettingsI="manuscriptWeather" listTitle="Clima" onDataSend={saveSettings} />
-          <EditLists list={prjSettings.manuscriptPersonalWords} projSettingsI="manuscriptPersonalWords" listTitle="Palavras para destacar" onDataSend={saveSettings} />
         </div>
       </fieldset>
     </div>

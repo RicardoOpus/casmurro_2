@@ -76,8 +76,10 @@ function CharactersList() {
 
   useEffect(() => {
     const handleFilter = (charactersList: ICharacter[]) => {
+      const selectedTitleLower = selectedTitle ? selectedTitle.toLowerCase() : '';
       const result = charactersList.filter((character) => {
-        const titleMatch = !selectedTitle || character.title.includes(selectedTitle);
+        const titleMatch = !selectedTitleLower
+          || character.title.toLowerCase().includes(selectedTitleLower);
         const categoryMatch = !selectedCategory || character.category === selectedCategory;
         const genderMatch = !selectedGender || character.gender === selectedGender;
         const coreGroupMatch = !selectedCoreGroup || character.core_group === selectedCoreGroup;

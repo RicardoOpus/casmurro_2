@@ -1,4 +1,3 @@
-import ILinks from './ILinks';
 import ITaskList from './ITaskList';
 
 interface INotes {
@@ -7,7 +6,6 @@ interface INotes {
   id: number;
   image?: string;
   last_edit: number,
-  link_list?: ILinks[]
   resume?: string;
   title: string;
   type: string;

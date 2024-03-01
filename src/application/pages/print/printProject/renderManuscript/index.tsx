@@ -4,26 +4,6 @@ import utils from '../../../../../service/utils';
 import ICharacter from '../../../../../interfaces/ICharacter';
 import IWorld from '../../../../../interfaces/IWorld';
 
-const parseItalicText = (text: string) => (
-  text.split(/\*([^*]+)\*/g).map((part, index) => (
-    index % 2 === 0 ? (
-      <span key={uuidv4()}>{part}</span>
-    ) : (
-      <em key={uuidv4()}>{part}</em>
-    )
-  ))
-);
-
-const creatParagraphs = (text: string) => {
-  const myString = utils.substituirAspasCurvas(text);
-  const paragraphs = myString.split('\n');
-  return paragraphs.map((e, index) => (
-    <p key={uuidv4()} className={index === 1 ? 'firstParagraph' : 'sceneP'}>
-      {parseItalicText(e)}
-    </p>
-  ));
-};
-
 function renderManuscript(
   draft: IManuscript[],
   characters: ICharacter[] | undefined,
@@ -92,17 +72,6 @@ function renderManuscript(
                     <span>{e.time}</span>
                   </h3>
                 )}
-                {e.link_list && e.link_list.length > 0 && (
-                  <>
-                    <h3 className="fontBold">Links:</h3>
-                    {e.link_list.map((link) => (
-                      <div key={uuidv4()}>
-                        <p>{link.linkName}</p>
-                        <a href={link.URL} target="_blank" rel="noreferrer">{link.URL}</a>
-                      </div>
-                    ))}
-                  </>
-                )}
                 {e.task_list && e.task_list.length > 0 && (
                   <>
                     <h3 className="fontBold">Lista de Tarefas:</h3>
@@ -120,13 +89,13 @@ function renderManuscript(
                 {e.note && (
                   <>
                     <h3 className="fontBold">Anotações:</h3>
-                    <h3>{e.note}</h3>
+                    <h3 dangerouslySetInnerHTML={{ __html: e.note }} />
                   </>
                 )}
                 {e.content && (
                   <>
                     <h3 className="fontBold">Cena:</h3>
-                    {creatParagraphs(e.content)}
+                    <p className="sceneP" dangerouslySetInnerHTML={{ __html: e.content }} />
                   </>
                 )}
               </div>

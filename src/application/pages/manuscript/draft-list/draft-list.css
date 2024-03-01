@@ -69,7 +69,6 @@
 .itemDraft {
   align-items: center;
   cursor: pointer;
-  display: flex;
 }
 
 .selected {
@@ -87,6 +86,8 @@
   margin-left: 1em;
   padding: 0;
   text-align: left;
+  font-family: sans-serif;
+  font-weight: bolder;
 }
 
 .btnInvisibleDel:hover {

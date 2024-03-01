@@ -87,29 +87,6 @@ function RenderCharacters(charactersList: ICharacter[]) {
                 ))}
               </>
             )}
-            {ch.link_list && ch.link_list.length > 0 && (
-              <>
-                <h3 className="fontBold">Links:</h3>
-                {ch.link_list.map((link) => (
-                  <div key={uuidv4()}>
-                    <p>{link.linkName}</p>
-                    <a href={link.URL} target="_blank" rel="noreferrer">{link.URL}</a>
-                  </div>
-                ))}
-              </>
-            )}
-            {ch.physical && (
-              <>
-                <h3 className="fontBold">Características Físicas:</h3>
-                <h3>{ch.physical}</h3>
-              </>
-            )}
-            {ch.psychological && (
-              <>
-                <h3 className="fontBold">Características Psicológicas:</h3>
-                <h3>{ch.psychological}</h3>
-              </>
-            )}
             {ch.task_list && ch.task_list.length > 0 && (
               <>
                 <h3 className="fontBold">Lista de Tarefas:</h3>
@@ -124,16 +101,10 @@ function RenderCharacters(charactersList: ICharacter[]) {
                 <h3>{ch.resume}</h3>
               </>
             )}
-            {ch.note && (
-              <>
-                <h3 className="fontBold">Anotações:</h3>
-                <h3>{ch.note}</h3>
-              </>
-            )}
             {ch.content && (
               <>
                 <h3 className="fontBold">Conteúdo:</h3>
-                <h3>{ch.content}</h3>
+                <h3 dangerouslySetInnerHTML={{ __html: ch.content }} />
               </>
             )}
           </div>

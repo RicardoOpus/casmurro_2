@@ -18,10 +18,11 @@ function Manuscript() {
     <div className="manuscriptMain">
       <DraftList />
       <div style={{ width: '100%' }}>
-        {!toColapse && (
+        {toColapse ? (
           <DraftDetail />
+        ) : (
+          <Writer />
         )}
-        <Writer />
       </div>
     </div>
   );
