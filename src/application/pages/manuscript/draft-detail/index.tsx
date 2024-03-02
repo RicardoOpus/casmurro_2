@@ -202,9 +202,7 @@ function DraftDetail() {
         ) : (
           <div>
             <div className="writerButtons">
-              {currentMItem.type !== 'Capítulo' && (
-                <button title="Expandir" onClick={colapeDetails} className="btnWriter" type="button">Mostrar Cena</button>
-              )}
+              <button title="Expandir" onClick={colapeDetails} className="btnWriter" type="button">Mostrar Cena</button>
             </div>
             <div className="detailMContainer">
               <NextAndPrevCard id={Number(id)} dataTable="manuscript" callback={callBackLoading} callbackScene={callbackScene} />

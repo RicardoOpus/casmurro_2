@@ -86,7 +86,7 @@ function SortableScenes({
   );
 
   return (
-    <div ref={setNodeRef} style={style}>
+    <div ref={setNodeRef} style={style} className={type === 'Cena' ? '' : 'chapter'}>
       <div key={id} className={current ? 'selected' : ''}>
         <label key={uuidv4()} htmlFor={id.toString()} className="itemDraft">
           <div style={{ display: 'flex' }}>

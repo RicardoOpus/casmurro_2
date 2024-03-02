@@ -113,6 +113,14 @@
   width: 1em;
 }
 
+.chapter {
+  border-bottom: solid 1px var(--border-color);
+  border-top: solid 1px var(--border-color);
+  background-color: var(--bg-color);
+  padding: .5em 0;
+  margin-bottom: .5em;
+}
+
 .filterScene {
   display: flex;
   flex-wrap: wrap;

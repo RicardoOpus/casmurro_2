@@ -191,7 +191,7 @@ function Writer() {
   }, [currentMItem, id]);
 
   return (
-    currentMItem && currentMItem.type !== 'Capítulo' && (
+    currentMItem && currentMItem.type !== 'Capítulo' ? (
       <div className={noDisctration ? 'distractionFree' : ''}>
         <div className="writerButtons">
           {!noDisctration && (
@@ -252,6 +252,15 @@ function Writer() {
           <Alert mensage="Meta batida!" />
         )}
         {prjSettings.typeWriterSound && (<TypeWriterSound />)}
+      </div>
+    ) : (
+      <div>
+        <div className="writerButtons">
+          <button title="Expandir" onClick={() => colapeDetails()} className="btnWriter" type="button">Mostrar detalhes</button>
+        </div>
+        <div style={{ margin: '1em' }}>
+          <h2>{stateMItem.title}</h2>
+        </div>
       </div>
     )
   );
