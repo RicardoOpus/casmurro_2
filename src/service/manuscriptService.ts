@@ -52,24 +52,16 @@ class ManuscriptService {
     await indexedDBrepository.manuscriptDelete(idItem);
   }
 
-  async UpScene(idItem: number) {
-    await indexedDBrepository.SceneSendUp(idItem);
-  }
-
-  async DownScene(idItem: number) {
-    await indexedDBrepository.SceneSendDown(idItem);
-  }
-
-  async levelScene(idItem: number, toIncrease: boolean) {
-    await indexedDBrepository.SceneModifyLevel(idItem, toIncrease);
-  }
-
   async updateCurrent(idItem: number) {
     await indexedDBrepository.manuscriptCurrentHandle(idItem);
   }
 
   async upDate(idItem: number, data: IManuscript) {
     await indexedDBrepository.manuscriptUpdate(idItem, data);
+  }
+
+  async upDatePosition(data: IManuscript[]) {
+    await indexedDBrepository.manuscriptUpdatePosition(data);
   }
 }
 const manuscriptService = new ManuscriptService();

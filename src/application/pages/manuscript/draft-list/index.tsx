@@ -4,6 +4,9 @@ import './draft-list.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
+import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import manuscriptService from '../../../../service/manuscriptService';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
@@ -11,6 +14,7 @@ import IManuscript from '../../../../interfaces/IManuscript';
 import Loading from '../../../components/loading';
 import GenericModal from '../../../components/generic-modal';
 import utils from '../../../../service/utils';
+import SortableScenes from './sortableScenes';
 
 function DraftList() {
   const [width, setWidth] = useState(600);
@@ -22,10 +26,12 @@ function DraftList() {
     state.projectDataReducer.projectData.projectSettings));
   const charList = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
-  const [cenesList, setCenesList] = useState<IManuscript[]>([]);
+  const [scenesList, setCenesList] = useState<IManuscript[]>([]);
   const [filtredScenesList, setFiltredScenesList] = useState<IManuscript[]>([]);
   const [selectedPOV, setSelectedPOV] = useState(0);
   const [selectedStatus, setSelectedStatus] = useState('');
+  const [positionChagne, setPositionChange] = useState(false);
+  const [isFilterClear, setisFilterClear] = useState(true);
   const [draftWC, setDraftWC] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -63,21 +69,6 @@ function DraftList() {
     dispatch(fetchProjectDataAction(true));
   };
 
-  const moveUp = async () => {
-    await manuscriptService.UpScene(selectedItem);
-    dispatch(fetchProjectDataAction(true));
-  };
-
-  const moveDown = async () => {
-    await manuscriptService.DownScene(selectedItem);
-    dispatch(fetchProjectDataAction(true));
-  };
-
-  const moveLevel = async (toIncrease: boolean) => {
-    await manuscriptService.levelScene(selectedItem, toIncrease);
-    dispatch(fetchProjectDataAction(true));
-  };
-
   const handleCheckboxChange = async (item: number) => {
     setIsLoading(true);
     await manuscriptService.updateCurrent(item).then(() => setIsLoading(false));
@@ -94,81 +85,6 @@ function DraftList() {
       setWidth(data.size.width);
     }
   };
-
-  const renderBtns = () => (
-    <span>
-      <button onClick={deleteCene} className="btnInvisibleDel" type="button">X</button>
-    </span>
-  );
-
-  const renderChecks = (type: string | undefined) => {
-    switch (type) {
-      case 'Pronto':
-        return (
-          <span className="checkSceneList" style={{ color: 'var(--green-color)' }}>
-            ✔
-          </span>
-        );
-      case 'Revisado':
-        return (
-          <span className="checkSceneList" style={{ color: 'var(--green-color)' }}>
-            ✔✔
-          </span>
-        );
-      default:
-        return (
-          <div>
-            <span />
-          </div>
-        );
-    }
-  };
-
-  const renderCeneList = (cenes: IManuscript[]) => (
-    cenes.map((cene) => (
-      <div key={cene.id} style={{ marginLeft: `${cene.level_hierarchy}em` }} className={cene.current ? 'selected' : ''}>
-        <label key={uuidv4()} htmlFor={cene.id.toString()} className="itemDraft">
-          <div style={{ display: 'flex' }}>
-            <input
-              checked={cene.current}
-              onChange={() => handleCheckboxChange(cene.id)}
-              type="checkbox"
-              id={cene.id.toString()}
-              className="invisibleChk"
-            />
-            {prjSettings.manuscriptShowPovColor && (
-              charList?.map((e) => e.id === cene.pov_id && (
-                <span key={uuidv4()} className="charTagIcon" style={{ backgroundColor: e.color }} />
-              ))
-            )}
-            <div className={cene.type === 'Cena' ? 'textIcon' : 'folderIcon'} />
-            <p style={{ color: cene.current ? '#000000de' : '', fontFamily: 'sans-serif', fontWeight: 'bolder' }}>
-              {cene.title || 'sem nome'}
-            </p>
-            {prjSettings.manuscriptShowWC && cene.type === 'Cena' && (
-              <span
-                className="wordCountSpan"
-                style={{ color: cene.current ? '#000000de' : '', marginLeft: '.5em' }}
-              >
-                {`(${utils.countWords(cene.content).toLocaleString()})`}
-              </span>
-            )}
-            {prjSettings.manuscriptShowChecks && (
-              renderChecks(cene.status)
-            )}
-            {cene.current && renderBtns()}
-          </div>
-          {prjSettings.manuscriptShowSynopsis && (
-            <p
-              style={{ color: cene.current ? '#000000de' : 'var(--text-color-inactive)', marginLeft: '2.5em' }}
-            >
-              {cene.resume}
-            </p>
-          )}
-        </label>
-      </div>
-    ))
-  );
 
   const renderSelectPOV = () => (
     <div>
@@ -213,6 +129,7 @@ function DraftList() {
   const clearAllFilters = () => {
     setSelectedPOV(0);
     setSelectedStatus('');
+    setisFilterClear(true);
   };
 
   useEffect(() => {
@@ -232,26 +149,32 @@ function DraftList() {
   }, [prjSettings]);
 
   useEffect(() => {
-    const current = cenesList.find((e) => e.current);
+    const current = scenesList.find((e) => e.current);
     if (current && current.id) {
       navigate(`/manuscript/${current.id}`);
       setSelectedItem(current.id);
     } else {
       navigate('/manuscript');
     }
-  }, [cenesList, navigate]);
+  }, [scenesList, navigate]);
 
   useEffect(() => {
-    const handleFilter = (scenesList: IManuscript[]) => {
-      const result = scenesList.filter((scene) => {
+    const handleFilter = (sceneslist: IManuscript[]) => {
+      const result = sceneslist.filter((scene) => {
         const PovMatch = !selectedPOV || scene.pov_id === selectedPOV;
         const statusMatch = !selectedStatus || scene.status?.includes(selectedStatus);
         return PovMatch && statusMatch;
       });
       setFiltredScenesList(result);
     };
-    handleFilter(cenesList);
-  }, [cenesList, selectedPOV, selectedStatus]);
+    handleFilter(scenesList);
+  }, [scenesList, selectedPOV, selectedStatus]);
+
+  useEffect(() => {
+    if (selectedPOV || selectedStatus) {
+      setisFilterClear(false);
+    }
+  }, [selectedPOV, selectedStatus]);
 
   useEffect(() => {
     let totalWordCount = 0;
@@ -262,23 +185,44 @@ function DraftList() {
     setDraftWC(totalWordCount);
   }, [filtredScenesList]);
 
+  const changePosition = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over) {
+      const activeIndex = filtredScenesList.findIndex((item) => item.id === active.id);
+      const overIndex = filtredScenesList.findIndex((item) => item.id === over.id);
+      if (activeIndex !== -1 && overIndex !== -1 && active.id !== over.id) {
+        setCenesList((items) => {
+          const newItems = arrayMove(items, activeIndex, overIndex);
+          return [...newItems];
+        });
+        setPositionChange(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (positionChagne) {
+      manuscriptService.upDatePosition(scenesList);
+      dispatch(fetchProjectDataAction(true));
+      setPositionChange(false);
+    }
+  }, [dispatch, positionChagne, scenesList]);
+
   return (
     <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
       <div style={{ width: `${width}px`, height: 'auto', minWidth: '300px' }}>
         {isLoading ? (
           <Loading />
         ) : (
-          <div>
+          <DndContext
+            collisionDetection={closestCenter}
+            onDragEnd={changePosition}
+            modifiers={[restrictToVerticalAxis]}
+          >
             <div className="divBtnM">
               <div className="AddButtonsM">
                 <button onClick={() => creatNewCene('Cena')} type="button" className="btnInvisibleM">+ Cena</button>
                 <button onClick={() => creatNewCene('Capítulo')} type="button" className="btnInvisibleM">+ Capítulo</button>
-              </div>
-              <div className="moveButtonsM">
-                <button onClick={moveUp} type="button" className="btnMoveInvisibleM">▲</button>
-                <button onClick={moveDown} type="button" className="btnMoveInvisibleM">▼</button>
-                <button onClick={() => moveLevel(false)} type="button" className="btnMoveInvisibleM">◀</button>
-                <button onClick={() => moveLevel(true)} type="button" className="btnMoveInvisibleM">▶</button>
               </div>
             </div>
             <div className="listDraft">
@@ -298,13 +242,41 @@ function DraftList() {
                   <Loading />
                 ) : (
                   <div className="listDraftItens">
-                    {cenesList && cenesList.length > 0 && renderCeneList(filtredScenesList)}
+                    {scenesList && scenesList.length > 0 && (
+                      <SortableContext
+                        items={filtredScenesList}
+                        strategy={verticalListSortingStrategy}
+                      >
+                        {
+                          filtredScenesList.map((scene) => (
+                            <SortableScenes
+                              id={scene.id}
+                              current={scene.current}
+                              manuscriptShowPovColor={prjSettings.manuscriptShowPovColor}
+                              charList={charList}
+                              povId={scene.pov_id}
+                              type={scene.type}
+                              title={scene.title}
+                              manuscriptShowWC={prjSettings.manuscriptShowWC}
+                              content={scene.content}
+                              manuscriptShowChecks={prjSettings.manuscriptShowChecks}
+                              status={scene.status}
+                              manuscriptShowSynopsis={prjSettings.manuscriptShowSynopsis}
+                              resume={scene.resume}
+                              handleCheckboxChange={handleCheckboxChange}
+                              deleteCene={deleteCene}
+                              hasFilter={isFilterClear}
+                            />
+                          ))
+                        }
+                      </SortableContext>
+                    )}
                   </div>
                 )}
               </div>
             </div>
             <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir Cena? Ela foi modificada." onDataSend={handleDelete} deleteType />
-          </div>
+          </DndContext>
         )}
       </div>
     </Resizable>
