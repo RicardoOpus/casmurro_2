@@ -113,10 +113,16 @@ function WorldList() {
     }
   };
 
+  const cleanupFunction = () => {
+    dispatch(fetchProjectDataAction(true));
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => cleanupFunction, []);
+
   useEffect(() => {
     if (positionChagne) {
       worldService.upDatePosition(worldItens);
-      dispatch(fetchProjectDataAction(true));
       setPositionChange(false);
     }
   }, [dispatch, positionChagne, worldItens]);

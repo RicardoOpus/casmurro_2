@@ -114,10 +114,16 @@ function NotesList() {
     }
   };
 
+  const cleanupFunction = () => {
+    dispatch(fetchProjectDataAction(true));
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => cleanupFunction, []);
+
   useEffect(() => {
     if (positionChagne) {
       notesService.upDatePosition(NotesItens);
-      dispatch(fetchProjectDataAction(true));
       setPositionChange(false);
     }
   }, [NotesItens, dispatch, positionChagne]);

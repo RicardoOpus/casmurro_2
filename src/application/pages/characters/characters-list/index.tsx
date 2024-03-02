@@ -127,10 +127,16 @@ function CharactersList() {
     }
   };
 
+  const cleanupFunction = () => {
+    dispatch(fetchProjectDataAction(true));
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => cleanupFunction, []);
+
   useEffect(() => {
     if (positionChagne) {
       characterService.upDatePosition(characters);
-      dispatch(fetchProjectDataAction(true));
       setPositionChange(false);
     }
   }, [characters, dispatch, positionChagne]);

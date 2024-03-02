@@ -200,10 +200,16 @@ function DraftList() {
     }
   };
 
+  const cleanupFunction = () => {
+    dispatch(fetchProjectDataAction(true));
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => cleanupFunction, []);
+
   useEffect(() => {
     if (positionChagne) {
       manuscriptService.upDatePosition(scenesList);
-      dispatch(fetchProjectDataAction(true));
       setPositionChange(false);
     }
   }, [dispatch, positionChagne, scenesList]);
