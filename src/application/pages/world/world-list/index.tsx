@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './world-list.css';
-import { MouseEvent, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
+import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import IWorld from '../../../../interfaces/IWorld';
 import NoData from '../../../components/no-dada';
 import NotFound from '../../../components/not-found';
-import utils from '../../../../service/utils';
 import {
   worldFilterCategoryAction,
   worldFilterTitleAction,
@@ -15,6 +16,7 @@ import {
 } from '../../../redux/actions/worldActions';
 import worldService from '../../../../service/worldService';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
+import WorldSortble from './worldSortble';
 
 type RootStateWorld = {
   worldFilterReducer: {
@@ -31,8 +33,8 @@ function WorldList() {
     state.projectDataReducer.projectData.projectSettings));
   const [worldItens, setWorldItens] = useState<IWorld[]>([]);
   const [filtredWorldItens, setfiltredWorldItens] = useState<IWorld[]>([]);
+  const [positionChagne, setPositionChange] = useState(false);
   const [isFilterClear, setisFilterClear] = useState(true);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     selectedTitle,
@@ -96,35 +98,38 @@ function WorldList() {
     handleFilter(worldItens);
   }, [worldItens, selectedTitle, selectedCategory, isAscOrder, dispatch, isOrder]);
 
-  const changePosition = async (
-    e: MouseEvent<HTMLButtonElement>,
-    list: IWorld[],
-    toUp: boolean,
-    id: number,
-  ) => {
-    e.stopPropagation();
-    const currentTask = list?.map((ele) => ele.id);
-    const selectedI = currentTask?.indexOf(id) ?? -1;
-    if (toUp && selectedI > 0 && list) {
-      const newI = list;
-      const swapIndex = selectedI - 1;
-      [newI[swapIndex], newI[selectedI]] = [newI[selectedI], newI[swapIndex]];
-      await worldService.upDatePosition(newI);
-      dispatch(fetchProjectDataAction(true));
-    } else if (!toUp && list && selectedI < list.length - 1) {
-      const newI = list;
-      const swapIndex = selectedI + 1;
-      [newI[swapIndex], newI[selectedI]] = [newI[selectedI], newI[swapIndex]];
-      await worldService.upDatePosition(newI);
-      dispatch(fetchProjectDataAction(true));
+  const changePosition = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over) {
+      const activeIndex = filtredWorldItens.findIndex((item) => item.id === active.id);
+      const overIndex = filtredWorldItens.findIndex((item) => item.id === over.id);
+      if (activeIndex !== -1 && overIndex !== -1 && active.id !== over.id) {
+        setWorldItens((items) => {
+          const newItems = arrayMove(items, activeIndex, overIndex);
+          return [...newItems];
+        });
+        setPositionChange(true);
+      }
     }
   };
+
+  useEffect(() => {
+    if (positionChagne) {
+      worldService.upDatePosition(worldItens);
+      dispatch(fetchProjectDataAction(true));
+      setPositionChange(false);
+    }
+  }, [dispatch, positionChagne, worldItens]);
 
   return (
     worldItens.length === 0 ? (
       <NoData dataType="itens mundo" />
     ) : (
-      <div>
+      <DndContext
+        collisionDetection={closestCenter}
+        onDragEnd={changePosition}
+        modifiers={[restrictToVerticalAxis]}
+      >
         <div className="filterBar">
           <input
             type="text"
@@ -162,37 +167,25 @@ function WorldList() {
         {filtredWorldItens.length === 0 ? (
           <NotFound />
         ) : (
-          filtredWorldItens.map((worldItem) => (
-            <button onClick={() => navigate(`/world/${worldItem.id}`)} key={worldItem.id} type="button" className="listItens">
-              <div className="listCardWorld">
-                <div className="titleCardSection">
-                  <h3 className="cardListTitle">{worldItem.title}</h3>
-                  {isFilterClear && (
-                    <div style={{ display: 'flex', gap: '0.5em' }}>
-                      <button onClick={(e) => changePosition(e, worldItens, true, worldItem.id)} className="btnSmall deleteButton" type="button">▲</button>
-                      <button onClick={(e) => changePosition(e, worldItens, false, worldItem.id)} className="btnSmall deleteButton" type="button">▼</button>
-                    </div>
-                  )}
-                </div>
-                <hr />
-                <div className="cardWorldInfos">
-                  <div>
-                    <p className="categoryListItem">
-                      {worldItem.category}
-                    </p>
-                    <p>{utils.abreviarString(worldItem.resume, 300)}</p>
-                  </div>
-                  {worldItem.image ? (
-                    <img className="worldListImage" src={worldItem.image} alt="card img" />
-                  ) : (
-                    <div />
-                  )}
-                </div>
-              </div>
-            </button>
-          ))
+          <SortableContext
+            items={filtredWorldItens}
+            strategy={verticalListSortingStrategy}
+          >
+            {
+              filtredWorldItens.map((worldItem) => (
+                <WorldSortble
+                  id={worldItem.id}
+                  title={worldItem.title}
+                  image={worldItem.image}
+                  category={worldItem.category}
+                  resume={worldItem.resume}
+                  hasFilter={isFilterClear}
+                />
+              ))
+            }
+          </SortableContext>
         )}
-      </div>
+      </DndContext>
     )
   );
 }

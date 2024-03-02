@@ -483,6 +483,20 @@ ol {
   border-bottom-right-radius: 5px;
 }
 
+.dragHandler {
+  background-color: var(--btn-color);
+  padding: .5em;
+  cursor: grab;
+}
+
+.dragHandler:active {
+  cursor: grabbing;
+}
+
+.dragHandlerDidabled {
+  padding: .5em;
+}
+
 
 /* ============= resizables  ================= */
 
@@ -521,7 +535,7 @@ ol {
 .cardListTitle {
   font-family: Amaranth;
   font-size: x-large;
-  margin: 0 0 0 .5em;
+  margin: .5em 0 0 .5em;
 }
 
 .categoryListItem {
