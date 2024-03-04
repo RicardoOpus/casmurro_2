@@ -191,30 +191,6 @@ class IndexedDBrepository {
     }
   }
 
-  async manuscriptAdd(id: number, newData: IManuscript) {
-    const projectID = await this.getCurrentProjectID();
-    const project = await db.projects.where({ id: projectID }).first();
-    if (project && project.data) {
-      const currentLevel = project.data.manuscript || [];
-      const insertIndex = currentLevel.findIndex((e) => e.id === id);
-      if (insertIndex !== -1) {
-        const levelHierarchyValue = currentLevel[insertIndex].level_hierarchy;
-        if (newData.level_hierarchy !== undefined) {
-          // eslint-disable-next-line no-param-reassign
-          newData.level_hierarchy = levelHierarchyValue;
-        }
-        currentLevel.splice(insertIndex + 1, 0, newData);
-        await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
-          // eslint-disable-next-line no-param-reassign
-          ele.data = { ...ele.data, manuscript: currentLevel };
-        });
-        this.updateLastEdit();
-      } else {
-        await this.manuscriptPost(newData, 'manuscript');
-      }
-    }
-  }
-
   async sendManuscriptTrash(cardID: number) {
     const currentID = await this.getCurrentProjectID();
     if (currentID !== null) {
@@ -235,21 +211,7 @@ class IndexedDBrepository {
       const cL = project.data.manuscript || [];
       const deletedItemIndex = cL.findIndex((e) => e.id === idToDelete);
       if (deletedItemIndex !== -1) {
-        const delHierarchy = cL[deletedItemIndex].level_hierarchy;
         cL.splice(deletedItemIndex, 1);
-        let last = delHierarchy;
-        for (let i = deletedItemIndex; i < cL.length; i += 1) {
-          if (
-            cL[i].level_hierarchy !== undefined
-            && last !== undefined
-            && cL[i].level_hierarchy > last
-          ) {
-            cL[i].level_hierarchy = last;
-            last += 1;
-          } else {
-            break;
-          }
-        }
         await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
           // eslint-disable-next-line no-param-reassign
           ele.data = { ...ele.data, manuscript: cL };

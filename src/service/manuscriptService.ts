@@ -19,7 +19,6 @@ class ManuscriptService {
         goalWC: '',
         image: '',
         last_edit: now,
-        level_hierarchy: 0,
         note: '',
         place: 0,
         pov_id: 0,
@@ -39,11 +38,7 @@ class ManuscriptService {
         type,
         weather: '',
       };
-      if (id === 0) {
-        await indexedDBrepository.manuscriptPost(data, 'manuscript');
-      } else {
-        await indexedDBrepository.manuscriptAdd(id, data);
-      }
+      await indexedDBrepository.manuscriptPost(data, 'manuscript');
     }
   }
 
