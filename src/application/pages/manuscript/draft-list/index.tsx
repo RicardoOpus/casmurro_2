@@ -40,7 +40,7 @@ function DraftList() {
 
   const creatNewCene = async (type: string) => {
     setIsLoading(true);
-    await manuscriptService.createScene(selectedItem, type).then(() => setIsLoading(false));
+    await manuscriptService.createScene(type).then(() => setIsLoading(false));
     dispatch(fetchProjectDataAction(true));
   };
 

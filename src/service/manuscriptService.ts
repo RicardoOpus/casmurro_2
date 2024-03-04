@@ -5,7 +5,7 @@ import indexedDBrepository from '../infra/repository/indexedDBrepository';
 class ManuscriptService {
   status = 'Novo';
 
-  async createScene(id: number, type: string) {
+  async createScene(type: string) {
     const ID = await indexedDBrepository.idManager();
     const now = Date.now();
     const title = type === 'Cena' ? 'Nova Cena' : 'Novo Capítulo';
