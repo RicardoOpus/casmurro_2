@@ -15,6 +15,7 @@ import Loading from '../../../components/loading';
 import GenericModal from '../../../components/generic-modal';
 import utils from '../../../../service/utils';
 import SortableScenes from './sortableScenes';
+import manuscriptColapseDetail from '../../../redux/actions/manuscriptActons';
 
 function DraftList() {
   const [width, setWidth] = useState(600);
@@ -70,10 +71,10 @@ function DraftList() {
   };
 
   const handleCheckboxChange = async (item: number) => {
-    setIsLoading(true);
-    await manuscriptService.updateCurrent(item).then(() => setIsLoading(false));
+    dispatch(manuscriptColapseDetail(true));
+    await manuscriptService.updateCurrent(item);
+    dispatch(manuscriptColapseDetail(false));
     navigate(`/manuscript/${item}`);
-    dispatch(fetchProjectDataAction(true));
     setSelectedItem(item === selectedItem ? 0 : item);
   };
 
@@ -272,6 +273,7 @@ function DraftList() {
                               handleCheckboxChange={handleCheckboxChange}
                               deleteCene={deleteCene}
                               hasFilter={isFilterClear}
+                              key={scene.id}
                             />
                           ))
                         }

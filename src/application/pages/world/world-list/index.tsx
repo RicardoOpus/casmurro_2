@@ -186,6 +186,7 @@ function WorldList() {
                   category={worldItem.category}
                   resume={worldItem.resume}
                   hasFilter={isFilterClear}
+                  key={worldItem.id}
                 />
               ))
             }

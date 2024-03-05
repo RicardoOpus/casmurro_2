@@ -187,6 +187,7 @@ function NotesList() {
                   category={note.category}
                   content={note.content}
                   hasFilter={isFilterClear}
+                  key={note.id}
                 />
               ))
             }

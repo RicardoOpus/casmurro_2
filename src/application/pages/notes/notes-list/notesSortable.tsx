@@ -32,7 +32,7 @@ function NotesSortable({
 
   return (
     <div ref={setNodeRef} style={style}>
-      <button onClick={() => navigate(`/notes/${id}`)} key={id} type="button" className="listItens">
+      <button onClick={() => navigate(`/notes/${id}`)} type="button" className="listItens">
         <div className="listCardWorld">
           {!hasFilter ? (
             <div className="dragHandlerDidabled" />

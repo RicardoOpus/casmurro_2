@@ -237,6 +237,7 @@ function CharactersList() {
                   age={character.age}
                   resume={character.resume}
                   hasFilter={isFilterClear}
+                  key={character.id}
                 />
               ))
             }

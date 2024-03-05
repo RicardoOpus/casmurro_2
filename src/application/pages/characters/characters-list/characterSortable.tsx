@@ -34,7 +34,7 @@ function CharacterSorteble({
 
   return (
     <div ref={setNodeRef} style={style}>
-      <button onClick={() => navigate(`/characters/${id}`)} type="button" key={id} className="listItens">
+      <button onClick={() => navigate(`/characters/${id}`)} type="button" className="listItens">
         <div className="listCard">
           {!hasFilter ? (
             <div className="dragHandlerDidabled" />
