@@ -9,7 +9,6 @@ interface IManuscript {
   goalWC?: string;
   image?: string
   last_edit: number;
-  level_hierarchy: number;
   note?: string;
   place?: number;
   pov_id?: number;

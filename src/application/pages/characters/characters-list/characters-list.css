@@ -5,6 +5,7 @@
   height: 90px;
   object-fit: cover;
   width: 90px;
+  margin: .5em 0 .5em .5em;
 }
 
 .listCard {
@@ -12,7 +13,7 @@
   border-radius: 4px;
   color: var(--text-color);
   display: flex;
-  padding: .5em;
+  padding: 0 .5em 0 0;
 }
 
 .listCard p {

@@ -157,6 +157,21 @@ class IndexedDBrepository {
     }
   }
 
+  async manuscriptUpdatePosition(newData: IManuscript[]) {
+    const projectID = await this.getCurrentProjectID();
+    const projectData: IProject | undefined = await db.projects.where('id').equals(projectID).first();
+    if (projectData) {
+      if (projectData.data?.manuscript) {
+        projectData.data.manuscript = newData;
+      }
+      await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
+        // eslint-disable-next-line no-param-reassign
+        ele.data = projectData.data;
+      });
+      this.updateLastEdit();
+    }
+  }
+
   async manuscriptPost(newData: IManuscript, table: string) {
     const projectID = await this.getCurrentProjectID();
     const projectData: IProject | undefined = await db.projects.where('id').equals(projectID).first();
@@ -173,30 +188,6 @@ class IndexedDBrepository {
         ele.data = projectData.data;
       });
       this.updateLastEdit();
-    }
-  }
-
-  async manuscriptAdd(id: number, newData: IManuscript) {
-    const projectID = await this.getCurrentProjectID();
-    const project = await db.projects.where({ id: projectID }).first();
-    if (project && project.data) {
-      const currentLevel = project.data.manuscript || [];
-      const insertIndex = currentLevel.findIndex((e) => e.id === id);
-      if (insertIndex !== -1) {
-        const levelHierarchyValue = currentLevel[insertIndex].level_hierarchy;
-        if (newData.level_hierarchy !== undefined) {
-          // eslint-disable-next-line no-param-reassign
-          newData.level_hierarchy = levelHierarchyValue;
-        }
-        currentLevel.splice(insertIndex + 1, 0, newData);
-        await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
-          // eslint-disable-next-line no-param-reassign
-          ele.data = { ...ele.data, manuscript: currentLevel };
-        });
-        this.updateLastEdit();
-      } else {
-        await this.manuscriptPost(newData, 'manuscript');
-      }
     }
   }
 
@@ -220,21 +211,7 @@ class IndexedDBrepository {
       const cL = project.data.manuscript || [];
       const deletedItemIndex = cL.findIndex((e) => e.id === idToDelete);
       if (deletedItemIndex !== -1) {
-        const delHierarchy = cL[deletedItemIndex].level_hierarchy;
         cL.splice(deletedItemIndex, 1);
-        let last = delHierarchy;
-        for (let i = deletedItemIndex; i < cL.length; i += 1) {
-          if (
-            cL[i].level_hierarchy !== undefined
-            && last !== undefined
-            && cL[i].level_hierarchy > last
-          ) {
-            cL[i].level_hierarchy = last;
-            last += 1;
-          } else {
-            break;
-          }
-        }
         await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
           // eslint-disable-next-line no-param-reassign
           ele.data = { ...ele.data, manuscript: cL };
@@ -268,76 +245,6 @@ class IndexedDBrepository {
         this.updateLastEdit();
       } else {
         console.error(`Element with ID ${idToUpdate} not found.`);
-      }
-    }
-  }
-
-  async SceneSendUp(idToMove: number) {
-    const projectID = await this.getCurrentProjectID();
-    const project = await db.projects.where({ id: projectID }).first();
-    if (project) {
-      const currentLevel = project.data?.manuscript || [];
-      const currentIndex = currentLevel.findIndex((e) => e.id === idToMove);
-      if (currentIndex > 0) {
-        const temp = currentLevel[currentIndex];
-        const itemBefore = currentLevel[currentIndex - 1];
-        if (temp.level_hierarchy !== undefined && itemBefore.level_hierarchy !== undefined) {
-          temp.level_hierarchy = itemBefore.level_hierarchy;
-        }
-        currentLevel[currentIndex] = itemBefore;
-        currentLevel[currentIndex - 1] = temp;
-        await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
-          // eslint-disable-next-line no-param-reassign
-          ele.data = { ...ele.data, manuscript: currentLevel };
-        });
-        this.updateLastEdit();
-      }
-    }
-  }
-
-  async SceneSendDown(idToMove: number) {
-    const projectID = await this.getCurrentProjectID();
-    const project = await db.projects.where({ id: projectID }).first();
-    if (project) {
-      const currentLevel = project.data?.manuscript || [];
-      const currentIndex = currentLevel.findIndex((e) => e.id === idToMove);
-      if (currentIndex < currentLevel.length - 1) {
-        const temp = currentLevel[currentIndex];
-        const itemAfter = currentLevel[currentIndex + 1];
-        if (temp.level_hierarchy !== undefined && itemAfter.level_hierarchy !== undefined) {
-          temp.level_hierarchy = itemAfter.level_hierarchy;
-        }
-        currentLevel[currentIndex] = itemAfter;
-        currentLevel[currentIndex + 1] = temp;
-        await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
-          // eslint-disable-next-line no-param-reassign
-          ele.data = { ...ele.data, manuscript: currentLevel };
-        });
-        this.updateLastEdit();
-      }
-    }
-  }
-
-  async SceneModifyLevel(id: number, increase: boolean) {
-    const projectID = await this.getCurrentProjectID();
-    const project = await db.projects.where({ id: projectID }).first();
-    if (project) {
-      const currentLevel = project.data?.manuscript || [];
-      const currentIndex = currentLevel.findIndex((e) => e.id === id);
-      if (currentIndex !== -1 && currentIndex > 0) {
-        const currentItem = currentLevel[currentIndex];
-        if (currentItem.level_hierarchy !== undefined) {
-          const previousItemValue = currentLevel[currentIndex - 1].level_hierarchy || 0;
-          const newLevelValue = increase
-            ? Math.min(previousItemValue + 1, currentItem.level_hierarchy + 1)
-            : Math.max(0, currentItem.level_hierarchy - 1);
-          currentItem.level_hierarchy = newLevelValue;
-          await db.projects.where('id').equals(projectID).modify((ele: IProject) => {
-            // eslint-disable-next-line no-param-reassign
-            ele.data = { ...ele.data, manuscript: project.data?.manuscript || [] };
-          });
-          this.updateLastEdit();
-        }
       }
     }
   }

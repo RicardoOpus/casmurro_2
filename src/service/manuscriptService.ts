@@ -5,7 +5,7 @@ import indexedDBrepository from '../infra/repository/indexedDBrepository';
 class ManuscriptService {
   status = 'Novo';
 
-  async createScene(id: number, type: string) {
+  async createScene(type: string) {
     const ID = await indexedDBrepository.idManager();
     const now = Date.now();
     const title = type === 'Cena' ? 'Nova Cena' : 'Novo Capítulo';
@@ -19,7 +19,6 @@ class ManuscriptService {
         goalWC: '',
         image: '',
         last_edit: now,
-        level_hierarchy: 0,
         note: '',
         place: 0,
         pov_id: 0,
@@ -39,11 +38,7 @@ class ManuscriptService {
         type,
         weather: '',
       };
-      if (id === 0) {
-        await indexedDBrepository.manuscriptPost(data, 'manuscript');
-      } else {
-        await indexedDBrepository.manuscriptAdd(id, data);
-      }
+      await indexedDBrepository.manuscriptPost(data, 'manuscript');
     }
   }
 
@@ -52,24 +47,16 @@ class ManuscriptService {
     await indexedDBrepository.manuscriptDelete(idItem);
   }
 
-  async UpScene(idItem: number) {
-    await indexedDBrepository.SceneSendUp(idItem);
-  }
-
-  async DownScene(idItem: number) {
-    await indexedDBrepository.SceneSendDown(idItem);
-  }
-
-  async levelScene(idItem: number, toIncrease: boolean) {
-    await indexedDBrepository.SceneModifyLevel(idItem, toIncrease);
-  }
-
   async updateCurrent(idItem: number) {
     await indexedDBrepository.manuscriptCurrentHandle(idItem);
   }
 
   async upDate(idItem: number, data: IManuscript) {
     await indexedDBrepository.manuscriptUpdate(idItem, data);
+  }
+
+  async upDatePosition(data: IManuscript[]) {
+    await indexedDBrepository.manuscriptUpdatePosition(data);
   }
 }
 const manuscriptService = new ManuscriptService();

@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { MouseEvent, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
+import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import INotes from '../../../../interfaces/INotes';
 import NoData from '../../../components/no-dada';
 import NotFound from '../../../components/not-found';
-import utils from '../../../../service/utils';
 import {
   notesFilterCategoryAction,
   notesFilterTitleAction,
@@ -14,6 +15,7 @@ import {
 } from '../../../redux/actions/notesActions';
 import notesService from '../../../../service/notesService';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
+import NotesSortable from './notesSortable';
 
 type RootStateWorld = {
   notesFilterReducer: {
@@ -30,8 +32,8 @@ function NotesList() {
     state.projectDataReducer.projectData.projectSettings));
   const [NotesItens, setNotesItens] = useState<INotes[]>([]);
   const [filtredNotesItens, setfiltredNotesItens] = useState<INotes[]>([]);
+  const [positionChagne, setPositionChange] = useState(false);
   const [isFilterClear, setisFilterClear] = useState(true);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     selectedTitle,
@@ -97,35 +99,44 @@ function NotesList() {
     handleFilter(NotesItens);
   }, [NotesItens, selectedTitle, selectedCategory, isAscOrder, dispatch, isOrder]);
 
-  const changePosition = async (
-    e: MouseEvent<HTMLButtonElement>,
-    list: INotes[],
-    toUp: boolean,
-    id: number,
-  ) => {
-    e.stopPropagation();
-    const currentTask = list?.map((ele) => ele.id);
-    const selectedI = currentTask?.indexOf(id) ?? -1;
-    if (toUp && selectedI > 0 && list) {
-      const newI = list;
-      const swapIndex = selectedI - 1;
-      [newI[swapIndex], newI[selectedI]] = [newI[selectedI], newI[swapIndex]];
-      await notesService.upDatePosition(newI);
-      dispatch(fetchProjectDataAction(true));
-    } else if (!toUp && list && selectedI < list.length - 1) {
-      const newI = list;
-      const swapIndex = selectedI + 1;
-      [newI[swapIndex], newI[selectedI]] = [newI[selectedI], newI[swapIndex]];
-      await notesService.upDatePosition(newI);
-      dispatch(fetchProjectDataAction(true));
+  const changePosition = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over) {
+      const activeIndex = filtredNotesItens.findIndex((item) => item.id === active.id);
+      const overIndex = filtredNotesItens.findIndex((item) => item.id === over.id);
+      if (activeIndex !== -1 && overIndex !== -1 && active.id !== over.id) {
+        setNotesItens((items) => {
+          const newItems = arrayMove(items, activeIndex, overIndex);
+          return [...newItems];
+        });
+        setPositionChange(true);
+      }
     }
   };
+
+  const cleanupFunction = () => {
+    dispatch(fetchProjectDataAction(true));
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => cleanupFunction, []);
+
+  useEffect(() => {
+    if (positionChagne) {
+      notesService.upDatePosition(NotesItens);
+      setPositionChange(false);
+    }
+  }, [NotesItens, dispatch, positionChagne]);
 
   return (
     NotesItens.length === 0 ? (
       <NoData dataType="notas" />
     ) : (
-      <div>
+      <DndContext
+        collisionDetection={closestCenter}
+        onDragEnd={changePosition}
+        modifiers={[restrictToVerticalAxis]}
+      >
         <div className="filterBar">
           <input
             type="text"
@@ -163,37 +174,26 @@ function NotesList() {
         {filtredNotesItens.length === 0 ? (
           <NotFound />
         ) : (
-          filtredNotesItens.map((noteItem) => (
-            <button onClick={() => navigate(`/notes/${noteItem.id}`)} key={noteItem.id} type="button" className="listItens">
-              <div className="listCardWorld">
-                <div className="titleCardSection">
-                  <h3 className="cardListTitle">{noteItem.title}</h3>
-                  {isFilterClear && (
-                    <div style={{ display: 'flex', gap: '0.5em' }}>
-                      <button onClick={(e) => changePosition(e, NotesItens, true, noteItem.id)} className="btnSmall deleteButton" type="button">▲</button>
-                      <button onClick={(e) => changePosition(e, NotesItens, false, noteItem.id)} className="btnSmall deleteButton" type="button">▼</button>
-                    </div>
-                  )}
-                </div>
-                <hr />
-                <div className="cardWorldInfos">
-                  <div>
-                    <p className="categoryListItem">
-                      {noteItem.category}
-                    </p>
-                    <p>{utils.removeHTMLtags(noteItem.content)}</p>
-                  </div>
-                  {noteItem.image ? (
-                    <img className="worldListImage" src={noteItem.image} alt="card img" />
-                  ) : (
-                    <div />
-                  )}
-                </div>
-              </div>
-            </button>
-          ))
+          <SortableContext
+            items={filtredNotesItens}
+            strategy={verticalListSortingStrategy}
+          >
+            {
+              filtredNotesItens.map((note) => (
+                <NotesSortable
+                  id={note.id}
+                  title={note.title}
+                  image={note.image}
+                  category={note.category}
+                  content={note.content}
+                  hasFilter={isFilterClear}
+                  key={note.id}
+                />
+              ))
+            }
+          </SortableContext>
         )}
-      </div>
+      </DndContext>
     )
   );
 }

@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { MouseEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { DndContext, DragEndEvent, closestCenter } from '@dnd-kit/core';
+import { SortableContext, arrayMove, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import ICharacter from '../../../../interfaces/ICharacter';
 import './characters-list.css';
-import utils from '../../../../service/utils';
 import {
   charFilterTitleAction,
   charFilterCategoryAction,
@@ -17,6 +18,7 @@ import NotFound from '../../../components/not-found';
 import NoData from '../../../components/no-dada';
 import characterService from '../../../../service/characterService';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
+import CharacterSorteble from './characterSortable';
 
 type RootStateChar = {
   charFilterReducer: {
@@ -34,6 +36,7 @@ function CharactersList() {
   const prjSettings = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.projectSettings));
   const [characters, setCharacters] = useState<ICharacter[]>([]);
+  const [positionChagne, setPositionChange] = useState(false);
   const [isFilterClear, setisFilterClear] = useState(true);
   const {
     selectedTitle,
@@ -46,7 +49,6 @@ function CharactersList() {
   const dispatch = useDispatch();
 
   const [filtredCharacters, setFiltredCharacters] = useState<ICharacter[]>([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (projectData.data?.characters) {
@@ -110,35 +112,44 @@ function CharactersList() {
     dispatch(charFilterSortAction(true));
   };
 
-  const changePosition = async (
-    e: MouseEvent<HTMLButtonElement>,
-    list: ICharacter[],
-    toUp: boolean,
-    id: number,
-  ) => {
-    e.stopPropagation();
-    const currentTask = list?.map((ele) => ele.id);
-    const selectedI = currentTask?.indexOf(id) ?? -1;
-    if (toUp && selectedI > 0 && list) {
-      const newI = list;
-      const swapIndex = selectedI - 1;
-      [newI[swapIndex], newI[selectedI]] = [newI[selectedI], newI[swapIndex]];
-      await characterService.upDatePosition(newI);
-      dispatch(fetchProjectDataAction(true));
-    } else if (!toUp && list && selectedI < list.length - 1) {
-      const newI = list;
-      const swapIndex = selectedI + 1;
-      [newI[swapIndex], newI[selectedI]] = [newI[selectedI], newI[swapIndex]];
-      await characterService.upDatePosition(newI);
-      dispatch(fetchProjectDataAction(true));
+  const changePosition = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over) {
+      const activeIndex = filtredCharacters.findIndex((character) => character.id === active.id);
+      const overIndex = filtredCharacters.findIndex((character) => character.id === over.id);
+      if (activeIndex !== -1 && overIndex !== -1 && active.id !== over.id) {
+        setCharacters((items) => {
+          const newItems = arrayMove(items, activeIndex, overIndex);
+          return [...newItems];
+        });
+        setPositionChange(true);
+      }
     }
   };
+
+  const cleanupFunction = () => {
+    dispatch(fetchProjectDataAction(true));
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => cleanupFunction, []);
+
+  useEffect(() => {
+    if (positionChagne) {
+      characterService.upDatePosition(characters);
+      setPositionChange(false);
+    }
+  }, [characters, dispatch, positionChagne]);
 
   return (
     characters.length === 0 ? (
       <NoData dataType="personagens" />
     ) : (
-      <div>
+      <DndContext
+        collisionDetection={closestCenter}
+        onDragEnd={changePosition}
+        modifiers={[restrictToVerticalAxis]}
+      >
         <div className="filterBar">
           <input
             type="text"
@@ -211,39 +222,28 @@ function CharactersList() {
         {filtredCharacters.length === 0 ? (
           <NotFound />
         ) : (
-          filtredCharacters.map((character) => (
-            <button onClick={() => navigate(`/characters/${character.id}`)} type="button" key={character.id} className="listItens">
-              <div className="listCard">
-                {character.image ? (
-                  <img className="charListImage" src={character.image} alt="person img" />
-                ) : (
-                  <img className="charListImage" src="./images/person.png" alt="person img" />
-                )}
-                <div style={{ width: '100%' }}>
-                  <div className="titleCardSection">
-                    <h3 className="cardListTitle">
-                      <span className="charTagIcon" style={{ backgroundColor: `${character.color || 'var(--text-color-sec)'}` }} />
-                      {character.title}
-                    </h3>
-                    {isFilterClear && (
-                      <div style={{ display: 'flex', gap: '0.5em' }}>
-                        <button onClick={(e) => changePosition(e, characters, true, character.id)} className="btnSmall deleteButton" type="button">▲</button>
-                        <button onClick={(e) => changePosition(e, characters, false, character.id)} className="btnSmall deleteButton" type="button">▼</button>
-                      </div>
-                    )}
-                  </div>
-                  <p className="categoryListItem">
-                    {character.category}
-                    {' '}
-                    {character.age ? `• ${character.age} anos` : ''}
-                  </p>
-                  <p>{utils.abreviarString(character.resume, 300)}</p>
-                </div>
-              </div>
-            </button>
-          ))
+          <SortableContext
+            items={filtredCharacters}
+            strategy={verticalListSortingStrategy}
+          >
+            {
+              filtredCharacters.map((character) => (
+                <CharacterSorteble
+                  id={character.id}
+                  title={character.title}
+                  image={character.image}
+                  color={character.color}
+                  category={character.category}
+                  age={character.age}
+                  resume={character.resume}
+                  hasFilter={isFilterClear}
+                  key={character.id}
+                />
+              ))
+            }
+          </SortableContext>
         )}
-      </div>
+      </DndContext>
     )
   );
 }
