@@ -4,48 +4,15 @@
   position: relative;
 }
 
-.divBtnM {
-  border-bottom: solid 1px  var(--border-color);
-}
-
-.AddButtonsM {
-  background-color: var(--btn-color);
-  box-shadow: inset 0 4px 4px -2px rgba(0, 0, 0, .5);
+.createNewManuBtns {
   display: flex;
+  gap: 1em;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
-.moveButtonsM {
-  background-color: var(--btn-color);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
-.btnInvisibleM {
-  background-color: transparent;
-
-  /* stylelint-disable-next-line order/properties-alphabetical-order */
-  border-bottom: solid 1px  var(--border-color);
-  border-color: transparent;
-  border-radius: 0;
-  padding: 9px 0;
-  text-align: center;
-  width: 50%;
-}
-
-.btnMoveInvisibleM {
-  background-color: transparent;
-  border-color: transparent;
-  border-radius: 0;
-  padding: 0;
-  text-align: center;
-  width: 25%;
+  align-items: center;
 }
 
 .listDraft {
-  padding-left: 1em;
+  padding: 1em;
 }
 
 .listDraftItens {

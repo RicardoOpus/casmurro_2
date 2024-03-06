@@ -211,13 +211,11 @@ function DraftList() {
             onDragEnd={changePosition}
             modifiers={[restrictToVerticalAxis]}
           >
-            <div className="divBtnM">
-              <div className="AddButtonsM">
-                <button onClick={() => creatNewCene('Cena')} type="button" className="btnInvisibleM">+ Cena</button>
-                <button onClick={() => creatNewCene('Capítulo')} type="button" className="btnInvisibleM">+ Capítulo</button>
-              </div>
-            </div>
             <div className="listDraft">
+              <div className="createNewManuBtns">
+                <button onClick={() => creatNewCene('Cena')} type="button" className="btnMedium">+ Cena</button>
+                <button onClick={() => creatNewCene('Capítulo')} type="button" className="btnMedium">+ Capítulo</button>
+              </div>
               <div className="filterScene">
                 {renderSelectPOV()}
                 {renderSelectedStatus()}
