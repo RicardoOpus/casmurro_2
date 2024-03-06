@@ -214,8 +214,8 @@ function CharacterDetail() {
         <Loading />
       ) : (
         <div className="card">
-          <BackButton />
-          <NextAndPrevCard id={Number(id)} dataTable="characters" callback={callBackLoading} />
+          <BackButton path="back" callback={callBackLoading} />
+          <NextAndPrevCard id={Number(id)} isSceneDetail={false} dataTable="characters" callback={callBackLoading} />
           <div className="profile-pic">
             <label className="-label" htmlFor="file">
               <span>Mudar imagem</span>

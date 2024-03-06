@@ -1,5 +1,4 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
-import { Resizable, ResizeCallbackData } from 'react-resizable';
+import { useEffect, useState } from 'react';
 import './draft-list.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -15,10 +14,8 @@ import Loading from '../../../components/loading';
 import GenericModal from '../../../components/generic-modal';
 import utils from '../../../../service/utils';
 import SortableScenes from './sortableScenes';
-import manuscriptColapseDetail from '../../../redux/actions/manuscriptActons';
 
 function DraftList() {
-  const [width, setWidth] = useState(600);
   const [isLoading, setIsLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState<number>(0);
@@ -71,20 +68,9 @@ function DraftList() {
   };
 
   const handleCheckboxChange = async (item: number) => {
-    dispatch(manuscriptColapseDetail(true));
     await manuscriptService.updateCurrent(item);
-    dispatch(manuscriptColapseDetail(false));
     navigate(`/manuscript/${item}`);
     setSelectedItem(item === selectedItem ? 0 : item);
-  };
-
-  const onResize = (
-    _e: SyntheticEvent<Element, Event>,
-    data: ResizeCallbackData,
-  ) => {
-    if (data.size && Number(data.size.width) > 60) {
-      setWidth(data.size.width);
-    }
   };
 
   const renderSelectPOV = () => (
@@ -152,7 +138,6 @@ function DraftList() {
   useEffect(() => {
     const current = scenesList.find((e) => e.current);
     if (current && current.id) {
-      navigate(`/manuscript/${current.id}`);
       setSelectedItem(current.id);
     } else {
       navigate('/manuscript');
@@ -216,8 +201,8 @@ function DraftList() {
   }, [dispatch, positionChagne, scenesList]);
 
   return (
-    <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
-      <div style={{ width: `${width}px`, height: 'auto', minWidth: '300px' }}>
+    <div className="resizableDraftList">
+      <div>
         {isLoading ? (
           <Loading />
         ) : (
@@ -287,7 +272,7 @@ function DraftList() {
           </DndContext>
         )}
       </div>
-    </Resizable>
+    </div>
   );
 }
 

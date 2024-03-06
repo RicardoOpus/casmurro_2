@@ -20,7 +20,7 @@ import CharSceneModal from './char-scene';
 import NextAndPrevCard from '../../../components/next-and-prev';
 import useTabReplacement from '../../../hooks/useTabReplacement';
 import { modulesFull } from '../../../../templates/quillMudules';
-import manuscriptColapseDetail from '../../../redux/actions/manuscriptActons';
+import BackButton from '../../../components/back-button';
 
 function DraftDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -99,6 +99,7 @@ function DraftDetail() {
   const handleDelete = async () => {
     if (currentMItem) {
       await manuscriptService.deleteScene(currentMItem.id).then(() => cleanupFunction());
+      navigate('/manuscript');
     }
   };
 
@@ -165,12 +166,9 @@ function DraftDetail() {
   };
 
   const colapeDetails = () => {
-    dispatch(manuscriptColapseDetail(false));
-  };
-
-  const callbackScene = async (e: number) => {
-    await manuscriptService.updateCurrent(e).then(() => setIsLoading(false));
-    dispatch(fetchProjectDataAction(true));
+    if (currentMItem) {
+      navigate(`/manuscript/${currentMItem.id}`);
+    }
   };
 
   useTabReplacement(textareaRef, isLoading);
@@ -196,16 +194,17 @@ function DraftDetail() {
     !currentMItem ? (
       <NoData dataType="Cenas selecionadas" />
     ) : (
-      <div>
+      <div style={{ width: '100%' }}>
         {isLoading ? (
           <Loading />
         ) : (
           <div>
             <div className="writerButtons">
+              <BackButton path="/manuscript" callback={callBackLoading} />
               <button title="Expandir" onClick={colapeDetails} className="btnWriter" type="button">Mostrar Cena</button>
             </div>
             <div className="detailMContainer">
-              <NextAndPrevCard id={Number(id)} dataTable="manuscript" callback={callBackLoading} callbackScene={callbackScene} />
+              <NextAndPrevCard id={Number(id)} isSceneDetail dataTable="manuscript" callback={callBackLoading} />
               {stateMItem.image && (
                 <div className="imageCardBackgournd">
                   <div className="cardImageDiv" style={{ backgroundImage: `url(${stateMItem.image})` }} />
