@@ -37,12 +37,21 @@
   cursor: pointer;
 }
 
+.btnScene {
+  background-color: transparent;
+  border: solid 1px transparent;
+  padding: .1em 0;
+  text-align: left;
+  width: 100%;
+}
+
 .selected {
   background-color: var(--accent-color);
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
   color: #000000de;
   font-family: RobotoI;
+  text-align: left;
+  width: 100%;
+  padding: .1em 0;
 }
 
 .btnInvisibleDel {
@@ -58,6 +67,12 @@
 
 .btnInvisibleDel:hover {
   color: red;
+}
+
+.innerBtnScene {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .folderIcon {
@@ -83,7 +98,7 @@
   border-bottom: solid 1px var(--border-color);
   border-top: solid 1px var(--border-color);
   background-color: var(--bg-color);
-  padding: .5em 0;
+  padding: 0;
   margin-bottom: .5em;
 }
 
@@ -96,4 +111,22 @@
 
 .drafWC {
   font-size: medium;
+}
+
+.SceneView {
+  border: solid 1px var(--border-color);
+  border-radius: 15px;
+  padding: 1em;
+  max-height: 600px;
+  overflow: scroll;
+  text-indent: 25px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: larger;
+  background-color: #e4e0bbc7;
+  color: rgb(54, 31, 31);
+}
+
+.SceneView
+span {
+  color: rgb(54, 31, 31);
 }

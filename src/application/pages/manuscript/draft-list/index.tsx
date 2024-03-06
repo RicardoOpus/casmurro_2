@@ -30,6 +30,7 @@ function DraftList() {
   const [selectedStatus, setSelectedStatus] = useState('');
   const [positionChagne, setPositionChange] = useState(false);
   const [isFilterClear, setisFilterClear] = useState(true);
+  const [showSceneView, setShowSceneView] = useState(false);
   const [draftWC, setDraftWC] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -67,10 +68,16 @@ function DraftList() {
     dispatch(fetchProjectDataAction(true));
   };
 
-  const handleCheckboxChange = async (item: number) => {
+  const handleClick = async (item: number) => {
+    setShowSceneView(true);
     await manuscriptService.updateCurrent(item);
-    navigate(`/manuscript/${item}`);
     setSelectedItem(item === selectedItem ? 0 : item);
+    dispatch(fetchProjectDataAction(true));
+  };
+
+  const handleDoubleClick = async (item: number) => {
+    await handleClick(item);
+    navigate(`/manuscript/${item}`);
   };
 
   const renderSelectPOV = () => (
@@ -231,36 +238,54 @@ function DraftList() {
                 {isLoading ? (
                   <Loading />
                 ) : (
-                  <div className="listDraftItens">
-                    {scenesList && scenesList.length > 0 && (
-                      <SortableContext
-                        items={filtredScenesList}
-                        strategy={verticalListSortingStrategy}
-                      >
-                        {
-                          filtredScenesList.map((scene) => (
-                            <SortableScenes
-                              id={scene.id}
-                              current={scene.current}
-                              manuscriptShowPovColor={prjSettings.manuscriptShowPovColor}
-                              charList={charList}
-                              povId={scene.pov_id}
-                              type={scene.type}
-                              title={scene.title}
-                              manuscriptShowWC={prjSettings.manuscriptShowWC}
-                              content={scene.content}
-                              manuscriptShowChecks={prjSettings.manuscriptShowChecks}
-                              status={scene.status}
-                              manuscriptShowSynopsis={prjSettings.manuscriptShowSynopsis}
-                              resume={scene.resume}
-                              handleCheckboxChange={handleCheckboxChange}
-                              deleteCene={deleteCene}
-                              hasFilter={isFilterClear}
-                              key={scene.id}
-                            />
-                          ))
-                        }
-                      </SortableContext>
+                  <div style={{ display: 'flex' }}>
+                    <div className="listDraftItens" style={{ width: '100%' }}>
+                      {scenesList && scenesList.length > 0 && (
+                        <SortableContext
+                          items={filtredScenesList}
+                          strategy={verticalListSortingStrategy}
+                        >
+                          {
+                            filtredScenesList.map((scene) => (
+                              <SortableScenes
+                                id={scene.id}
+                                current={scene.current}
+                                manuscriptShowPovColor={prjSettings.manuscriptShowPovColor}
+                                charList={charList}
+                                povId={scene.pov_id}
+                                type={scene.type}
+                                title={scene.title}
+                                manuscriptShowWC={prjSettings.manuscriptShowWC}
+                                content={scene.content}
+                                manuscriptShowChecks={prjSettings.manuscriptShowChecks}
+                                status={scene.status}
+                                manuscriptShowSynopsis={prjSettings.manuscriptShowSynopsis}
+                                resume={scene.resume}
+                                handleClick={handleClick}
+                                handleDoubleClick={handleDoubleClick}
+                                deleteCene={deleteCene}
+                                hasFilter={isFilterClear}
+                                key={scene.id}
+                              />
+                            ))
+                          }
+                        </SortableContext>
+                      )}
+                    </div>
+                    {showSceneView && filtredScenesList.some((e) => e.current === true) && (
+                      <div style={{ width: '100%' }}>
+                        {filtredScenesList.filter((e) => e.current === true).map((e) => (
+                          <div className="SceneView">
+                            {
+                              e.content ? (
+                                <p dangerouslySetInnerHTML={{ __html: e.content }} />
+                              ) : (
+                                <span>Sem conteúdo</span>
+                              )
+                            }
+                          </div>
+                        ))}
+                      </div>
                     )}
                   </div>
                 )}
