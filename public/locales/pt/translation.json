@@ -23,6 +23,8 @@
     "expDraftTXTTip": "<h4>Apenas manuscrito</h4><p>Essa opção gera um arquivo de texto puro no formato .txt, contendo exclusivamente o texto das cenas. É particularmente útil ao transferir o conteúdo das cenas para outro processador de texto, como o Word, por exemplo.</p>",
     "expDraftPDF": "Formatado para impressão (cenas)",
     "expDraftPDFTip": "<h4>Apenas manuscrito</h4><p>Essa opção abrirá uma nova aba em seu navegador, apresentando o rascunho do seu projeto (cenas e capítulos) formatado para leitura.</p><p>Você pode imprimir essa página para obter uma versão física do seu rascunho. Além disso, pode utilizar a função de impressão em PDF do seu navegador para salvar o rascunho com um layout ideal para leitura, facilitando o compartilhamento com amigos, revisores ou editores.</p>",
+    "expDraftEPUB": "Exportar para ePUB",
+    "expDraftEPUBTip": "<p>Essa opção gera um ePUB simples, ideal para leitura em e-readers ou mesmo no computador.</p><p><strong>OBS:</strong> A imagem definida na aba Visão Geral será usada como capa do livro.</p>",
     "btnExport": "Exportar"
   }
 }

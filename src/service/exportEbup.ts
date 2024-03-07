@@ -76,7 +76,7 @@ async function exportEPUB() {
   const styles = 'p {text-indent: 2em; margin: 0px}';
   zip.file('OEBPS/styles.css', styles);
 
-  function getText(title: string, scene: string) {
+  function getText(title: string, scene: string, type: string) {
     const text = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>'
       + '<!DOCTYPE html>'
       + '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">'
@@ -87,7 +87,7 @@ async function exportEPUB() {
       + '  </head>'
       + '  <body>'
       + '    <section>'
-      + `      <h1>${title}</h1>`
+      + `      ${type === 'Cena' ? '<h3>' : '<h1>'}${title}${type === 'Cena' ? '</h3>' : '</h1>'}`
       + `      <div>${scene}</div>`
       + '    </section>'
       + '  </body>'
@@ -116,7 +116,7 @@ async function exportEPUB() {
     const manuscript = project?.data?.manuscript || [];
     for (let index = 0; index < manuscript.length; index += 1) {
       const element = manuscript[index];
-      zip.file(`OEBPS/text${index}.xhtml`, getText(element.title, element.content || ''));
+      zip.file(`OEBPS/text${index}.xhtml`, getText(element.title, element.content || '', element.type));
     }
   };
   generateManuscript();

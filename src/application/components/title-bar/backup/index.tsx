@@ -91,8 +91,8 @@ function BackupModal({ onClose, openModal, backupWarning }: GenericModalProps) {
       case 'expDraftEpub':
         return (
           <div>
-            <img src="images/print.svg" alt="print icon" />
-            <div dangerouslySetInnerHTML={{ __html: text.backupModal.expDraftPDFTip }} />
+            <img src="images/epub.svg" alt="epub icon" />
+            <div dangerouslySetInnerHTML={{ __html: text.backupModal.expDraftEPUBTip }} />
           </div>
         );
       default:
@@ -201,7 +201,7 @@ function BackupModal({ onClose, openModal, backupWarning }: GenericModalProps) {
                 onChange={handleOptionChange}
               />
               {' '}
-              Exportat para EPUB
+              {text.backupModal.expDraftEPUB}
             </label>
             <div className="backupWarning">
               {backupWarning}
