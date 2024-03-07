@@ -48,7 +48,6 @@
 .selected {
   background-color: var(--accent-color);
   color: #000000de;
-  font-family: RobotoI;
   text-align: left;
   width: 100%;
   padding: .1em 0;
@@ -123,10 +122,19 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: larger;
   background-color: #e4e0bbc7;
-  color: rgb(54, 31, 31);
 }
 
 .SceneView
 span {
-  color: rgb(54, 31, 31);
+  color: rgb(0, 0, 0);
+}
+
+.SceneView
+p {
+  color: rgb(0, 0, 0);
+}
+
+.SceneView
+em {
+  font-size: large;
 }
