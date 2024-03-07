@@ -7,6 +7,7 @@ import './backup.css';
 import exportService from '../../../../service/exportServise';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
+import exportEPUB from '../../../../service/exportEbup';
 
 interface GenericModalProps {
   onClose: () => void;
@@ -28,6 +29,9 @@ function BackupModal({ onClose, openModal, backupWarning }: GenericModalProps) {
         return onClose();
       case 'expProjectTXT':
         exportService.exportProjectTXT();
+        return onClose();
+      case 'expDraftEpub':
+        exportEPUB();
         return onClose();
       case 'expPDF':
         window.open('/casmurro2/#/printProject', '_blank');
@@ -78,6 +82,13 @@ function BackupModal({ onClose, openModal, backupWarning }: GenericModalProps) {
           </div>
         );
       case 'expDraftPDF':
+        return (
+          <div>
+            <img src="images/print.svg" alt="print icon" />
+            <div dangerouslySetInnerHTML={{ __html: text.backupModal.expDraftPDFTip }} />
+          </div>
+        );
+      case 'expDraftEpub':
         return (
           <div>
             <img src="images/print.svg" alt="print icon" />
@@ -180,6 +191,17 @@ function BackupModal({ onClose, openModal, backupWarning }: GenericModalProps) {
               />
               {' '}
               {text.backupModal.expDraftPDF}
+            </label>
+            <label htmlFor="expDraftEpub">
+              <input
+                id="expDraftEpub"
+                type="radio"
+                value="expDraftEpub"
+                checked={selectedOption === 'expDraftEpub'}
+                onChange={handleOptionChange}
+              />
+              {' '}
+              Exportat para EPUB
             </label>
             <div className="backupWarning">
               {backupWarning}
