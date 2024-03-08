@@ -84,8 +84,8 @@ function SideBar() {
       setAllCards(newArray);
     }
   }, [projectData.data?.characters,
-    projectData.data?.manuscript,
-    projectData.data?.notes, projectData.data?.world]);
+  projectData.data?.manuscript,
+  projectData.data?.notes, projectData.data?.world]);
 
   useEffect(() => {
     const handleFilter = () => {
@@ -167,7 +167,7 @@ function SideBar() {
                   filtredCards.map((e) => (
                     <div key={e.id}>
                       <button
-                        className="btnInvisible"
+                        className="sideBarItemList"
                         type="button"
                         onClick={() => sideBarHandleClick(e)}
                       >

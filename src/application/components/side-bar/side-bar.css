@@ -102,7 +102,7 @@
 
 .sideBarList {
   margin-top: 1em;
-  max-height: 600px;
+  max-height: 700px;
   overflow: scroll;
 }
 
@@ -112,4 +112,15 @@
 
 .spanTaskLit {
   margin: 0;
+}
+
+.sideBarItemList {
+  background-color: var(--bg-color-sec);
+  border: solid 1px #3d3c3c61;
+  border-radius: 15px;
+  padding: .5em 0;
+  text-align: left;
+  width: 100%;
+  padding: .5em;
+  margin-bottom: .5em;
 }

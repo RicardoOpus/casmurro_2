@@ -10,6 +10,7 @@
 
 .listCard {
   border: solid 1px var(--border-color);
+  background-color: var(--bg-color-sec);
   border-radius: 4px;
   color: var(--text-color);
   display: flex;

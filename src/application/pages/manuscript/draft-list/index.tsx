@@ -278,7 +278,7 @@ function DraftList() {
                           <div className="SceneView">
                             {
                               e.content ? (
-                                <p dangerouslySetInnerHTML={{ __html: e.content }} />
+                                <p key={e.id} dangerouslySetInnerHTML={{ __html: e.content }} />
                               ) : (
                                 <span>Sem conteúdo</span>
                               )
