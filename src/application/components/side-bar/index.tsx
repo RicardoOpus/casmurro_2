@@ -84,8 +84,8 @@ function SideBar() {
       setAllCards(newArray);
     }
   }, [projectData.data?.characters,
-  projectData.data?.manuscript,
-  projectData.data?.notes, projectData.data?.world]);
+    projectData.data?.manuscript,
+    projectData.data?.notes, projectData.data?.world]);
 
   useEffect(() => {
     const handleFilter = () => {
@@ -110,7 +110,8 @@ function SideBar() {
         }
       } else {
         const result = allCards.filter((card) => {
-          const titleMatch = !searchInput || card.title.toLowerCase().includes(searchInput);
+          const titleMatch = !searchInput
+            || card.title.toLowerCase().includes(searchInput.toLowerCase());
           return titleMatch;
         });
         const limitedResult = result.slice(0, 10);
