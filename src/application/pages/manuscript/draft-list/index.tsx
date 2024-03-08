@@ -1,5 +1,4 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
-import { Resizable, ResizeCallbackData } from 'react-resizable';
+import { useEffect, useState } from 'react';
 import './draft-list.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -15,10 +14,8 @@ import Loading from '../../../components/loading';
 import GenericModal from '../../../components/generic-modal';
 import utils from '../../../../service/utils';
 import SortableScenes from './sortableScenes';
-import manuscriptColapseDetail from '../../../redux/actions/manuscriptActons';
 
 function DraftList() {
-  const [width, setWidth] = useState(600);
   const [isLoading, setIsLoading] = useState(true);
   const [modal, setModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState<number>(0);
@@ -33,6 +30,7 @@ function DraftList() {
   const [selectedStatus, setSelectedStatus] = useState('');
   const [positionChagne, setPositionChange] = useState(false);
   const [isFilterClear, setisFilterClear] = useState(true);
+  const [showSceneView, setShowSceneView] = useState(false);
   const [draftWC, setDraftWC] = useState(0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -70,21 +68,16 @@ function DraftList() {
     dispatch(fetchProjectDataAction(true));
   };
 
-  const handleCheckboxChange = async (item: number) => {
-    dispatch(manuscriptColapseDetail(true));
+  const handleClick = async (item: number) => {
+    setShowSceneView(true);
     await manuscriptService.updateCurrent(item);
-    dispatch(manuscriptColapseDetail(false));
-    navigate(`/manuscript/${item}`);
     setSelectedItem(item === selectedItem ? 0 : item);
+    dispatch(fetchProjectDataAction(true));
   };
 
-  const onResize = (
-    _e: SyntheticEvent<Element, Event>,
-    data: ResizeCallbackData,
-  ) => {
-    if (data.size && Number(data.size.width) > 60) {
-      setWidth(data.size.width);
-    }
+  const handleDoubleClick = async (item: number) => {
+    await handleClick(item);
+    navigate(`/manuscript/${item}`);
   };
 
   const renderSelectPOV = () => (
@@ -152,7 +145,6 @@ function DraftList() {
   useEffect(() => {
     const current = scenesList.find((e) => e.current);
     if (current && current.id) {
-      navigate(`/manuscript/${current.id}`);
       setSelectedItem(current.id);
     } else {
       navigate('/manuscript');
@@ -216,8 +208,8 @@ function DraftList() {
   }, [dispatch, positionChagne, scenesList]);
 
   return (
-    <Resizable className="resizableDraftList" width={width} height={100} onResize={onResize} handle={<div className="custom-handle" />}>
-      <div style={{ width: `${width}px`, height: 'auto', minWidth: '300px' }}>
+    <div className="resizableDraftList">
+      <div>
         {isLoading ? (
           <Loading />
         ) : (
@@ -226,13 +218,11 @@ function DraftList() {
             onDragEnd={changePosition}
             modifiers={[restrictToVerticalAxis]}
           >
-            <div className="divBtnM">
-              <div className="AddButtonsM">
-                <button onClick={() => creatNewCene('Cena')} type="button" className="btnInvisibleM">+ Cena</button>
-                <button onClick={() => creatNewCene('Capítulo')} type="button" className="btnInvisibleM">+ Capítulo</button>
-              </div>
-            </div>
             <div className="listDraft">
+              <div className="createNewManuBtns">
+                <button onClick={() => creatNewCene('Cena')} type="button" className="btnMedium">+ Cena</button>
+                <button onClick={() => creatNewCene('Capítulo')} type="button" className="btnMedium">+ Capítulo</button>
+              </div>
               <div className="filterScene">
                 {renderSelectPOV()}
                 {renderSelectedStatus()}
@@ -248,36 +238,54 @@ function DraftList() {
                 {isLoading ? (
                   <Loading />
                 ) : (
-                  <div className="listDraftItens">
-                    {scenesList && scenesList.length > 0 && (
-                      <SortableContext
-                        items={filtredScenesList}
-                        strategy={verticalListSortingStrategy}
-                      >
-                        {
-                          filtredScenesList.map((scene) => (
-                            <SortableScenes
-                              id={scene.id}
-                              current={scene.current}
-                              manuscriptShowPovColor={prjSettings.manuscriptShowPovColor}
-                              charList={charList}
-                              povId={scene.pov_id}
-                              type={scene.type}
-                              title={scene.title}
-                              manuscriptShowWC={prjSettings.manuscriptShowWC}
-                              content={scene.content}
-                              manuscriptShowChecks={prjSettings.manuscriptShowChecks}
-                              status={scene.status}
-                              manuscriptShowSynopsis={prjSettings.manuscriptShowSynopsis}
-                              resume={scene.resume}
-                              handleCheckboxChange={handleCheckboxChange}
-                              deleteCene={deleteCene}
-                              hasFilter={isFilterClear}
-                              key={scene.id}
-                            />
-                          ))
-                        }
-                      </SortableContext>
+                  <div style={{ display: 'flex' }}>
+                    <div className="listDraftItens" style={{ width: '100%' }}>
+                      {scenesList && scenesList.length > 0 && (
+                        <SortableContext
+                          items={filtredScenesList}
+                          strategy={verticalListSortingStrategy}
+                        >
+                          {
+                            filtredScenesList.map((scene) => (
+                              <SortableScenes
+                                id={scene.id}
+                                current={scene.current}
+                                manuscriptShowPovColor={prjSettings.manuscriptShowPovColor}
+                                charList={charList}
+                                povId={scene.pov_id}
+                                type={scene.type}
+                                title={scene.title}
+                                manuscriptShowWC={prjSettings.manuscriptShowWC}
+                                content={scene.content}
+                                manuscriptShowChecks={prjSettings.manuscriptShowChecks}
+                                status={scene.status}
+                                manuscriptShowSynopsis={prjSettings.manuscriptShowSynopsis}
+                                resume={scene.resume}
+                                handleClick={handleClick}
+                                handleDoubleClick={handleDoubleClick}
+                                deleteCene={deleteCene}
+                                hasFilter={isFilterClear}
+                                key={scene.id}
+                              />
+                            ))
+                          }
+                        </SortableContext>
+                      )}
+                    </div>
+                    {showSceneView && filtredScenesList.some((e) => e.current === true) && (
+                      <div style={{ width: '100%' }}>
+                        {filtredScenesList.filter((e) => e.current === true).map((e) => (
+                          <div className="SceneView">
+                            {
+                              e.content ? (
+                                <p key={e.id} dangerouslySetInnerHTML={{ __html: e.content }} />
+                              ) : (
+                                <span>Sem conteúdo</span>
+                              )
+                            }
+                          </div>
+                        ))}
+                      </div>
                     )}
                   </div>
                 )}
@@ -287,7 +295,7 @@ function DraftList() {
           </DndContext>
         )}
       </div>
-    </Resizable>
+    </div>
   );
 }
 

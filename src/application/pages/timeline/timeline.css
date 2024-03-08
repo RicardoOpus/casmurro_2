@@ -2,6 +2,10 @@
   align-items: center;
   display: flex;
   justify-content: left;
+  background-color: var(--bg-color-sec);
+  padding: 0 1em;
+  border-radius: 15px;
+
 }
 
 .containerTimeline ul,

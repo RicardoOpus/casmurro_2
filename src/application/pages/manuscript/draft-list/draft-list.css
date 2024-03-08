@@ -4,48 +4,15 @@
   position: relative;
 }
 
-.divBtnM {
-  border-bottom: solid 1px  var(--border-color);
-}
-
-.AddButtonsM {
-  background-color: var(--btn-color);
-  box-shadow: inset 0 4px 4px -2px rgba(0, 0, 0, .5);
+.createNewManuBtns {
   display: flex;
+  gap: 1em;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
-.moveButtonsM {
-  background-color: var(--btn-color);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
-.btnInvisibleM {
-  background-color: transparent;
-
-  /* stylelint-disable-next-line order/properties-alphabetical-order */
-  border-bottom: solid 1px  var(--border-color);
-  border-color: transparent;
-  border-radius: 0;
-  padding: 9px 0;
-  text-align: center;
-  width: 50%;
-}
-
-.btnMoveInvisibleM {
-  background-color: transparent;
-  border-color: transparent;
-  border-radius: 0;
-  padding: 0;
-  text-align: center;
-  width: 25%;
+  align-items: center;
 }
 
 .listDraft {
-  padding-left: 1em;
+  padding: 1em;
 }
 
 .listDraftItens {
@@ -70,12 +37,20 @@
   cursor: pointer;
 }
 
+.btnScene {
+  background-color: transparent;
+  border: solid 1px transparent;
+  padding: .1em 0;
+  text-align: left;
+  width: 100%;
+}
+
 .selected {
   background-color: var(--accent-color);
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
   color: #000000de;
-  font-family: RobotoI;
+  text-align: left;
+  width: 100%;
+  padding: .1em 0;
 }
 
 .btnInvisibleDel {
@@ -91,6 +66,12 @@
 
 .btnInvisibleDel:hover {
   color: red;
+}
+
+.innerBtnScene {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .folderIcon {
@@ -116,7 +97,7 @@
   border-bottom: solid 1px var(--border-color);
   border-top: solid 1px var(--border-color);
   background-color: var(--bg-color);
-  padding: .5em 0;
+  padding: 0;
   margin-bottom: .5em;
 }
 
@@ -129,4 +110,31 @@
 
 .drafWC {
   font-size: medium;
+}
+
+.SceneView {
+  border: solid 1px var(--border-color);
+  border-radius: 15px;
+  padding: 1em;
+  max-height: 600px;
+  overflow: scroll;
+  text-indent: 25px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: larger;
+  background-color: #e4e0bbc7;
+}
+
+.SceneView
+span {
+  color: rgb(0, 0, 0);
+}
+
+.SceneView
+p {
+  color: rgb(0, 0, 0);
+}
+
+.SceneView
+em {
+  font-size: large;
 }

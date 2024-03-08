@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -19,8 +20,8 @@ interface Props {
   status: string | undefined;
   manuscriptShowSynopsis: boolean;
   resume: string | undefined;
-  // eslint-disable-next-line no-unused-vars
-  handleCheckboxChange: (item: number) => void;
+  handleClick: (item: number) => void;
+  handleDoubleClick: (item: number) => void;
   deleteCene: () => void;
   hasFilter: boolean;
 }
@@ -39,7 +40,8 @@ function SortableScenes({
   status,
   manuscriptShowSynopsis,
   resume,
-  handleCheckboxChange,
+  handleClick,
+  handleDoubleClick,
   deleteCene,
   hasFilter,
 }: Props) {
@@ -87,9 +89,9 @@ function SortableScenes({
 
   return (
     <div ref={setNodeRef} style={style} className={type === 'Cena' ? '' : 'chapter'}>
-      <div key={id} className={current ? 'selected' : ''}>
-        <label key={uuidv4()} htmlFor={id.toString()} className="itemDraft">
-          <div style={{ display: 'flex' }}>
+      <button onClick={() => handleClick(id)} onDoubleClick={() => handleDoubleClick(id)} key={id} className={current ? 'selected' : 'btnScene'} type="button">
+        <div className="itemDraft">
+          <div className="innerBtnScene">
             {!hasFilter ? (
               <div className="dragHandlerDidabled" />
             ) : (
@@ -97,13 +99,6 @@ function SortableScenes({
                 ⣿
               </div>
             )}
-            <input
-              checked={current}
-              onChange={() => handleCheckboxChange(id)}
-              type="checkbox"
-              id={id.toString()}
-              className="invisibleChk"
-            />
             {manuscriptShowPovColor && (
               charList?.map((e) => e.id === povId && (
                 <span key={uuidv4()} className="charTagIcon" style={{ backgroundColor: e.color }} />
@@ -133,8 +128,8 @@ function SortableScenes({
               {resume}
             </p>
           )}
-        </label>
-      </div>
+        </div>
+      </button>
     </div>
   );
 }

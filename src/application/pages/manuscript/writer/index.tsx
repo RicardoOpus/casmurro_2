@@ -1,12 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import IrootStateProject from '../../../../interfaces/IRootStateProject';
 import IManuscript from '../../../../interfaces/IManuscript';
 import manuscriptService from '../../../../service/manuscriptService';
 import './writer.css';
-import manuscriptColapseDetail from '../../../redux/actions/manuscriptActons';
 import TimerModal from './timer-modal';
 import TimerDisplay from './timer-display';
 import utils from '../../../../service/utils';
@@ -14,10 +13,12 @@ import Alert from '../../../components/alert';
 import TypeWriterSound from '../../../components/type-write-sound';
 import { modulesOnlyText } from '../../../../templates/quillMudules';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
+import BackButton from '../../../components/back-button';
 
 function Writer() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [modal, setModal] = useState(false);
   const [showTimer, setShowTimer] = useState(false);
   const [noDisctration, setnoDisctration] = useState(false);
@@ -79,7 +80,9 @@ function Writer() {
   };
 
   const colapeDetails = () => {
-    dispatch(manuscriptColapseDetail(true));
+    if (currentMItem) {
+      navigate(`/draftDetail/${currentMItem.id}`);
+    }
   };
 
   const closeModal = () => {
@@ -191,11 +194,12 @@ function Writer() {
   }, [currentMItem, id]);
 
   return (
-    currentMItem && currentMItem.type !== 'Capítulo' ? (
-      <div className={noDisctration ? 'distractionFree' : ''}>
+    currentMItem ? (
+      <div className={noDisctration ? 'distractionFree' : ''} style={{ width: '100%' }}>
         <div className="writerButtons">
+          <BackButton path="/manuscript" callback={cleanupFunction} />
           {!noDisctration && (
-            <button title="Expandir" onClick={() => colapeDetails()} className="btnWriter" type="button">Mostrar detalhes</button>
+            <button title="Expandir" onClick={colapeDetails} className="btnWriter" type="button">Mostrar detalhes</button>
           )}
           <button title="Modo sem distrações" onClick={distractionFreeMode} className="distractionFreeIcon" type="button">{' '}</button>
           {noDisctration && (
@@ -223,22 +227,24 @@ function Writer() {
             </p>
           )}
         </div>
-        <div
-          id="innerWriterContainer"
-          className={`writerContainter ${uiMode === 'dark' ? 'darkScene' : 'lightScene'}`}
-          style={{ height: noDisctration ? '100%' : '' }}
-        >
-          <div className="innerWriterContainer" style={{ paddingLeft: noDisctration ? `${statePaddingUser}em` : '1em', paddingRight: noDisctration ? `${statePaddingUser}em` : '1em' }}>
-            <ReactQuill
-              ref={quillRef}
-              theme="snow"
-              value={stateMItem?.content}
-              onChange={(e) => handleTextAreaChangeFull(e, 'content')}
-              modules={modulesOnlyText}
-              placeholder="Cena não iniciada..."
-            />
+        {currentMItem.type === 'Cena' && (
+          <div
+            id="innerWriterContainer"
+            className={`writerContainter ${uiMode === 'dark' ? 'darkScene' : 'lightScene'}`}
+            style={{ height: noDisctration ? '100%' : '' }}
+          >
+            <div className="innerWriterContainer" style={{ paddingLeft: noDisctration ? `${statePaddingUser}em` : '1em', paddingRight: noDisctration ? `${statePaddingUser}em` : '1em' }}>
+              <ReactQuill
+                ref={quillRef}
+                theme="snow"
+                value={stateMItem?.content}
+                onChange={(e) => handleTextAreaChangeFull(e, 'content')}
+                modules={modulesOnlyText}
+                placeholder="Cena não iniciada..."
+              />
+            </div>
           </div>
-        </div>
+        )}
         <TimerModal
           openModal={modal}
           showTimer={() => setShowTimer(true)}
@@ -254,9 +260,9 @@ function Writer() {
         {prjSettings.typeWriterSound && (<TypeWriterSound />)}
       </div>
     ) : (
-      <div>
+      <div style={{ width: '100%' }}>
         <div className="writerButtons">
-          <button title="Expandir" onClick={() => colapeDetails()} className="btnWriter" type="button">Mostrar detalhes</button>
+          <button title="Expandir" onClick={colapeDetails} className="btnWriter" type="button">Mostrar detalhes</button>
         </div>
         <div style={{ margin: '1em' }}>
           <h2>{stateMItem.title}</h2>

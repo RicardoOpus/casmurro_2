@@ -160,8 +160,8 @@ function WorldDetail() {
         <Loading />
       ) : (
         <div className="card">
-          <BackButton />
-          <NextAndPrevCard id={Number(id)} dataTable="world" callback={callBackLoading} />
+          <BackButton path="back" callback={callBackLoading} />
+          <NextAndPrevCard id={Number(id)} isSceneDetail={false} dataTable="world" callback={callBackLoading} />
           {stateWorldItem.image && (
             <div className="imageCardBackgournd">
               <div className="cardImageDiv" style={{ backgroundImage: `url(${stateWorldItem.image})` }}>

@@ -9,12 +9,12 @@ interface NextPrevProps {
   id: number;
   dataTable: string;
   callback: () => void;
+  isSceneDetail: boolean;
   // eslint-disable-next-line no-unused-vars,
-  callbackScene?: (e: number) => void;
 }
 
 function NextAndPrevCard({
-  id, dataTable, callback, callbackScene,
+  id, dataTable, callback, isSceneDetail,
 }: NextPrevProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,16 +24,10 @@ function NextAndPrevCard({
   const handleClick = (next: boolean) => {
     dispatch(fetchProjectDataAction(true));
     callback();
-    if (callbackScene) {
-      if (next) {
-        callbackScene(idNext);
-      } else {
-        callbackScene(idPrev);
-      }
-    } else if (next) {
-      navigate(`/${dataTable}/${idNext}`);
+    if (next) {
+      navigate(`/${isSceneDetail ? 'draftDetail' : dataTable}/${idNext}`);
     } else {
-      navigate(`/${dataTable}/${idPrev}`);
+      navigate(`/${isSceneDetail ? 'draftDetail' : dataTable}/${idPrev}`);
     }
   };
 
@@ -65,9 +59,5 @@ function NextAndPrevCard({
     </div>
   );
 }
-
-NextAndPrevCard.defaultProps = {
-  callbackScene: undefined,
-};
 
 export default NextAndPrevCard;

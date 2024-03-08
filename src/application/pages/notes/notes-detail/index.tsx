@@ -146,8 +146,8 @@ function NotesDetail() {
         <Loading />
       ) : (
         <div className="card">
-          <BackButton />
-          <NextAndPrevCard id={Number(id)} dataTable="notes" callback={callBackLoading} />
+          <BackButton path="back" callback={callBackLoading} />
+          <NextAndPrevCard id={Number(id)} isSceneDetail={false} dataTable="notes" callback={callBackLoading} />
           {stateNoteItem.image && (
             <div className="imageCardBackgournd">
               <div className="cardImageDiv" style={{ backgroundImage: `url(${stateNoteItem.image})` }}>

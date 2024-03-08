@@ -6,6 +6,7 @@
 
 .listCardWorld {
   border: solid 1px var(--border-color);
+  background-color: var(--bg-color-sec);
   border-radius: 4px;
   color: var(--text-color);
   padding: 0 .5em 0 0;
