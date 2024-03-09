@@ -1,0 +1,78 @@
+.modal-content-snap {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  margin: auto;
+  padding: 10px;
+  text-align: center;
+  height: 90vh;
+  overflow: scroll;
+}
+
+.snapshot-inner {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1em;
+  margin-bottom: 1em;
+}
+
+.snapshotView {
+  max-height: calc(80vh - 60px - 2em);
+  overflow-y: auto; 
+  background-color: var(--bg-color-sec);
+  border: solid 1px #3d3c3c61;
+  border-radius: 15px;
+  padding: .5em;
+  text-align: left;
+  text-indent: 1.5em;
+  width: 40%;
+}
+
+.snapshotList {
+  width: 20%;
+}
+
+.snapshotListInner {
+  max-height: calc(80vh - 60px - 2em);
+  overflow: scroll; 
+}
+
+.snapshotViewBtns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  margin: .5em;
+}
+
+.snapWarning {
+  margin: 1em;
+}
+
+.snapWarning p{
+  color: var(--accent-color);
+  text-align: center;
+}
+
+.snapshotModaList {
+  background-color: var(--bg-color-sec);
+  border: solid 1px #3d3c3c61;
+  border-radius: 15px;
+  padding: .5em 0;
+  text-align: left;
+  width: 100%;
+  padding: .5em;
+  margin-bottom: .5em;
+}
+
+.snapshotModaListSelect {
+  background-color: var(--accent-color);
+  color: black;
+  border: solid 1px #3d3c3c61;
+  border-radius: 15px;
+  padding: .5em 0;
+  text-align: left;
+  width: 100%;
+  padding: .5em;
+  margin-bottom: .5em;
+}

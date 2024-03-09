@@ -14,6 +14,7 @@ import TypeWriterSound from '../../../components/type-write-sound';
 import { modulesOnlyText } from '../../../../templates/quillMudules';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 import BackButton from '../../../components/back-button';
+import ISnapshots from '../../../../interfaces/ISnapshots';
 
 function Writer() {
   const { id } = useParams();
@@ -23,6 +24,7 @@ function Writer() {
   const [showTimer, setShowTimer] = useState(false);
   const [noDisctration, setnoDisctration] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [showAlertSnap, setShowAlertSnap] = useState(false);
   const [textHeight, settextHeight] = useState(0);
   const [wc, setWC] = useState(0);
   const [goalPercent, setGoalPercent] = useState('');
@@ -48,6 +50,7 @@ function Writer() {
       manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
     }
   };
+
   const adjustTextArea = (increase: boolean) => {
     let newSizeInPixels: number;
     if (increase) {
@@ -98,6 +101,7 @@ function Writer() {
   const closeAlert = () => {
     setTimeout(() => {
       setShowAlert(false);
+      setShowAlertSnap(false);
     }, 9000);
   };
 
@@ -127,6 +131,18 @@ function Writer() {
         top: 0,
         behavior: 'smooth',
       });
+    }
+  };
+
+  const takeSnapshot = () => {
+    if (stateMItem.id) {
+      const newSnapshot: ISnapshots = { text: stateMItem?.content || '', createdAt: Date.now() };
+      const updatedSnapshots = [...stateMItem.snapshots || [], newSnapshot];
+      const updatedState = { ...stateMItem, snapshots: updatedSnapshots };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
+      setShowAlertSnap(true);
+      closeAlert();
     }
   };
 
@@ -214,6 +230,7 @@ function Writer() {
           <button title="Ir para final" onClick={goToBottom} className="btnWriter" type="button">▼</button>
           <button title="Modo tela cheia (F11)" onClick={goFullScreen} className="fullSceenIcon" type="button">{' '}</button>
           <button title="Temporizador" onClick={() => setModal(true)} className="timerIcon" type="button">{' '}</button>
+          <button title="Criar um instantâneo" onClick={takeSnapshot} className="cameraIcon" type="button">{' '}</button>
           {wc > 0 && (
             <p style={{ color: 'var(--text-color-inactive)' }} title="Total de palavras">
               {wc}
@@ -254,9 +271,8 @@ function Writer() {
         {showTimer && (
           <TimerDisplay onClose={closeModalTimer} countDown={countDown} />
         )}
-        {showAlert && (
-          <Alert mensage="Meta batida!" />
-        )}
+        {showAlert && <Alert mensage="Meta batida!" />}
+        {showAlertSnap && <Alert mensage="Instantâneo criado!" />}
         {prjSettings.typeWriterSound && (<TypeWriterSound />)}
       </div>
     ) : (

@@ -1,3 +1,4 @@
+import ISnapshots from './ISnapshots';
 import ITaskList from './ITaskList';
 
 interface IManuscript {
@@ -22,6 +23,7 @@ interface IManuscript {
   show_taskList?: boolean;
   show_time?: boolean;
   show_weather?: boolean;
+  snapshots?: ISnapshots[];
   status?: string;
   task_list?: ITaskList[];
   time?: string;

@@ -15,6 +15,23 @@ class Utils {
     return null;
   }
 
+  convertDateBRhm(timestamp: number): string | null {
+    const date = new Date(timestamp);
+    if (date instanceof Date) {
+      const options = {
+        year: 'numeric' as const,
+        month: '2-digit' as const,
+        day: '2-digit' as const,
+        hour: '2-digit' as const,
+        minute: '2-digit' as const,
+        hour12: false,
+      };
+      const result = date.toLocaleString('pt-BR', options);
+      return result;
+    }
+    return null;
+  }
+
   convertToTime(timestamp: number): string {
     const date = new Date(timestamp);
     const result = `${date.getHours()}h ${date.getMinutes()}m`;

@@ -24,7 +24,7 @@
 }
 
 .writerContainter {
-  height: 100%;
+  /* height: 100%; */
   overflow: scroll;
 }
 
@@ -122,6 +122,21 @@
 }
 
 .timerIcon:hover {
+  background-color: var(--accent-color);
+}
+
+.cameraIcon {
+  background-color: var(--text-color);
+  border-radius: 0;
+  display: inline-block;
+  height: 25px;
+  -webkit-mask: var(--camera-icon) no-repeat center / contain;
+  mask: var(--camera-icon) no-repeat center / contain;
+  padding: 0;
+  width: 25px;
+}
+
+.cameraIcon:hover {
   background-color: var(--accent-color);
 }
 

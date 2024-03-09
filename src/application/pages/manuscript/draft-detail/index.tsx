@@ -21,6 +21,7 @@ import NextAndPrevCard from '../../../components/next-and-prev';
 import useTabReplacement from '../../../hooks/useTabReplacement';
 import { modulesFull } from '../../../../templates/quillMudules';
 import BackButton from '../../../components/back-button';
+import Snapshots from './snapshots';
 
 function DraftDetail() {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,6 +30,7 @@ function DraftDetail() {
   const [modal, setModal] = useState(false);
   const [modalAddons, setModalAddons] = useState(false);
   const [modalCharScene, setModalCharScene] = useState(false);
+  const [modalSnapshots, setModalSnapshots] = useState(false);
   const charList = useSelector((state: IrootStateProject) => (
     state.projectDataReducer.projectData.data?.characters));
   const worldList = useSelector((state: IrootStateProject) => (
@@ -46,6 +48,7 @@ function DraftDetail() {
   const closeModal = () => setModal(false);
   const closeModalAddons = () => setModalAddons(false);
   const closeModalChar = () => setModalCharScene(false);
+  const closeModalSnap = () => setModalSnapshots(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const textareaNoteRef = useRef<HTMLTextAreaElement>(null);
 
@@ -161,6 +164,28 @@ function DraftDetail() {
     }
   };
 
+  const deleteSnapshot = (index: number) => {
+    if (stateMItem.id && stateMItem.snapshots) {
+      const updatedSnapshots = [...stateMItem.snapshots];
+      if (index >= 0 && index < updatedSnapshots.length) {
+        updatedSnapshots.splice(index, 1);
+        setStateManuItem((prevState) => ({
+          ...prevState,
+          snapshots: updatedSnapshots,
+        }));
+        manuscriptService.upDate(stateMItem.id, stateMItem as IManuscript);
+      }
+    }
+  };
+
+  const restoreSnapshot = (text: string) => {
+    if (stateMItem.id) {
+      const updatedState = { ...stateMItem, content: text, last_edit: Date.now() };
+      setStateManuItem(updatedState);
+      manuscriptService.upDate(stateMItem.id, updatedState as IManuscript);
+    }
+  };
+
   const callBackLoading = () => {
     setIsLoading(true);
   };
@@ -225,6 +250,11 @@ function DraftDetail() {
                       <span className="tooltip-default" data-balloon aria-label="Personagens em cena" data-balloon-pos="right">
                         <label className="addCharScene" htmlFor="addCharScene">
                           <button id="addCharScene" onClick={() => setModalCharScene(true)} className="btnInvisible" type="button">{ }</button>
+                        </label>
+                      </span>
+                      <span className="tooltip-default" data-balloon aria-label="Mostrar lista de instantâneos" data-balloon-pos="right">
+                        <label className="cameraIcon" htmlFor="cameraIcon">
+                          <button style={{ paddingBottom: '20px' }} id="cameraIcon" onClick={() => setModalSnapshots(true)} className="cameraIcon" type="button">{' '}</button>
                         </label>
                       </span>
                       {!stateMItem.image && (
@@ -403,6 +433,14 @@ function DraftDetail() {
               </div>
             </div>
             <GenericModal openModal={modal} onClose={closeModal} typeName="Excluir Cena?" onDataSend={handleDelete} deleteType />
+            <Snapshots
+              onClose={closeModalSnap}
+              openModal={modalSnapshots}
+              snapshots={stateMItem.snapshots || []}
+              currentScene={stateMItem.content || ''}
+              deleteSnapshot={deleteSnapshot}
+              restoreSnapshot={restoreSnapshot}
+            />
             <CharSceneModal
               openModal={modalCharScene}
               onClose={closeModalChar}
