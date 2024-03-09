@@ -272,7 +272,7 @@ function DraftList() {
                         </SortableContext>
                       )}
                     </div>
-                    {showSceneView && filtredScenesList.some((e) => e.current === true) && (
+                    {showSceneView && filtredScenesList.some((e) => e.current === true) ? (
                       <div style={{ width: '100%' }}>
                         {filtredScenesList.filter((e) => e.current === true).map((e) => (
                           <div className="SceneView">
@@ -285,6 +285,12 @@ function DraftList() {
                             }
                           </div>
                         ))}
+                      </div>
+                    ) : (
+                      <div style={{ width: '100%' }}>
+                        <div className="SceneView">
+                          <p>Selecione um item para visualizar a prévia</p>
+                        </div>
                       </div>
                     )}
                   </div>
