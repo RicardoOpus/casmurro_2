@@ -84,6 +84,8 @@ class ProjectServide {
         ],
         manuscriptShowPovColor: false,
         manuscriptShowWC: false,
+        manuscriptShowWcSteps: false,
+        manuscriptWcSteps: 100,
         manuscriptShowChecks: false,
         manuscriptShowSynopsis: false,
         projectColor: '#0099ff',

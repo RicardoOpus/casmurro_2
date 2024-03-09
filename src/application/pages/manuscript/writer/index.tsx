@@ -27,6 +27,7 @@ function Writer() {
   const [showAlertSnap, setShowAlertSnap] = useState(false);
   const [textHeight, settextHeight] = useState(0);
   const [wc, setWC] = useState(0);
+  const [showSteps, setShowSteps] = useState(false);
   const [goalPercent, setGoalPercent] = useState('');
   const [countDown, setCountDown] = useState('99:99');
   const uiMode = localStorage.getItem('uiMode') || 'dark';
@@ -209,6 +210,17 @@ function Writer() {
     }
   }, [currentMItem, id]);
 
+  useEffect(() => {
+    if (prjSettings.manuscriptShowWcSteps) {
+      if (wc > 0 && wc % prjSettings.manuscriptWcSteps === 1 && wc !== 1) {
+        setShowSteps(true);
+        setTimeout(() => {
+          setShowSteps(false);
+        }, 3000);
+      }
+    }
+  }, [prjSettings.manuscriptShowWcSteps, prjSettings.manuscriptWcSteps, wc]);
+
   return (
     currentMItem ? (
       <div className={noDisctration ? 'distractionFree' : ''} style={{ width: '100%' }}>
@@ -250,6 +262,12 @@ function Writer() {
             className={`writerContainter ${uiMode === 'dark' ? 'darkScene' : 'lightScene'}`}
             style={{ height: noDisctration ? '100%' : '' }}
           >
+            {showSteps && (
+              <div className="damage-effect" id="damageEffect">
+                +
+                {prjSettings.manuscriptWcSteps}
+              </div>
+            )}
             <div className="innerWriterContainer" style={{ paddingLeft: noDisctration ? `${statePaddingUser}em` : '1em', paddingRight: noDisctration ? `${statePaddingUser}em` : '1em' }}>
               <ReactQuill
                 ref={quillRef}

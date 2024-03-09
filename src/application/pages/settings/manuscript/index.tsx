@@ -13,6 +13,8 @@ function ManuscriptSettings() {
   const [typeVolume, setTypeVolume] = useState(prjSettings.typeWriterVolume);
   const [povColor, setPovColor] = useState(prjSettings.manuscriptShowPovColor || false);
   const [sceneWC, setSceneWC] = useState(prjSettings.manuscriptShowWC || false);
+  const [WcSteps, setWcSteps] = useState(prjSettings.manuscriptWcSteps || 100);
+  const [showWcSteps, setShowWcSteps] = useState(prjSettings.manuscriptShowWcSteps || false);
   const [sceneChks, setsceneChks] = useState(prjSettings.manuscriptShowChecks || false);
   const [sceneSynopsis, setsceneSynopsis] = useState(prjSettings.manuscriptShowSynopsis || false);
   const [hideChaptersT,
@@ -31,6 +33,9 @@ function ManuscriptSettings() {
     } if (type === 'WC') {
       setSceneWC(e.target.checked);
       await indexedDBrepository.updateProjectSettings(e.target.checked, 'manuscriptShowWC');
+    } if (type === 'WcSterp') {
+      setShowWcSteps(e.target.checked);
+      await indexedDBrepository.updateProjectSettings(e.target.checked, 'manuscriptShowWcSteps');
     } if (type === 'checks') {
       setsceneChks(e.target.checked);
       await indexedDBrepository.updateProjectSettings(e.target.checked, 'manuscriptShowChecks');
@@ -44,6 +49,12 @@ function ManuscriptSettings() {
       setHideScenesT(e.target.checked);
       await indexedDBrepository.updateProjectSettings(e.target.checked, 'manuscriptHideScenesTitles');
     }
+    dispatch(fetchProjectDataAction(true));
+  };
+
+  const handleWcSteps = async (event: ChangeEvent<HTMLInputElement>) => {
+    setWcSteps(Number(event.target.value));
+    await indexedDBrepository.updateProjectSettings(Number(event.target.value), 'manuscriptWcSteps');
     dispatch(fetchProjectDataAction(true));
   };
 
@@ -286,6 +297,33 @@ function ManuscriptSettings() {
         </div>
         <p className="pSettings" style={{ marginTop: '1em' }}>Essa opção afeta apenas a exportação do manuscrito para Impressão</p>
       </fieldset>
+
+      <fieldset>
+        <legend>Notificar aumento do texto</legend>
+        <div className="checkbox-wrapper">
+          <label htmlFor="showWcSteps">
+            <input
+              className="inputChkBox"
+              type="checkbox"
+              id="showWcSteps"
+              checked={showWcSteps}
+              onChange={(e) => handleInputType(e, 'WcSterp')}
+            />
+            {' '}
+            Habilitar notificações
+          </label>
+        </div>
+        <input
+          className="cardInput"
+          style={{ width: '10em' }}
+          type="number"
+          value={WcSteps}
+          disabled={!showWcSteps}
+          onChange={(e) => handleWcSteps(e)}
+        />
+        <p className="pSettings" style={{ marginTop: '1em' }}>Atribua um limite de palavras para receber notificações sempre que o texto exceder esse valor.</p>
+      </fieldset>
+
       <fieldset>
         <legend>
           Listas predefinidas

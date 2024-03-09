@@ -21,6 +21,8 @@ interface IProject {
     manuscriptWeather: string[],
     manuscriptShowPovColor: boolean,
     manuscriptShowWC: boolean,
+    manuscriptWcSteps: number,
+    manuscriptShowWcSteps: boolean;
     manuscriptShowChecks: boolean,
     manuscriptShowSynopsis: boolean,
     manuscriptHideScenesTitles: boolean,
