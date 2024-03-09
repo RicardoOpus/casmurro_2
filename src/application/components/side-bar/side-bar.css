@@ -12,12 +12,15 @@
 
 .sideBarButton {
   float: right;;
-  margin: 2rem .5rem 0;
-  padding: 10px;
+  padding: 5px 10px;
 }
 
 .sideBarContent {
-  padding: 2rem 3rem 2rem 30px;
+  padding: 2rem 1em;
+}
+
+.sideBarContentHide {
+  padding: 2rem 15px;
 }
 
 .sidebarTitle {

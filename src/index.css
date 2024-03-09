@@ -305,7 +305,7 @@ textarea {
   color: var(--text-color);
   font-size: medium;
   height: 40px;
-  margin: .5em 0;
+  margin: 1em 0;
   padding: 0px 1em 0px 1em;
   width: 100%;
 }
