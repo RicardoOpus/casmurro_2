@@ -27,6 +27,7 @@ function DraftList() {
   const [scenesList, setCenesList] = useState<IManuscript[]>([]);
   const [filtredScenesList, setFiltredScenesList] = useState<IManuscript[]>([]);
   const [selectedPOV, setSelectedPOV] = useState(0);
+  const [idToDelete, setIdToDelete] = useState(0);
   const [selectedStatus, setSelectedStatus] = useState('');
   const [positionChagne, setPositionChange] = useState(false);
   const [isFilterClear, setisFilterClear] = useState(true);
@@ -43,9 +44,8 @@ function DraftList() {
     dispatch(fetchProjectDataAction(true));
   };
 
-  const deleteCene = async () => {
-    if (!selectedItem) return;
-    const item = projectData.data?.manuscript?.find((e) => e.id === selectedItem);
+  const deleteCene = async (id: number) => {
+    const item = projectData.data?.manuscript?.find((e) => e.id === id);
     const sceneData = item;
     const hasData = (
       sceneData?.content
@@ -56,15 +56,16 @@ function DraftList() {
       || (sceneData?.title && sceneData?.title !== 'Nova Cena')
     );
     if (hasData) {
+      setIdToDelete(id);
       setModal(true);
     } else {
-      await manuscriptService.deleteScene(selectedItem);
+      await manuscriptService.deleteScene(id);
       dispatch(fetchProjectDataAction(true));
     }
   };
 
   const handleDelete = async () => {
-    await manuscriptService.deleteScene(selectedItem);
+    await manuscriptService.deleteScene(idToDelete);
     dispatch(fetchProjectDataAction(true));
   };
 

@@ -106,7 +106,6 @@ function Dashboard() {
       const distanceTop = editingArea.getBoundingClientRect().top;
       if (editingArea.firstChild) {
         (editingArea.firstChild as HTMLElement).style.maxHeight = `${window.innerHeight - distanceTop - 20}px`;
-        (editingArea.firstChild as HTMLElement).style.minHeight = `${window.innerHeight - distanceTop - 20}px`;
       }
     }
   }, [stateProject]);

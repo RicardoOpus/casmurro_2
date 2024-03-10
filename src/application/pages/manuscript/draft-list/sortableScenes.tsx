@@ -22,7 +22,7 @@ interface Props {
   resume: string | undefined;
   handleClick: (item: number) => void;
   handleDoubleClick: (item: number) => void;
-  deleteCene: () => void;
+  deleteCene: (id: number) => void;
   hasFilter: boolean;
 }
 
@@ -81,9 +81,9 @@ function SortableScenes({
     }
   };
 
-  const renderBtns = () => (
+  const renderBtns = (idTodelete: number) => (
     <span>
-      <button onClick={deleteCene} className="btnInvisibleDel" type="button">X</button>
+      <button onClick={() => deleteCene(idTodelete)} className="btnInvisibleDel" type="button">X</button>
     </span>
   );
 
@@ -119,7 +119,7 @@ function SortableScenes({
             {manuscriptShowChecks && (
               renderChecks(status)
             )}
-            {current && renderBtns()}
+            {current && renderBtns(id)}
           </div>
           {manuscriptShowSynopsis && (
             <p
