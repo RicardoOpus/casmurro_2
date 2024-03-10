@@ -20,12 +20,12 @@ async function exportEPUB() {
   zip.file('META-INF/container.xml', container);
 
   const metadata = '<?xml version="1.0"?>'
-    + '<package version="3.0" xml:lang="en" xmlns="http://www.idpf.org/2007/opf" unique-identifier="book-id">'
+    + '<package version="3.0" xml:lang="pt" xmlns="http://www.idpf.org/2007/opf" unique-identifier="book-id">'
     + '  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">'
     + '    <dc:identifier id="book-id">urn:uuid:B9B412F2-CAAD-4A44-B91F-A375068478A0</dc:identifier>'
     + '    <meta refines="#book-id" property="identifier-type" scheme="xsd:string">uuid</meta>'
     + '    <meta property="dcterms:modified">2000-03-24T00:00:00Z</meta>'
-    + '    <dc:language>en</dc:language>'
+    + '    <dc:language>pt</dc:language>'
     + `    <dc:title>${project?.title}</dc:title>`
     + `    <dc:creator>${project?.author}</dc:creator>`
     + '  </metadata>'
@@ -79,7 +79,7 @@ async function exportEPUB() {
   function getText(title: string, scene: string, type: string) {
     const text = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>'
       + '<!DOCTYPE html>'
-      + '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">'
+      + '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="pt" lang="pt">'
       + '  <head>'
       + '    <meta charset="UTF-8" />'
       + '    <link rel="stylesheet" type="text/css" href="styles.css" />'
@@ -98,7 +98,7 @@ async function exportEPUB() {
   function getCover() {
     const text = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>'
       + '<!DOCTYPE html>'
-      + '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">'
+      + '<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="pt" lang="pt">'
       + '  <head>'
       + '    <meta charset="UTF-8" />'
       + '  </head>'

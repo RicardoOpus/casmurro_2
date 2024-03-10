@@ -7,7 +7,7 @@ import './backup.css';
 import exportService from '../../../../service/exportServise';
 import indexedDBrepository from '../../../../infra/repository/indexedDBrepository';
 import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
-import exportEPUB from '../../../../service/exportEbup';
+import exportEPUB from '../../../../service/exportePub';
 
 interface GenericModalProps {
   onClose: () => void;
