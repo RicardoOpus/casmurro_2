@@ -14,18 +14,18 @@
 .profile-pic img {
   background-color: var(--bg-color-sec);
   border: solid 1px var(--border-color);
-  border-radius: 100px;
-  height: 150px;
+  border-radius: 100%;
+  height: 200px;
   object-fit: cover;
   position: absolute;
-  width: 150px;
+  width: 200px;
   z-index: 0;
 }
 
 .profile-pic .-label {
   cursor: pointer;
-  height: 150px;
-  width: 150px;
+  height: 200px;
+  width: 200px;
 }
 
 .profile-pic .-label2 {
