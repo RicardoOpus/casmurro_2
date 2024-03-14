@@ -2,9 +2,11 @@
 import {
   ChangeEvent, useEffect, useRef, useState,
 } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import IProject from '../../../../interfaces/IProject';
 import projectServide from '../../../../service/projectsService';
+import { fetchProjectDataAction } from '../../../redux/actions/projectActions';
 
 interface ModalProps {
   onClose: () => void;
@@ -14,6 +16,7 @@ interface ModalProps {
 function ImportProjectModal({ onClose, openModal }: ModalProps) {
   const ref = useRef<HTMLDialogElement | null>(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [file, setFile] = useState('');
   const [restoredProject, setRestoresProject] = useState<IProject>();
   const handleCancel = () => onClose();
@@ -54,6 +57,7 @@ function ImportProjectModal({ onClose, openModal }: ModalProps) {
       restoredProject.lastBackup = 0;
       restoredProject.last_edit = now;
       await projectServide.importJson(restoredProject);
+      dispatch(fetchProjectDataAction(true));
       navigate('/');
     }
   };

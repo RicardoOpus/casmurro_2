@@ -197,27 +197,6 @@ class Utils {
     return noAcents.replace(forbiddenChars, ' ');
   }
 
-  substituirAspasCurvas(texto: string) {
-    const regexAspasDuplas = /"(.*?)"/g;
-    const regexAspasSimples = /'(.*?)'/g;
-
-    const resultadoAspasDuplas = texto.replace(regexAspasDuplas, '“$1”');
-    const resultadoAspasCurvas = resultadoAspasDuplas.replace(regexAspasSimples, 'ʽ$1ʼ');
-    return resultadoAspasCurvas;
-  }
-
-  setItalicsFromText() {
-    const paragrafos = document.getElementsByTagName('p');
-
-    for (let i = 0; i < paragrafos.length; i += 1) {
-      const paragrafo = paragrafos[i];
-      const conteudo = paragrafo.innerHTML;
-      const regex = /\*(.*?)\*/g;
-      const resultado = conteudo.replace(regex, '<em>$1</em>');
-      paragrafo.innerHTML = resultado;
-    }
-  }
-
   calculateTimeElapsed(date1: string, date2: string) {
     const date1Obj = new Date(date1);
     const date2Obj = new Date(date2);
